@@ -1,4 +1,4 @@
-import ShinyButton from "@/components/shimmerButton";
+import { ShinyButton } from "@/components/ShinnyButton";
 
 export default function Home() {
   return (
@@ -6,7 +6,9 @@ export default function Home() {
       <h1>
         Hello Shivam
       </h1>
-      <ShinyButton />
+      <ShinyButton>
+        Hello World
+      </ShinyButton>
     </div>
 
   );
