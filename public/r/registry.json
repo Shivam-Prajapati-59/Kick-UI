@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "kick-ui",
+  "homepage": "https://kick-ui.vercel.app",
+  "items": [
+    {
+      "name": "shinny-button",
+      "type": "registry:component",
+      "title": "Shinny Button",
+      "description": "A button with a smooth shinny animation effect.",
+      "category": "buttons",
+      "dependencies": ["motion"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "registry/new-york/components/shinny-button/shinny-button.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}
