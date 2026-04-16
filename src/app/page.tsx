@@ -1,15 +1,13 @@
-import { ShinyButton } from "@/components/ShinnyButton";
+"use client";
+import Container from "@/components/common/Container";
+import GradientGrid from "@/components/custom/GradientGrid";
+import Hero from "@/components/landing/Hero";
 
 export default function Home() {
   return (
-    <div>
-      <h1>
-        Hello Shivam
-      </h1>
-      <ShinyButton>
-        Hello World
-      </ShinyButton>
-    </div>
-
+    <Container>
+      <Hero />
+      <GradientGrid />
+    </Container>
   );
 }
