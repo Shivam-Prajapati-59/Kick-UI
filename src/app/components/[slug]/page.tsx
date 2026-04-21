@@ -64,7 +64,7 @@ export default async function ComponentDocPage({
   };
 
   return (
-    <Container className="max-w-4xl py-10">
+    <div className="max-w-4xl w-full">
       {/* Breadcrumb */}
       <div className="mb-6">
         <Link
@@ -89,6 +89,6 @@ export default async function ComponentDocPage({
       <article className="prose-custom">
         <MDXRemote source={mdx.content} components={components} />
       </article>
-    </Container>
+    </div>
   );
 }

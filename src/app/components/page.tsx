@@ -4,12 +4,14 @@ import { getAllComponents } from "@/lib/component-registry";
 import { Link } from 'next-view-transitions';
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import Sidebar from '@/components/navs/Sidebar';
+
 
 export default function ComponentsPage() {
     const components = getAllComponents();
 
     return (
-        <Container className="py-10">
+        <>
             <div className="mb-10 max-w-4xl">
                 <h1 className="text-4xl font-bold tracking-tight mb-4">Components</h1>
                 <p className="text-xl text-muted-foreground mb-8">
@@ -46,6 +48,6 @@ export default function ComponentsPage() {
                     No components found.
                 </div>
             )}
-        </Container>
+        </>
     );
 }
