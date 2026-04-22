@@ -7,11 +7,7 @@ import { mdxComponents } from "@/components/docs/mdx-components";
 import { ComponentPreviewServer } from "@/components/docs/ComponentPreviewServer";
 import { InstallCommand, Steps, Step } from "@/components/docs/Steps";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Container from "@/components/common/Container";
 import { getComponent } from "@/lib/component-registry";
-import { Badge } from "@/components/ui/badge";
-import { ArrowLeft } from "lucide-react";
-import { Link } from "next-view-transitions";
 
 const CONTENT_DIR = path.join(process.cwd(), "src/content/components");
 
@@ -65,26 +61,6 @@ export default async function ComponentDocPage({
 
   return (
     <div className="max-w-4xl w-full">
-      {/* Breadcrumb */}
-      <div className="mb-6">
-        <Link
-          href="/components"
-          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          Back to Components
-        </Link>
-      </div>
-
-      {/* Header */}
-      {component && (
-        <div className="mb-8 space-y-2">
-          <Badge variant="secondary" className="mb-2">
-            {component.category}
-          </Badge>
-        </div>
-      )}
-
       {/* MDX Content */}
       <article className="prose-custom">
         <MDXRemote source={mdx.content} components={components} />

@@ -1,40 +1,75 @@
-// types
+// ─── Types ───────────────────────────────────────────────────────────────────
+
 export interface SidebarItem {
-    title: string
-    slug: string
-    category: "components" | "animations" | "backgrounds"
-    badge?: string
+    label: string;
+    slug: string;
+    enabled: boolean;
 }
 
-export const TextAnimations = {
-    // "split-text": () => import("../demo/Animations/SplitTextDemo"),
-    // "blur-text": () => import("../demo/Animations/BlurTextDemo"),
-    // "circular-text": () => import("../demo/Animations/CircularTextDemo"),
-    // "text-type": () => import("../demo/Animations/TextTypeDemo"),
-    // "shuffle": () => import("../demo/Animations/ShuffleTextDemo"),
-    // "shiny-text": () => import("../demo/Animations/ShinyTextDemo"),
-    // "text-pressure": () => import("../demo/Animations/TextPressureDemo"),
-    // "curved-loop": () => import("../demo/Animations/CurvedLoopDemo"),
-    // "fuzzy-text": () => import("../demo/Animations/FuzzyTextDemo"),
-    // "gradient-text": () => import("../demo/Animations/GradientTextDemo"),
-    // "falling-text": () => import("../demo/Animations/FallingTextDemo"),
+export interface SidebarCategory {
+    /** Display title (rendered as the section header) */
+    title: string;
+    /** Route segment — items link to `/components/{item.slug}` */
+    basePath: string;
+    items: SidebarItem[];
 }
 
-export const components = {
-    // "shiny-button": () => import("../demo/Components/ShinyButtonDemo"),
-    // "glow-card": () => import("../demo/Components/GlowCardDemo"),
-    // "hover-border-card": () => import("../demo/Components/HoverBorderCardDemo"),
-    // "magnetic-button": () => import("../demo/Components/MagneticButtonDemo"),
+// ─── Sidebar Data ────────────────────────────────────────────────────────────
+
+export const sidebarCategories: SidebarCategory[] = [
+    {
+        title: "Components",
+        basePath: "/components",
+        items: [
+            { label: "Shinny Button", slug: "shinny-button", enabled: true },
+            { label: "Glow Card", slug: "glow-card", enabled: true },
+            { label: "Hover Border Card", slug: "hover-border-card", enabled: true },
+            { label: "Magnetic Button", slug: "magnetic-button", enabled: true },
+        ],
+    },
+    {
+        title: "Text Animations",
+        basePath: "/components",
+        items: [
+            { label: "Split Text", slug: "split-text", enabled: true },
+            { label: "Blur Text", slug: "blur-text", enabled: true },
+            { label: "Circular Text", slug: "circular-text", enabled: true },
+            { label: "Shiny Text", slug: "shiny-text", enabled: true },
+            { label: "Text Pressure", slug: "text-pressure", enabled: true },
+            { label: "Gradient Text", slug: "gradient-text", enabled: true },
+            { label: "Fuzzy Text", slug: "fuzzy-text", enabled: true },
+            { label: "Falling Text", slug: "falling-text", enabled: true },
+            { label: "Shuffle Text", slug: "shuffle", enabled: true },
+        ],
+    },
+    {
+        title: "Animations",
+        basePath: "/components",
+        items: [
+            { label: "Fade In", slug: "fade-in", enabled: true },
+            { label: "Slide Up", slug: "slide-up", enabled: true },
+            { label: "Parallax Scroll", slug: "parallax-scroll", enabled: true },
+        ],
+    },
+    {
+        title: "Backgrounds",
+        basePath: "/components",
+        items: [
+            { label: "Gradient Mesh", slug: "gradient-mesh", enabled: true },
+            { label: "Aurora", slug: "aurora-bg", enabled: true },
+            { label: "Stars", slug: "stars-bg", enabled: true },
+        ],
+    },
+];
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+/** Returns only categories that have at least one enabled item */
+export function getActiveCategories() {
+    return sidebarCategories.filter((cat) => cat.items.some((item) => item.enabled));
 }
 
-export const animations = {
-    // "fade-in": () => import("../demo/Animations/FadeInDemo"),
-    // "slide-up": () => import("../demo/Animations/SlideUpDemo"),
-    // "parallax-scroll": () => import("../demo/Animations/ParallaxScrollDemo"),
-}
-
-export const backgrounds = {
-    // "gradient-mesh": () => import("../demo/Backgrounds/GradientMeshDemo"),
-    // "aurora-bg": () => import("../demo/Backgrounds/AuroraBackgroundDemo"),
-    // "stars-bg": () => import("../demo/Backgrounds/StarsBackgroundDemo"),
+/** Returns all categories, including empty ones */
+export function getAllCategories() {
+    return sidebarCategories;
 }
