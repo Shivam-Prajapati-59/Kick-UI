@@ -1,45 +1,32 @@
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
 import { notFound } from "next/navigation";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { mdxComponents } from "@/components/docs/mdx-components";
-import { ComponentPreviewServer } from "@/components/docs/ComponentPreviewServer";
-import { InstallCommand, Steps, Step } from "@/components/docs/Steps";
-import CodeBlock from "@/components/docs/CodeBlock";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getComponent } from "@/lib/component-registry";
+import { ComponentPreviewClient } from "@/components/docs/ComponentPreviewClient";
+import { getAllComponents, getComponent } from "@/lib/component-registry";
 import { CodeOptionsProvider } from "@/hooks/useCodeOptions";
 
-// Code documentation components
-import {
-  CodeHighlighter,
-  CodeOptions,
-  CSS,
-  Tailwind,
-  TSCSS,
-  TSTailwind,
-  CliInstallation,
-  CodeExample,
-  CodeDependencies,
-} from "@/components/code";
+interface PublicRegistryFile {
+  content?: string;
+}
 
-const CONTENT_DIR = path.join(process.cwd(), "src/content/components");
+interface PublicRegistryItem {
+  files?: PublicRegistryFile[];
+}
 
-function getMdxSource(slug: string) {
-  const filePath = path.join(CONTENT_DIR, `${slug}.mdx`);
-  if (!fs.existsSync(filePath)) return null;
-  const raw = fs.readFileSync(filePath, "utf-8");
-  const { content, data } = matter(raw);
-  return { content, frontmatter: data };
+function getSourceFromPublicRegistry(slug: string) {
+  const filePath = path.join(process.cwd(), "public", "r", `${slug}.json`);
+  if (!fs.existsSync(filePath)) return "";
+
+  try {
+    const parsed = JSON.parse(fs.readFileSync(filePath, "utf-8")) as PublicRegistryItem;
+    return parsed.files?.[0]?.content ?? "";
+  } catch {
+    return "";
+  }
 }
 
 export async function generateStaticParams() {
-  if (!fs.existsSync(CONTENT_DIR)) return [];
-  const files = fs.readdirSync(CONTENT_DIR);
-  return files
-    .filter((f) => f.endsWith(".mdx"))
-    .map((f) => ({ slug: f.replace(".mdx", "") }));
+  return getAllComponents().map((component) => ({ slug: component.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -57,42 +44,24 @@ export default async function ComponentDocPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const mdx = getMdxSource(slug);
-  if (!mdx) return notFound();
+  const component = getComponent(slug);
+  if (!component) return notFound();
 
-  const components = {
-    ...mdxComponents,
-    // Layout/preview
-    ComponentPreview: ComponentPreviewServer,
-    // Legacy install components (still available in MDX)
-    InstallCommand,
-    Steps,
-    Step,
-    // Tabs
-    Tabs,
-    TabsContent,
-    TabsList,
-    TabsTrigger,
-    // Docs
-    CodeBlock,
-    // Code documentation system
-    CodeHighlighter,
-    CodeOptions,
-    CSS,
-    Tailwind,
-    TSCSS,
-    TSTailwind,
-    CliInstallation,
-    CodeExample,
-    CodeDependencies,
-  };
+  const sourceCode = getSourceFromPublicRegistry(slug);
 
   return (
-    <div className="max-w-4xl w-full">
+    <div className="max-w-4xl w-full space-y-6">
+      <header className="space-y-2">
+        <h1 className="text-4xl font-bold tracking-tight">{component.name}</h1>
+        <p className="text-muted-foreground text-lg">{component.description}</p>
+      </header>
+
       <CodeOptionsProvider>
-        <article className="prose-custom">
-          <MDXRemote source={mdx.content} components={components} />
-        </article>
+        <ComponentPreviewClient
+          slug={slug}
+          sourceCode={sourceCode}
+          dependencies={component.dependencies}
+        />
       </CodeOptionsProvider>
     </div>
   );
