@@ -6,8 +6,23 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { mdxComponents } from "@/components/docs/mdx-components";
 import { ComponentPreviewServer } from "@/components/docs/ComponentPreviewServer";
 import { InstallCommand, Steps, Step } from "@/components/docs/Steps";
+import CodeBlock from "@/components/docs/CodeBlock";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getComponent } from "@/lib/component-registry";
+import { CodeOptionsProvider } from "@/hooks/useCodeOptions";
+
+// Code documentation components
+import {
+  CodeHighlighter,
+  CodeOptions,
+  CSS,
+  Tailwind,
+  TSCSS,
+  TSTailwind,
+  CliInstallation,
+  CodeExample,
+  CodeDependencies,
+} from "@/components/code";
 
 const CONTENT_DIR = path.join(process.cwd(), "src/content/components");
 
@@ -45,26 +60,40 @@ export default async function ComponentDocPage({
   const mdx = getMdxSource(slug);
   if (!mdx) return notFound();
 
-  const component = getComponent(slug);
-
   const components = {
     ...mdxComponents,
+    // Layout/preview
     ComponentPreview: ComponentPreviewServer,
+    // Legacy install components (still available in MDX)
     InstallCommand,
     Steps,
     Step,
+    // Tabs
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
+    // Docs
+    CodeBlock,
+    // Code documentation system
+    CodeHighlighter,
+    CodeOptions,
+    CSS,
+    Tailwind,
+    TSCSS,
+    TSTailwind,
+    CliInstallation,
+    CodeExample,
+    CodeDependencies,
   };
 
   return (
     <div className="max-w-4xl w-full">
-      {/* MDX Content */}
-      <article className="prose-custom">
-        <MDXRemote source={mdx.content} components={components} />
-      </article>
+      <CodeOptionsProvider>
+        <article className="prose-custom">
+          <MDXRemote source={mdx.content} components={components} />
+        </article>
+      </CodeOptionsProvider>
     </div>
   );
 }

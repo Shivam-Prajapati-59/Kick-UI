@@ -12,41 +12,15 @@ A button with a smooth shiny animation effect that creates a beautiful light swe
 
 ## Installation
 
-<Tabs defaultValue="cli">
+<CliInstallation slug="shinny-button" />
 
-<TabsList>
-  <TabsTrigger value="cli">CLI</TabsTrigger>
-  <TabsTrigger value="manual">Manual</TabsTrigger>
-</TabsList>
+## Source Code
 
-<TabsContent value="cli">
+<CodeOptions>
 
-<Steps>
+<TSTailwind>
 
-<Step title="Run the following command">
-
-<InstallCommand command="npx shadcn@latest add https://kick-ui.vercel.app/registry/new-york/components/shinny-button.json" />
-
-</Step>
-
-</Steps>
-
-</TabsContent>
-
-<TabsContent value="manual">
-
-<Steps>
-
-<Step title="Install the following dependencies">
-
-<InstallCommand command="npm install motion" />
-
-</Step>
-
-<Step title="Copy and paste the following code into your project">
-
-```tsx
-"use client";
+<CodeHighlighter language="tsx" codeString={`"use client";
 
 import React from "react";
 import { motion } from "motion/react";
@@ -62,7 +36,7 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
   ({ className, children, duration = 2, ...props }, ref) => {
     return (
       <>
-        <style jsx global>{`
+        <style jsx global>{\`
           .shiny-btn-mask {
             mask-image: linear-gradient(
               -75deg,
@@ -70,14 +44,7 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
               transparent calc(var(--x) + 30%),
               white calc(var(--x) + 100%)
             );
-            -webkit-mask-image: linear-gradient(
-              -75deg,
-              white calc(var(--x) + 20%),
-              transparent calc(var(--x) + 30%),
-              white calc(var(--x) + 100%)
-            );
           }
-
           .shiny-btn-overlay {
             background-image: linear-gradient(
               -75deg,
@@ -87,25 +54,19 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
             );
             mask: linear-gradient(black, black) content-box,
               linear-gradient(black, black);
-            -webkit-mask: linear-gradient(black, black) content-box,
-              linear-gradient(black, black);
             mask-composite: exclude;
-            -webkit-mask-composite: xor;
           }
-
           :root {
             --shiny-btn-bg: 255, 255, 255;
             --shiny-btn-radial: 0, 0, 0;
             --overlay-color: 0, 0, 0;
           }
-
           .dark {
             --shiny-btn-bg: 10, 10, 10;
             --shiny-btn-radial: 255, 252, 255;
             --overlay-color: 255, 255, 255;
           }
-        `}</style>
-
+        \`}</style>
         <motion.div
           initial={{ "--x": "100%" } as any}
           animate={{ "--x": "-100%" } as any}
@@ -126,7 +87,6 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
               "bg-[rgba(var(--shiny-btn-bg),1)] text-neutral-950 dark:text-neutral-100",
               "border border-neutral-200 dark:border-neutral-800",
               "hover:bg-[rgba(var(--shiny-btn-bg),0.9)]",
-              "bg-[radial-gradient(circle_at_50%_0%,rgba(var(--shiny-btn-radial),0.05)_0%,transparent_60%)]",
               className
             )}
             {...props}
@@ -144,32 +104,21 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
 
 ShinyButton.displayName = "ShinyButton";
 
-export { ShinyButton };
-```
+export { ShinyButton };`} />
 
-</Step>
+</TSTailwind>
 
-<Step title="Update the import paths to match your project setup">
-
-Make sure the import paths for `cn`, `Button`, and `motion` match your project structure.
-
-</Step>
-
-</Steps>
-
-</TabsContent>
-
-</Tabs>
+</CodeOptions>
 
 ## Usage
 
-```tsx
-import { ShinyButton } from "@/components/shinny-button";
-```
+<CodeHighlighter language="tsx" showLineNumbers={false} codeString={`import { ShinyButton } from "@/components/shinny-button";
 
-```tsx
-<ShinyButton>Click me</ShinyButton>
-```
+<ShinyButton>Click me</ShinyButton>`} />
+
+## Dependencies
+
+<CodeDependencies dependencies={["motion"]} />
 
 ## Props
 

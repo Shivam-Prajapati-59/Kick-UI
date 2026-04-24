@@ -93,7 +93,7 @@ function NavItem({
             {isActive && (
                 <motion.div
                     layoutId="sidebar-active-indicator"
-                    className="absolute w-[2px] h-2.5 bg-primary rounded-full z-10"
+                    className="absolute w-0.5 h-2.5 bg-primary rounded-full z-10"
                     style={{ left: "-16px", top: "calc(50% - 5px)" }}
                     transition={spring}
                 />
@@ -106,7 +106,7 @@ function NavItem({
                         initial={{ opacity: 0, scaleY: 0.5 }}
                         animate={{ opacity: 1, scaleY: 1 }}
                         exit={{ opacity: 0, scaleY: 0.5 }}
-                        className="absolute w-[2px] h-2.5 bg-primary/50 rounded-full"
+                        className="absolute w-0.5 h-2.5 bg-primary/50 rounded-full"
                         style={{ left: "-16px", top: "calc(50% - 5px)" }}
                         transition={{ type: "spring", stiffness: 500, damping: 35 }}
                     />
