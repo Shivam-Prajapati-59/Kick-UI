@@ -1,0 +1,46 @@
+import type { CSSProperties } from "react";
+
+// Light-mode theme tuned to feel close to coldarkDark without importing a Prism light preset.
+export const coldarkLightLike: Record<string, CSSProperties> = {
+  'code[class*="language-"]': {
+    color: "#1f2937",
+    background: "none",
+    fontFamily:
+      "var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+  },
+  'pre[class*="language-"]': {
+    color: "#1f2937",
+    background: "#f8fafc",
+    margin: 0,
+    padding: "1rem",
+    overflow: "auto",
+  },
+  comment: { color: "#6b7280", fontStyle: "italic" },
+  prolog: { color: "#6b7280" },
+  doctype: { color: "#6b7280" },
+  cdata: { color: "#6b7280" },
+  punctuation: { color: "#374151" },
+  property: { color: "#7c3aed" },
+  tag: { color: "#be185d" },
+  boolean: { color: "#0f766e" },
+  number: { color: "#0f766e" },
+  constant: { color: "#0f766e" },
+  symbol: { color: "#0f766e" },
+  deleted: { color: "#dc2626" },
+  selector: { color: "#2563eb" },
+  "attr-name": { color: "#2563eb" },
+  string: { color: "#0f766e" },
+  char: { color: "#0f766e" },
+  builtin: { color: "#2563eb" },
+  inserted: { color: "#16a34a" },
+  operator: { color: "#374151" },
+  entity: { color: "#2563eb", cursor: "help" },
+  url: { color: "#2563eb" },
+  variable: { color: "#b45309" },
+  atrule: { color: "#7c3aed" },
+  keyword: { color: "#7c3aed", fontWeight: 600 },
+  function: { color: "#1d4ed8" },
+  "class-name": { color: "#1d4ed8" },
+  regex: { color: "#be185d" },
+  important: { color: "#be185d", fontWeight: 700 },
+};

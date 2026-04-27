@@ -2,9 +2,11 @@
 
 import { CheckCheck, CopyCheckIcon } from 'lucide-react';
 import { useCallback, useState } from 'react';
+import { useTheme } from 'next-themes';
 
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { twilight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { PrismAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { coldarkDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { coldarkLightLike } from '@/lib/code-theme';
 
 const COPY_RESET_MS = 2000;
 
@@ -16,6 +18,8 @@ interface CodeBlockProps {
 
 const CodeBlock = ({ children, language, showLineNumbers = false }: CodeBlockProps) => {
     const [copied, setCopied] = useState(false);
+    const { resolvedTheme } = useTheme();
+    const syntaxTheme = resolvedTheme === 'light' ? coldarkLightLike : coldarkDark;
 
     const handleCopy = useCallback(async () => {
         const text = String(children).trim();
@@ -42,7 +46,7 @@ const CodeBlock = ({ children, language, showLineNumbers = false }: CodeBlockPro
             </div>
             <SyntaxHighlighter
                 language={language}
-                style={twilight}
+                style={syntaxTheme}
                 showLineNumbers={showLineNumbers}
                 className="code-highlighter"
             >

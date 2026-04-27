@@ -1,5 +1,13 @@
 import Container from "@/components/common/Container";
 import Sidebar from "@/components/navs/Sidebar";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({
+    weight: ["300", "400", "500", "600", "700"],
+    subsets: ["latin"],
+    variable: "--font-montserrat",
+    display: "swap",
+});
 
 export default function ComponentsLayout({
     children,
@@ -7,7 +15,9 @@ export default function ComponentsLayout({
     children: React.ReactNode;
 }) {
     return (
-        <Container className="flex-1 items-start md:grid md:grid-cols-[240px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-10">
+        <Container
+            className={`${montserrat.variable} [font-family:var(--font-montserrat)] flex-1 items-start md:grid md:grid-cols-[240px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-10`}
+        >
             <aside className="fixed top-24 z-30 -ml-2 hidden h-[calc(100vh-6rem)] w-full shrink-0 md:sticky md:block">
                 <div className="h-full pr-6 overflow-y-auto w-full">
                     <Sidebar />

@@ -4,8 +4,10 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Check, Copy, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { twilight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { coldarkLightLike } from "@/lib/code-theme";
 
 /* ------------------------------------------------------------------ */
 /*  Per-route expansion state — survives re-renders within a session   */
@@ -55,7 +57,10 @@ export default function CodeHighlighter({
     className,
 }: CodeHighlighterProps) {
     const pathname = usePathname();
+    const { resolvedTheme } = useTheme();
     const key = snippetId || hashSnippet(codeString + "|" + language);
+    const isDarkTheme = resolvedTheme !== "light";
+    const syntaxTheme = isDarkTheme ? coldarkDark : coldarkLightLike;
 
     /* ---- copy state ---- */
     const [copied, setCopied] = useState(false);
@@ -101,7 +106,7 @@ export default function CodeHighlighter({
         <div className={cn("group relative my-3", className)}>
             {/* Code container */}
             <div
-                className="relative overflow-hidden rounded-lg border border-border bg-zinc-950 dark:bg-zinc-900"
+                className="relative overflow-hidden rounded-lg border border-border bg-slate-50 dark:bg-zinc-900"
                 style={{
                     maxHeight:
                         shouldCollapse && !expanded
@@ -111,7 +116,7 @@ export default function CodeHighlighter({
             >
                 <SyntaxHighlighter
                     language={language}
-                    style={twilight}
+                    style={syntaxTheme}
                     showLineNumbers={showLineNumbers}
                     className="code-highlighter"
                     customStyle={{
@@ -126,7 +131,7 @@ export default function CodeHighlighter({
 
                 {/* Gradient fade when collapsed */}
                 {shouldCollapse && !expanded && (
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[60%] bg-linear-to-b from-transparent to-zinc-950 dark:to-zinc-900" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[60%] bg-linear-to-b from-transparent to-slate-50 dark:to-zinc-900" />
                 )}
 
                 {/* Expand/Collapse button */}
@@ -135,8 +140,8 @@ export default function CodeHighlighter({
                         onClick={() => setExpanded((prev) => !prev)}
                         className={cn(
                             "absolute bottom-3 right-3 z-10 flex items-center gap-1.5 rounded-md",
-                            "border border-zinc-700 bg-zinc-800 px-3 py-1.5 text-xs font-medium text-zinc-300",
-                            "transition-colors hover:bg-zinc-700 hover:text-zinc-100"
+                            "border border-border bg-background px-3 py-1.5 text-xs font-medium text-muted-foreground",
+                            "transition-colors hover:bg-muted hover:text-foreground"
                         )}
                     >
                         <ChevronsUpDown className="h-3.5 w-3.5" />
@@ -150,11 +155,11 @@ export default function CodeHighlighter({
                 onClick={handleCopy}
                 className={cn(
                     "absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded-md",
-                    "border border-zinc-700 text-zinc-400",
+                    "border border-border text-muted-foreground",
                     "opacity-0 transition-all duration-200 group-hover:opacity-100",
                     copied
                         ? "bg-emerald-600/20 text-emerald-400 opacity-100"
-                        : "bg-zinc-800 hover:bg-zinc-700 hover:text-zinc-200"
+                        : "bg-background hover:bg-muted hover:text-foreground"
                 )}
                 aria-label={copied ? "Copied!" : "Copy code"}
             >

@@ -3,8 +3,12 @@
 import { useMemo, useState, useCallback, useRef } from "react";
 import { Check, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
+import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
+import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useCodeOptions } from "@/hooks/useCodeOptions";
 import { getComponent } from "@/lib/component-registry";
+import { coldarkLightLike } from "@/lib/code-theme";
 import {
   generateInstallCommands,
   getCurrentCommand,
@@ -93,6 +97,7 @@ export default function CliInstallation({
   slug,
   className,
 }: CliInstallationProps) {
+  const { resolvedTheme } = useTheme();
   const {
     installMode: mode,
     setInstallMode: setMode,
@@ -101,6 +106,7 @@ export default function CliInstallation({
     packageManager,
     setPackageManager,
   } = useCodeOptions();
+  const syntaxTheme = resolvedTheme === "light" ? coldarkLightLike : coldarkDark;
 
   /* ---- lookup component in registry ---- */
   const component = getComponent(slug);
@@ -204,26 +210,38 @@ export default function CliInstallation({
       </div>
 
       {/* Command display */}
-      <div className="overflow-hidden rounded-lg border border-border bg-zinc-950 dark:bg-zinc-900">
+      <div className="overflow-hidden rounded-lg border border-border bg-slate-50 dark:bg-zinc-900">
         {/* Package manager tabs */}
-        <div className="flex items-center border-b border-border/50 px-3 py-1.5">
+        <div className="flex items-center border-b border-border/50 bg-muted/20 px-3 py-2">
           <PkgButtons selected={packageManager} onSelect={setPackageManager} />
         </div>
 
         {/* Command + copy */}
-        <div className="group relative flex items-center px-4 py-3">
-          <code className="scrollbar-hide flex-1 overflow-x-auto whitespace-pre font-mono text-sm text-zinc-100">
+        <div className="group relative">
+          <SyntaxHighlighter
+            language="bash"
+            style={syntaxTheme}
+            showLineNumbers={false}
+            wrapLongLines
+            className="code-highlighter"
+            customStyle={{
+              margin: 0,
+              borderRadius: "0.5rem",
+              fontSize: "0.875rem",
+              lineHeight: "1.5rem",
+            }}
+          >
             {currentCommand || "No command available"}
-          </code>
+          </SyntaxHighlighter>
 
           <button
             onClick={handleCopy}
             className={cn(
-              "ml-3 flex h-8 w-8 shrink-0 items-center justify-center rounded-md",
-              "border border-zinc-700 transition-all duration-200",
+              "absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-md",
+              "border border-border transition-all duration-200",
               copied
                 ? "bg-emerald-600/20 text-emerald-400"
-                : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200"
+                : "bg-background text-muted-foreground hover:bg-muted hover:text-foreground"
             )}
             aria-label={copied ? "Copied!" : "Copy install command"}
           >
