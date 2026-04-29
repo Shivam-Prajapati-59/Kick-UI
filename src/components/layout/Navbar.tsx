@@ -26,11 +26,7 @@ export default function Navbar() {
     return (
         <motion.nav
             className="fixed top-0 left-0 w-full z-50
-                       border-b border-white/10 dark:border-white/6
                        backdrop-blur-xl backdrop-saturate-150"
-            initial={{ y: -80, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
         >
             <Container className="py-3">
                 <div className="flex items-center justify-between">
@@ -66,7 +62,7 @@ export default function Navbar() {
                                     key={item.label}
                                     href={item.href}
                                     onMouseEnter={() => setHoveredIndex(index)}
-                                    className="relative px-3 py-1.5 text-sm font-medium rounded-md
+                                    className="relative px-3 py-1.5 text-md font-medium rounded-md
                                                text-foreground/50 hover:text-foreground
                                                transition-colors duration-200 z-10"
                                 >

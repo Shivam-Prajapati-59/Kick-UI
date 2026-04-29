@@ -6,8 +6,7 @@ import { Check, Copy, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { coldarkLightLike } from "@/lib/code-theme";
+import { coldarkDarkLike, coldarkLightLike } from "@/lib/code-theme";
 
 /* ------------------------------------------------------------------ */
 /*  Per-route expansion state — survives re-renders within a session   */
@@ -60,7 +59,7 @@ export default function CodeHighlighter({
     const { resolvedTheme } = useTheme();
     const key = snippetId || hashSnippet(codeString + "|" + language);
     const isDarkTheme = resolvedTheme !== "light";
-    const syntaxTheme = isDarkTheme ? coldarkDark : coldarkLightLike;
+    const syntaxTheme = isDarkTheme ? coldarkDarkLike : coldarkLightLike;
 
     /* ---- copy state ---- */
     const [copied, setCopied] = useState(false);

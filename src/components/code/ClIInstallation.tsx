@@ -1,26 +1,34 @@
 "use client";
 
 import { useMemo, useState, useCallback, useRef } from "react";
-import { Check, Copy } from "lucide-react";
+import { Check, Copy, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
-import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useCodeOptions } from "@/hooks/useCodeOptions";
 import { getComponent } from "@/lib/component-registry";
-import { coldarkLightLike } from "@/lib/code-theme";
+import { coldarkDarkLike, coldarkLightLike } from "@/lib/code-theme";
 import {
   generateInstallCommands,
   getCurrentCommand,
   PKG_MANAGERS,
-  CLI_TOOLS,
 } from "@/lib/cli-commands";
-import type { PackageManager, CliTool } from "@/hooks/useCodeOptions";
+import type { PackageManager, CliTool, InstallMode } from "@/hooks/useCodeOptions";
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ShadcnIcon from "@/components/svgs/libraries/ShadcnIcon";
+import JsRepoIcon from "@/components/svgs/tools/JsRepo";
 
 /* ------------------------------------------------------------------ */
 /*  Props                                                              */
@@ -50,10 +58,10 @@ function PkgButtons({ selected, onSelect }: PkgButtonsProps) {
           key={pm}
           onClick={() => onSelect(pm)}
           className={cn(
-            "rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-150",
+            "relative rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-200",
             selected === pm
-              ? "bg-foreground/10 text-foreground"
-              : "text-muted-foreground hover:text-foreground"
+              ? "bg-primary/10 text-primary"
+              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
           )}
         >
           {pm}
@@ -63,35 +71,69 @@ function PkgButtons({ selected, onSelect }: PkgButtonsProps) {
   );
 }
 
-interface CliToolSelectorProps {
+/* ------------------------------------------------------------------ */
+/*  CLI Tool Dropdown (shadcn / jsrepo) with SVG icons                 */
+/* ------------------------------------------------------------------ */
+
+const CLI_TOOL_CONFIG: Record<CliTool, { label: string; icon: React.ReactNode }> = {
+  shadcn: { label: "shadcn", icon: <ShadcnIcon className="w-4.5! h-4.5!" /> },
+  jsrepo: { label: "jsrepo", icon: <JsRepoIcon className="w-4.5 h-4.5" /> },
+};
+
+interface CliToolDropdownProps {
   selected: CliTool;
   onSelect: (tool: CliTool) => void;
 }
 
-function CliToolSelector({ selected, onSelect }: CliToolSelectorProps) {
+function CliToolDropdown({ selected, onSelect }: CliToolDropdownProps) {
+  const [open, setOpen] = useState(false);
+  const activeConfig = CLI_TOOL_CONFIG[selected];
+
   return (
-    <div className="flex items-center rounded-lg border border-border bg-muted/30 p-0.5">
-      {CLI_TOOLS.map((tool) => (
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger asChild>
         <button
-          key={tool}
-          onClick={() => onSelect(tool)}
+          type="button"
           className={cn(
-            "rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-150",
-            selected === tool
-              ? "bg-foreground/10 text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
+            "flex items-center gap-2 rounded-lg border border-border",
+            "bg-muted/30 px-3 py-1.5 text-xs font-medium text-foreground",
+            "transition-all duration-200 hover:bg-muted hover:border-border/80"
           )}
         >
-          {tool}
+          <span className="flex items-center gap-1.5">
+            {activeConfig.icon}
+            <span>{activeConfig.label}</span>
+          </span>
+          <ChevronDown
+            className={cn(
+              "h-3 w-3 text-muted-foreground transition-transform duration-300 ease-out",
+              open && "rotate-180"
+            )}
+          />
         </button>
-      ))}
-    </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-36">
+        <DropdownMenuRadioGroup
+          value={selected}
+          onValueChange={(v) => onSelect(v as CliTool)}
+        >
+          {(Object.keys(CLI_TOOL_CONFIG) as CliTool[]).map((tool) => (
+            <DropdownMenuRadioItem key={tool} value={tool}>
+              {CLI_TOOL_CONFIG[tool].icon}
+              <span>{CLI_TOOL_CONFIG[tool].label}</span>
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
 /* ------------------------------------------------------------------ */
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
+
+import React from "react";
 
 export default function CliInstallation({
   slug,
@@ -106,7 +148,8 @@ export default function CliInstallation({
     packageManager,
     setPackageManager,
   } = useCodeOptions();
-  const syntaxTheme = resolvedTheme === "light" ? coldarkLightLike : coldarkDark;
+  const syntaxTheme =
+    resolvedTheme === "light" ? coldarkLightLike : coldarkDarkLike;
 
   /* ---- lookup component in registry ---- */
   const component = getComponent(slug);
@@ -153,64 +196,50 @@ export default function CliInstallation({
     <div className={cn("my-6", className)}>
       <h3 className="mb-3 text-base font-semibold tracking-tight">Install</h3>
 
-      {/* Mode switch + CLI tool selector */}
+      {/* Mode tabs (shadcn Tabs) + CLI tool dropdown */}
       <div className="mb-2 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-1">
-          {/* CLI button */}
-          <button
-            onClick={() => setMode("cli")}
-            className={cn(
-              "rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-150",
-              mode === "cli"
-                ? "bg-foreground text-background"
-                : "text-muted-foreground hover:text-foreground"
+        {/* Left: shadcn Tabs for CLI / Manual */}
+        <Tabs
+          value={mode}
+          onValueChange={(v) => setMode(v as InstallMode)}
+        >
+          <TabsList className="h-8">
+            <TabsTrigger value="cli" className="px-3 py-1 text-xs">
+              CLI
+            </TabsTrigger>
+            {hasManual ? (
+              <TabsTrigger value="manual" className="px-3 py-1 text-xs">
+                Manual
+              </TabsTrigger>
+            ) : (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className="inline-block">
+                    <TabsTrigger
+                      value="manual"
+                      disabled
+                      className="px-3 py-1 text-xs"
+                    >
+                      Manual
+                    </TabsTrigger>
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent>
+                  No dependencies — head to the &ldquo;Code&rdquo; section
+                </TooltipContent>
+              </Tooltip>
             )}
-          >
-            CLI
-          </button>
+          </TabsList>
+        </Tabs>
 
-          {/* Manual button (disabled when no deps) */}
-          {hasManual ? (
-            <button
-              onClick={() => setMode("manual")}
-              className={cn(
-                "rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-150",
-                mode === "manual"
-                  ? "bg-foreground text-background"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              Manual
-            </button>
-          ) : (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <span className="inline-block">
-                  <button
-                    disabled
-                    className="cursor-not-allowed rounded-md px-3 py-1.5 text-xs font-medium text-muted-foreground/50"
-                  >
-                    Manual
-                  </button>
-                </span>
-              </TooltipTrigger>
-              <TooltipContent>
-                No dependencies — head to the &ldquo;Code&rdquo; section
-              </TooltipContent>
-            </Tooltip>
-          )}
-
-          {/* CLI tool selector (only in CLI mode) */}
-          {mode === "cli" && (
-            <div className="ml-auto">
-              <CliToolSelector selected={cliTool} onSelect={setCliTool} />
-            </div>
-          )}
-        </div>
+        {/* Right: CLI tool dropdown (only in CLI mode) */}
+        {mode === "cli" && (
+          <CliToolDropdown selected={cliTool} onSelect={setCliTool} />
+        )}
       </div>
 
       {/* Command display */}
-      <div className="overflow-hidden rounded-lg border border-border bg-slate-50 dark:bg-zinc-900">
+      <div className="overflow-hidden rounded-lg border border-border bg-card">
         {/* Package manager tabs */}
         <div className="flex items-center border-b border-border/50 bg-muted/20 px-3 py-2">
           <PkgButtons selected={packageManager} onSelect={setPackageManager} />
@@ -226,7 +255,7 @@ export default function CliInstallation({
             className="code-highlighter"
             customStyle={{
               margin: 0,
-              borderRadius: "0.5rem",
+              borderRadius: 0,
               fontSize: "0.875rem",
               lineHeight: "1.5rem",
             }}
@@ -237,7 +266,7 @@ export default function CliInstallation({
           <button
             onClick={handleCopy}
             className={cn(
-              "absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-md",
+              "absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-7 w-7 items-center justify-center rounded-md",
               "border border-border transition-all duration-200",
               copied
                 ? "bg-emerald-600/20 text-emerald-400"

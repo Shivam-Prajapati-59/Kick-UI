@@ -1,7 +1,7 @@
 "use client";
 
-import { Children, type ReactNode, type ReactElement } from "react";
-import { Check, ChevronDown } from "lucide-react";
+import { Children, useState, type ReactNode, type ReactElement } from "react";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCodeOptions, type Language, type StylePreset } from "@/hooks/useCodeOptions";
 import {
@@ -11,6 +11,10 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import TypeScript from "@/components/svgs/languages/TypeScript";
+import JavaScript from "@/components/svgs/languages/JavaScript";
+import TailwindCss from "@/components/svgs/libraries/TailwindCss";
+import CssIcon from "@/components/svgs/languages/Css";
 
 /* ------------------------------------------------------------------ */
 /*  Variant wrapper components                                         */
@@ -34,18 +38,23 @@ export function TSTailwind({ children }: VariantProps) {
   return <>{children}</>;
 }
 
+/* ------------------------------------------------------------------ */
+/*  SelectorDropdown with SVG icons + chevron animation                */
+/* ------------------------------------------------------------------ */
+
 interface SelectorDropdownProps {
   label: string;
   value: string;
   onChange: (value: string) => void;
-  options: Array<{ value: string; label: string; color?: string }>;
+  options: Array<{ value: string; label: string; icon?: ReactNode }>;
 }
 
 function SelectorDropdown({ label, value, onChange, options }: SelectorDropdownProps) {
+  const [open, setOpen] = useState(false);
   const activeOption = options.find((option) => option.value === value) ?? options[0];
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <button
           type="button"
@@ -54,27 +63,22 @@ function SelectorDropdown({ label, value, onChange, options }: SelectorDropdownP
           )}
         >
           <span className="flex items-center gap-2">
-            {activeOption.color && (
-              <span
-                className="inline-block h-2.5 w-2.5 rounded-full"
-                style={{ backgroundColor: activeOption.color }}
-              />
-            )}
+            {activeOption.icon}
             <span>{activeOption.label}</span>
           </span>
-          <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+          <ChevronDown
+            className={cn(
+              "h-3.5 w-3.5 text-muted-foreground transition-transform duration-300 ease-out",
+              open && "rotate-180"
+            )}
+          />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-44">
         <DropdownMenuRadioGroup value={value} onValueChange={onChange}>
           {options.map((option) => (
             <DropdownMenuRadioItem key={option.value} value={option.value}>
-              {option.color && (
-                <span
-                  className="inline-block h-2.5 w-2.5 rounded-full"
-                  style={{ backgroundColor: option.color }}
-                />
-              )}
+              {option.icon}
               <span>{option.label}</span>
             </DropdownMenuRadioItem>
           ))}
@@ -85,17 +89,17 @@ function SelectorDropdown({ label, value, onChange, options }: SelectorDropdownP
 }
 
 /* ------------------------------------------------------------------ */
-/*  Color + label maps                                                 */
+/*  Icon + label maps                                                  */
 /* ------------------------------------------------------------------ */
 
-const LANG_CONFIG: Record<Language, { label: string; color: string }> = {
-  JS: { label: "JavaScript", color: "#F7DF1E" },
-  TS: { label: "TypeScript", color: "#3178C6" },
+const LANG_CONFIG: Record<Language, { label: string; icon: ReactNode }> = {
+  JS: { label: "JavaScript", icon: <JavaScript className="w-4.5! h-4.5!" /> },
+  TS: { label: "TypeScript", icon: <TypeScript className="w-4.5! h-4.5!" /> },
 };
 
-const STYLE_CONFIG: Record<StylePreset, { label: string; color: string }> = {
-  CSS: { label: "CSS", color: "#B497CF" },
-  TW: { label: "Tailwind", color: "#38BDF8" },
+const STYLE_CONFIG: Record<StylePreset, { label: string; icon: ReactNode }> = {
+  CSS: { label: "CSS", icon: <CssIcon className="w-4.5! h-4.5!" /> },
+  TW: { label: "Tailwind", icon: <TailwindCss className="w-4.5! h-4.5!" /> },
 };
 
 /* ------------------------------------------------------------------ */
@@ -161,7 +165,7 @@ export default function CodeOptions({ children, className }: CodeOptionsProps) {
           options={(Object.keys(LANG_CONFIG) as Language[]).map((lang) => ({
             value: lang,
             label: LANG_CONFIG[lang].label,
-            color: LANG_CONFIG[lang].color,
+            icon: LANG_CONFIG[lang].icon,
           }))}
         />
 
@@ -172,7 +176,7 @@ export default function CodeOptions({ children, className }: CodeOptionsProps) {
           options={(Object.keys(STYLE_CONFIG) as StylePreset[]).map((preset) => ({
             value: preset,
             label: STYLE_CONFIG[preset].label,
-            color: STYLE_CONFIG[preset].color,
+            icon: STYLE_CONFIG[preset].icon,
           }))}
         />
       </div>
