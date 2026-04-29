@@ -1,8 +1,16 @@
 "use client";
 
 import { Children, type ReactNode, type ReactElement } from "react";
+import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCodeOptions, type Language, type StylePreset } from "@/hooks/useCodeOptions";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 /* ------------------------------------------------------------------ */
 /*  Variant wrapper components                                         */
@@ -26,36 +34,53 @@ export function TSTailwind({ children }: VariantProps) {
   return <>{children}</>;
 }
 
-/* ------------------------------------------------------------------ */
-/*  Selector button                                                    */
-/* ------------------------------------------------------------------ */
-
-interface SelectorButtonProps {
+interface SelectorDropdownProps {
   label: string;
-  active: boolean;
-  onClick: () => void;
-  color?: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: Array<{ value: string; label: string; color?: string }>;
 }
 
-function SelectorButton({ label, active, onClick, color }: SelectorButtonProps) {
+function SelectorDropdown({ label, value, onChange, options }: SelectorDropdownProps) {
+  const activeOption = options.find((option) => option.value === value) ?? options[0];
+
   return (
-    <button
-      onClick={onClick}
-      className={cn(
-        "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-150",
-        active
-          ? "bg-foreground/10 text-foreground shadow-sm"
-          : "text-muted-foreground hover:bg-muted hover:text-foreground"
-      )}
-    >
-      {color && (
-        <span
-          className="inline-block h-2.5 w-2.5 rounded-full"
-          style={{ backgroundColor: color }}
-        />
-      )}
-      {label}
-    </button>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          className={cn(
+            "flex min-w-28 items-center justify-between gap-3 rounded-lg border border-border bg-muted/30 px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted"
+          )}
+        >
+          <span className="flex items-center gap-2">
+            {activeOption.color && (
+              <span
+                className="inline-block h-2.5 w-2.5 rounded-full"
+                style={{ backgroundColor: activeOption.color }}
+              />
+            )}
+            <span>{activeOption.label}</span>
+          </span>
+          <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="w-44">
+        <DropdownMenuRadioGroup value={value} onValueChange={onChange}>
+          {options.map((option) => (
+            <DropdownMenuRadioItem key={option.value} value={option.value}>
+              {option.color && (
+                <span
+                  className="inline-block h-2.5 w-2.5 rounded-full"
+                  style={{ backgroundColor: option.color }}
+                />
+              )}
+              <span>{option.label}</span>
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
@@ -128,32 +153,28 @@ export default function CodeOptions({ children, className }: CodeOptionsProps) {
   return (
     <div className={cn("mt-0 w-full", className)}>
       {/* Selectors */}
-      <div className="mb-2 flex items-center gap-2">
-        {/* Language selector */}
-        <div className="flex items-center rounded-lg border border-border bg-muted/30 p-0.5">
-          {(Object.keys(LANG_CONFIG) as Language[]).map((lang) => (
-            <SelectorButton
-              key={lang}
-              label={LANG_CONFIG[lang].label}
-              color={LANG_CONFIG[lang].color}
-              active={language === lang}
-              onClick={() => setLanguage(lang)}
-            />
-          ))}
-        </div>
+      <div className="mb-2 flex flex-wrap items-center gap-2">
+        <SelectorDropdown
+          label="Language"
+          value={language}
+          onChange={(next) => setLanguage(next as Language)}
+          options={(Object.keys(LANG_CONFIG) as Language[]).map((lang) => ({
+            value: lang,
+            label: LANG_CONFIG[lang].label,
+            color: LANG_CONFIG[lang].color,
+          }))}
+        />
 
-        {/* Style selector */}
-        <div className="flex items-center rounded-lg border border-border bg-muted/30 p-0.5">
-          {(Object.keys(STYLE_CONFIG) as StylePreset[]).map((s) => (
-            <SelectorButton
-              key={s}
-              label={STYLE_CONFIG[s].label}
-              color={STYLE_CONFIG[s].color}
-              active={style === s}
-              onClick={() => setStyle(s)}
-            />
-          ))}
-        </div>
+        <SelectorDropdown
+          label="Style"
+          value={style}
+          onChange={(next) => setStyle(next as StylePreset)}
+          options={(Object.keys(STYLE_CONFIG) as StylePreset[]).map((preset) => ({
+            value: preset,
+            label: STYLE_CONFIG[preset].label,
+            color: STYLE_CONFIG[preset].color,
+          }))}
+        />
       </div>
 
       {/* Content */}

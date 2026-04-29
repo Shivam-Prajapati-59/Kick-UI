@@ -5,7 +5,7 @@ export interface NavItem {
 
 export const navbarConfig = {
     logo: {
-        src: '/logo.png',
+        src: '/logo1.png',
         alt: 'UI-Library Logo',
         width: 40,
         height: 40,
