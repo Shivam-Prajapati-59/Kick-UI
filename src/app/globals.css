@@ -203,3 +203,16 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Hide scrollbars inside code blocks */
+.code-highlighter,
+.code-highlighter pre,
+.code-highlighter code {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.code-highlighter::-webkit-scrollbar,
+.code-highlighter pre::-webkit-scrollbar,
+.code-highlighter code::-webkit-scrollbar {
+  display: none;
+}

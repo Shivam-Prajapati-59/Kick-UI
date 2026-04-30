@@ -54,7 +54,7 @@ function SelectorDropdown({ label, value, onChange, options }: SelectorDropdownP
   const activeOption = options.find((option) => option.value === value) ?? options[0];
 
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
       <DropdownMenuTrigger asChild>
         <button
           type="button"

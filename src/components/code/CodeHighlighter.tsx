@@ -105,7 +105,7 @@ export default function CodeHighlighter({
         <div className={cn("group relative my-3", className)}>
             {/* Code container */}
             <div
-                className="relative overflow-hidden rounded-lg border border-border bg-slate-50 dark:bg-zinc-900"
+                className="relative overflow-hidden rounded-lg border border-border bg-slate-50 dark:bg-zinc-900 scrollbar-hide"
                 style={{
                     maxHeight:
                         shouldCollapse && !expanded
@@ -117,7 +117,7 @@ export default function CodeHighlighter({
                     language={language}
                     style={syntaxTheme}
                     showLineNumbers={showLineNumbers}
-                    className="code-highlighter"
+                    className="code-highlighter scrollbar-hide"
                     customStyle={{
                         margin: 0,
                         borderRadius: "0.5rem",

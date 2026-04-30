@@ -46,7 +46,7 @@ export default function Navbar() {
                                     alt={navbarConfig.logo.alt}
                                     width={navbarConfig.logo.width}
                                     height={navbarConfig.logo.height}
-                                    className="rounded-lg hover:opacity-80 transition-opacity"
+                                    className="rounded-lg transition-opacity"
                                     priority
                                 />
                             </Link>
@@ -62,9 +62,7 @@ export default function Navbar() {
                                     key={item.label}
                                     href={item.href}
                                     onMouseEnter={() => setHoveredIndex(index)}
-                                    className="relative px-3 py-1.5 text-md font-medium rounded-md
-                                               text-foreground/50 hover:text-foreground
-                                               transition-colors duration-200 z-10"
+                                    className="relative px-3 py-1.5 text-md font-medium rounded-md transition-colors duration-200 z-10"
                                 >
                                     <AnimatePresence>
                                         {hoveredIndex === index && (

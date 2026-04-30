@@ -216,7 +216,7 @@ export default function Sidebar() {
     return (
         <>
             {/* ─── Mobile Header & Sheet ─────────────────────────────── */}
-            <div className="md:hidden w-full flex items-center justify-between pb-4">
+            <div className="lg:hidden w-full flex items-center justify-between pb-4">
                 <span className="font-semibold text-sm text-muted-foreground">
                     Components Menu
                 </span>
@@ -248,7 +248,7 @@ export default function Sidebar() {
             </div>
 
             {/* ─── Desktop Sidebar ───────────────────────────────────── */}
-            <aside className="hidden md:block w-full h-full relative">
+            <aside className="hidden lg:block w-full h-full relative">
                 <div className="h-full relative overflow-hidden">
                     <div className="h-full px-2 overflow-y-auto scrollbar-hide">
                         {NavigationContent}

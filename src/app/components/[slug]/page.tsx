@@ -5,6 +5,7 @@ import { ComponentPreviewClient } from "@/components/docs/ComponentPreviewClient
 import { getAllComponents, getComponent } from "@/lib/component-registry";
 import { CodeOptionsProvider } from "@/hooks/useCodeOptions";
 
+
 interface PublicRegistryFile {
   content?: string;
 }
@@ -50,7 +51,7 @@ export default async function ComponentDocPage({
   const sourceCode = getSourceFromPublicRegistry(slug);
 
   return (
-    <div className="max-w-4xl w-full space-y-6">
+    <div className="w-full space-y-6">
       <header className="space-y-2">
         <h1 className="text-4xl font-bold tracking-tight">{component.name}</h1>
         <p className="text-muted-foreground text-lg">{component.description}</p>
@@ -63,6 +64,7 @@ export default async function ComponentDocPage({
           dependencies={component.dependencies}
         />
       </CodeOptionsProvider>
+
     </div>
   );
 }
