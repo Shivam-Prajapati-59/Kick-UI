@@ -1,6 +1,6 @@
 import React from "react";
 import { ShinyButton } from "@/components/demo/Components/ShinnyButton";
-import CursorWebFluidDemo from "@/components/demo/Animations/CursorWebFluidDemo";
+import CursorWebFluidDemo from "@/components/demo/Animations/CursorWebFluid/CursorWebFluidDemo";
 
 export interface PropItem {
   name: string;

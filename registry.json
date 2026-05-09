@@ -17,6 +17,22 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "cursor-web-fluid",
+      "type": "registry:component",
+      "title": "Cursor Web Fluid",
+      "description": "A fluid animation that follows the cursor.",
+      "category": "animations",
+      "dependencies": ["three"],
+      "files": [
+        {
+          "path": "registry/new-york/components/cursor-web-fluid/cursor-web-fluid.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
+
+
   ]
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import CursorWebFluid from "@/components/custom/CursorWebFluid";
+import CursorWebFluid from "@/components/demo/Animations/CursorWebFluid/CursorWebFluid";
 
 /**
  * Contained demo — renders the fluid inside the preview box
