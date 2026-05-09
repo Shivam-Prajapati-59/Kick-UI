@@ -33,6 +33,8 @@ interface CodeExampleProps {
   variants?: CodeVariants;
   /** Dependencies list (if not provided, read from registry) */
   dependencies?: string[];
+  /** The filename to display above source code (e.g. "components/ui/shinny-button.tsx") */
+  sourceFilename?: string;
   /** Additional children to render after the code sections */
   children?: ReactNode;
   /** Additional CSS classes */
@@ -47,7 +49,7 @@ interface CodeExampleProps {
  * Orchestrator component that renders a full code documentation section:
  * 1. CLI / Manual install commands
  * 2. Usage example
- * 3. Source code with language/style variant selector
+ * 3. Source code with filename label
  * 4. CSS file (if present)
  * 5. Dependencies list
  *
@@ -61,6 +63,7 @@ interface CodeExampleProps {
  *   variants={{
  *     tsTailwind: `"use client"; ... full source code ...`,
  *   }}
+ *   sourceFilename="components/ui/shinny-button.tsx"
  * />
  * ```
  */
@@ -69,12 +72,25 @@ export default function CodeExample({
   usage,
   variants,
   dependencies,
+  sourceFilename,
   children,
   className,
 }: CodeExampleProps) {
-  const hasVariants =
-    variants &&
-    (variants.code || variants.tailwind || variants.tsCode || variants.tsTailwind);
+  /* Pick the best available source code — prioritize TS+Tailwind */
+  const sourceCode =
+    variants?.tsTailwind ||
+    variants?.tsCode ||
+    variants?.tailwind ||
+    variants?.code ||
+    "";
+
+  const sourceLanguage =
+    variants?.tsTailwind || variants?.tsCode ? "tsx" : "jsx";
+
+  const hasSource = !!sourceCode;
+
+  /* Derive filename from slug if not explicitly provided */
+  const filename = sourceFilename || (slug ? `components/ui/${slug}.tsx` : undefined);
 
   return (
     <div className={cn("space-y-6", className)}>
@@ -96,74 +112,32 @@ export default function CodeExample({
         </div>
       )}
 
-      {/* 3. Source code with variant selector */}
-      {hasVariants && (
+      {/* 3. Source code with filename label */}
+      {hasSource && (
         <div>
           <h3 className="mb-3 text-base font-semibold tracking-tight">
             Source Code
           </h3>
-          <CodeOptions>
-            {variants.tailwind && (
-              <Tailwind>
-                <CodeHighlighter
-                  language="jsx"
-                  codeString={variants.tailwind}
-                  snippetId={`${slug}-tailwind`}
-                />
-              </Tailwind>
-            )}
-            {variants.code && (
-              <CSS>
-                <CodeHighlighter
-                  language="jsx"
-                  codeString={variants.code}
-                  snippetId={`${slug}-css`}
-                />
-                {variants.css && (
-                  <>
-                    <h4 className="mb-2 mt-4 text-sm font-semibold text-muted-foreground">
-                      CSS
-                    </h4>
-                    <CodeHighlighter
-                      language="css"
-                      codeString={variants.css}
-                      snippetId={`${slug}-css-file`}
-                    />
-                  </>
-                )}
-              </CSS>
-            )}
-            {variants.tsTailwind && (
-              <TSTailwind>
-                <CodeHighlighter
-                  language="tsx"
-                  codeString={variants.tsTailwind}
-                  snippetId={`${slug}-ts-tailwind`}
-                />
-              </TSTailwind>
-            )}
-            {variants.tsCode && (
-              <TSCSS>
-                <CodeHighlighter
-                  language="tsx"
-                  codeString={variants.tsCode}
-                  snippetId={`${slug}-ts-css`}
-                />
-                {variants.css && (
-                  <>
-                    <h4 className="mb-2 mt-4 text-sm font-semibold text-muted-foreground">
-                      CSS
-                    </h4>
-                    <CodeHighlighter
-                      language="css"
-                      codeString={variants.css}
-                      snippetId={`${slug}-ts-css-file`}
-                    />
-                  </>
-                )}
-              </TSCSS>
-            )}
+          <CodeOptions filename={filename}>
+            <CodeHighlighter
+              language={sourceLanguage}
+              codeString={sourceCode}
+              snippetId={`${slug}-source`}
+            />
           </CodeOptions>
+
+          {/* CSS file (if present) */}
+          {variants?.css && (
+            <div className="mt-4">
+              <CodeOptions filename={`${slug}.css`}>
+                <CodeHighlighter
+                  language="css"
+                  codeString={variants.css}
+                  snippetId={`${slug}-css-file`}
+                />
+              </CodeOptions>
+            </div>
+          )}
         </div>
       )}
 

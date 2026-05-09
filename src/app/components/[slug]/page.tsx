@@ -6,24 +6,43 @@ import { getAllComponents, getComponent } from "@/lib/component-registry";
 import { CodeOptionsProvider } from "@/hooks/useCodeOptions";
 
 
-interface PublicRegistryFile {
-  content?: string;
-}
+/** Slug → source-file mapping for components that don't have a public registry JSON yet */
+const CUSTOM_SOURCE_MAP: Record<string, string> = {
+  "cursor-webfluid": "src/components/custom/CursorWebFluid.tsx",
+};
 
 interface PublicRegistryItem {
-  files?: PublicRegistryFile[];
+  files?: Array<{ content?: string }>;
 }
 
-function getSourceFromPublicRegistry(slug: string) {
-  const filePath = path.join(process.cwd(), "public", "r", `${slug}.json`);
-  if (!fs.existsSync(filePath)) return "";
 
-  try {
-    const parsed = JSON.parse(fs.readFileSync(filePath, "utf-8")) as PublicRegistryItem;
-    return parsed.files?.[0]?.content ?? "";
-  } catch {
-    return "";
+function getSourceFromPublicRegistry(slug: string): string {
+  // 1. Try public/r/<slug>.json (shadcn registry format)
+  const jsonPath = path.join(process.cwd(), "public", "r", `${slug}.json`);
+  if (fs.existsSync(jsonPath)) {
+    try {
+      const parsed = JSON.parse(fs.readFileSync(jsonPath, "utf-8")) as PublicRegistryItem;
+      const content = parsed.files?.[0]?.content ?? "";
+      if (content) return content;
+    } catch {
+      // fall through
+    }
   }
+
+  // 2. Fallback: read the source file directly
+  const relPath = CUSTOM_SOURCE_MAP[slug];
+  if (relPath) {
+    const absPath = path.join(process.cwd(), relPath);
+    if (fs.existsSync(absPath)) {
+      try {
+        return fs.readFileSync(absPath, "utf-8");
+      } catch {
+        // fall through
+      }
+    }
+  }
+
+  return "";
 }
 
 export async function generateStaticParams() {
@@ -61,6 +80,7 @@ export default async function ComponentDocPage({
         <ComponentPreviewClient
           slug={slug}
           sourceCode={sourceCode}
+          sourceFilename={component.sourceFilename}
           dependencies={component.dependencies}
         />
       </CodeOptionsProvider>

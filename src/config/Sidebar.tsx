@@ -46,6 +46,7 @@ export const sidebarCategories: SidebarCategory[] = [
         title: "Animations",
         basePath: "/components",
         items: [
+            { label: "Cursor WebFluid", slug: "cursor-webfluid", enabled: true },
             { label: "Fade In", slug: "fade-in", enabled: true },
             { label: "Slide Up", slug: "slide-up", enabled: true },
             { label: "Parallax Scroll", slug: "parallax-scroll", enabled: true },

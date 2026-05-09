@@ -12,6 +12,7 @@ import PropsTable from "./PropsTable";
 interface ComponentPreviewClientProps {
   slug: string;
   sourceCode?: string;
+  sourceFilename?: string;
   dependencies?: string[];
   className?: string;
 }
@@ -34,6 +35,7 @@ const tabTransition = {
 export function ComponentPreviewClient({
   slug,
   sourceCode,
+  sourceFilename,
   dependencies,
   className,
 }: ComponentPreviewClientProps) {
@@ -145,6 +147,7 @@ export function ComponentPreviewClient({
                   usage={usage}
                   variants={variants}
                   dependencies={dependencies}
+                  sourceFilename={sourceFilename}
                 />
               </TabsContent>
             </motion.div>
