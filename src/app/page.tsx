@@ -1,15 +1,13 @@
 "use client";
 import Container from "@/components/common/Container";
-import CursorWebFluid from "@/components/demo/Animations/CursorWebFluid/CursorWebFluid";
-import GradientGrid from "@/components/custom/GradientGrid";
+import LandingGrid from "@/components/custom/LandingGrid";
 import Hero from "@/components/landing/Hero";
 
 export default function Home() {
   return (
     <Container>
       <Hero />
-      <GradientGrid />
-      <CursorWebFluid />
+      <LandingGrid />
     </Container>
   );
 }

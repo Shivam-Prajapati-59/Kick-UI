@@ -15,6 +15,11 @@ export const navbarConfig = {
         { label: 'Components', href: '/components' },
         { label: 'Docs', href: '/docs' },
     ] as NavItem[],
+    mobileNavItems: [
+        { label: 'Templates', href: '/templates' },
+        { label: 'Components', href: '/components' },
+        { label: 'Docs', href: '/docs' },
+    ] as NavItem[],
     links: {
         github: "https://github.com/your-username/your-repo",
         twitter: "https://twitter.com/your-handle"

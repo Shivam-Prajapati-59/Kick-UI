@@ -22,6 +22,8 @@ export interface ComponentRegistryItem {
   sourceFilename?: string;
   preview: React.ReactNode;
   propsData: PropItem[];
+  /** When true, the preview container removes padding and min-height constraints */
+  fullPreview?: boolean;
 }
 
 export const componentRegistry: ComponentRegistryItem[] = [
@@ -48,14 +50,14 @@ export default function Example() {
   },
   {
     name: "Cursor WebFluid",
-    slug: "cursor-webfluid",
+    slug: "cursor-web-fluid",
     description: "A mesmerizing WebGL fluid simulation that follows your cursor with ink-like trails. Fully customizable via props.",
     category: "Animations",
     dependencies: ["three"],
     registryDependencies: [],
-    installCommand: "npx shadcn@latest add https://kick-ui.vercel.app/r/cursor-webfluid.json",
-    sourceFilename: "components/ui/cursor-webfluid.tsx",
-    usage: `import CursorWebFluid from "@/components/ui/cursor-webfluid";
+    installCommand: "npx shadcn@latest add https://kick-ui.vercel.app/r/cursor-web-fluid.json",
+    sourceFilename: "components/ui/cursor-web-fluid.tsx",
+    usage: `import CursorWebFluid from "@/components/ui/cursor-web-fluid";
 
 export default function Example() {
   return (
@@ -90,6 +92,7 @@ export default function Example() {
       { name: "className", type: "string", default: "''", description: "Extra class names on the canvas element." },
       { name: "style", type: "CSSProperties", default: "—", description: "Extra inline styles forwarded to the canvas element." },
     ],
+    fullPreview: true,
   },
 ];
 

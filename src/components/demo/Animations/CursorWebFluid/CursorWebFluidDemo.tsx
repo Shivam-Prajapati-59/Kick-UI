@@ -8,7 +8,7 @@ import CursorWebFluid from "@/components/demo/Animations/CursorWebFluid/CursorWe
  */
 export default function CursorWebFluidDemo() {
   return (
-    <div className="relative w-full h-full min-h-[350px] overflow-hidden rounded-xl bg-background">
+    <>
       {/* Instructional label */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 select-none">
         <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
@@ -31,6 +31,8 @@ export default function CursorWebFluidDemo() {
         // edgeSoftness={0.3}
         zIndex={20}
       />
-    </div>
+
+    </>
+
   );
 }

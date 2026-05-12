@@ -8,7 +8,7 @@ import { CodeOptionsProvider } from "@/hooks/useCodeOptions";
 
 /** Slug → source-file mapping for components that don't have a public registry JSON yet */
 const CUSTOM_SOURCE_MAP: Record<string, string> = {
-  "cursor-webfluid": "src/components/custom/CursorWebFluid.tsx",
+  "cursor-web-fluid": "src/components/demo/Animations/CursorWebFluid/CursorWebFluid.tsx",
 };
 
 interface PublicRegistryItem {

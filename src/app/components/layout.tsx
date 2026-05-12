@@ -16,7 +16,7 @@ export default function ComponentsLayout({
 }) {
     return (
         <Container
-            className={`${montserrat.variable} [font-family:var(--font-montserrat)] flex-1 items-start lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-10`}
+            className={`${montserrat.variable} [font-family:var(--font-montserrat)] flex-1 items-start lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-5`}
         >
             <aside className="fixed top-24 z-30 -ml-2 hidden h-[calc(100vh-6rem)] w-full shrink-0 lg:sticky lg:block">
                 <div className="h-full pr-6 overflow-y-auto scrollbar-hide w-full">

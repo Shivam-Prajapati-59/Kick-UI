@@ -14,13 +14,13 @@ import { Button } from '../ui/button';
 import { MobileNav } from './MobileNav';
 
 // Extract static derivations outside the component to prevent recreation on every render
-const mobileNavItems = navbarConfig.navItems.map((item) => ({
+const mobileNavItems = navbarConfig.mobileNavItems.map((item) => ({
     title: item.label,
     href: item.href,
 }));
 
 export default function Navbar() {
-    const [searchOpen, setSearchOpen] = useState(false);
+    const [, setSearchOpen] = useState(false);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
     return (
@@ -54,7 +54,7 @@ export default function Navbar() {
 
                         {/* Desktop Nav Links */}
                         <nav
-                            className="hidden md:flex items-center gap-1"
+                            className="hidden lg:flex items-center gap-1"
                             onMouseLeave={() => setHoveredIndex(null)}
                         >
                             {navbarConfig.navItems.map((item, index) => (
@@ -106,13 +106,13 @@ export default function Navbar() {
                         <Button
                             variant="outline"
                             size="icon"
-                            className=" text-sm font-medium"
+                            className="hidden lg:flex text-sm font-medium"
                         >
                             <Github />
                         </Button>
                         <ThemeToggleButton />
 
-                        <div className="md:hidden">
+                        <div className="lg:hidden">
                             <MobileNav items={mobileNavItems} />
                         </div>
                     </div>

@@ -120,9 +120,16 @@ export function ComponentPreviewClient({
                   />
                 </button>
 
-                <div key={previewKey} className="flex min-h-[350px] items-center justify-center p-10">
+                <div 
+                  key={previewKey} 
+                  className={cn(
+                    "flex items-center justify-center",
+                    componentData?.fullPreview ? "min-h-[400px] p-0" : "min-h-[350px] p-10"
+                  )}
+                >
                   {preview}
                 </div>
+
               </TabsContent>
 
               {/* Props table — only visible under Preview tab */}
