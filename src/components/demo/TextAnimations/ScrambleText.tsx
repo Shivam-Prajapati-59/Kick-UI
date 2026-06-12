@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
-// The precise mix of technical glyphs used for high-end decoding
-const GLYPHS = "!<>-_\\/[]{}—=+*^?#_";
+// The mix of technical glyphs used for decoding
+const GLYPHS = "!<>-_\\\\/[]{}—=+*^?#_";
 
 interface IncrediblesTextProps {
     text: string;
@@ -12,7 +12,9 @@ interface IncrediblesTextProps {
 }
 
 const IncrediblesText = ({ text, href = "#" }: IncrediblesTextProps) => {
-    const [charArray, setCharArray] = useState<string[]>(text.split(""));
+    const [charArray, setCharArray] = useState<{ char: string; isScrambled: boolean }[]>(
+        text.split("").map(char => ({ char, isScrambled: false }))
+    );
     const [isHovered, setIsHovered] = useState(false);
     const prefersReducedMotion = useReducedMotion();
 
@@ -21,40 +23,49 @@ const IncrediblesText = ({ text, href = "#" }: IncrediblesTextProps) => {
     useEffect(() => {
         if (!isHovered || prefersReducedMotion) {
             if (animationRef.current) cancelAnimationFrame(animationRef.current);
-            setCharArray(text.split(""));
+            setCharArray(text.split("").map(char => ({ char, isScrambled: false })));
             return;
         }
 
-        let iteration = -6; // Start negative to have an initial delay where everything scrambles
+        let startTimestamp = 0;
         let lastMutationTime = 0;
 
         const animate = (currentTime: number) => {
-            // Increase the throttle time to slow down the random character swap rate
-            if (currentTime - lastMutationTime >= 120) {
+            if (!startTimestamp) startTimestamp = currentTime;
+            const elapsedTime = currentTime - startTimestamp;
+
+            // Smoothly calculate the continuous sweep position based on elapsed time.
+            // 80ms per character means it glides smoothly. 
+            // The -2 offset gives a brief initial burst where the whole word is scrambled.
+            const iteration = (elapsedTime / 80) - 2;
+
+            // Reduce char flipping speed to 60ms (approx ~16fps) for a readable, smooth glitch effect
+            if (currentTime - lastMutationTime >= 60) {
                 setCharArray(() => {
                     return text.split("").map((letter, index) => {
-                        if (letter === " ") return " ";
+                        if (letter === " ") return { char: " ", isScrambled: false };
 
                         // Lock the character in if the sweep has reached it
-                        if (index < iteration) {
-                            return text[index];
+                        if (index < Math.floor(iteration)) {
+                            return { char: text[index], isScrambled: false };
                         }
 
-                        return GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+                        // Otherwise show a random character
+                        return {
+                            char: GLYPHS[Math.floor(Math.random() * GLYPHS.length)],
+                            isScrambled: true
+                        };
                     });
                 });
 
-                // Increase iteration by a larger amount to speed up the left-to-right cascade 
-                // e.g. 2 means it sweeps 2 characters per update loop
-                iteration += 2;
                 lastMutationTime = currentTime;
             }
 
-            // Continue until iteration reaches the end of the text
+            // Continue until the sweep has fully passed the end of the text
             if (iteration < text.length) {
                 animationRef.current = requestAnimationFrame(animate);
             } else {
-                setCharArray(text.split(""));
+                setCharArray(text.split("").map(char => ({ char, isScrambled: false })));
             }
         };
 
@@ -66,51 +77,42 @@ const IncrediblesText = ({ text, href = "#" }: IncrediblesTextProps) => {
     }, [isHovered, text, prefersReducedMotion]);
 
     return (
-        <motion.a
+        <a
             href={href}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="font-mono text-sm tracking-[0.2rem] uppercase whitespace-nowrap leading-[0.9] cursor-pointer inline-flex overflow-hidden text-primary select-none"
+            className="group relative inline-flex items-center text-foreground no-underline font-['Supply',sans-serif] uppercase tracking-[2.6px] leading-normal cursor-pointer"
         >
-            {/* Screen reader protection */}
             <span className="sr-only">{text}</span>
 
-            {/* Visual letters */}
-            <span aria-hidden="true" className="flex">
-                {charArray.map((char, index) => {
-                    const isFinal = char === text[index];
+            {/* Invisible structural text to permanently freeze the layout element's exact final width.
+                This prevents the parent flex container from constantly re-centering 
+                when random characters are wider or narrower! */}
+            <span className="invisible whitespace-nowrap" aria-hidden="true">
+                {text}
+            </span>
 
-                    return (
-                        <motion.span
-                            key={`${index}-${char}`}
-                            initial={{
-                                y: isFinal ? 0 : (Math.random() * 2 - 1), // extremely subtle vertical shake
-                                x: isFinal ? 0 : (Math.random() * 2 - 1), // extremely subtle horizontal shake
-                                scale: isFinal ? 1 : 0.95,
-                            }}
-                            animate={{
-                                y: 0,
-                                x: 0,
-                                scale: 1,
-                            }}
-                            transition={{
-                                type: "spring",
-                                stiffness: 500,
-                                damping: 10,
-                            }}
-                            className="relative inline-block uppercase origin-top"
+            {/* The animated characters overlay, anchored rigidly to the left.
+                Any width expansion/contraction from random glyphs will exclusively bleed to the right. */}
+            <span className="absolute left-0 top-0 flex items-center h-full pointer-events-none">
+                <div className="flex aria-hidden" aria-hidden="true" style={{ position: "relative", display: "inline-flex" }}>
+                    {charArray.map((item, index) => (
+                        <div
+                            key={index}
+                            className="inline-block relative"
                             style={{
-                                color: isFinal ? "#ffffff" : "#4b5563",
-                                // A slight glowing glitch effect while scrambled, flat text for final
-                                textShadow: isFinal ? "none" : "0 0 4px rgba(255, 255, 255, 0.3)",
+                                opacity: item.isScrambled ? 0.8333 : 1,
+                                color: item.isScrambled ? "var(--muted-foreground)" : "inherit",
+                                transformOrigin: "50% 0%",
+                                width: item.char === " " ? "0.5em" : "auto"
                             }}
                         >
-                            {char}
-                        </motion.span>
-                    );
-                })}
+                            {item.char}
+                        </div>
+                    ))}
+                </div>
             </span>
-        </motion.a>
+        </a>
     );
 };
 
