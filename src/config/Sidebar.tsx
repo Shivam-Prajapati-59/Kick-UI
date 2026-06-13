@@ -31,6 +31,7 @@ export const sidebarCategories: SidebarCategory[] = [
         title: "Text Animations",
         basePath: "/components",
         items: [
+            { label: "Scramble Text", slug: "scramble-text", enabled: true },
             { label: "Split Text", slug: "split-text", enabled: true },
             { label: "Blur Text", slug: "blur-text", enabled: true },
             { label: "Circular Text", slug: "circular-text", enabled: true },

@@ -31,8 +31,20 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "scramble-text",
+      "type": "registry:component",
+      "title": "Scramble Text",
+      "description": "A hover-driven text scramble animation with a smooth decode sweep.",
+      "category": "text-animations",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/components/scramble-text/scramble-text.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
-
-
   ]
 }

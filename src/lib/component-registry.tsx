@@ -1,6 +1,7 @@
 import React from "react";
 import { ShinyButton } from "@/components/demo/Components/ShinnyButton";
 import CursorWebFluidDemo from "@/components/demo/Animations/CursorWebFluid/CursorWebFluidDemo";
+import ScrambleText from "@/components/demo/TextAnimations/ScrambleText";
 
 export interface PropItem {
   name: string;
@@ -93,6 +94,26 @@ export default function Example() {
       { name: "style", type: "CSSProperties", default: "—", description: "Extra inline styles forwarded to the canvas element." },
     ],
     fullPreview: true,
+  },
+  {
+    name: "Scramble Text",
+    slug: "scramble-text",
+    description: "A hover-driven text scramble animation with a smooth decode sweep.",
+    category: "Text Animations",
+    dependencies: ["motion"],
+    registryDependencies: [],
+    installCommand: "npx shadcn@latest add https://kick-ui.vercel.app/r/scramble-text.json",
+    sourceFilename: "components/ui/scramble-text.tsx",
+    usage: `import ScrambleText from "@/components/ui/scramble-text";
+
+export default function Example() {
+  return <ScrambleText text="Shivam" />;
+}`,
+    preview: <ScrambleText text="Shivam" />,
+    propsData: [
+      { name: "text", type: "string", default: "—", description: "The text to animate and reveal on hover." },
+      { name: "href", type: "string", default: '"#"', description: "Optional link target for the text wrapper." },
+    ],
   },
 ];
 

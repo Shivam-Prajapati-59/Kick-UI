@@ -36,7 +36,7 @@ const ScrambleText = ({ text, href = "#" }: IncrediblesTextProps) => {
             const elapsedTime = currentTime - startTimestamp;
 
             // Smoothly calculate the continuous sweep position based on elapsed time.
-            // 80ms per character means it glides smoothly. 
+            // 80ms per character means it glides smoothly.
             // The -2 offset gives a brief initial burst where the whole word is scrambled.
             const iteration = (elapsedTime / 80) - 2;
 
@@ -92,7 +92,7 @@ const ScrambleText = ({ text, href = "#" }: IncrediblesTextProps) => {
             <span className="sr-only">{text}</span>
 
             {/* Invisible structural text to permanently freeze the layout element's exact final width.
-                This prevents the parent flex container from constantly re-centering 
+                This prevents the parent flex container from constantly re-centering
                 when random characters are wider or narrower! */}
             <span className="invisible whitespace-nowrap" aria-hidden="true">
                 {text}
