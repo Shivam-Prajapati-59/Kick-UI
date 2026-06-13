@@ -1,5 +1,5 @@
 import type { ComponentRegistryItem } from "./component-registry";
-import type { PackageManager, CliTool } from "@/hooks/useCodeOptions";
+import type { PackageManager } from "@/hooks/useCodeOptions";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -12,7 +12,6 @@ export interface CliCommands {
 
 export interface GeneratedCommands {
   shadcn: CliCommands;
-  jsrepo: CliCommands;
   /** null when no dependencies exist (nothing to install manually) */
   manual: CliCommands | null;
 }
@@ -36,7 +35,6 @@ const INSTALL_CMDS: Record<PackageManager, string> = {
 };
 
 export const PKG_MANAGERS: PackageManager[] = ["npm", "pnpm", "yarn", "bun"];
-export const CLI_TOOLS: CliTool[] = ["shadcn", "jsrepo"];
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -69,11 +67,9 @@ export function generateInstallCommands(
   const registryUrl = extractRegistryUrl(component.installCommand);
 
   const shadcn: CliCommands = {};
-  const jsrepo: CliCommands = {};
 
   for (const pm of PKG_MANAGERS) {
     shadcn[pm] = `${CLI_PREFIXES[pm]} shadcn@latest add ${registryUrl}`;
-    jsrepo[pm] = `${CLI_PREFIXES[pm]} jsrepo@latest add ${registryUrl}`;
   }
 
   // Manual: install dependencies only (component code is copy-pasted)
@@ -88,7 +84,7 @@ export function generateInstallCommands(
     }
   }
 
-  return { shadcn, jsrepo, manual };
+  return { shadcn, manual };
 }
 
 /* ------------------------------------------------------------------ */
@@ -98,11 +94,10 @@ export function generateInstallCommands(
 export function getCurrentCommand(
   commands: GeneratedCommands,
   mode: "cli" | "manual",
-  packageManager: PackageManager,
-  cliTool: CliTool
+  packageManager: PackageManager
 ): string {
   if (mode === "manual") {
     return commands.manual?.[packageManager] ?? "";
   }
-  return commands[cliTool]?.[packageManager] ?? "";
+  return commands.shadcn?.[packageManager] ?? "";
 }

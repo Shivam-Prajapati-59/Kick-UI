@@ -33,13 +33,6 @@ const SHADCN_VARIANTS: Variant[] = [
   { code: "TS-TW", label: "TypeScript + Tailwind" },
 ];
 
-const JSREPO_VARIANTS: Variant[] = [
-  { code: "default", label: "JavaScript + Plain CSS" },
-  { code: "tailwind", label: "JavaScript + Tailwind" },
-  { code: "ts/default", label: "TypeScript + Plain CSS" },
-  { code: "ts/tailwind", label: "TypeScript + Tailwind" },
-];
-
 /* ------------------------------------------------------------------ */
 /*  Sub-components                                                     */
 /* ------------------------------------------------------------------ */
@@ -147,25 +140,7 @@ const CliSteps = () => (
     </p>
 
     <p className="docs-paragraph">
-      Kick UI supports two CLI installation methods:{" "}
-      <a
-        style={{ textDecoration: "underline" }}
-        href="https://ui.shadcn.com/"
-        target="_blank"
-        rel="noreferrer"
-      >
-        shadcn
-      </a>{" "}
-      and{" "}
-      <a
-        style={{ textDecoration: "underline" }}
-        href="https://jsrepo.dev/"
-        target="_blank"
-        rel="noreferrer"
-      >
-        jsrepo
-      </a>
-      . Pick whichever you prefer – they both fetch the same component source.
+      Kick UI uses the shadcn CLI to install components directly into your project.
     </p>
 
     <h4 className="docs-category-subtitle">Installation</h4>
@@ -186,16 +161,6 @@ const CliSteps = () => (
       label="<LANGUAGE> + <STYLE> combinations:"
       variants={SHADCN_VARIANTS}
     />
-
-    <h4
-      className="docs-category-subtitle docs-highlight"
-      style={{ marginTop: "1.25rem" }}
-    >
-      jsrepo
-    </h4>
-    <p className="docs-paragraph short"></p>
-    <CodeBlock>{`npx jsrepo@latest add https://reactbits.dev/r/<Component>-<LANG>-<STYLE>`}</CodeBlock>
-    <VariantList label="<VARIANT> options:" variants={JSREPO_VARIANTS} />
 
     <p className="docs-paragraph dim" style={{ marginTop: "1rem" }}>
       Tip: You can run these with other package managers (pnpm, yarn, bun) –

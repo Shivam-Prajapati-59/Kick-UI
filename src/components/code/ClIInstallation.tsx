@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, useCallback, useRef } from "react";
-import { Check, Copy, ChevronDown } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -13,22 +13,13 @@ import {
   getCurrentCommand,
   PKG_MANAGERS,
 } from "@/lib/cli-commands";
-import type { PackageManager, CliTool, InstallMode } from "@/hooks/useCodeOptions";
+import type { PackageManager, InstallMode } from "@/hooks/useCodeOptions";
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ShadcnIcon from "@/components/svgs/libraries/ShadcnIcon";
-import JsRepoIcon from "@/components/svgs/tools/JsRepo";
 
 /* ------------------------------------------------------------------ */
 /*  Props                                                              */
@@ -71,70 +62,6 @@ function PkgButtons({ selected, onSelect }: PkgButtonsProps) {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  CLI Tool Dropdown (shadcn / jsrepo) with SVG icons                 */
-/* ------------------------------------------------------------------ */
-
-const CLI_TOOL_CONFIG: Record<CliTool, { label: string; icon: React.ReactNode }> = {
-  shadcn: { label: "shadcn", icon: <ShadcnIcon className="w-4.5! h-4.5!" /> },
-  jsrepo: { label: "jsrepo", icon: <JsRepoIcon className="w-4.5 h-4.5" /> },
-};
-
-interface CliToolDropdownProps {
-  selected: CliTool;
-  onSelect: (tool: CliTool) => void;
-}
-
-function CliToolDropdown({ selected, onSelect }: CliToolDropdownProps) {
-  const [open, setOpen] = useState(false);
-  const activeConfig = CLI_TOOL_CONFIG[selected];
-
-  return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger asChild>
-        <button
-          type="button"
-          className={cn(
-            "flex items-center gap-2 rounded-lg border border-border",
-            "bg-muted/30 px-3 py-1.5 text-xs font-medium text-foreground",
-            "transition-all duration-200 hover:bg-muted hover:border-border/80"
-          )}
-        >
-          <span className="flex items-center gap-1.5">
-            {activeConfig.icon}
-            <span>{activeConfig.label}</span>
-          </span>
-          <ChevronDown
-            className={cn(
-              "h-3 w-3 text-muted-foreground transition-transform duration-300 ease-out",
-              open && "rotate-180"
-            )}
-          />
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-36">
-        <DropdownMenuRadioGroup
-          value={selected}
-          onValueChange={(v) => onSelect(v as CliTool)}
-        >
-          {(Object.keys(CLI_TOOL_CONFIG) as CliTool[]).map((tool) => (
-            <DropdownMenuRadioItem key={tool} value={tool}>
-              {CLI_TOOL_CONFIG[tool].icon}
-              <span>{CLI_TOOL_CONFIG[tool].label}</span>
-            </DropdownMenuRadioItem>
-          ))}
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Main component                                                     */
-/* ------------------------------------------------------------------ */
-
-import React from "react";
-
 export default function CliInstallation({
   slug,
   className,
@@ -143,8 +70,6 @@ export default function CliInstallation({
   const {
     installMode: mode,
     setInstallMode: setMode,
-    cliTool,
-    setCliTool,
     packageManager,
     setPackageManager,
   } = useCodeOptions();
@@ -168,8 +93,8 @@ export default function CliInstallation({
   /* ---- current command ---- */
   const currentCommand = useMemo(() => {
     if (!commands) return "";
-    return getCurrentCommand(commands, mode, packageManager, cliTool);
-  }, [commands, mode, packageManager, cliTool]);
+    return getCurrentCommand(commands, mode, packageManager);
+  }, [commands, mode, packageManager]);
 
   const handleCopy = useCallback(async () => {
     if (!currentCommand) return;
@@ -196,7 +121,7 @@ export default function CliInstallation({
     <div className={cn("my-6", className)}>
       <h3 className="mb-3 text-base font-semibold tracking-tight">Install</h3>
 
-      {/* Mode tabs (shadcn Tabs) + CLI tool dropdown */}
+      {/* Mode tabs (shadcn Tabs) */}
       <div className="mb-2 flex items-center justify-between gap-2">
         {/* Left: shadcn Tabs for CLI / Manual */}
         <Tabs
@@ -231,11 +156,6 @@ export default function CliInstallation({
             )}
           </TabsList>
         </Tabs>
-
-        {/* Right: CLI tool dropdown (only in CLI mode) */}
-        {mode === "cli" && (
-          <CliToolDropdown selected={cliTool} onSelect={setCliTool} />
-        )}
       </div>
 
       {/* Command display */}

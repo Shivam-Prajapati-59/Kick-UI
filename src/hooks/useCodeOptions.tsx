@@ -3,8 +3,7 @@
 import {
   createContext,
   useContext,
-  useState,
-  useEffect,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 
@@ -15,7 +14,6 @@ import {
 export type Language = "JS" | "TS";
 export type StylePreset = "CSS" | "TW";
 export type PackageManager = "npm" | "pnpm" | "yarn" | "bun";
-export type CliTool = "shadcn" | "jsrepo";
 export type InstallMode = "cli" | "manual";
 
 export interface CodeOptionsContextValue {
@@ -25,8 +23,6 @@ export interface CodeOptionsContextValue {
   setStyle: (s: StylePreset) => void;
   packageManager: PackageManager;
   setPackageManager: (p: PackageManager) => void;
-  cliTool: CliTool;
-  setCliTool: (t: CliTool) => void;
   installMode: InstallMode;
   setInstallMode: (m: InstallMode) => void;
 }
@@ -39,31 +35,45 @@ const STORAGE_PREFIX = "kick-ui-";
 
 function usePersistedState<T>(key: string, defaultValue: T): [T, (v: T) => void] {
   const storageKey = `${STORAGE_PREFIX}${key}`;
-  const [value, setValue] = useState<T>(defaultValue);
-  const [hydrated, setHydrated] = useState(false);
 
-  // Read from localStorage AFTER hydration to avoid SSR mismatch
-  useEffect(() => {
+  const getSnapshot = () => {
+    if (typeof window === "undefined") {
+      return defaultValue;
+    }
+
     try {
       const stored = localStorage.getItem(storageKey);
-      if (stored) {
-        setValue(JSON.parse(stored) as T);
-      }
+      return stored ? (JSON.parse(stored) as T) : defaultValue;
     } catch {
-      // localStorage unavailable or parse error — use default
+      return defaultValue;
     }
-    setHydrated(true);
-  }, [storageKey]);
+  };
 
-  // Write to localStorage on changes (skip initial hydration)
-  useEffect(() => {
-    if (!hydrated) return;
+  const subscribe = (onStoreChange: () => void) => {
+    const customEvent = `kick-ui-storage:${storageKey}`;
+    const handler = (event: StorageEvent) => {
+      if (event.key === storageKey) onStoreChange();
+    };
+    const customHandler = () => onStoreChange();
+
+    window.addEventListener("storage", handler);
+    window.addEventListener(customEvent, customHandler);
+    return () => {
+      window.removeEventListener("storage", handler);
+      window.removeEventListener(customEvent, customHandler);
+    };
+  };
+
+  const value = useSyncExternalStore(subscribe, getSnapshot, () => defaultValue);
+
+  const setValue = (nextValue: T) => {
     try {
-      localStorage.setItem(storageKey, JSON.stringify(value));
+      localStorage.setItem(storageKey, JSON.stringify(nextValue));
+      window.dispatchEvent(new Event(`kick-ui-storage:${storageKey}`));
     } catch {
       // localStorage unavailable — silent fail
     }
-  }, [storageKey, value, hydrated]);
+  };
 
   return [value, setValue];
 }
@@ -84,7 +94,6 @@ interface CodeOptionsProviderProps {
   defaultLanguage?: Language;
   defaultStyle?: StylePreset;
   defaultPackageManager?: PackageManager;
-  defaultCliTool?: CliTool;
   defaultInstallMode?: InstallMode;
 }
 
@@ -93,13 +102,11 @@ export function CodeOptionsProvider({
   defaultLanguage = "TS",
   defaultStyle = "TW",
   defaultPackageManager = "npm",
-  defaultCliTool = "shadcn",
   defaultInstallMode = "cli",
 }: CodeOptionsProviderProps) {
   const [language, setLanguage] = usePersistedState<Language>("lang", defaultLanguage);
   const [style, setStyle] = usePersistedState<StylePreset>("style", defaultStyle);
   const [packageManager, setPackageManager] = usePersistedState<PackageManager>("pkg", defaultPackageManager);
-  const [cliTool, setCliTool] = usePersistedState<CliTool>("cli", defaultCliTool);
   const [installMode, setInstallMode] = usePersistedState<InstallMode>("mode", defaultInstallMode);
 
   return (
@@ -111,8 +118,6 @@ export function CodeOptionsProvider({
         setStyle,
         packageManager,
         setPackageManager,
-        cliTool,
-        setCliTool,
         installMode,
         setInstallMode,
       }}
