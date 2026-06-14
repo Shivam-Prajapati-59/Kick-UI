@@ -1,10 +1,7 @@
-import React from 'react';
-import Container from "@/components/common/Container";
 import { getAllComponents } from "@/lib/component-registry";
 import { Link } from 'next-view-transitions';
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import Sidebar from '@/components/navs/Sidebar';
 
 
 export default function ComponentsPage() {
@@ -14,7 +11,7 @@ export default function ComponentsPage() {
         <>
             <div className="mb-10 max-w-4xl">
                 <h1 className="text-4xl font-bold tracking-tight mb-4">Components</h1>
-                <p className="text-xl text-muted-foreground mb-8">
+                <p className="text-xl text-muted-foreground mb-8 font-sans">
                     Beautifully designed components that you can copy and paste into your apps.
                     Accessible. Customizable. Open Source.
                 </p>
@@ -34,7 +31,7 @@ export default function ComponentsPage() {
                                         {component.category}
                                     </Badge>
                                 </div>
-                                <CardDescription className="text-sm pt-2 line-clamp-2">
+                                <CardDescription className="text-sm pt-2 line-clamp-2 font-sans">
                                     {component.description}
                                 </CardDescription>
                             </CardHeader>

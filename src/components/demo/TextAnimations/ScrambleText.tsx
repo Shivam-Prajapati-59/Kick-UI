@@ -101,7 +101,7 @@ const ScrambleText = ({ text, href = "#" }: IncrediblesTextProps) => {
             {/* The animated characters overlay, anchored rigidly to the left.
                 Any width expansion/contraction from random glyphs will exclusively bleed to the right. */}
             <span className="absolute left-0 top-0 flex items-center h-full pointer-events-none">
-                <div className="flex aria-hidden" aria-hidden="true" style={{ position: "relative", display: "inline-flex" }}>
+                <div className="flex" aria-hidden="true" style={{ position: "relative", display: "inline-flex" }}>
                     {displayChars.map((item, index) => (
                         <div
                             key={index}

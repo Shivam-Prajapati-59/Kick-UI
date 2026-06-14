@@ -4,14 +4,14 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useReducedMotion } from "motion/react";
 
 // The mix of technical glyphs used for decoding
-const GLYPHS = "!<>-_\\\\/[]{}—=+*^?#_";
+const GLYPHS = "!<>-_\\\\/[]{}—=+*^?#";
 
-interface IncrediblesTextProps {
+interface ScrambleTextProps {
     text: string;
     href?: string;
 }
 
-const ScrambleText = ({ text, href = "#" }: IncrediblesTextProps) => {
+const ScrambleText = ({ text, href = "#" }: ScrambleTextProps) => {
     const baseChars = useMemo(
         () => text.split("").map((char) => ({ char, isScrambled: false })),
         [text]
@@ -87,7 +87,7 @@ const ScrambleText = ({ text, href = "#" }: IncrediblesTextProps) => {
                 setCharArray(baseChars);
             }}
             onMouseLeave={() => setIsHovered(false)}
-            className="group relative inline-flex items-center text-foreground no-underline font-['Supply',sans-serif] uppercase tracking-[2.6px] leading-normal cursor-pointer font-bold"
+            className="group relative inline-flex items-center text-foreground no-underline font-mono uppercase tracking-[2.6px] leading-normal cursor-pointer font-bold"
         >
             <span className="sr-only">{text}</span>
 
@@ -101,7 +101,7 @@ const ScrambleText = ({ text, href = "#" }: IncrediblesTextProps) => {
             {/* The animated characters overlay, anchored rigidly to the left.
                 Any width expansion/contraction from random glyphs will exclusively bleed to the right. */}
             <span className="absolute left-0 top-0 flex items-center h-full pointer-events-none">
-                <div className="flex aria-hidden" aria-hidden="true" style={{ position: "relative", display: "inline-flex" }}>
+                <div aria-hidden="true" style={{ position: "relative", display: "inline-flex" }}>
                     {displayChars.map((item, index) => (
                         <div
                             key={index}
