@@ -2,6 +2,7 @@ import React from "react";
 import { ShinyButton } from "@/components/demo/Components/ShinnyButton";
 import CursorWebFluidDemo from "@/components/demo/Animations/CursorWebFluid/CursorWebFluidDemo";
 import ScrambleText from "@/components/demo/TextAnimations/ScrambleText";
+import TextFocus from "@/components/demo/TextAnimations/TextFocus";
 
 export interface PropItem {
   name: string;
@@ -113,6 +114,27 @@ export default function Example() {
     propsData: [
       { name: "text", type: "string", default: "—", description: "The text to animate and reveal on hover." },
       { name: "href", type: "string", default: '"#"', description: "Optional link target for the text wrapper." },
+    ],
+  },
+  {
+    name: "Text Focus",
+    slug: "text-focus",
+    description: "A text animation that sharpens one hovered word while softly blurring the rest.",
+    category: "Text Animations",
+    dependencies: ["motion"],
+    registryDependencies: [],
+    installCommand: "npx shadcn@latest add https://kick-ui.vercel.app/r/text-focus.json",
+    sourceFilename: "components/ui/text-focus.tsx",
+    usage: `import TextFocus from "@/components/ui/text-focus";
+
+export default function Example() {
+  return <TextFocus sentence="All Eyes on Me" borderColor="#22d3ee" blurAmount={3} />;
+}`,
+    preview: <TextFocus sentence="All Eyes on Me" borderColor="#22d3ee" blurAmount={3} />,
+    propsData: [
+      { name: "sentence", type: "string", default: '"All Eyes on Me"', description: "Sentence split into words for the focus effect." },
+      { name: "borderColor", type: "string", default: '"#22d3ee"', description: "Border color for the animated focus frame." },
+      { name: "blurAmount", type: "number", default: "3", description: "Blur strength applied to non-focused words." },
     ],
   },
 ];

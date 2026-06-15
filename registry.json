@@ -45,6 +45,20 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "text-focus",
+      "type": "registry:component",
+      "title": "Text Focus",
+      "description": "A text element that focuses on hover.",
+      "category": "text-animations",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/components/text-focus/text-focus.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
