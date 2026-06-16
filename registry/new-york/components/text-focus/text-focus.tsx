@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 
 interface TextFocusProps {
@@ -60,20 +60,29 @@ const TextFocus = ({
         });
     }, []);
 
-    useEffect(() => {
-        updateFocusRect(currentIndex);
-    }, [currentIndex, updateFocusRect]);
+    const activeIndex = Math.min(currentIndex, words.length - 1);
+
+    useLayoutEffect(() => {
+        updateFocusRect(activeIndex);
+    }, [activeIndex, sentence, updateFocusRect]);
 
     // Keep measurements correct when layout changes
     useEffect(() => {
-        const handleResize = () => updateFocusRect(currentIndex);
+        const handleResize = () => updateFocusRect(activeIndex);
+        const observer = typeof ResizeObserver !== "undefined" && containerRef.current
+            ? new ResizeObserver(() => handleResize())
+            : null;
 
         window.addEventListener("resize", handleResize);
+        if (observer && containerRef.current) {
+            observer.observe(containerRef.current);
+        }
 
         return () => {
             window.removeEventListener("resize", handleResize);
+            observer?.disconnect();
         };
-    }, [currentIndex, updateFocusRect]);
+    }, [activeIndex, updateFocusRect]);
 
     const cornerStyle: React.CSSProperties = {
         borderColor: "var(--border-color)",
@@ -121,7 +130,7 @@ const TextFocus = ({
                     className="transition-all duration-300"
                     style={{
                         filter:
-                            index === currentIndex
+                            index === activeIndex
                                 ? "blur(0px)"
                                 : `blur(${blurAmount}px)`,
                     }}

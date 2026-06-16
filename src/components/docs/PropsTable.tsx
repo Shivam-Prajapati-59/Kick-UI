@@ -15,12 +15,12 @@ const PropsTable: React.FC<PropsTableProps> = ({ propsData }) => {
             </h1>
             <div className="w-full overflow-x-auto rounded-xl border bg-background">
                 <table className="w-full text-sm">
-                    <thead className="border-b bg-muted/50">
+                    <thead className="border-b bg-muted/50 font-medium">
                         <tr>
-                            <th className="px-4 py-3 text-left font-medium">Property</th>
-                            <th className="px-4 py-3 text-left font-medium">Type</th>
-                            <th className="px-4 py-3 text-left font-medium">Default</th>
-                            <th className="px-4 py-3 text-left font-medium">Description</th>
+                            <th className="px-4 py-3 text-left ">Property</th>
+                            <th className="px-4 py-3 text-left ">Type</th>
+                            <th className="px-4 py-3 text-left ">Default</th>
+                            <th className="px-4 py-3 text-left ">Description</th>
                         </tr>
                     </thead>
 
@@ -28,7 +28,7 @@ const PropsTable: React.FC<PropsTableProps> = ({ propsData }) => {
                         {propsData.map((prop, index) => (
                             <tr
                                 key={index}
-                                className="border-b last:border-none hover:bg-muted/40 transition-colors"
+                                className="border-b last:border-none hover:bg-muted/40 transition-colors font-sans"
                             >
                                 <td className="px-4 py-3 font-mono">
                                     {prop.name}

@@ -26,7 +26,7 @@ export const mdxComponents = {
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p
-      className={cn("leading-7 [&:not(:first-child)]:mt-4 text-muted-foreground", className)}
+      className={cn("leading-7 not-first:mt-4 text-muted-foreground", className)}
       {...props}
     />
   ),
@@ -52,13 +52,13 @@ export const mdxComponents = {
   ),
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <th
-      className={cn("border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right", className)}
+      className={cn("border px-4 py-2 text-left font-bold [[align=center]]:text-center [[align=right]]:text-right", className)}
       {...props}
     />
   ),
   td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td
-      className={cn("border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right", className)}
+      className={cn("border px-4 py-2 text-left [[align=center]]:text-center [[align=right]]:text-right", className)}
       {...props}
     />
   ),

@@ -120,11 +120,11 @@ export function ComponentPreviewClient({
                   />
                 </button>
 
-                <div 
-                  key={previewKey} 
+                <div
+                  key={previewKey}
                   className={cn(
                     "flex items-center justify-center",
-                    componentData?.fullPreview ? "min-h-[400px] p-0" : "min-h-[350px] p-10"
+                    componentData?.fullPreview ? "min-h-100 p-0" : "min-h-87.5 p-10"
                   )}
                 >
                   {preview}

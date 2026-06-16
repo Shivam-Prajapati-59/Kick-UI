@@ -73,7 +73,7 @@ export default async function ComponentDocPage({
     <div className="w-full space-y-6">
       <header className="space-y-2">
         <h1 className="text-4xl font-bold tracking-tight">{component.name}</h1>
-        <p className="text-muted-foreground text-lg">{component.description}</p>
+        <p className="text-muted-foreground text-lg font-sans">{component.description}</p>
       </header>
 
       <CodeOptionsProvider>

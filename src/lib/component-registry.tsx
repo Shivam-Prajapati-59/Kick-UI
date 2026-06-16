@@ -119,7 +119,7 @@ export default function Example() {
   {
     name: "Text Focus",
     slug: "text-focus",
-    description: "A text animation that sharpens one hovered word while softly blurring the rest.",
+    description: "A Text animation that sharpens one hovered word while softly blurring the rest.",
     category: "Text Animations",
     dependencies: ["motion"],
     registryDependencies: [],
