@@ -59,6 +59,20 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "card-stack",
+      "type": "registry:component",
+      "title": "Card Stack",
+      "description": "A stacked card fan animation.",
+      "category": "animations",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/components/card-stack/card-stack.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

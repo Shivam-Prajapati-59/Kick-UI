@@ -21,6 +21,7 @@ export const sidebarCategories: SidebarCategory[] = [
         title: "Components",
         basePath: "/components",
         items: [
+            { label: "Card Stack", slug: "card-stack", enabled: true },
             { label: "Shinny Button", slug: "shinny-button", enabled: true },
             { label: "Glow Card", slug: "glow-card", enabled: true },
             { label: "Hover Border Card", slug: "hover-border-card", enabled: true },
