@@ -73,6 +73,20 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "animated-list",
+      "type": "registry:component",
+      "title": "Animated List",
+      "description": "A generic, performant animated list with keyboard navigation, auto-scroll, and dynamic fade gradients.",
+      "category": "animations",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/components/animated-list/animated-list.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

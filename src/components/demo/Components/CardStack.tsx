@@ -86,13 +86,16 @@ export default function CardStack({
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    let settleTimer: ReturnType<typeof setTimeout>;
     const openTimer = setTimeout(() => {
       setOpen(true);
-      const settleTimer = setTimeout(() => setIsLoaded(true), settleDelay);
-      return () => clearTimeout(settleTimer);
+      settleTimer = setTimeout(() => setIsLoaded(true), settleDelay);
     }, openDelay);
 
-    return () => clearTimeout(openTimer);
+    return () => {
+      clearTimeout(openTimer);
+      clearTimeout(settleTimer);
+    };
   }, [openDelay, settleDelay]);
 
   return (

@@ -4,6 +4,7 @@ import CursorWebFluidDemo from "@/components/demo/Animations/CursorWebFluid/Curs
 import ScrambleText from "@/components/demo/TextAnimations/ScrambleText";
 import TextFocus from "@/components/demo/TextAnimations/TextFocus";
 import CardStack from "@/components/demo/Components/CardStack";
+import AnimatedListDemo from "@/components/demo/Components/AnimatedList";
 
 export interface PropItem {
   name: string;
@@ -345,6 +346,68 @@ export default function Example() {
       },
     ],
     fullPreview: true,
+  },
+  {
+    name: "Animated List",
+    slug: "animated-list",
+    description:
+      "A generic, performant animated list with keyboard navigation, auto-scroll, and dynamic fade gradients.",
+    category: "Components",
+    dependencies: ["motion"],
+    registryDependencies: [],
+    installCommand:
+      "bunx shadcn@latest add https://kick-ui.vercel.app/r/animated-list.json",
+    sourceFilename: "components/ui/animated-list.tsx",
+    usage: `import { AnimatedList } from "@/components/ui/animated-list";
+import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
+
+export default function Example() {
+  const items = ["Item 1", "Item 2", "Item 3", "Item 4"];
+  return (
+    <AnimatedList
+      items={items}
+      renderItem={(item, index, isSelected, onMouseEnter, onClick, listRef) => (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2, root: listRef }}
+          className={cn(
+            "p-4 mb-2 rounded-lg cursor-pointer transition-colors border",
+            isSelected ? "bg-accent border-accent" : "bg-card border-border hover:bg-accent/50"
+          )}
+          onMouseEnter={onMouseEnter}
+          onClick={onClick}
+          data-index={index}
+        >
+          {item}
+        </motion.div>
+      )}
+    />
+  );
+}`,
+    preview: <AnimatedListDemo />,
+    propsData: [
+      {
+        name: "items",
+        type: "T[]",
+        default: "-",
+        description: "An array of items to render in the list.",
+      },
+      {
+        name: "renderItem",
+        type: "Function",
+        default: "-",
+        description:
+          "A render prop function to render each item. Receives item data, index, selected state, interaction handlers, and the scroll container ref.",
+      },
+      {
+        name: "className",
+        type: "string",
+        default: "''",
+        description: "Custom class names applied to the container.",
+      },
+    ],
   },
 ];
 

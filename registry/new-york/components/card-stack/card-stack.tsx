@@ -86,20 +86,23 @@ export default function CardStack({
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    let settleTimer: ReturnType<typeof setTimeout>;
     const openTimer = setTimeout(() => {
       setOpen(true);
-      const settleTimer = setTimeout(() => setIsLoaded(true), settleDelay);
-      return () => clearTimeout(settleTimer);
+      settleTimer = setTimeout(() => setIsLoaded(true), settleDelay);
     }, openDelay);
 
-    return () => clearTimeout(openTimer);
+    return () => {
+      clearTimeout(openTimer);
+      clearTimeout(settleTimer);
+    };
   }, [openDelay, settleDelay]);
 
   return (
     <section
       className={cn(
-        "relative flex items-center justify-center h-full min-h-[500px] w-full overflow-hidden",
-        className
+        "relative flex items-center justify-center h-full min-h-125 w-full overflow-hidden",
+        className,
       )}
     >
       {items.map((card, index) => (
@@ -119,7 +122,7 @@ export default function CardStack({
           style={{ zIndex: index }}
           className={cn(
             "absolute w-48 h-48 rounded-[28px] border-2 dark:border-[#423546] border-[#d1c8d5] bg-card shadow-md dark:shadow-2xl flex items-center justify-center",
-            cardClassName
+            cardClassName,
           )}
         >
           <Image
