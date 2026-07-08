@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 
 import { motion, AnimatePresence } from "framer-motion";
 import {
-    sidebarCategories,
+    getActiveCategories,
     type SidebarCategory,
 } from "@/config/Sidebar";
 
@@ -187,7 +187,7 @@ export default function Sidebar() {
     const closeMobile = () => setIsOpen(false);
 
     const visibleCategories = useMemo(
-        () => sidebarCategories.filter((c) => c.items.length > 0),
+        () => getActiveCategories(),
         []
     );
 

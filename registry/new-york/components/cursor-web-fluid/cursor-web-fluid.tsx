@@ -500,7 +500,6 @@ export default function CursorWebFluid({
 
     const sim = new FluidSimulation(canvas, config);
     return () => sim.dispose();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     inkColor,
     simResolution,

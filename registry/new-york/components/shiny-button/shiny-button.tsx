@@ -11,7 +11,7 @@ interface ShinyButtonProps extends React.ComponentPropsWithoutRef<typeof Button>
 }
 
 const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
-  ({ className, children, duration = 2, ...props }, ref) => {
+  ({ className, children, duration = 2, shimmerWidth = 100, ...props }, ref) => {
     return (
       <>
         <style jsx global>{`
@@ -19,13 +19,13 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
             mask-image: linear-gradient(
               -75deg,
               white calc(var(--x) + 20%),
-              transparent calc(var(--x) + 30%),
+              transparent calc(var(--x) + 20% + var(--shimmer-width)),
               white calc(var(--x) + 100%)
             );
             -webkit-mask-image: linear-gradient(
               -75deg,
               white calc(var(--x) + 20%),
-              transparent calc(var(--x) + 30%),
+              transparent calc(var(--x) + 20% + var(--shimmer-width)),
               white calc(var(--x) + 100%)
             );
           }
@@ -34,7 +34,7 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
             background-image: linear-gradient(
               -75deg,
               rgba(var(--overlay-color), 0.1) calc(var(--x) + 20%),
-              rgba(var(--overlay-color), 0.5) calc(var(--x) + 25%),
+              rgba(var(--overlay-color), 0.5) calc(var(--x) + 20% + var(--shimmer-width) * 0.5),
               rgba(var(--overlay-color), 0.1) calc(var(--x) + 100%)
             );
             mask: linear-gradient(black, black) content-box, linear-gradient(black, black);
@@ -57,6 +57,7 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
         `}</style>
 
         <motion.div
+          style={{ "--shimmer-width": `${shimmerWidth}px` } as React.CSSProperties}
           initial={{ "--x": "100%" } as any}
           animate={{ "--x": "-100%" } as any}
           transition={{

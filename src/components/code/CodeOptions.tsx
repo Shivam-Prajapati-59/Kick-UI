@@ -54,7 +54,7 @@ function FileLabel({ filename }: FileLabelProps) {
 
 interface CodeOptionsProps {
   children: ReactNode;
-  /** The filename to display (e.g. "components/ui/shinny-button.tsx") */
+  /** The filename to display (e.g. "components/ui/shiny-button.tsx") */
   filename?: string;
   /** Additional CSS classes */
   className?: string;
@@ -67,7 +67,7 @@ interface CodeOptionsProps {
  *
  * Usage in MDX:
  * ```mdx
- * <CodeOptions filename="components/ui/shinny-button.tsx">
+ * <CodeOptions filename="components/ui/shiny-button.tsx">
  *   <TSTailwind><CodeHighlighter language="tsx" codeString={tsTwCode} /></TSTailwind>
  * </CodeOptions>
  * ```

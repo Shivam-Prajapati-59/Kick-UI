@@ -4,16 +4,20 @@
   "homepage": "https://kick-ui.vercel.app",
   "items": [
     {
-      "name": "shinny-button",
+      "name": "shiny-button",
       "type": "registry:component",
-      "title": "Shinny Button",
-      "description": "A button with a smooth shinny animation effect.",
+      "title": "Shiny Button",
+      "description": "A button with a smooth shiny animation effect.",
       "category": "buttons",
-      "dependencies": ["motion"],
-      "registryDependencies": ["button"],
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
-          "path": "registry/new-york/components/shinny-button/shinny-button.tsx",
+          "path": "registry/new-york/components/shiny-button/shiny-button.tsx",
           "type": "registry:component"
         }
       ]
@@ -24,7 +28,9 @@
       "title": "Cursor Web Fluid",
       "description": "A fluid animation that follows the cursor.",
       "category": "animations",
-      "dependencies": ["three"],
+      "dependencies": [
+        "three"
+      ],
       "files": [
         {
           "path": "registry/new-york/components/cursor-web-fluid/cursor-web-fluid.tsx",
@@ -38,7 +44,9 @@
       "title": "Scramble Text",
       "description": "A hover-driven text scramble animation with a smooth decode sweep.",
       "category": "text-animations",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/new-york/components/scramble-text/scramble-text.tsx",
@@ -52,7 +60,9 @@
       "title": "Text Focus",
       "description": "A text element that focuses on hover.",
       "category": "text-animations",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/new-york/components/text-focus/text-focus.tsx",
@@ -66,7 +76,9 @@
       "title": "Card Stack",
       "description": "A stacked card fan animation.",
       "category": "animations",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/new-york/components/card-stack/card-stack.tsx",
@@ -80,7 +92,9 @@
       "title": "Animated List",
       "description": "A generic, performant animated list with keyboard navigation, auto-scroll, and dynamic fade gradients.",
       "category": "animations",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/new-york/components/animated-list/animated-list.tsx",

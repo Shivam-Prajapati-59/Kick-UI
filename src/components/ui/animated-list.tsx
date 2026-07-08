@@ -30,7 +30,7 @@ export function AnimatedList<T>({
 }: AnimatedListProps<T>) {
   const listRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
-  const [keyboardNav, setKeyboardNav] = useState<boolean>(false);
+  const keyboardNavRef = useRef(false);
 
   // Performance Optimization: GPU Accelerated Scroll Gradients
   const { scrollYProgress } = useScroll({ container: listRef });
@@ -52,11 +52,11 @@ export function AnimatedList<T>({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "ArrowDown" || (e.key === "Tab" && !e.shiftKey)) {
       e.preventDefault();
-      setKeyboardNav(true);
+      keyboardNavRef.current = true;
       setSelectedIndex((prev) => Math.min(prev + 1, items.length - 1));
     } else if (e.key === "ArrowUp" || (e.key === "Tab" && e.shiftKey)) {
       e.preventDefault();
-      setKeyboardNav(true);
+      keyboardNavRef.current = true;
       setSelectedIndex((prev) => Math.max(prev - 1, 0));
     } else if (e.key === "Enter") {
       if (selectedIndex >= 0 && selectedIndex < items.length) {
@@ -67,7 +67,8 @@ export function AnimatedList<T>({
   };
 
   useEffect(() => {
-    if (!keyboardNav || selectedIndex < 0 || !listRef.current) return;
+    if (!keyboardNavRef.current || selectedIndex < 0 || !listRef.current) return;
+    keyboardNavRef.current = false;
     const container = listRef.current;
     const selectedItem = container.querySelector(
       `[data-index="${selectedIndex}"]`,
@@ -91,8 +92,7 @@ export function AnimatedList<T>({
         });
       }
     }
-    setKeyboardNav(false);
-  }, [selectedIndex, keyboardNav]);
+  }, [selectedIndex]);
 
   return (
     <div className={cn("relative w-[500px]", className)}>

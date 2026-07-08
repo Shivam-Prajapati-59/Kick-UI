@@ -26,7 +26,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 /* ------------------------------------------------------------------ */
 
 interface CliInstallationProps {
-  /** Component slug from the registry (e.g. "shinny-button") */
+  /** Component slug from the registry (e.g. "shiny-button") */
   slug: string;
   /** Additional CSS classes */
   className?: string;

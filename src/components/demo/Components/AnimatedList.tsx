@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion, Variants } from "motion/react";
 import { cn } from "@/lib/utils";
 import { AnimatedList } from "@/components/ui/animated-list";
@@ -205,10 +206,13 @@ const CryptoCard = ({
       data-index={index}
     >
       <div className="flex items-center gap-4">
-        <img
+        <Image
           src={coin.image}
           alt={coin.name}
+          width={40}
+          height={40}
           className="w-10 h-10 object-contain"
+          unoptimized
         />
         <div>
           <h3 className="font-semibold">{coin.name}</h3>

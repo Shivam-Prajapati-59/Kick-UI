@@ -4,16 +4,16 @@
   "homepage": "https://kick-ui.vercel.app",
   "items": [
     {
-      "name": "shinny-button",
+      "name": "shiny-button",
       "type": "registry:component",
-      "title": "Shinny Button",
-      "description": "A button with a smooth shinny animation effect.",
+      "title": "Shiny Button",
+      "description": "A button with a smooth shiny animation effect.",
       "category": "buttons",
       "dependencies": ["motion"],
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "registry/new-york/components/shinny-button/shinny-button.tsx",
+          "path": "registry/new-york/components/shiny-button/shiny-button.tsx",
           "type": "registry:component"
         }
       ]

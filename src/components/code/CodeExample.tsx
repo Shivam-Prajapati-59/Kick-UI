@@ -25,7 +25,7 @@ export interface CodeVariants {
 }
 
 interface CodeExampleProps {
-  /** Component slug from the registry (e.g. "shinny-button") */
+  /** Component slug from the registry (e.g. "shiny-button") */
   slug: string;
   /** Usage example code string */
   usage?: string;
@@ -33,7 +33,7 @@ interface CodeExampleProps {
   variants?: CodeVariants;
   /** Dependencies list (if not provided, read from registry) */
   dependencies?: string[];
-  /** The filename to display above source code (e.g. "components/ui/shinny-button.tsx") */
+  /** The filename to display above source code (e.g. "components/ui/shiny-button.tsx") */
   sourceFilename?: string;
   /** Additional children to render after the code sections */
   children?: ReactNode;
@@ -56,14 +56,14 @@ interface CodeExampleProps {
  * Usage in MDX:
  * ```mdx
  * <CodeExample
- *   slug="shinny-button"
- *   usage={`import { ShinyButton } from "@/components/shinny-button";
+ *   slug="shiny-button"
+ *   usage={`import { ShinyButton } from "@/components/shiny-button";
  *
  * <ShinyButton>Click me</ShinyButton>`}
  *   variants={{
  *     tsTailwind: `"use client"; ... full source code ...`,
  *   }}
- *   sourceFilename="components/ui/shinny-button.tsx"
+ *   sourceFilename="components/ui/shiny-button.tsx"
  * />
  * ```
  */

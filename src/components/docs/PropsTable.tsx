@@ -1,5 +1,5 @@
 import React from "react";
-import { PropItem } from "@/lib/component-registry";
+import type { PropItem } from "@/lib/types";
 
 interface PropsTableProps {
     propsData?: PropItem[];

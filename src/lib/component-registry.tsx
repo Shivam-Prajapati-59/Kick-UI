@@ -1,52 +1,30 @@
 import React from "react";
-import { ShinyButton } from "@/components/demo/Components/ShinnyButton";
+import { ShinyButton } from "@/components/demo/Components/ShinyButton";
 import CursorWebFluidDemo from "@/components/demo/Animations/CursorWebFluid/CursorWebFluidDemo";
 import ScrambleText from "@/components/demo/TextAnimations/ScrambleText";
 import TextFocus from "@/components/demo/TextAnimations/TextFocus";
 import CardStack from "@/components/demo/Components/CardStack";
 import AnimatedListDemo from "@/components/demo/Components/AnimatedList";
-
-export interface PropItem {
-  name: string;
-  type: string;
-  default?: string;
-  description?: string;
-}
-
-export interface ComponentRegistryItem {
-  name: string;
-  slug: string;
-  description: string;
-  category: string;
-  dependencies: string[];
-  registryDependencies: string[];
-  installCommand: string;
-  usage: string;
-  /** File path shown above source code, e.g. "components/ui/shinny-button.tsx" */
-  sourceFilename?: string;
-  preview: React.ReactNode;
-  propsData: PropItem[];
-  /** When true, the preview container removes padding and min-height constraints */
-  fullPreview?: boolean;
-}
+import type { ComponentRegistryItem, PropItem } from "@/lib/types";
+export type { ComponentRegistryItem, PropItem };
 
 export const componentRegistry: ComponentRegistryItem[] = [
   {
     name: "Shiny Button",
-    slug: "shinny-button",
+    slug: "shiny-button",
     description: "A button with a smooth shiny animation effect.",
     category: "Buttons",
     dependencies: ["motion"],
     registryDependencies: ["button"],
     installCommand:
-      "npx shadcn@latest add https://kick-ui.vercel.app/r/shinny-button.json",
-    sourceFilename: "components/ui/shinny-button.tsx",
-    usage: `import { ShinyButton } from "@/components/ui/shinny-button";
+      "npx shadcn@latest add https://kick-ui.vercel.app/r/shiny-button.json",
+    sourceFilename: "components/ui/shiny-button.tsx",
+    usage: `import { ShinyButton } from "@/components/ui/shiny-button";
 
 export default function Example() {
-  return <ShinyButton>Shinny Button</ShinyButton>;
+  return <ShinyButton>Shiny Button</ShinyButton>;
 }`,
-    preview: <ShinyButton>Shinny Button</ShinyButton>,
+    preview: <ShinyButton>Shiny Button</ShinyButton>,
     propsData: [
       {
         name: "shimmerWidth",
