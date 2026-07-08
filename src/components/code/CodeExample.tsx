@@ -4,7 +4,7 @@ import { type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import CliInstallation from "./ClIInstallation";
 import CodeHighlighter from "./CodeHighlighter";
-import CodeDependencies from "./CodeDependecies";
+import CodeDependencies from "./CodeDependencies";
 import CodeOptions, { CSS, Tailwind, TSCSS, TSTailwind } from "./CodeOptions";
 
 /* ------------------------------------------------------------------ */

@@ -6,22 +6,18 @@ export interface NavItem {
 export const navbarConfig = {
     logo: {
         src: '/logo1.png',
-        alt: 'UI-Library Logo',
+        alt: 'Kick UI',
         width: 40,
         height: 40,
     },
     navItems: [
-        { label: 'Templates', href: '/templates' },
         { label: 'Components', href: '/components' },
-        { label: 'Docs', href: '/docs' },
     ] as NavItem[],
     mobileNavItems: [
-        { label: 'Templates', href: '/templates' },
         { label: 'Components', href: '/components' },
-        { label: 'Docs', href: '/docs' },
     ] as NavItem[],
     links: {
-        github: "https://github.com/your-username/your-repo",
-        twitter: "https://twitter.com/your-handle"
+        github: "https://github.com/shivambadmos/kick-ui",
+        twitter: "https://x.com/shivambadmos"
     }
 };

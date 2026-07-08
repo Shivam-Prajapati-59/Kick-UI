@@ -58,8 +58,10 @@ const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
 
         <motion.div
           style={{ "--shimmer-width": `${shimmerWidth}px` } as React.CSSProperties}
-          initial={{ "--x": "100%" } as any}
-          animate={{ "--x": "-100%" } as any}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    initial={{ "--x": "100%" } as any}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    animate={{ "--x": "-100%" } as any}
           transition={{
             repeat: Infinity,
             repeatType: "loop",

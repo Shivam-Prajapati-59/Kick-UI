@@ -18,5 +18,18 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": {
+    "kick-ui": {
+      "name": "kick-ui",
+      "homepage": "https://kick-ui.vercel.app",
+      "items": [
+        "shiny-button",
+        "cursor-web-fluid",
+        "scramble-text",
+        "text-focus",
+        "card-stack",
+        "animated-list"
+      ]
+    }
+  }
 }
