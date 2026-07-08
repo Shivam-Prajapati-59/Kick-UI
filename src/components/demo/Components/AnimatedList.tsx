@@ -216,7 +216,7 @@ const CryptoCard = ({
         </div>
       </div>
       <div className="text-right">
-        <div className="font-medium">\${coin.price.toLocaleString()}</div>
+        <div className="font-medium">${coin.price.toLocaleString()}</div>
         <div
           className={cn(
             "text-sm",
@@ -241,7 +241,7 @@ const AnimatedListDemo = () => {
         isSelected: boolean,
         onMouseEnter: () => void,
         onClick: () => void,
-        listRef: React.RefObject<HTMLDivElement | null>
+        listRef: React.RefObject<HTMLDivElement | null>,
       ) => (
         <CryptoCard
           coin={item}

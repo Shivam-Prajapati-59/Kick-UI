@@ -299,7 +299,7 @@ export default function Example() {
 
 export default function Example() {
   return (
-    <div className="w-full h-[500px]">
+    <div className="w-full h-[400px]">
       <CardStack />
     </div>
   );
