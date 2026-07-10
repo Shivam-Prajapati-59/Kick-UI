@@ -5,6 +5,7 @@ import ScrambleText from "@/components/demo/TextAnimations/ScrambleText";
 import TextFocus from "@/components/demo/TextAnimations/TextFocus";
 import CardStack from "@/components/demo/Components/CardStack";
 import AnimatedListDemo from "@/components/demo/Components/AnimatedList";
+import SlideTextButton from "@/components/demo/Components/SlideTextButton";
 import type { ComponentRegistryItem, PropItem } from "@/lib/types";
 export type { ComponentRegistryItem, PropItem };
 
@@ -324,6 +325,49 @@ export default function Example() {
       },
     ],
     fullPreview: true,
+  },
+  {
+    name: "Slide Text Button",
+    slug: "slide-text-button",
+    description:
+      "A button with a smooth slide-up text animation and an expanding circle background on hover.",
+    category: "Buttons",
+    dependencies: ["motion"],
+    registryDependencies: [],
+    installCommand:
+      "npx shadcn@latest add https://kick-ui.vercel.app/r/slide-text-button.json",
+    sourceFilename: "components/ui/slide-text-button.tsx",
+    usage: `import SlideTextButton from "@/components/ui/slide-text-button";
+
+export default function Example() {
+  return (
+    <SlideTextButton
+      initialText={<span>Hi</span>}
+      hoverText={<span>Bye</span>}
+    />
+  );
+}`,
+    preview: <SlideTextButton />,
+    propsData: [
+      {
+        name: "initialText",
+        type: "React.ReactNode",
+        default: "Discord icon",
+        description: "Content shown before hover.",
+      },
+      {
+        name: "hoverText",
+        type: "React.ReactNode",
+        default: "Discord icon",
+        description: "Content shown on hover after sliding up.",
+      },
+      {
+        name: "className",
+        type: "string",
+        default: "''",
+        description: "Additional classes for the button element.",
+      },
+    ],
   },
   {
     name: "Animated List",

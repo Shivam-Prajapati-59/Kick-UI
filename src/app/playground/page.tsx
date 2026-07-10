@@ -1,9 +1,11 @@
-import CardStack from "@/components/demo/Components/CardStack";
+import SlideTextButton from "./SlideTextButton";
 
 const page = () => {
   return (
     <div className="flex items-center justify-center">
-      <CardStack />
+      {/* <CardStack /> */}
+      {/* <OverlayButton /> */}
+      <SlideTextButton />
     </div>
   );
 };

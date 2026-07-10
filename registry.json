@@ -75,6 +75,20 @@
       ]
     },
     {
+      "name": "slide-text-button",
+      "type": "registry:component",
+      "title": "Slide Text Button",
+      "description": "A button with a smooth slide-up text animation and an expanding circle background on hover.",
+      "category": "buttons",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/components/slide-text-button/slide-text-button.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "animated-list",
       "type": "registry:component",
       "title": "Animated List",

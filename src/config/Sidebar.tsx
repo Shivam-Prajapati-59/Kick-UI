@@ -23,6 +23,7 @@ export const sidebarCategories: SidebarCategory[] = [
         items: [
             { label: "Card Stack", slug: "card-stack", enabled: true },
             { label: "Shiny Button", slug: "shiny-button", enabled: true },
+            { label: "Slide Text Button", slug: "slide-text-button", enabled: true },
             { label: "Animated List", slug: "animated-list", enabled: true },
             { label: "Glow Card", slug: "glow-card", enabled: false },
             { label: "Hover Border Card", slug: "hover-border-card", enabled: false },
