@@ -103,6 +103,22 @@
       ]
     },
     {
+      "name": "perspective-grid",
+      "type": "registry:component",
+      "title": "Perspective Grid",
+      "description": "A 3D-perspective grid of blockchain logos that tilt on hover with a spring animation.",
+      "category": "components",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/perspective-grid/perspective-grid.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "animated-list",
       "type": "registry:component",
       "title": "Animated List",

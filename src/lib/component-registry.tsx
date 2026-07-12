@@ -6,6 +6,7 @@ import TextFocus from "@/components/demo/TextAnimations/TextFocus";
 import CardStack from "@/components/demo/Components/CardStack";
 import AnimatedListDemo from "@/components/demo/Components/AnimatedList";
 import SlideTextButton from "@/components/demo/Components/SlideTextButton";
+import PerspectiveGrid from "@/components/demo/Components/PerspectiveGrid";
 import type { ComponentRegistryItem, PropItem } from "@/lib/types";
 export type { ComponentRegistryItem, PropItem };
 
@@ -366,6 +367,57 @@ export default function Example() {
         type: "string",
         default: "''",
         description: "Additional classes for the button element.",
+      },
+    ],
+  },
+  {
+    name: "Perspective Grid",
+    slug: "perspective-grid",
+    description:
+      "A 3D-perspective grid of blockchain logos that tilt on hover with a spring animation.",
+    category: "Components",
+    dependencies: ["motion"],
+    registryDependencies: [],
+    installCommand:
+      "npx shadcn@latest add https://kick-ui.vercel.app/r/perspective-grid.json",
+    sourceFilename: "components/ui/perspective-grid.tsx",
+    usage: `import PerspectiveGrid from "@/components/ui/perspective-grid";
+
+export default function Example() {
+  return <PerspectiveGrid />;
+}`,
+    preview: <PerspectiveGrid />,
+    propsData: [
+      {
+        name: "chains",
+        type: "Chain[]",
+        default: "24 default chains",
+        description:
+          "Array of chain objects with id, name, symbol, and optional logo URL.",
+      },
+      {
+        name: "title",
+        type: "string",
+        default: '"Any transaction on any chain..."',
+        description: "Heading text below the subtitle.",
+      },
+      {
+        name: "subtitle",
+        type: "string",
+        default: '"Multi-chain ecosystem"',
+        description: "Small accent text above the title.",
+      },
+      {
+        name: "className",
+        type: "string",
+        default: "''",
+        description: "Additional classes for the root section.",
+      },
+      {
+        name: "gridClassName",
+        type: "string",
+        default: "''",
+        description: "Additional classes for the grid container.",
       },
     ],
   },

@@ -1,11 +1,9 @@
-import SlideTextButton from "./SlideTextButton";
+import PerspectiveGrid from "./PerspectiveGrid";
 
 const page = () => {
   return (
-    <div className="flex items-center justify-center">
-      {/* <CardStack /> */}
-      {/* <OverlayButton /> */}
-      <SlideTextButton />
+    <div>
+      <PerspectiveGrid />
     </div>
   );
 };
