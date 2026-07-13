@@ -1,9 +1,9 @@
-import PerspectiveGrid from "./PerspectiveGrid";
+import TestStatsCard from "./TestStatsCard";
 
 const page = () => {
   return (
-    <div>
-      <PerspectiveGrid />
+    <div className="flex justify-center items-center">
+      <TestStatsCard />
     </div>
   );
 };

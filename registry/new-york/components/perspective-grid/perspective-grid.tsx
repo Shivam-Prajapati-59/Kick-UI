@@ -191,15 +191,15 @@ function ChainCard({ chain, variants }: { chain: Chain; variants?: Variants }) {
 
 interface PerspectiveGridProps {
   chains?: Chain[];
-  title?: string;
-  subtitle?: string;
+  title?: React.ReactNode;
+  subtitle?: React.ReactNode;
   className?: string;
   gridClassName?: string;
 }
 
 export default function PerspectiveGrid({
   chains = defaultChains,
-  title = "Any transaction on any chain, Aside executes it for you.",
+  title = "Any transaction on any chain,<br />Aside executes it for you.",
   subtitle = "Multi-chain ecosystem",
   className,
   gridClassName,
@@ -221,13 +221,20 @@ export default function PerspectiveGrid({
             {subtitle} &gt;
           </p>
           <h1 className="text-2xl font-medium leading-[1.1] tracking-tight md:text-[2.5rem]">
-            {title}
+            {typeof title === "string"
+              ? title.split("<br />").map((part, i) => (
+                  <React.Fragment key={i}>
+                    {i > 0 && <br />}
+                    {part}
+                  </React.Fragment>
+                ))
+              : title}
           </h1>
         </motion.div>
 
         <div
           style={{ perspective: "1000px" }}
-          className="mt-6 w-full max-w-5xl px-4 md:mt-8 md:px-8"
+          className="w-full max-w-5xl px-4  md:px-8"
         >
           <motion.div
             style={{ rotateX: 45 }}

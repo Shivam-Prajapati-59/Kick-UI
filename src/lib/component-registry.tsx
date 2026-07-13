@@ -397,13 +397,13 @@ export default function Example() {
       },
       {
         name: "title",
-        type: "string",
-        default: '"Any transaction on any chain..."',
-        description: "Heading text below the subtitle.",
+        type: "ReactNode",
+        default: '"Any transaction on any chain,\\<br /\\>Aside executes it for you."',
+        description: "Heading text below the subtitle. Use <br /> for line breaks.",
       },
       {
         name: "subtitle",
-        type: "string",
+        type: "ReactNode",
         default: '"Multi-chain ecosystem"',
         description: "Small accent text above the title.",
       },
