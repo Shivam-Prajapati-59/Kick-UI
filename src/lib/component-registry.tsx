@@ -7,6 +7,7 @@ import CardStack from "@/components/demo/Components/CardStack";
 import AnimatedListDemo from "@/components/demo/Components/AnimatedList";
 import SlideTextButton from "@/components/demo/Components/SlideTextButton";
 import PerspectiveGrid from "@/components/demo/Components/PerspectiveGrid";
+import MagDockDemo from "@/components/demo/Components/MagDock";
 import type { ComponentRegistryItem, PropItem } from "@/lib/types";
 export type { ComponentRegistryItem, PropItem };
 
@@ -398,8 +399,10 @@ export default function Example() {
       {
         name: "title",
         type: "ReactNode",
-        default: '"Any transaction on any chain,\\<br /\\>Aside executes it for you."',
-        description: "Heading text below the subtitle. Use <br /> for line breaks.",
+        default:
+          '"Any transaction on any chain,\\<br /\\>Aside executes it for you."',
+        description:
+          "Heading text below the subtitle. Use <br /> for line breaks.",
       },
       {
         name: "subtitle",
@@ -418,6 +421,45 @@ export default function Example() {
         type: "string",
         default: "''",
         description: "Additional classes for the grid container.",
+      },
+    ],
+  },
+  {
+    name: "MagDock",
+    slug: "mag-dock",
+    description:
+      "A macOS-style dock with spring-animated icon scaling, lift on hover, tooltips, and active-state indicators.",
+    category: "Components",
+    dependencies: ["motion"],
+    registryDependencies: [],
+    installCommand:
+      "npx shadcn@latest add https://kick-ui.vercel.app/r/mag-dock.json",
+    sourceFilename: "components/ui/mag-dock.tsx",
+    usage: `import MagDock from "@/components/ui/mag-dock";
+import { HomeIcon, MailIcon } from "lucide-react";
+
+const items = [
+  { id: 1, icon: HomeIcon, name: "Home", active: true },
+  { id: 2, icon: MailIcon, name: "Mail", active: true },
+];
+
+export default function Example() {
+  return <MagDock items={items} />;
+}`,
+    preview: <MagDockDemo />,
+    propsData: [
+      {
+        name: "items",
+        type: "MagDockItem[]",
+        default: "—",
+        description:
+          "Array of dock items with id, icon component, name, and optional active state.",
+      },
+      {
+        name: "className",
+        type: "string",
+        default: "''",
+        description: "Additional classes for the root wrapper.",
       },
     ],
   },

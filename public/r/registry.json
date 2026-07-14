@@ -103,6 +103,22 @@
       ]
     },
     {
+      "name": "mag-dock",
+      "type": "registry:component",
+      "title": "MagDock",
+      "description": "A macOS-style dock with spring-animated icon scaling, lift on hover, tooltips, and active-state indicators.",
+      "category": "components",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/mag-dock/mag-dock.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "perspective-grid",
       "type": "registry:component",
       "title": "Perspective Grid",
