@@ -126,25 +126,17 @@ export default function PixelImage({
                   backgroundSize: `${size.width}px ${size.height}px`,
                   backgroundPosition: `${-fx}px ${-fy}px`,
                   backgroundRepeat: "no-repeat",
-                  opacity: mounted ? undefined : 0,
+                  opacity: mounted ? 1 : 0,
                 }}
                 initial={false}
                 animate={
-                  !mounted
-                    ? { opacity: 0 }
-                    : isHovered
-                      ? { opacity: 0 }
-                      : { opacity: 1 }
+                  isHovered ? { opacity: 0 } : { opacity: 1 }
                 }
-                transition={
-                  !mounted
-                    ? { duration: 0 }
-                    : {
-                        duration: tileDuration,
-                        delay: order[i] * step,
-                        ease: [0.33, 1, 0.68, 1],
-                      }
-                }
+                transition={{
+                  duration: tileDuration,
+                  delay: order[i] * step,
+                  ease: [0.33, 1, 0.68, 1],
+                }}
               />
             );
           })}

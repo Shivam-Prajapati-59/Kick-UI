@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, LayoutGroup } from "motion/react";
 import {
     getActiveCategories,
     type SidebarCategory,
@@ -83,10 +83,10 @@ function NavItem({
                 scrollToTop();
             }}
             className={cn(
-                "group relative flex items-center px-3 py-1.5 rounded-md text-sm cursor-pointer transition-colors duration-200",
+                "group relative flex items-center px-3 py-1.5 rounded-md text-sm cursor-pointer transition-colors duration-150",
                 isActive
-                    ? "text-primary font-medium"
-                    : "text-muted-foreground hover:text-primary"
+                    ? "text-primary font-medium bg-primary/[0.06]"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
             )}
         >
             {/* Active indicator line */}
@@ -145,7 +145,7 @@ function CategorySection({
     return (
         <div>
             {/* Section header — sits ABOVE the vertical line */}
-            <div className="mb-1 text-[13px] font-medium text-muted-foreground/50 tracking-[0.08em] select-none">
+            <div className="mb-1 text-[13px] font-medium text-muted-foreground/65 tracking-[0.08em] select-none">
                 {category.title}
             </div>
 
@@ -154,24 +154,26 @@ function CategorySection({
                 variants={staggerContainer}
                 initial="hidden"
                 animate="show"
-                className="space-y-0.5 pl-4 pr-2 relative before:absolute before:left-0 before:top-[12px] before:bottom-[12px] before:w-[1.7px] before:bg-white/6"
+                className="space-y-0.5 pl-4 pr-2 relative before:absolute before:left-0 before:top-[12px] before:bottom-[12px] before:w-[1.7px] before:bg-border/40"
             >
-                {category.items.map((item) => {
-                    const path = `${category.basePath}/${item.slug}`;
-                    return (
-                        <motion.div key={item.slug} variants={staggerItem}>
-                            <NavItem
-                                path={path}
-                                label={item.label}
-                                isActive={pathname === path}
-                                isHovered={hoveredPath === path}
-                                setHoveredPath={setHoveredPath}
-                                closeMobile={closeMobile}
-                                enabled={item.enabled}
-                            />
-                        </motion.div>
-                    );
-                })}
+                <LayoutGroup>
+                    {category.items.map((item) => {
+                        const path = `${category.basePath}/${item.slug}`;
+                        return (
+                            <motion.div key={item.slug} variants={staggerItem}>
+                                <NavItem
+                                    path={path}
+                                    label={item.label}
+                                    isActive={pathname === path}
+                                    isHovered={hoveredPath === path}
+                                    setHoveredPath={setHoveredPath}
+                                    closeMobile={closeMobile}
+                                    enabled={item.enabled}
+                                />
+                            </motion.div>
+                        );
+                    })}
+                </LayoutGroup>
             </motion.div>
         </div>
     );

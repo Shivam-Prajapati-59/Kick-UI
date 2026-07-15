@@ -5,7 +5,7 @@
 :root {
   --background: oklch(0.9831 0.0029 308.4282);
   --foreground: oklch(0.1946 0.0421 305.9101);
-  --card: oklch(0.9662 0.0058 308.3938);
+  --card: oklch(0.95 0.006 308.4);
   --card-foreground: oklch(0.1946 0.0421 305.9101);
   --popover: oklch(0.9831 0.0029 308.4282);
   --popover-foreground: oklch(0.1946 0.0421 305.9101);
@@ -14,11 +14,17 @@
   --secondary: oklch(0.9149 0.0147 308.2818);
   --secondary-foreground: oklch(0.285 0.0752 305.2145);
   --muted: oklch(0.9337 0.0088 308.3559);
-  --muted-foreground: oklch(0.4912 0.0344 307.6856);
+  --muted-foreground: oklch(0.45 0.04 307.7);
   --accent: oklch(0.9287 0.0176 308.2501);
   --accent-foreground: oklch(0.4357 0.1845 301.8473);
   --destructive: oklch(0.6356 0.2082 25.3782);
   --destructive-foreground: oklch(1 0 0);
+  --info: oklch(0.6 0.15 250);
+  --info-foreground: oklch(1 0 0);
+  --success: oklch(0.6 0.18 145);
+  --success-foreground: oklch(1 0 0);
+  --warning: oklch(0.7 0.15 85);
+  --warning-foreground: oklch(0.2 0.02 85);
   --border: oklch(0.8748 0.0168 308.2479);
   --input: oklch(0.8748 0.0168 308.2479);
   --ring: oklch(0.5103 0.2201 301.6038);
@@ -27,7 +33,7 @@
   --chart-3: oklch(0.4387 0.1742 284.2181);
   --chart-4: oklch(0.5872 0.2 335.1551);
   --chart-5: oklch(0.6329 0.0956 306.7481);
-  --sidebar: oklch(0.9662 0.0058 308.3938);
+  --sidebar: oklch(0.95 0.006 308.4);
   --sidebar-foreground: oklch(0.285 0.0752 305.2145);
   --sidebar-primary: oklch(0.5103 0.2201 301.6038);
   --sidebar-primary-foreground: oklch(1 0 0);
@@ -84,6 +90,12 @@
   --accent-foreground: oklch(0.9831 0.0029 308.4282);
   --destructive: oklch(0.4854 0.178 27.0398);
   --destructive-foreground: oklch(1 0 0);
+  --info: oklch(0.6 0.15 250);
+  --info-foreground: oklch(0.15 0.02 250);
+  --success: oklch(0.6 0.18 145);
+  --success-foreground: oklch(0.15 0.02 145);
+  --warning: oklch(0.7 0.15 85);
+  --warning-foreground: oklch(0.15 0.02 85);
   --border: oklch(0.2741 0.0525 306.2388);
   --input: oklch(0.2741 0.0525 306.2388);
   --ring: oklch(0.5905 0.2097 303.5671);
@@ -103,26 +115,20 @@
   --font-sans: Inter, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: JetBrains Mono, monospace;
-  --radius: 0.5rem;
-  --shadow-x: 0px;
-  --shadow-y: 8px;
-  --shadow-blur: 15px;
-  --shadow-spread: 0px;
-  --shadow-opacity: 0.5;
-  --shadow-color: hsl(0, 0%, 0%);
-  --shadow-2xs: 0px 8px 15px 0px hsl(0 0% 0% / 0.25);
-  --shadow-xs: 0px 8px 15px 0px hsl(0 0% 0% / 0.25);
+  --radius: 0.6rem;
+  --shadow-2xs: 0px 4px 10px 0px hsl(0 0% 0% / 0.35);
+  --shadow-xs: 0px 4px 10px 0px hsl(0 0% 0% / 0.35);
   --shadow-sm:
-    0px 8px 15px 0px hsl(0 0% 0% / 0.5), 0px 1px 2px -1px hsl(0 0% 0% / 0.5);
+    0px 4px 10px 0px hsl(0 0% 0% / 0.55), 0px 1px 2px -1px hsl(0 0% 0% / 0.55);
   --shadow:
-    0px 8px 15px 0px hsl(0 0% 0% / 0.5), 0px 1px 2px -1px hsl(0 0% 0% / 0.5);
+    0px 4px 10px 0px hsl(0 0% 0% / 0.55), 0px 1px 2px -1px hsl(0 0% 0% / 0.55);
   --shadow-md:
-    0px 8px 15px 0px hsl(0 0% 0% / 0.5), 0px 2px 4px -1px hsl(0 0% 0% / 0.5);
+    0px 4px 10px 0px hsl(0 0% 0% / 0.55), 0px 2px 4px -1px hsl(0 0% 0% / 0.55);
   --shadow-lg:
-    0px 8px 15px 0px hsl(0 0% 0% / 0.5), 0px 4px 6px -1px hsl(0 0% 0% / 0.5);
+    0px 4px 10px 0px hsl(0 0% 0% / 0.55), 0px 4px 6px -1px hsl(0 0% 0% / 0.55);
   --shadow-xl:
-    0px 8px 15px 0px hsl(0 0% 0% / 0.5), 0px 8px 10px -1px hsl(0 0% 0% / 0.5);
-  --shadow-2xl: 0px 8px 15px 0px hsl(0 0% 0% / 1.25);
+    0px 4px 10px 0px hsl(0 0% 0% / 0.55), 0px 8px 10px -1px hsl(0 0% 0% / 0.55);
+  --shadow-2xl: 0px 4px 10px 0px hsl(0 0% 0% / 0.75);
 }
 
 @theme inline {
@@ -142,6 +148,12 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
