@@ -25,6 +25,7 @@ export const sidebarCategories: SidebarCategory[] = [
             { label: "Shiny Button", slug: "shiny-button", enabled: true },
             { label: "Slide Text Button", slug: "slide-text-button", enabled: true },
             { label: "MagDock", slug: "mag-dock", enabled: true },
+            { label: "Pixel Image", slug: "pixel-image", enabled: true },
             { label: "Perspective Grid", slug: "perspective-grid", enabled: true },
             { label: "Animated List", slug: "animated-list", enabled: true },
             { label: "Glow Card", slug: "glow-card", enabled: false },

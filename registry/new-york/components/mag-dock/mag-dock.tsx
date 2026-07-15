@@ -37,23 +37,23 @@ function MagDockIcon({
   active?: boolean;
   onItemClick?: () => void;
 }) {
-  let ref = useRef<HTMLButtonElement>(null);
-  let [hovered, setHovered] = useState(false);
+  const ref = useRef<HTMLButtonElement>(null);
+  const [hovered, setHovered] = useState(false);
 
-  let distance = useTransform(mouseX, (val) => {
-    let bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+  const distance = useTransform(mouseX, (val) => {
+    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
     return val - bounds.x - bounds.width / 2;
   });
 
-  let sizeSync = useTransform(
+  const sizeSync = useTransform(
     distance,
     [-150, -75, 0, 75, 150],
     [40, 52, 72, 52, 40],
   );
-  let size = useSpring(sizeSync, { mass: 0.1, stiffness: 200, damping: 14 });
+  const size = useSpring(sizeSync, { mass: 0.1, stiffness: 200, damping: 14 });
 
-  let liftSync = useTransform(size, [40, 72], [0, -14]);
-  let lift = useSpring(liftSync, { mass: 0.1, stiffness: 200, damping: 14 });
+  const liftSync = useTransform(size, [40, 72], [0, -14]);
+  const lift = useSpring(liftSync, { mass: 0.1, stiffness: 200, damping: 14 });
 
   return (
     <div className="relative flex flex-col items-center">
@@ -91,12 +91,19 @@ function MagDockIcon({
       >
         <Icon className="h-1/2 w-1/2" strokeWidth={1.75} />
       </motion.button>
+
+      <span
+        className={cn(
+          "mt-1 h-1 w-1 rounded-full transition-opacity",
+          active ? "bg-foreground/60 opacity-100" : "opacity-0",
+        )}
+      />
     </div>
   );
 }
 
 export default function MagDock({ items, className }: MagDockProps) {
-  let mouseX = useMotionValue(Infinity);
+  const mouseX = useMotionValue(Infinity);
 
   return (
     <div

@@ -8,6 +8,7 @@ import AnimatedListDemo from "@/components/demo/Components/AnimatedList";
 import SlideTextButton from "@/components/demo/Components/SlideTextButton";
 import PerspectiveGrid from "@/components/demo/Components/PerspectiveGrid";
 import MagDockDemo from "@/components/demo/Components/MagDock";
+import PixelImageDemo from "@/components/demo/Components/PixelImage";
 import type { ComponentRegistryItem, PropItem } from "@/lib/types";
 export type { ComponentRegistryItem, PropItem };
 
@@ -454,6 +455,75 @@ export default function Example() {
         default: "—",
         description:
           "Array of dock items with id, icon component, name, and optional active state.",
+      },
+      {
+        name: "className",
+        type: "string",
+        default: "''",
+        description: "Additional classes for the root wrapper.",
+      },
+    ],
+  },
+  {
+    name: "Pixel Image",
+    slug: "pixel-image",
+    description:
+      "A hover-driven pixelated dissolve transition between two images. Tiles randomly fade out to reveal a second image underneath.",
+    category: "Components",
+    dependencies: ["motion"],
+    registryDependencies: [],
+    installCommand:
+      "npx shadcn@latest add https://kick-ui.vercel.app/r/pixel-image.json",
+    sourceFilename: "components/ui/pixel-image.tsx",
+    usage: `import PixelImage from "@/components/ui/pixel-image";
+
+export default function Example() {
+  return (
+    <PixelImage
+      defaultImage="/images/default.jpg"
+      hoverImage="/images/hover.jpg"
+    />
+  );
+}`,
+    preview: (
+      <PixelImageDemo />
+    ),
+    propsData: [
+      {
+        name: "defaultImage",
+        type: "string",
+        default: "—",
+        description: "URL of the image shown by default.",
+      },
+      {
+        name: "hoverImage",
+        type: "string",
+        default: "—",
+        description: "URL of the image revealed on hover.",
+      },
+      {
+        name: "cols",
+        type: "number",
+        default: "10",
+        description: "Number of horizontal columns in the pixel grid.",
+      },
+      {
+        name: "rows",
+        type: "number",
+        default: "10",
+        description: "Number of vertical rows in the pixel grid.",
+      },
+      {
+        name: "waveDuration",
+        type: "number",
+        default: "0.3",
+        description: "Total duration in seconds for the full dissolve wave.",
+      },
+      {
+        name: "tileDuration",
+        type: "number",
+        default: "0.15",
+        description: "Duration in seconds for each individual tile fade.",
       },
       {
         name: "className",

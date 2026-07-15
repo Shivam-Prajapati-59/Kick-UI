@@ -135,6 +135,22 @@
       ]
     },
     {
+      "name": "pixel-image",
+      "type": "registry:component",
+      "title": "Pixel Image",
+      "description": "A hover-driven pixelated dissolve transition between two images. Tiles randomly fade out to reveal a second image underneath.",
+      "category": "components",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/pixel-image/pixel-image.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "animated-list",
       "type": "registry:component",
       "title": "Animated List",

@@ -244,7 +244,7 @@ export default function PerspectiveGrid({
               gridClassName,
             )}
           >
-            {chains.map((chain, i) => (
+            {chains.map((chain) => (
               <ChainCard key={chain.id} chain={chain} variants={itemVariants} />
             ))}
           </motion.div>
