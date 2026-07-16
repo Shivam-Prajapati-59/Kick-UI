@@ -9,6 +9,7 @@ import SlideTextButton from "@/components/demo/Components/SlideTextButton";
 import PerspectiveGrid from "@/components/demo/Components/PerspectiveGrid";
 import MagDockDemo from "@/components/demo/Components/MagDock";
 import PixelImageDemo from "@/components/demo/Components/PixelImage";
+import FeatureShowcase from "@/components/demo/Layouts/FeatureShowcase";
 import type { ComponentRegistryItem, PropItem } from "@/lib/types";
 export type { ComponentRegistryItem, PropItem };
 
@@ -592,6 +593,69 @@ export default function Example() {
         type: "string",
         default: "''",
         description: "Custom class names applied to the container.",
+      },
+    ],
+  },
+  {
+    name: "Feature Showcase",
+    slug: "feature-showcase",
+    description:
+      "An interactive feature section with expandable menu items and a phone mockup that transitions on selection.",
+    category: "Layouts and Sections",
+    dependencies: ["motion", "lucide-react"],
+    registryDependencies: [],
+    installCommand:
+      "npx shadcn@latest add https://kick-ui.vercel.app/r/feature-showcase.json",
+    sourceFilename: "components/ui/feature-showcase.tsx",
+    usage: `import FeatureShowcase from "@/components/ui/feature-showcase";
+
+export default function Example() {
+  return (
+    <FeatureShowcase
+      title="Custom title here"
+      subtitle="Optional subtitle"
+      activeColor="text-cyan-500"
+    />
+  );
+}`,
+    preview: <FeatureShowcase />,
+    propsData: [
+      {
+        name: "items",
+        type: "FeatureShowcaseItem[]",
+        default: "defaultFeatureItems",
+        description:
+          "Array of feature items with id, title, description, icon, image, cta, and optional overlayImage.",
+      },
+      {
+        name: "title",
+        type: "string",
+        default: '"Easily deploy..."',
+        description: "Headline text (supports \\n for line breaks).",
+      },
+      {
+        name: "subtitle",
+        type: "string",
+        default: '"Launch embedded..."',
+        description: "Sub-headline shown below the title.",
+      },
+      {
+        name: "defaultActiveId",
+        type: "number",
+        default: "items[0].id",
+        description: "The initially active item id.",
+      },
+      {
+        name: "activeColor",
+        type: "string",
+        default: '"text-blue-600"',
+        description: "Tailwind text color class for the active accent.",
+      },
+      {
+        name: "className",
+        type: "string",
+        default: "''",
+        description: "Additional classes for the root container.",
       },
     ],
   },

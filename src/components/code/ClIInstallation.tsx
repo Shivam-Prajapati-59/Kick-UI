@@ -20,6 +20,17 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import NpmIcon from "@/components/svgs/tools/npm";
+import PnpmIcon from "@/components/svgs/tools/pnpm";
+import YarnIcon from "@/components/svgs/tools/yarn";
+import BunIcon from "@/components/svgs/tools/Bun";
+
+const PKG_ICONS: Record<PackageManager, React.ComponentType<{ className?: string }>> = {
+  npm: NpmIcon,
+  pnpm: PnpmIcon,
+  yarn: YarnIcon,
+  bun: BunIcon,
+};
 
 /* ------------------------------------------------------------------ */
 /*  Props                                                              */
@@ -44,20 +55,24 @@ interface PkgButtonsProps {
 function PkgButtons({ selected, onSelect }: PkgButtonsProps) {
   return (
     <div className="flex items-center gap-0.5 overflow-x-auto">
-      {PKG_MANAGERS.map((pm) => (
-        <button
-          key={pm}
-          onClick={() => onSelect(pm)}
-          className={cn(
-            "relative rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-200",
-            selected === pm
-              ? "bg-primary/10 text-primary"
-              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-          )}
-        >
-          {pm}
-        </button>
-      ))}
+      {PKG_MANAGERS.map((pm) => {
+        const Icon = PKG_ICONS[pm];
+        return (
+          <button
+            key={pm}
+            onClick={() => onSelect(pm)}
+            className={cn(
+              "relative rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-200 inline-flex items-center gap-1.5",
+              selected === pm
+                ? "bg-primary/10 text-primary"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            )}
+          >
+            <Icon className="w-4 h-4 shrink-0" />
+            {pm}
+          </button>
+        );
+      })}
     </div>
   );
 }

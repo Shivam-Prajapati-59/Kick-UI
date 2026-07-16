@@ -169,6 +169,7 @@ function ChainCard({ chain, variants }: { chain: Chain; variants?: Variants }) {
 
       <div className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden rounded-[1.25rem] border-[0.5px] border-[#f9f6f6] bg-white transition-colors duration-300 dark:border-[#1a1a1f] dark:bg-[#0c0c0e] hover:border-[#f2efef] dark:hover:border-[#2b2b36]">
         {chain.logo && !imgFailed ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={chain.logo}
             alt={chain.name}

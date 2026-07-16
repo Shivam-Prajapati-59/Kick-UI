@@ -69,6 +69,13 @@ export const sidebarCategories: SidebarCategory[] = [
             { label: "Stars", slug: "stars-bg", enabled: false },
         ],
     },
+    {
+        title: "Layouts and Sections",
+        basePath: "/components",
+        items: [
+            { label: "Feature Showcase", slug: "feature-showcase", enabled: true },
+        ],
+    },
 ];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────

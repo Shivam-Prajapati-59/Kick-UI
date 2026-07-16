@@ -1,9 +1,9 @@
-import PixelImage from "./PixelImage";
+import FeatureSection from "./FeatureSection";
 
 const page = () => {
   return (
-    <div className="flex justify-center items-center py-20">
-      <PixelImage />
+    <div className="flex justify-center items-center max-w-6xl mx-auto">
+      <FeatureSection />
     </div>
   );
 };
