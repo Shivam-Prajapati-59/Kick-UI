@@ -8,6 +8,7 @@ import AnimatedListDemo from "@/components/demo/Components/AnimatedList";
 import SlideTextButton from "@/components/demo/Components/SlideTextButton";
 import PerspectiveGrid from "@/components/demo/Components/PerspectiveGrid";
 import MagDockDemo from "@/components/demo/Components/MagDock";
+import PillCardDemo from "@/components/demo/Components/PillCard";
 import PixelImageDemo from "@/components/demo/Components/PixelImage";
 import FeatureShowcase from "@/components/demo/Layouts/FeatureShowcase";
 import type { ComponentRegistryItem, PropItem } from "@/lib/types";
@@ -462,6 +463,32 @@ export default function Example() {
         type: "string",
         default: "''",
         description: "Additional classes for the root wrapper.",
+      },
+    ],
+  },
+  {
+    name: "Pill Card",
+    slug: "pill-card",
+    description:
+      "A card with animated SVG paths that travel from a pill button down to icons with a synchronized glow effect.",
+    category: "Components",
+    dependencies: ["motion", "lucide-react"],
+    registryDependencies: [],
+    installCommand:
+      "npx shadcn@latest add https://kick-ui.vercel.app/r/pill-card.json",
+    sourceFilename: "components/ui/pill-card.tsx",
+    usage: `import PillCard from "@/components/ui/pill-card";
+
+export default function Example() {
+  return <PillCard />;
+}`,
+    preview: <PillCardDemo />,
+    propsData: [
+      {
+        name: "className",
+        type: "string",
+        default: "''",
+        description: "Additional classes for the root card element.",
       },
     ],
   },

@@ -28,13 +28,11 @@ function MagDockIcon({
   mouseX,
   icon: Icon,
   name,
-  active,
   onItemClick,
 }: {
   mouseX: MotionValue;
   icon: React.ElementType;
   name: string;
-  active?: boolean;
   onItemClick?: () => void;
 }) {
   const ref = useRef<HTMLButtonElement>(null);
@@ -91,13 +89,6 @@ function MagDockIcon({
       >
         <Icon className="h-1/2 w-1/2" strokeWidth={1.75} />
       </motion.button>
-
-      <span
-        className={cn(
-          "mt-1 h-1 w-1 rounded-full transition-opacity",
-          active ? "bg-foreground/60 opacity-100" : "opacity-0",
-        )}
-      />
     </div>
   );
 }
@@ -126,7 +117,6 @@ export default function MagDock({ items, className }: MagDockProps) {
             mouseX={mouseX}
             icon={item.icon}
             name={item.name}
-            active={item.active}
             onItemClick={item.onClick}
           />
         ))}

@@ -4,6 +4,20 @@
   "homepage": "https://kick-ui.vercel.app",
   "items": [
     {
+      "name": "pill-card",
+      "type": "registry:component",
+      "title": "Pill Card",
+      "description": "A card with animated SVG paths that travel from a pill button down to icons with a synchronized glow effect.",
+      "category": "components",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [
+        {
+          "path": "registry/new-york/components/pill-card/pill-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "shiny-button",
       "type": "registry:component",
       "title": "Shiny Button",

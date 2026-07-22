@@ -28,6 +28,7 @@ export const sidebarCategories: SidebarCategory[] = [
             { label: "Pixel Image", slug: "pixel-image", enabled: true },
             { label: "Perspective Grid", slug: "perspective-grid", enabled: true },
             { label: "Animated List", slug: "animated-list", enabled: true },
+            { label: "Pill Card", slug: "pill-card", enabled: true },
             { label: "Glow Card", slug: "glow-card", enabled: false },
             { label: "Hover Border Card", slug: "hover-border-card", enabled: false },
             { label: "Magnetic Button", slug: "magnetic-button", enabled: false },

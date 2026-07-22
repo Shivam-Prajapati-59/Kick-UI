@@ -224,11 +224,11 @@ export default function PerspectiveGrid({
           <h1 className="text-2xl font-medium leading-[1.1] tracking-tight md:text-[2.5rem]">
             {typeof title === "string"
               ? title.split("<br />").map((part, i) => (
-                  <React.Fragment key={i}>
-                    {i > 0 && <br />}
-                    {part}
-                  </React.Fragment>
-                ))
+                <React.Fragment key={i}>
+                  {i > 0 && <br />}
+                  {part}
+                </React.Fragment>
+              ))
               : title}
           </h1>
         </motion.div>
