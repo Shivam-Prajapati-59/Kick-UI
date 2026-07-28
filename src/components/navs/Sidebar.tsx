@@ -50,7 +50,6 @@ function NavItem({
     isHovered,
     setHoveredPath,
     closeMobile,
-    enabled,
 }: {
     path: string;
     label: string;
@@ -58,20 +57,8 @@ function NavItem({
     isHovered: boolean;
     setHoveredPath: (p: string | null) => void;
     closeMobile: () => void;
-    enabled?: boolean;
 }) {
     const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-
-    // Disabled item
-    if (!enabled) {
-        return (
-            <div
-                className="group relative flex items-center px-3 py-1.5 rounded-md text-sm text-muted-foreground/40 cursor-default select-none"
-            >
-                <span>{label}</span>
-            </div>
-        );
-    }
 
     return (
         <Link
@@ -168,7 +155,6 @@ function CategorySection({
                                     isHovered={hoveredPath === path}
                                     setHoveredPath={setHoveredPath}
                                     closeMobile={closeMobile}
-                                    enabled={item.enabled}
                                 />
                             </motion.div>
                         );

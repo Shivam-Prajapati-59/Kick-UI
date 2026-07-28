@@ -19,7 +19,7 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: 1.3.14
 
       - run: bun install --frozen-lockfile
 
@@ -35,10 +35,13 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: 1.3.14
 
       - run: bun install --frozen-lockfile
 
-      - run: bun run build
-
       - run: bun run registry:build
+
+      - name: Verify generated registry files are committed
+        run: git diff --exit-code -- public/r
+
+      - run: bun run build

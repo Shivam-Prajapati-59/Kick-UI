@@ -6,31 +6,30 @@ import { useRef, useState } from "react";
 
 const features = [
     {
-        title: "Bitcoin",
+        title: "Secure Wallet Infrastructure",
         description:
-            "The first decentralized cryptocurrency, enabling peer-to-peer digital value transfer without intermediaries. Powered by proof-of-work consensus.",
-        image: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=800&q=80",
+            "Embedded wallets with MPC-based key management and recovery.",
+        image: "/assets/dummy/Card1.png",
     },
     {
-        title: "Ethereum",
+        title: "Passwordless Authentication",
         description:
-            "A programmable blockchain that executes smart contracts and hosts decentralized applications across a global distributed network.",
-        image: "https://images.unsplash.com/photo-1622630998477-20aa696ecb05?w=800&q=80",
+            "Sign in with email or social accounts in just one click.",
+        image: "/assets/dummy/Card2.png",
     },
     {
-        title: "Solana",
+        title: "Developer-Friendly APIs",
         description:
-            "A high-performance Layer 1 blockchain achieving global-scale throughput through its unique proof-of-history consensus mechanism.",
-        image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80",
+            "Simple SDKs for wallet creation, signing, and user onboarding.",
+        image: "/assets/dummy/Card3.png",
     },
     {
-        title: "Polkadot",
+        title: "Enterprise-Grade Security",
         description:
-            "A heterogeneous multi-chain network enabling cross-chain interoperability, allowing different blockchains to securely communicate and share data.",
-        image: "https://images.unsplash.com/photo-1639322537504-6427a16b0a28?w=800&q=80",
+            "Policy-based access controls with secure distributed custody.",
+        image: "/assets/dummy/Card4.png",
     },
 ];
-
 export default function ScrollCard() {
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -102,7 +101,7 @@ function useActiveValue(progress: MotionValue<number>, index: number, total: num
 }
 
 function ScrollImage({ feature, index, total, progress }: ScrollItemProps) {
-    const { active, start, end, slideStart, isFirst, isLast } = useActiveValue(progress, index, total);
+    const { start, end, slideStart, isFirst, isLast } = useActiveValue(progress, index, total);
 
     const y = useTransform(
         progress,
@@ -117,8 +116,6 @@ function ScrollImage({ feature, index, total, progress }: ScrollItemProps) {
         isLast ? [1, 1] : [1, 0.2, 0, 0],
     );
 
-    const labelScale = useTransform(active, [0, 1], [0.94, 1]);
-
     return (
         <motion.div
             style={{ y, scale, opacity, zIndex: index, willChange: "transform, opacity" }}
@@ -132,12 +129,6 @@ function ScrollImage({ feature, index, total, progress }: ScrollItemProps) {
                 draggable={false}
                 sizes="(max-width: 768px) 100vw, 50vw"
             />
-            <motion.div
-                style={{ opacity: active, scale: labelScale }}
-                className="pointer-events-none absolute bottom-3 left-3 md:bottom-5 md:left-5 rounded-full px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-[13px] font-medium tracking-tight text-foreground backdrop-blur-md border border-border/50"
-            >
-                {feature.title}
-            </motion.div>
         </motion.div>
     );
 }
@@ -159,7 +150,7 @@ function TextItem({ feature, index, total, progress }: ScrollItemProps) {
         <div className="flex flex-col space-y-2 md:space-y-4">
             <motion.h2
                 style={{ letterSpacing }}
-                className={`text-3xl md:text-6xl font-bold leading-[1.15] tracking-tight transition-colors duration-300 ${isActive ? "text-foreground" : "text-muted-foreground"
+                className={`max-w-sm text-3xl md:text-4xl font-medium leading-[1.15] tracking-tight transition-colors duration-300 ${isActive ? "text-foreground" : "text-muted-foreground"
                     }`}
             >
                 {feature.title}

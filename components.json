@@ -28,7 +28,13 @@
         "scramble-text",
         "text-focus",
         "card-stack",
-        "animated-list"
+        "slide-text-button",
+        "mag-dock",
+        "perspective-grid",
+        "pill-card",
+        "pixel-image",
+        "animated-list",
+        "scroll-card"
       ]
     }
   }

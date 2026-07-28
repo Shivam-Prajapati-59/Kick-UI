@@ -328,18 +328,21 @@ class FluidSimulation {
 /**
  * Resolves a CSS custom property (e.g. "--foreground") or any valid
  * CSS color string (e.g. "#fff", "rgb(0,255,128)") to a THREE.Color.
+ * Uses the browser canvas parser so modern CSS color formats work reliably.
  * Falls back to white if resolution fails.
  */
 function resolveCssColor(value: string, fallback = "#ffffff"): THREE.Color {
-  if (value.startsWith("--")) {
-    // Read the computed CSS variable from the document root
-    const computed = getComputedStyle(document.documentElement)
-      .getPropertyValue(value)
-      .trim();
-    return new THREE.Color(computed || fallback);
-  }
+  const cssColor = value.startsWith("--")
+    ? getComputedStyle(document.documentElement).getPropertyValue(value).trim()
+    : value;
+
   try {
-    return new THREE.Color(value);
+    const context = document.createElement("canvas").getContext("2d");
+    if (!context) return new THREE.Color(fallback);
+
+    context.fillStyle = fallback;
+    context.fillStyle = cssColor || fallback;
+    return new THREE.Color(context.fillStyle);
   } catch {
     return new THREE.Color(fallback);
   }
@@ -428,8 +431,8 @@ export interface CursorWebFluidProps {
 
   /**
    * CSS mix-blend-mode applied to the canvas.
-   * `"difference"` inverts colours under the trail (great for light/dark themes).
-   * `"normal"` renders opaque ink over content.
+   * Difference preserves the translucent, inverted trail effect across
+   * different surfaces.
    * @default "difference"
    */
   blendMode?: CSSProperties["mixBlendMode"];

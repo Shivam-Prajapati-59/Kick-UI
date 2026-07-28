@@ -21,7 +21,9 @@ export default function CursorWebFluidDemo() {
 
       <CursorWebFluid
         contained
-        inkColor="--background"
+        // White ink with difference blending preserves the translucent,
+        // inverted trail: dark on light surfaces and light on dark surfaces.
+        inkColor="#ffffff"
         blendMode="difference"
         dyeDissipation={0.97}
         velocityDissipation={0.97}

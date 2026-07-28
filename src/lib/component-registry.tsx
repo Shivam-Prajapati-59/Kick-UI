@@ -11,6 +11,7 @@ import MagDockDemo from "@/components/demo/Components/MagDock";
 import PillCardDemo from "@/components/demo/Components/PillCard";
 import PixelImageDemo from "@/components/demo/Components/PixelImage";
 import FeatureShowcase from "@/components/demo/Layouts/FeatureShowcase";
+import ScrollCardDemo from "@/components/demo/Components/ScrollCard";
 import type { ComponentRegistryItem, PropItem } from "@/lib/types";
 export type { ComponentRegistryItem, PropItem };
 
@@ -19,7 +20,7 @@ export const componentRegistry: ComponentRegistryItem[] = [
     name: "Shiny Button",
     slug: "shiny-button",
     description: "A button with a smooth shiny animation effect.",
-    category: "Buttons",
+    category: "buttons",
     dependencies: ["motion"],
     registryDependencies: ["button"],
     installCommand:
@@ -57,7 +58,7 @@ export default function Example() {
     slug: "cursor-web-fluid",
     description:
       "A mesmerizing WebGL fluid simulation that follows your cursor with ink-like trails. Fully customizable via props.",
-    category: "Animations",
+    category: "animations",
     dependencies: ["three"],
     registryDependencies: [],
     installCommand:
@@ -92,7 +93,7 @@ export default function Example() {
         type: 'CSSProperties["mixBlendMode"]',
         default: '"difference"',
         description:
-          'CSS mix-blend-mode on the canvas. Use "difference" for theme-aware trails, "normal" for opaque ink.',
+          'CSS mix-blend-mode on the canvas. The default "difference" preserves the translucent inverted trail effect.',
       },
       {
         name: "contained",
@@ -197,7 +198,7 @@ export default function Example() {
     slug: "scramble-text",
     description:
       "A hover-driven text scramble animation with a smooth decode sweep.",
-    category: "Text Animations",
+    category: "text-animations",
     dependencies: ["motion"],
     registryDependencies: [],
     installCommand:
@@ -206,9 +207,9 @@ export default function Example() {
     usage: `import ScrambleText from "@/components/ui/scramble-text";
 
 export default function Example() {
-  return <ScrambleText text="Shivam" />;
+  return <ScrambleText text="Shivam" className="text-5xl" />;
 }`,
-    preview: <ScrambleText text="Shivam" />,
+    preview: <ScrambleText text="Shivam" className="text-5xl" />,
     propsData: [
       {
         name: "text",
@@ -222,6 +223,36 @@ export default function Example() {
         default: '"#"',
         description: "Optional link target for the text wrapper.",
       },
+      {
+        name: "className",
+        type: "string",
+        default: '"text-4xl sm:text-5xl"',
+        description: "Additional classes for text size, color, spacing, and layout.",
+      },
+      {
+        name: "characterDuration",
+        type: "number",
+        default: "80",
+        description: "Milliseconds used to decode each character.",
+      },
+      {
+        name: "updateInterval",
+        type: "number",
+        default: "60",
+        description: "Milliseconds between scramble-character updates.",
+      },
+      {
+        name: "scrambledColor",
+        type: "string",
+        default: '"var(--muted-foreground)"',
+        description: "Color applied while a character is scrambling.",
+      },
+      {
+        name: "scrambledOpacity",
+        type: "number",
+        default: "0.83",
+        description: "Opacity applied while a character is scrambling.",
+      },
     ],
   },
   {
@@ -229,7 +260,7 @@ export default function Example() {
     slug: "text-focus",
     description:
       "A Text animation that sharpens one hovered word while softly blurring the rest.",
-    category: "Text Animations",
+    category: "text-animations",
     dependencies: ["motion"],
     registryDependencies: [],
     installCommand:
@@ -273,7 +304,7 @@ export default function Example() {
     slug: "card-stack",
     description:
       "An elegant, interactive stack of cards that smoothly fans out into a parabolic arc.",
-    category: "Components",
+    category: "cards",
     dependencies: ["motion"],
     registryDependencies: [],
     installCommand:
@@ -336,7 +367,7 @@ export default function Example() {
     slug: "slide-text-button",
     description:
       "A button with a smooth slide-up text animation and an expanding circle background on hover.",
-    category: "Buttons",
+    category: "buttons",
     dependencies: ["motion"],
     registryDependencies: [],
     installCommand:
@@ -379,7 +410,7 @@ export default function Example() {
     slug: "perspective-grid",
     description:
       "A 3D-perspective grid of blockchain logos that tilt on hover with a spring animation.",
-    category: "Components",
+    category: "components",
     dependencies: ["motion"],
     registryDependencies: [],
     installCommand:
@@ -432,7 +463,7 @@ export default function Example() {
     slug: "mag-dock",
     description:
       "A macOS-style dock with spring-animated icon scaling, lift on hover, tooltips, and active-state indicators.",
-    category: "Components",
+    category: "components",
     dependencies: ["motion"],
     registryDependencies: [],
     installCommand:
@@ -471,7 +502,7 @@ export default function Example() {
     slug: "pill-card",
     description:
       "A card with animated SVG paths that travel from a pill button down to icons with a synchronized glow effect.",
-    category: "Components",
+    category: "cards",
     dependencies: ["motion", "lucide-react"],
     registryDependencies: [],
     installCommand:
@@ -497,7 +528,7 @@ export default function Example() {
     slug: "pixel-image",
     description:
       "A hover-driven pixelated dissolve transition between two images. Tiles randomly fade out to reveal a second image underneath.",
-    category: "Components",
+    category: "components",
     dependencies: ["motion"],
     registryDependencies: [],
     installCommand:
@@ -566,7 +597,7 @@ export default function Example() {
     slug: "animated-list",
     description:
       "A generic, performant animated list with keyboard navigation, auto-scroll, and dynamic fade gradients.",
-    category: "Components",
+    category: "components",
     dependencies: ["motion"],
     registryDependencies: [],
     installCommand:
@@ -628,7 +659,7 @@ export default function Example() {
     slug: "feature-showcase",
     description:
       "An interactive feature section with expandable menu items and a phone mockup that transitions on selection.",
-    category: "Layouts and Sections",
+    category: "layouts-sections",
     dependencies: ["motion", "lucide-react"],
     registryDependencies: [],
     installCommand:
@@ -677,6 +708,44 @@ export default function Example() {
         type: "string",
         default: '"text-blue-600"',
         description: "Tailwind text color class for the active accent.",
+      },
+      {
+        name: "className",
+        type: "string",
+        default: "''",
+        description: "Additional classes for the root container.",
+      },
+    ],
+  },
+  {
+    name: "Scroll Card",
+    slug: "scroll-card",
+    description:
+      "A scroll-linked interactive card section that synchronizes images with text progress.",
+    category: "layouts-sections",
+    dependencies: ["motion"],
+    registryDependencies: [],
+    installCommand:
+      "npx shadcn@latest add https://kick-ui.vercel.app/r/scroll-card.json",
+    sourceFilename: "components/ui/scroll-card.tsx",
+    usage: `import { ScrollCard } from "@/components/ui/scroll-card";
+
+export default function Example() {
+  return <ScrollCard />;
+}`,
+    preview: <ScrollCardDemo />,
+    propsData: [
+      {
+        name: "features",
+        type: "ScrollCardFeature[]",
+        default: "defaultFeatures",
+        description: "Array of items with title, description, and image url.",
+      },
+      {
+        name: "scrollHeight",
+        type: "string",
+        default: '"500vh"',
+        description: "Height of the scroll container to control scroll duration.",
       },
       {
         name: "className",

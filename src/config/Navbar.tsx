@@ -12,9 +12,11 @@ export const navbarConfig = {
     },
     navItems: [
         { label: 'Components', href: '/components' },
+        { label: 'Docs', href: '/docs' },
     ] as NavItem[],
     mobileNavItems: [
         { label: 'Components', href: '/components' },
+        { label: 'Docs', href: '/docs' },
     ] as NavItem[],
     links: {
         github: "https://github.com/shivambadmos/kick-ui",

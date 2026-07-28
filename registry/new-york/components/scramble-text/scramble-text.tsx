@@ -2,16 +2,37 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useReducedMotion } from "motion/react";
+import { cn } from "@/lib/utils";
 
 // The mix of technical glyphs used for decoding
 const GLYPHS = "!<>-_\\\\/[]{}—=+*^?#";
 
-interface ScrambleTextProps {
+export interface ScrambleTextProps {
+    /** Text to animate. */
     text: string;
+    /** Optional link destination. */
     href?: string;
+    /** Additional classes for the interactive text element. */
+    className?: string;
+    /** Milliseconds spent decoding each character. */
+    characterDuration?: number;
+    /** Milliseconds between random-character updates. */
+    updateInterval?: number;
+    /** Color used while a character is scrambled. */
+    scrambledColor?: string;
+    /** Opacity used while a character is scrambled. */
+    scrambledOpacity?: number;
 }
 
-const ScrambleText = ({ text, href = "#" }: ScrambleTextProps) => {
+const ScrambleText = ({
+    text,
+    href = "#",
+    className,
+    characterDuration = 80,
+    updateInterval = 60,
+    scrambledColor = "var(--muted-foreground)",
+    scrambledOpacity = 0.83,
+}: ScrambleTextProps) => {
     const baseChars = useMemo(
         () => text.split("").map((char) => ({ char, isScrambled: false })),
         [text]
@@ -38,10 +59,10 @@ const ScrambleText = ({ text, href = "#" }: ScrambleTextProps) => {
             // Smoothly calculate the continuous sweep position based on elapsed time.
             // 80ms per character means it glides smoothly.
             // The -2 offset gives a brief initial burst where the whole word is scrambled.
-            const iteration = (elapsedTime / 80) - 2;
+            const iteration = (elapsedTime / characterDuration) - 2;
 
             // Reduce char flipping speed to 60ms (approx ~16fps) for a readable, smooth glitch effect
-            if (currentTime - lastMutationTime >= 60) {
+            if (currentTime - lastMutationTime >= updateInterval) {
                 setCharArray(() => {
                     return text.split("").map((letter, index) => {
                         if (letter === " ") return { char: " ", isScrambled: false };
@@ -75,7 +96,13 @@ const ScrambleText = ({ text, href = "#" }: ScrambleTextProps) => {
         return () => {
             if (animationRef.current) cancelAnimationFrame(animationRef.current);
         };
-    }, [isHovered, text, prefersReducedMotion]);
+    }, [
+        isHovered,
+        text,
+        prefersReducedMotion,
+        characterDuration,
+        updateInterval,
+    ]);
 
     const displayChars = !isHovered || prefersReducedMotion ? baseChars : charArray;
 
@@ -87,7 +114,12 @@ const ScrambleText = ({ text, href = "#" }: ScrambleTextProps) => {
                 setCharArray(baseChars);
             }}
             onMouseLeave={() => setIsHovered(false)}
-            className="group relative inline-flex items-center text-foreground no-underline font-mono uppercase tracking-[2.6px] leading-normal cursor-pointer font-bold"
+            onFocus={() => setIsHovered(true)}
+            onBlur={() => setIsHovered(false)}
+            className={cn(
+                "group relative inline-flex items-center cursor-pointer text-4xl font-bold leading-normal tracking-[0.08em] text-foreground no-underline uppercase sm:text-5xl",
+                className,
+            )}
         >
             <span className="sr-only">{text}</span>
 
@@ -107,8 +139,8 @@ const ScrambleText = ({ text, href = "#" }: ScrambleTextProps) => {
                             key={index}
                             className="inline-block relative"
                             style={{
-                                opacity: item.isScrambled ? 0.8333 : 1,
-                                color: item.isScrambled ? "var(--muted-foreground)" : "inherit",
+                                opacity: item.isScrambled ? scrambledOpacity : 1,
+                                color: item.isScrambled ? scrambledColor : "inherit",
                                 transformOrigin: "50% 0%",
                                 width: item.char === " " ? "0.5em" : "auto"
                             }}

@@ -182,6 +182,22 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "scroll-card",
+      "type": "registry:component",
+      "title": "Scroll Card",
+      "description": "A scroll-linked card layout with synchronized image transitions and text reveals.",
+      "category": "components",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/scroll-card/scroll-card.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

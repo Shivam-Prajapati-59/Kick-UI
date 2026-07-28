@@ -1,4 +1,5 @@
 import type { SidebarCategory, SidebarItem } from "@/config/Sidebar";
+import type { ComponentCategory } from "@/lib/component-categories";
 
 export type { SidebarCategory, SidebarItem };
 
@@ -13,7 +14,7 @@ export interface ComponentRegistryItem {
   name: string;
   slug: string;
   description: string;
-  category: string;
+  category: ComponentCategory;
   dependencies: string[];
   registryDependencies: string[];
   installCommand: string;

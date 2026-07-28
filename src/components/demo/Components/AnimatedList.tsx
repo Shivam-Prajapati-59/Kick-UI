@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { motion, Variants } from "motion/react";
 import { cn } from "@/lib/utils";
-import { AnimatedList } from "@/components/ui/animated-list";
+import { AnimatedList } from "@registry/new-york/components/animated-list/animated-list";
 
 export type CryptoListItem = {
   id: string;

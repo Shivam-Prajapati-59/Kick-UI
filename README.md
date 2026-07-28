@@ -1,73 +1,67 @@
 # Kick UI
 
-A collection of beautifully designed, animated UI components for React. Built on Radix UI primitives, styled with Tailwind CSS v4, and powered by Motion for fluid animations.
+Kick UI is a shadcn-compatible React component library built with Next.js,
+Tailwind CSS, Radix UI, and Motion. Components are accessible, customizable,
+and installed as source code so you retain full ownership.
 
-## Documentation
+## Use a component
 
-Visit [kick-ui.vercel.app](https://kick-ui.vercel.app) to browse the component library, view live previews, and get installation commands.
-
-## Installation
-
-Components are available as a shadcn-compatible registry. To add a component to your project:
+Install an individual component with the shadcn CLI:
 
 ```bash
 npx shadcn@latest add https://kick-ui.vercel.app/r/shiny-button.json
 ```
 
-Or use the interactive CLI:
+Or browse the [documentation](https://kick-ui.vercel.app/docs) and component
+catalog to find the install command for each component.
+
+## Categories
+
+- Buttons
+- Cards
+- Components
+- Text animations
+- Layouts and sections
+- Animations
+
+## Develop locally
 
 ```bash
-npx shadcn@latest add https://kick-ui.vercel.app/r/registry.json
-```
-
-## Development
-
-```bash
-# Install dependencies
 bun install
-
-# Start dev server
 bun dev
+```
 
-# Build for production
-bun build
+Useful checks:
 
-# Run tests
-bun test
-
-# Lint
+```bash
 bun lint
-
-# Type check
 bun typecheck
-
-# Build registry
 bun registry:build
+bun run build
 ```
 
-## Project Structure
+## Project structure
 
+```text
+src/app/                 Routes and documentation pages
+src/components/demo/     Live component previews
+src/components/ui/       App-local UI primitives
+src/lib/component-registry.tsx
+                         Documentation metadata and preview catalog
+src/lib/component-categories.ts
+                         Typed category definitions
+registry/                Source distributed through the shadcn registry
+public/r/                Generated registry JSON (do not edit manually)
 ```
-├── src/
-│   ├── app/               # Next.js App Router
-│   ├── components/
-│   │   └── ui/            # UI primitives (Button, Card, Dialog, etc.)
-│   ├── config/            # Sidebar & navigation config
-│   ├── hooks/             # Custom React hooks
-│   └── lib/               # Utilities, types, component registry
-├── registry/              # Distributable component source files
-└── public/r/              # Generated registry JSON files
-```
 
-## Tech Stack
+## Adding a component
 
-- **Framework:** Next.js 16, React 19
-- **Styling:** Tailwind CSS v4
-- **Primitives:** Radix UI
-- **Animations:** Motion (Framer Motion)
-- **Forms:** React Hook Form, Zod
-- **3D:** Three.js, React Three Fiber
-- **Registry:** shadcn/ui
+1. Add the distributable source under `registry/new-york/components/<name>/`.
+2. Register it in `registry.json`.
+3. Add its documentation metadata and preview to
+   `src/lib/component-registry.tsx`.
+4. Add it to the appropriate category in `src/config/Sidebar.tsx`.
+5. Run `bun registry:build && bun typecheck && bun lint`.
 
 ## License
 

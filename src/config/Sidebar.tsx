@@ -1,92 +1,52 @@
-// ─── Types ───────────────────────────────────────────────────────────────────
+import { getCategoryMetadata, type ComponentCategory } from "@/lib/component-categories";
 
 export interface SidebarItem {
-    label: string;
-    slug: string;
-    enabled: boolean;
+  label: string;
+  slug: string;
 }
 
 export interface SidebarCategory {
-    /** Display title (rendered as the section header) */
-    title: string;
-    /** Route segment — items link to `/components/{item.slug}` */
-    basePath: string;
-    items: SidebarItem[];
+  category: ComponentCategory;
+  title: string;
+  basePath: "/components";
+  items: SidebarItem[];
 }
 
-// ─── Sidebar Data ────────────────────────────────────────────────────────────
+const itemsByCategory: Record<ComponentCategory, SidebarItem[]> = {
+  buttons: [
+    { label: "Shiny Button", slug: "shiny-button" },
+    { label: "Slide Text Button", slug: "slide-text-button" },
+  ],
+  cards: [
+    { label: "Card Stack", slug: "card-stack" },
+    { label: "Pill Card", slug: "pill-card" },
+  ],
+  components: [
+    { label: "Perspective Grid", slug: "perspective-grid" },
+    { label: "MagDock", slug: "mag-dock" },
+    { label: "Pixel Image", slug: "pixel-image" },
+    { label: "Animated List", slug: "animated-list" },
+  ],
+  "text-animations": [
+    { label: "Scramble Text", slug: "scramble-text" },
+    { label: "Text Focus", slug: "text-focus" },
+  ],
+  "layouts-sections": [
+    { label: "Feature Showcase", slug: "feature-showcase" },
+    { label: "Scroll Card", slug: "scroll-card" },
+  ],
+  animations: [{ label: "Cursor WebFluid", slug: "cursor-web-fluid" }],
+};
 
-export const sidebarCategories: SidebarCategory[] = [
-    {
-        title: "Components",
-        basePath: "/components",
-        items: [
-            { label: "Card Stack", slug: "card-stack", enabled: true },
-            { label: "Shiny Button", slug: "shiny-button", enabled: true },
-            { label: "Slide Text Button", slug: "slide-text-button", enabled: true },
-            { label: "MagDock", slug: "mag-dock", enabled: true },
-            { label: "Pixel Image", slug: "pixel-image", enabled: true },
-            { label: "Perspective Grid", slug: "perspective-grid", enabled: true },
-            { label: "Animated List", slug: "animated-list", enabled: true },
-            { label: "Pill Card", slug: "pill-card", enabled: true },
-            { label: "Glow Card", slug: "glow-card", enabled: false },
-            { label: "Hover Border Card", slug: "hover-border-card", enabled: false },
-            { label: "Magnetic Button", slug: "magnetic-button", enabled: false },
-        ],
-    },
-    {
-        title: "Text Animations",
-        basePath: "/components",
-        items: [
-            { label: "Scramble Text", slug: "scramble-text", enabled: true },
-            { label: "Text Focus", slug: "text-focus", enabled: true },
-            { label: "Split Text", slug: "split-text", enabled: false },
-            { label: "Blur Text", slug: "blur-text", enabled: false },
-            { label: "Circular Text", slug: "circular-text", enabled: false },
-            { label: "Shiny Text", slug: "shiny-text", enabled: false },
-            { label: "Text Pressure", slug: "text-pressure", enabled: false },
-            { label: "Gradient Text", slug: "gradient-text", enabled: false },
-            { label: "Fuzzy Text", slug: "fuzzy-text", enabled: false },
-            { label: "Falling Text", slug: "falling-text", enabled: false },
-            { label: "Shuffle Text", slug: "shuffle", enabled: false },
-        ],
-    },
-    {
-        title: "Animations",
-        basePath: "/components",
-        items: [
-            { label: "Cursor WebFluid", slug: "cursor-web-fluid", enabled: true },
-            { label: "Fade In", slug: "fade-in", enabled: false },
-            { label: "Slide Up", slug: "slide-up", enabled: false },
-            { label: "Parallax Scroll", slug: "parallax-scroll", enabled: false },
-        ],
-    },
-    {
-        title: "Backgrounds",
-        basePath: "/components",
-        items: [
-            { label: "Gradient Mesh", slug: "gradient-mesh", enabled: false },
-            { label: "Aurora", slug: "aurora-bg", enabled: false },
-            { label: "Stars", slug: "stars-bg", enabled: false },
-        ],
-    },
-    {
-        title: "Layouts and Sections",
-        basePath: "/components",
-        items: [
-            { label: "Feature Showcase", slug: "feature-showcase", enabled: true },
-        ],
-    },
-];
+export const sidebarCategories: SidebarCategory[] = (
+  Object.keys(itemsByCategory) as ComponentCategory[]
+).map((category) => ({
+  category,
+  title: getCategoryMetadata(category).label,
+  basePath: "/components",
+  items: itemsByCategory[category],
+}));
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
-
-/** Returns only categories that have at least one enabled item */
 export function getActiveCategories() {
-    return sidebarCategories.filter((cat) => cat.items.some((item) => item.enabled));
-}
-
-/** Returns all categories, including empty ones */
-export function getAllCategories() {
-    return sidebarCategories;
+  return sidebarCategories.filter((category) => category.items.length > 0);
 }

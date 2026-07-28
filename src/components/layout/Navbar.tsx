@@ -104,11 +104,19 @@ export default function Navbar() {
 
                         {/* Theme Toggle */}
                         <Button
+                            asChild
                             variant="outline"
                             size="icon"
                             className="hidden lg:flex text-sm font-medium"
                         >
-                            <Github />
+                            <a
+                                href={navbarConfig.links.github}
+                                target="_blank"
+                                rel="noreferrer"
+                                aria-label="View Kick UI on GitHub"
+                            >
+                                <Github />
+                            </a>
                         </Button>
                         <ThemeToggleButton />
 

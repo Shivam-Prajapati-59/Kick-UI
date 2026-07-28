@@ -95,13 +95,11 @@ export function MobileNav({
                                                 key={href}
                                                 href={href}
                                                 onClick={closeMobileNav}
-                                                aria-disabled={!item.enabled}
                                                 className={cn(
                                                     "block py-1 text-sm font-medium uppercase tracking-[0.16em] transition-colors",
                                                     isActive
                                                         ? "text-foreground"
                                                         : "text-muted-foreground hover:text-foreground",
-                                                    !item.enabled && "pointer-events-none opacity-40"
                                                 )}
                                             >
                                                 {item.label}
