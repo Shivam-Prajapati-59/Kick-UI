@@ -28,7 +28,7 @@ const registryItems = [];
 for (const item of registryConfig.items) {
   const files = item.files.map((file) => {
     const absPath = path.join(root, file.path);
-    const content = fs.readFileSync(absPath, "utf-8");
+    const content = fs.readFileSync(absPath, "utf-8").replace(/\r\n?/g, "\n");
     return { ...file, content };
   });
 
