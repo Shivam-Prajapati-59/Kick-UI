@@ -1,9 +1,8 @@
-import PillCard from "./PillCard";
-
+import ScrollCard from "./ScrollCard";
 const page = () => {
   return (
     <div className="flex justify-center items-center">
-      <PillCard />
+      <ScrollCard />
     </div>
   );
 };
