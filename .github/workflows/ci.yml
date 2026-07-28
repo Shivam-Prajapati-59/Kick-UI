@@ -42,6 +42,8 @@ jobs:
       - run: bun run registry:build
 
       - name: Verify generated registry files are committed
-        run: git diff --exit-code -- public/r
+        run: |
+          git diff --exit-code -- public/r
+          test -z "$(git ls-files --others --exclude-standard -- public/r)"
 
       - run: bun run build

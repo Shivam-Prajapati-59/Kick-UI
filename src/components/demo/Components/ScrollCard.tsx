@@ -6,9 +6,10 @@ export default function ScrollCardDemo() {
   const scrollContainer = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={scrollContainer} className="h-[32rem] w-full scrollbar-hide overflow-y-auto">
+    <div ref={scrollContainer} className="h-128 w-full scrollbar-hide overflow-y-auto">
       <ScrollCard
         scrollContainer={scrollContainer}
+        scrollHeight="500%"
         className="[--scroll-card-viewport-height:32rem]"
       />
     </div>

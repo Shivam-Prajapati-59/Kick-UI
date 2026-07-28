@@ -165,7 +165,7 @@ function ScrollImage({ feature, index, total, progress }: ScrollItemProps) {
 
 function TextItem({ feature, index, total, progress }: ScrollItemProps) {
   const { active } = useActiveValue(progress, index, total);
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(() => active.get() > 0.5);
 
   useMotionValueEvent(active, "change", (v) => {
     setIsActive(v > 0.5);
