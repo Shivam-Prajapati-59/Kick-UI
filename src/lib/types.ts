@@ -1,5 +1,4 @@
 import type { SidebarCategory, SidebarItem } from "@/config/Sidebar";
-import type { ComponentCategory } from "@/lib/component-categories";
 
 export type { SidebarCategory, SidebarItem };
 
@@ -8,21 +7,6 @@ export interface PropItem {
   type: string;
   default?: string;
   description?: string;
-}
-
-export interface ComponentRegistryItem {
-  name: string;
-  slug: string;
-  description: string;
-  category: ComponentCategory;
-  dependencies: string[];
-  registryDependencies: string[];
-  installCommand: string;
-  usage: string;
-  sourceFilename?: string;
-  preview: React.ReactNode;
-  propsData: PropItem[];
-  fullPreview?: boolean;
 }
 
 export type PackageManager = "npm" | "pnpm" | "yarn" | "bun";

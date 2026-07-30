@@ -1,0 +1,33 @@
+---
+title: MagDock
+description: A spring-animated dock with icons, tooltips, and active states.
+category: components
+demo: mag-dock
+usage: |
+  import {
+    ActivityIcon,
+    HomeIcon,
+    MailIcon,
+    Trash2Icon,
+    XCircleIcon,
+  } from "lucide-react";
+  import MagDock from "@/components/ui/mag-dock";
+
+  const items = [
+    { id: 1, icon: HomeIcon, name: "Home", active: true },
+    { id: 2, icon: MailIcon, name: "Mail", active: true },
+    { id: 3, icon: XCircleIcon, name: "Close", active: false },
+    { id: 4, icon: Trash2Icon, name: "Trash", active: false },
+    { id: 5, icon: ActivityIcon, name: "Activity", active: true },
+  ];
+
+  export function MagDockDemo() {
+    return <MagDock items={items} />;
+  }
+props:
+  - name: items
+    type: MagDockItem[]
+    description: Dock icon definitions.
+---
+
+Pass semantic icon labels so tooltips and controls remain accessible.

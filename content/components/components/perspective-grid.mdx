@@ -1,0 +1,40 @@
+---
+title: Perspective Grid
+description: A 3D-perspective grid that tilts on hover.
+category: components
+demo: perspective-grid
+usage: |
+  import type { Chain } from "@/components/ui/perspective-grid";
+  import PerspectiveGrid from "@/components/ui/perspective-grid";
+
+  const chains: Chain[] = [
+    { id: 1, name: "Bitcoin", symbol: "BTC", logo: "/assets/chains/bitcoin.png" },
+    { id: 2, name: "Ethereum", symbol: "ETH", logo: "/assets/chains/ethereum.png" },
+    { id: 3, name: "Solana", symbol: "SOL", logo: "/assets/chains/solana.png" },
+    { id: 4, name: "Base", symbol: "BASE", logo: "/assets/chains/base.png" },
+  ];
+
+  export function PerspectiveGridDemo() {
+    return (
+      <PerspectiveGrid
+        chains={chains}
+        title={<>Any transaction on any chain,<br />Aside executes it.</>}
+        subtitle="Multi-chain ecosystem"
+      />
+    );
+  }
+props:
+  - name: chains
+    type: Chain[]
+    description: Items displayed in the grid.
+  - name: title
+    type: React.ReactNode
+    default: '"Any transaction on any chain, Aside executes it."'
+    description: Heading rendered above the chain grid.
+  - name: subtitle
+    type: React.ReactNode
+    default: '"Multi-chain ecosystem"'
+    description: Supporting text rendered below the title.
+---
+
+Use the default data or provide your own item collection.

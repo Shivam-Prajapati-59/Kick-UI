@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "pill-card",
   "title": "Pill Card",
-  "description": "A card with animated SVG paths that travel from a pill button down to icons with a synchronized glow effect.",
+  "description": "A card with animated SVG paths and synchronized glow effects.",
   "dependencies": [
     "motion",
     "lucide-react"

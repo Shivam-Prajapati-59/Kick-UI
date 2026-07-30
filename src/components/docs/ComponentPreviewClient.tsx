@@ -6,14 +6,19 @@ import { cn } from "@/lib/utils";
 import CodeExample, { type CodeVariants } from "@/components/code/CodeExample";
 import { motion, AnimatePresence } from "motion/react";
 import { RotateCw } from "lucide-react";
-import { getComponent } from "@/lib/component-registry";
 import PropsTable from "./PropsTable";
+import type { PropItem } from "@/lib/types";
 
 interface ComponentPreviewClientProps {
   slug: string;
   sourceCode?: string;
   sourceFilename?: string;
   dependencies?: string[];
+  registryUrl?: string;
+  usage?: string;
+  propsData?: PropItem[];
+  preview: React.ReactNode;
+  fullPreview?: boolean;
   className?: string;
 }
 
@@ -37,17 +42,16 @@ export function ComponentPreviewClient({
   sourceCode,
   sourceFilename,
   dependencies,
+  registryUrl,
+  usage = "",
+  propsData = [],
+  preview,
+  fullPreview = false,
   className,
 }: ComponentPreviewClientProps) {
   const [activeTab, setActiveTab] = useState("preview");
   const [previewKey, setPreviewKey] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
-
-  const componentData = getComponent(slug);
-
-  const preview = componentData?.preview;
-  const usage = componentData?.usage || "";
-  const propsData = componentData?.propsData || [];
 
   const variants: CodeVariants | undefined = sourceCode
     ? { tsTailwind: sourceCode }
@@ -58,14 +62,6 @@ export function ComponentPreviewClient({
     setPreviewKey((k) => k + 1);
     setTimeout(() => setIsSpinning(false), 600);
   }, []);
-
-  if (!preview) {
-    return (
-      <div className="my-6 flex min-h-50 items-center justify-center rounded-lg border border-dashed border-border p-10 text-muted-foreground">
-        Component &ldquo;{slug}&rdquo; not found in preview registry.
-      </div>
-    );
-  }
 
   return (
     <Tabs
@@ -124,7 +120,7 @@ export function ComponentPreviewClient({
                   key={previewKey}
                   className={cn(
                     "flex items-center justify-center",
-                    componentData?.fullPreview ? "min-h-100 p-0" : "min-h-87.5 p-10"
+                    fullPreview ? "min-h-100 p-0" : "min-h-87.5 p-10"
                   )}
                 >
                   {preview}
@@ -154,6 +150,7 @@ export function ComponentPreviewClient({
                   usage={usage}
                   variants={variants}
                   dependencies={dependencies}
+                  registryUrl={registryUrl}
                   sourceFilename={sourceFilename}
                 />
               </TabsContent>

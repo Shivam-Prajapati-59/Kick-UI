@@ -1,0 +1,32 @@
+---
+title: Text Focus
+description: A text element that focuses on hover.
+category: text-animations
+demo: text-focus
+usage: |
+  import TextFocus from "@/components/ui/text-focus";
+
+  export function TextFocusDemo() {
+    return (
+      <TextFocus
+        sentence="All Eyes on Me"
+        borderColor="#22d3ee"
+        blurAmount={3}
+      />
+    );
+  }
+props:
+  - name: sentence
+    type: string
+    description: Sentence split into focusable words.
+  - name: borderColor
+    type: string
+    default: '"#22d3ee"'
+    description: Color of the animated focus frame.
+  - name: blurAmount
+    type: number
+    default: "3"
+    description: Blur applied to inactive words.
+---
+
+Hover or focus a word to bring it into focus.

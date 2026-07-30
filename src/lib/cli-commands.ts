@@ -1,4 +1,3 @@
-import type { ComponentRegistryItem } from "./component-registry";
 import type { PackageManager } from "@/hooks/useCodeOptions";
 
 /* ------------------------------------------------------------------ */
@@ -14,6 +13,11 @@ export interface GeneratedCommands {
   shadcn: CliCommands;
   /** null when no dependencies exist (nothing to install manually) */
   manual: CliCommands | null;
+}
+
+export interface InstallableComponent {
+  registryUrl: string;
+  dependencies: string[];
 }
 
 /* ------------------------------------------------------------------ */
@@ -44,15 +48,6 @@ export const PKG_MANAGERS: PackageManager[] = ["npm", "pnpm", "yarn", "bun"];
  * Extracts the registry URL from a full install command.
  * e.g. "npx shadcn@latest add https://..." → "https://..."
  */
-function extractRegistryUrl(installCommand: string): string {
-  const match = installCommand.match(/https?:\/\/\S+/);
-  return match ? match[0] : installCommand;
-}
-
-/* ------------------------------------------------------------------ */
-/*  Main generator                                                     */
-/* ------------------------------------------------------------------ */
-
 /**
  * Generates CLI install commands for every combination of
  * package manager × CLI tool, plus manual dependency install.
@@ -62,9 +57,9 @@ function extractRegistryUrl(installCommand: string): string {
  * all commands available.
  */
 export function generateInstallCommands(
-  component: ComponentRegistryItem
+  component: InstallableComponent,
 ): GeneratedCommands {
-  const registryUrl = extractRegistryUrl(component.installCommand);
+  const { registryUrl } = component;
 
   const shadcn: CliCommands = {};
 

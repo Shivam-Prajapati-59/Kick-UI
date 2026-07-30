@@ -1,0 +1,21 @@
+---
+title: Slide Text Button
+description: A button with sliding text and an expanding hover background.
+category: buttons
+demo: slide-text-button
+usage: |
+  import SlideTextButton from "@/components/ui/slide-text-button";
+
+  export function SlideTextButtonDemo() {
+    return <SlideTextButton initialText="Start" hoverText="Go" />;
+  }
+props:
+  - name: initialText
+    type: string
+    description: Text shown before hover.
+  - name: hoverText
+    type: string
+    description: Text shown on hover.
+---
+
+Use concise labels so both states remain easy to scan.

@@ -7,8 +7,8 @@ export const navbarConfig = {
     logo: {
         src: '/logo1.png',
         alt: 'Kick UI',
-        width: 40,
-        height: 40,
+        width: 30,
+        height: 30,
     },
     navItems: [
         { label: 'Components', href: '/components' },

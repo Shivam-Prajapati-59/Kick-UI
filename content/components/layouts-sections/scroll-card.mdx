@@ -1,0 +1,23 @@
+---
+title: Scroll Card
+description: A scroll-linked card layout with synchronized image transitions and text reveals.
+category: layouts-sections
+demo: scroll-card
+fullPreview: true
+usage: |
+  import { ScrollCard } from "@/components/ui/scroll-card";
+
+  export function ScrollCardDemo() {
+    return <ScrollCard />;
+  }
+props:
+  - name: features
+    type: ScrollCardFeature[]
+    description: Items displayed while scrolling.
+  - name: scrollHeight
+    type: string
+    default: '"500vh"'
+    description: Scroll distance used by the animation.
+---
+
+For embedded previews, provide a scroll container and matching viewport height.

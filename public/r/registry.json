@@ -7,8 +7,8 @@
       "name": "pill-card",
       "type": "registry:component",
       "title": "Pill Card",
-      "description": "A card with animated SVG paths that travel from a pill button down to icons with a synchronized glow effect.",
-      "category": "components",
+      "description": "A card with animated SVG paths and synchronized glow effects.",
+      "category": "cards",
       "dependencies": [
         "motion",
         "lucide-react"
@@ -92,7 +92,7 @@
       "type": "registry:component",
       "title": "Card Stack",
       "description": "A stacked card fan animation.",
-      "category": "animations",
+      "category": "cards",
       "dependencies": [
         "motion"
       ],
@@ -107,7 +107,7 @@
       "name": "slide-text-button",
       "type": "registry:component",
       "title": "Slide Text Button",
-      "description": "A button with a smooth slide-up text animation and an expanding circle background on hover.",
+      "description": "A button with sliding text and an expanding hover background.",
       "category": "buttons",
       "dependencies": [
         "motion"
@@ -123,7 +123,7 @@
       "name": "mag-dock",
       "type": "registry:component",
       "title": "MagDock",
-      "description": "A macOS-style dock with spring-animated icon scaling, lift on hover, tooltips, and active-state indicators.",
+      "description": "A spring-animated dock with icons, tooltips, and active states.",
       "category": "components",
       "dependencies": [
         "motion"
@@ -139,7 +139,7 @@
       "name": "perspective-grid",
       "type": "registry:component",
       "title": "Perspective Grid",
-      "description": "A 3D-perspective grid of blockchain logos that tilt on hover with a spring animation.",
+      "description": "A 3D-perspective grid that tilts on hover.",
       "category": "components",
       "dependencies": [
         "motion"
@@ -155,7 +155,7 @@
       "name": "pixel-image",
       "type": "registry:component",
       "title": "Pixel Image",
-      "description": "A hover-driven pixelated dissolve transition between two images. Tiles randomly fade out to reveal a second image underneath.",
+      "description": "A hover-driven pixelated dissolve between two images.",
       "category": "components",
       "dependencies": [
         "motion"
@@ -171,8 +171,8 @@
       "name": "animated-list",
       "type": "registry:component",
       "title": "Animated List",
-      "description": "A generic, performant animated list with keyboard navigation, auto-scroll, and dynamic fade gradients.",
-      "category": "animations",
+      "description": "A generic animated list with keyboard navigation and auto-scroll.",
+      "category": "components",
       "dependencies": [
         "motion"
       ],
@@ -188,7 +188,7 @@
       "type": "registry:component",
       "title": "Scroll Card",
       "description": "A scroll-linked card layout with synchronized image transitions and text reveals.",
-      "category": "components",
+      "category": "layouts-sections",
       "dependencies": [
         "motion"
       ],

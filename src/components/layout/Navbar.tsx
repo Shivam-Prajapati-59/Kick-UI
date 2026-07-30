@@ -40,15 +40,23 @@ export default function Navbar() {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
                         >
-                            <Link href="/">
+                            <Link
+                                href="/"
+                                aria-label="Kick UI home"
+                                className="flex items-center"
+                            >
                                 <Image
                                     src={navbarConfig.logo.src}
                                     alt={navbarConfig.logo.alt}
                                     width={navbarConfig.logo.width}
                                     height={navbarConfig.logo.height}
-                                    className="rounded-lg transition-opacity"
+                                    className="rounded-lg transition-opacity -translate-y-1.25"
                                     priority
+                                    loading="eager"
                                 />
+                                <span className="text-xl font-medium tracking-tight text-foreground">
+                                    ick UI
+                                </span>
                             </Link>
                         </motion.div>
 

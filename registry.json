@@ -6,9 +6,6 @@
     {
       "name": "pill-card",
       "type": "registry:component",
-      "title": "Pill Card",
-      "description": "A card with animated SVG paths that travel from a pill button down to icons with a synchronized glow effect.",
-      "category": "components",
       "dependencies": ["motion", "lucide-react"],
       "files": [
         {
@@ -20,9 +17,6 @@
     {
       "name": "shiny-button",
       "type": "registry:component",
-      "title": "Shiny Button",
-      "description": "A button with a smooth shiny animation effect.",
-      "category": "buttons",
       "dependencies": ["motion"],
       "registryDependencies": ["button"],
       "files": [
@@ -35,9 +29,6 @@
     {
       "name": "cursor-web-fluid",
       "type": "registry:component",
-      "title": "Cursor Web Fluid",
-      "description": "A fluid animation that follows the cursor.",
-      "category": "animations",
       "dependencies": ["three"],
       "files": [
         {
@@ -49,9 +40,6 @@
     {
       "name": "scramble-text",
       "type": "registry:component",
-      "title": "Scramble Text",
-      "description": "A hover-driven text scramble animation with a smooth decode sweep.",
-      "category": "text-animations",
       "dependencies": ["motion"],
       "files": [
         {
@@ -63,9 +51,6 @@
     {
       "name": "text-focus",
       "type": "registry:component",
-      "title": "Text Focus",
-      "description": "A text element that focuses on hover.",
-      "category": "text-animations",
       "dependencies": ["motion"],
       "files": [
         {
@@ -77,9 +62,6 @@
     {
       "name": "card-stack",
       "type": "registry:component",
-      "title": "Card Stack",
-      "description": "A stacked card fan animation.",
-      "category": "animations",
       "dependencies": ["motion"],
       "files": [
         {
@@ -91,9 +73,6 @@
     {
       "name": "slide-text-button",
       "type": "registry:component",
-      "title": "Slide Text Button",
-      "description": "A button with a smooth slide-up text animation and an expanding circle background on hover.",
-      "category": "buttons",
       "dependencies": ["motion"],
       "files": [
         {
@@ -105,9 +84,6 @@
     {
       "name": "mag-dock",
       "type": "registry:component",
-      "title": "MagDock",
-      "description": "A macOS-style dock with spring-animated icon scaling, lift on hover, tooltips, and active-state indicators.",
-      "category": "components",
       "dependencies": ["motion"],
       "files": [
         {
@@ -119,9 +95,6 @@
     {
       "name": "perspective-grid",
       "type": "registry:component",
-      "title": "Perspective Grid",
-      "description": "A 3D-perspective grid of blockchain logos that tilt on hover with a spring animation.",
-      "category": "components",
       "dependencies": ["motion"],
       "files": [
         {
@@ -133,9 +106,6 @@
     {
       "name": "pixel-image",
       "type": "registry:component",
-      "title": "Pixel Image",
-      "description": "A hover-driven pixelated dissolve transition between two images. Tiles randomly fade out to reveal a second image underneath.",
-      "category": "components",
       "dependencies": ["motion"],
       "files": [
         {
@@ -147,9 +117,6 @@
     {
       "name": "animated-list",
       "type": "registry:component",
-      "title": "Animated List",
-      "description": "A generic, performant animated list with keyboard navigation, auto-scroll, and dynamic fade gradients.",
-      "category": "animations",
       "dependencies": ["motion"],
       "files": [
         {
@@ -161,9 +128,6 @@
     {
       "name": "scroll-card",
       "type": "registry:component",
-      "title": "Scroll Card",
-      "description": "A scroll-linked card layout with synchronized image transitions and text reveals.",
-      "category": "components",
       "dependencies": ["motion"],
       "files": [
         {

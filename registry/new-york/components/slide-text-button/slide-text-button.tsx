@@ -40,7 +40,7 @@ const DefaultIcon = () => (
   </svg>
 );
 
-interface SlideTextButtonProps
+export interface SlideTextButtonProps
   extends Omit<React.ComponentPropsWithoutRef<typeof motion.button>, "children" | "initial" | "whileHover" | "whileTap" | "variants"> {
   initialText?: React.ReactNode;
   hoverText?: React.ReactNode;

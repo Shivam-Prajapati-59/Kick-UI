@@ -33,6 +33,8 @@ interface CodeExampleProps {
   variants?: CodeVariants;
   /** Dependencies list (if not provided, read from registry) */
   dependencies?: string[];
+  /** Public registry URL for the component. */
+  registryUrl?: string;
   /** The filename to display above source code (e.g. "components/ui/shiny-button.tsx") */
   sourceFilename?: string;
   /** Additional children to render after the code sections */
@@ -72,6 +74,7 @@ export default function CodeExample({
   usage,
   variants,
   dependencies,
+  registryUrl,
   sourceFilename,
   children,
   className,
@@ -95,7 +98,11 @@ export default function CodeExample({
   return (
     <div className={cn("space-y-6", className)}>
       {/* 1. Install commands */}
-      <CliInstallation slug={slug} />
+      <CliInstallation
+        slug={slug}
+        registryUrl={registryUrl}
+        dependencies={dependencies ?? []}
+      />
 
       {/* 2. Usage example */}
       {usage && (

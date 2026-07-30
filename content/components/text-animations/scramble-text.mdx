@@ -1,0 +1,22 @@
+---
+title: Scramble Text
+description: A hover-driven text scramble animation with a smooth decode sweep.
+category: text-animations
+demo: scramble-text
+usage: |
+  import ScrambleText from "@/components/ui/scramble-text";
+
+  export function ScrambleTextDemo() {
+    return <ScrambleText text="Kick UI" className="text-5xl" />;
+  }
+props:
+  - name: text
+    type: string
+    description: Text to animate.
+  - name: className
+    type: string
+    default: '"text-4xl sm:text-5xl"'
+    description: Classes for size and visual styling.
+---
+
+The animation also runs when the link receives keyboard focus.

@@ -231,6 +231,7 @@ const FeatureShowcase = ({
                     width={100}
                     height={100}
                     className="w-full h-auto drop-shadow-2xl rounded-3xl md:rounded-4xl"
+                    unoptimized
                   />
                 </motion.div>
               )}

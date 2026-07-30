@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 
-interface TextFocusProps {
+export interface TextFocusProps {
     sentence?: string;
     borderColor?: string;
     blurAmount?: number;

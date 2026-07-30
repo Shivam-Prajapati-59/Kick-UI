@@ -1,0 +1,66 @@
+---
+title: Cursor Web Fluid
+description: A fluid animation that follows the cursor.
+category: animations
+demo: cursor-web-fluid
+fullPreview: true
+usage: |
+  "use client";
+
+  import CursorWebFluid from "@/components/ui/cursor-web-fluid";
+
+  export function CursorWebFluidDemo() {
+    return (
+      <div className="relative h-96 overflow-hidden rounded-xl">
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+          <p className="text-lg font-semibold">Move your cursor here</p>
+        </div>
+        <CursorWebFluid
+          contained
+          inkColor="#ffffff"
+          blendMode="difference"
+          dyeDissipation={0.97}
+          velocityDissipation={0.97}
+          curl={30}
+          forceStrength={8}
+          threshold={0.6}
+        />
+      </div>
+    );
+  }
+props:
+  - name: inkColor
+    type: string
+    default: '"--foreground"'
+    description: CSS color or theme variable for the fluid.
+  - name: contained
+    type: boolean
+    default: "false"
+    description: Render inside the nearest positioned parent.
+  - name: blendMode
+    type: CSSProperties["mixBlendMode"]
+    default: '"difference"'
+    description: Blend mode used to render the fluid over the preview surface.
+  - name: dyeDissipation
+    type: number
+    default: "0.97"
+    description: How quickly the fluid trail fades.
+  - name: velocityDissipation
+    type: number
+    default: "0.97"
+    description: How quickly fluid velocity dissipates.
+  - name: curl
+    type: number
+    default: "30"
+    description: Vorticity strength that controls fluid swirling.
+  - name: forceStrength
+    type: number
+    default: "8"
+    description: Cursor force applied to the fluid.
+  - name: threshold
+    type: number
+    default: "0.6"
+    description: Display threshold used for the fluid texture.
+---
+
+Use the contained mode for cards and demos; use the default mode for a page-level overlay.

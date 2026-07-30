@@ -1,0 +1,25 @@
+---
+title: Card Stack
+description: A stacked card fan animation.
+category: cards
+demo: card-stack
+usage: |
+  import CardStack from "@/components/ui/card-stack";
+
+  export function CardStackDemo() {
+    return (
+      <div className="h-[400px] w-full">
+        <CardStack />
+      </div>
+    );
+  }
+props:
+  - name: items
+    type: CardItem[]
+    description: Cards and their positions.
+  - name: className
+    type: string
+    description: Additional container classes.
+---
+
+Use a fixed-height parent to give the card stack room to animate.

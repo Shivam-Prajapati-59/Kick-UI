@@ -17,7 +17,7 @@ function shuffledIndices(n: number, seed: number): number[] {
   return arr;
 }
 
-interface PixelImageProps {
+export interface PixelImageProps {
   defaultImage: string;
   hoverImage: string;
   cols?: number;

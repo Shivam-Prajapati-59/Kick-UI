@@ -1,0 +1,23 @@
+---
+title: Shiny Button
+description: A button with a smooth shiny animation effect.
+category: buttons
+demo: shiny-button
+usage: |
+  import { ShinyButton } from "@/components/ui/shiny-button";
+
+  export function ShinyButtonDemo() {
+    return <ShinyButton>Shiny Button</ShinyButton>;
+  }
+props:
+  - name: shimmerWidth
+    type: number
+    default: "100"
+    description: Width of the shimmer effect.
+  - name: duration
+    type: number
+    default: "2"
+    description: Animation duration in seconds.
+---
+
+Use Shiny Button for a high-emphasis call to action.

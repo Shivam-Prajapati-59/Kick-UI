@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-interface ShinyButtonProps extends React.ComponentPropsWithoutRef<typeof Button> {
+export interface ShinyButtonProps extends React.ComponentPropsWithoutRef<typeof Button> {
   shimmerWidth?: number;
   duration?: number;
 }

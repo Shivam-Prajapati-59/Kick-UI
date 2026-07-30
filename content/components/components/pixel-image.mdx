@@ -1,0 +1,26 @@
+---
+title: Pixel Image
+description: A hover-driven pixelated dissolve between two images.
+category: components
+demo: pixel-image
+usage: |
+  import PixelImage from "@/components/ui/pixel-image";
+
+  export function PixelImageDemo() {
+    return (
+      <PixelImage
+        defaultImage="/assets/trafalgar.jpg"
+        hoverImage="/assets/trafalgar1.jpg"
+      />
+    );
+  }
+props:
+  - name: defaultImage
+    type: string
+    description: Image shown initially.
+  - name: hoverImage
+    type: string
+    description: Image revealed on hover.
+---
+
+Keep both image files at the same aspect ratio for a smooth reveal.

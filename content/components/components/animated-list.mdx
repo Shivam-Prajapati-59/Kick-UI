@@ -1,0 +1,29 @@
+---
+title: Animated List
+description: A generic animated list with keyboard navigation and auto-scroll.
+category: components
+demo: animated-list
+usage: |
+  import type { ReactNode } from "react";
+  import { AnimatedList } from "@/components/ui/animated-list";
+
+  const items = ["Design", "Develop", "Ship"];
+
+  export function AnimatedListDemo() {
+    return (
+      <AnimatedList
+        items={items}
+        renderItem={(item: string): ReactNode => <span>{item}</span>}
+      />
+    );
+  }
+props:
+  - name: items
+    type: T[]
+    description: Collection rendered by the list.
+  - name: renderItem
+    type: function
+    description: Callback that renders each item.
+---
+
+The list manages selection and pointer interactions for the supplied item renderer.

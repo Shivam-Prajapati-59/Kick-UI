@@ -12,6 +12,8 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import matter from "gray-matter";
+import { createComponentDocSchema } from "./component-doc-schema.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -21,11 +23,39 @@ const registryConfig = JSON.parse(
 );
 
 const OUT_DIR = path.join(root, "public", "r");
+const DOCS_DIR = path.join(root, "content", "components");
 fs.mkdirSync(OUT_DIR, { recursive: true });
+const demoSource = fs.readFileSync(
+  path.join(root, "src", "components", "docs", "DemoRenderer.tsx"),
+  "utf-8",
+);
+const demoNames = new Set(
+  [...demoSource.matchAll(/^\s*"([^"]+)":\s*dynamic\(/gm)].map((match) => match[1]),
+);
+const componentDocSchema = createComponentDocSchema(demoNames);
+
+function findDocPath(slug, directory = DOCS_DIR) {
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const entryPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) {
+      const match = findDocPath(slug, entryPath);
+      if (match) return match;
+    } else if (entry.name === `${slug}.mdx`) {
+      return entryPath;
+    }
+  }
+  return undefined;
+}
 
 const registryItems = [];
 
 for (const item of registryConfig.items) {
+  const docPath = findDocPath(item.name);
+  if (!docPath) {
+    throw new Error(`Missing MDX documentation for registry item "${item.name}".`);
+  }
+  const { data } = matter(fs.readFileSync(docPath, "utf-8"));
+  const doc = componentDocSchema.parse(data);
   const files = item.files.map((file) => {
     const absPath = path.join(root, file.path);
     const content = fs.readFileSync(absPath, "utf-8");
@@ -35,8 +65,8 @@ for (const item of registryConfig.items) {
   const output = {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
     name: item.name,
-    title: item.title,
-    description: item.description,
+    title: doc.title,
+    description: doc.description,
     dependencies: item.dependencies,
     registryDependencies: item.registryDependencies,
     files,
@@ -50,9 +80,9 @@ for (const item of registryConfig.items) {
   registryItems.push({
     name: item.name,
     type: item.type,
-    title: item.title,
-    description: item.description,
-    category: item.category,
+    title: doc.title,
+    description: doc.description,
+    category: doc.category,
     dependencies: item.dependencies,
     registryDependencies: item.registryDependencies,
     files: item.files,

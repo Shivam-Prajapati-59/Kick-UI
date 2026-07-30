@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
 import { useCodeOptions } from "@/hooks/useCodeOptions";
-import { getComponent } from "@/lib/component-registry";
 import { coldarkDarkLike, coldarkLightLike } from "@/lib/code-theme";
 import {
   generateInstallCommands,
@@ -39,6 +38,8 @@ const PKG_ICONS: Record<PackageManager, React.ComponentType<{ className?: string
 interface CliInstallationProps {
   /** Component slug from the registry (e.g. "shiny-button") */
   slug: string;
+  registryUrl?: string;
+  dependencies: string[];
   /** Additional CSS classes */
   className?: string;
 }
@@ -79,6 +80,8 @@ function PkgButtons({ selected, onSelect }: PkgButtonsProps) {
 
 export default function CliInstallation({
   slug,
+  registryUrl,
+  dependencies,
   className,
 }: CliInstallationProps) {
   const { resolvedTheme } = useTheme();
@@ -91,13 +94,10 @@ export default function CliInstallation({
   const syntaxTheme =
     resolvedTheme === "light" ? coldarkLightLike : coldarkDarkLike;
 
-  /* ---- lookup component in registry ---- */
-  const component = getComponent(slug);
-
   const commands = useMemo(() => {
-    if (!component) return null;
-    return generateInstallCommands(component);
-  }, [component]);
+    if (!registryUrl) return null;
+    return generateInstallCommands({ registryUrl, dependencies });
+  }, [dependencies, registryUrl]);
 
   const hasManual = !!commands?.manual;
 
@@ -124,7 +124,7 @@ export default function CliInstallation({
   }, [currentCommand]);
 
   /* ---- guards ---- */
-  if (!component || !commands) {
+  if (!commands) {
     return (
       <div className="my-4 text-sm text-muted-foreground">
         Component &ldquo;{slug}&rdquo; not found in registry.

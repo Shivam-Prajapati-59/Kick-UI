@@ -190,7 +190,7 @@ function ChainCard({ chain, variants }: { chain: Chain; variants?: Variants }) {
   );
 }
 
-interface PerspectiveGridProps {
+export interface PerspectiveGridProps {
   chains?: Chain[];
   title?: React.ReactNode;
   subtitle?: React.ReactNode;

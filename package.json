@@ -4,12 +4,14 @@
   "private": true,
   "description": "A collection of beautifully designed, animated UI components for React. Accessible. Customizable. Open Source.",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "bun docs:build && next dev",
+    "build": "bun docs:build && next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "registry:build": "node scripts/build-registry.mjs"
+    "registry:build": "node scripts/build-registry.mjs",
+    "docs:build": "node scripts/build-docs.mjs",
+    "docs:check": "node scripts/build-docs.mjs --check"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
