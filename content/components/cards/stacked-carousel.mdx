@@ -1,0 +1,54 @@
+---
+title: Stacked Carousel
+description: A self-playing card stack that cycles through items with a smooth, seamless fly-up transition.
+category: cards
+demo: stacked-carousel
+usage: |
+  import type { ReactNode } from "react";
+  import { StackedCarousel } from "@/components/ui/stacked-carousel";
+
+  const items = [
+    { id: 1, label: "Design" },
+    { id: 2, label: "Develop" },
+    { id: 3, label: "Ship" },
+  ];
+
+  export function StackedCarouselDemo() {
+    return (
+      <StackedCarousel
+        items={items}
+        renderItem={(item): ReactNode => (
+          <span className="text-sm font-medium">{item.label}</span>
+        )}
+      />
+    );
+  }
+props:
+  - name: items
+    type: T[]
+    description: The data rendered by the carousel. One card per item.
+  - name: renderItem
+    type: "(item: T, index: number) => ReactNode"
+    description: Callback that renders the content of a single card.
+  - name: interval
+    type: number
+    default: "1800"
+    description: Milliseconds between automatic advances.
+  - name: advanceDelay
+    type: number
+    default: "400"
+    description: Duration of the fly-up animation before the card cycles.
+  - name: containerHeight
+    type: number
+    default: "220"
+    description: Height reserved for the stack container.
+  - name: onAdvance
+    type: "(index: number) => void"
+    description: Called with the index of the card that just became active.
+  - name: className
+    type: string
+    description: Additional classes for the root wrapper.
+  - name: cardClassName
+    type: string
+    description: Additional classes applied to every card.
+---

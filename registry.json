@@ -135,6 +135,17 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "stacked-carousel",
+      "type": "registry:component",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/components/stacked-carousel/stacked-carousel.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

@@ -4,7 +4,7 @@
   "private": true,
   "description": "A collection of beautifully designed, animated UI components for React. Accessible. Customizable. Open Source.",
   "scripts": {
-    "dev": "bun docs:build && next dev",
+    "dev": "next dev",
     "build": "bun docs:build && next build",
     "start": "next start",
     "lint": "eslint",

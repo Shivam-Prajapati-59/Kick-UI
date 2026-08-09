@@ -40,6 +40,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "cards"
   },
   {
+    "slug": "stacked-carousel",
+    "title": "Stacked Carousel",
+    "description": "A self-playing card stack that cycles through items with a smooth, seamless fly-up transition.",
+    "category": "cards"
+  },
+  {
     "slug": "animated-list",
     "title": "Animated List",
     "description": "A generic animated list with keyboard navigation and auto-scroll.",

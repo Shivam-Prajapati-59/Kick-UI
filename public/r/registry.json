@@ -198,6 +198,22 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "stacked-carousel",
+      "type": "registry:component",
+      "title": "Stacked Carousel",
+      "description": "A self-playing card stack that cycles through items with a smooth, seamless fly-up transition.",
+      "category": "cards",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/stacked-carousel/stacked-carousel.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

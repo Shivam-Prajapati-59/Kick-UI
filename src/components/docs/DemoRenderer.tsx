@@ -23,6 +23,7 @@ const demos = {
   "pixel-image": dynamic(() => import("@/components/demo/Components/PixelImage")),
   "animated-list": dynamic(() => import("@/components/demo/Components/AnimatedList")),
   "scroll-card": dynamic(() => import("@/components/demo/Components/ScrollCard")),
+  "stacked-carousel": dynamic(() => import("@/components/demo/Components/StackedCarousel")),
   "feature-showcase": dynamic(() => import("@/components/demo/Layouts/FeatureShowcase")),
 } as const;
 

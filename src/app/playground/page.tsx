@@ -1,8 +1,9 @@
-import ScrollCard from "./ScrollCard";
+import TransactionItem from "./TransactionItem";
+
 const page = () => {
   return (
-    <div className="flex justify-center items-center">
-      <ScrollCard />
+    <div className="flex min-h-screen items-center justify-center">
+      <TransactionItem />
     </div>
   );
 };
