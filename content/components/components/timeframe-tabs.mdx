@@ -1,0 +1,44 @@
+---
+title: Timeframe Tabs
+description: A scrollable, controlled pill-tab row with an animated active-state highlight and a slot for trailing content.
+category: components
+demo: timeframe-tabs
+usage: |
+  import { useState } from "react";
+  import { TimeframeTabs } from "@/components/ui/timeframe-tabs";
+
+  const timeframes = ["1m", "5m", "15m", "30m", "1H", "4H"];
+
+  export function TimeframeTabsDemo() {
+    const [value, setValue] = useState("1H");
+
+    return (
+      <TimeframeTabs
+        items={timeframes}
+        value={value}
+        onValueChange={setValue}
+        label="Chart timeframe"
+      />
+    );
+  }
+props:
+  - name: items
+    type: string[]
+    description: The pills to render, in order.
+  - name: value
+    type: string
+    description: Currently active pill.
+  - name: onValueChange
+    type: "(value: string) => void"
+    description: Called with the pill value when the user clicks one.
+  - name: label
+    type: string
+    default: '"Tabs"'
+    description: Accessible label for the tablist.
+  - name: className
+    type: string
+    description: Additional classes for the root wrapper.
+  - name: children
+    type: React.ReactNode
+    description: Anything rendered after the pill row — a divider, a dropdown menu, or other trailing actions.
+---

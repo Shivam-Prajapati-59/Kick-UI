@@ -24,6 +24,7 @@ const demos = {
   "animated-list": dynamic(() => import("@/components/demo/Components/AnimatedList")),
   "scroll-card": dynamic(() => import("@/components/demo/Components/ScrollCard")),
   "stacked-carousel": dynamic(() => import("@/components/demo/Components/StackedCarousel")),
+  "timeframe-tabs": dynamic(() => import("@/components/demo/Components/TimeframeTabs")),
   "feature-showcase": dynamic(() => import("@/components/demo/Layouts/FeatureShowcase")),
 } as const;
 

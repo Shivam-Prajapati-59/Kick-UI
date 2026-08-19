@@ -16,14 +16,14 @@ export default function ComponentsLayout({
 }) {
     return (
         <Container
-            className={`${montserrat.variable} [font-family:var(--font-montserrat)] flex-1 items-start lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-5`}
+            className={`${montserrat.variable} [font-family:var(--font-montserrat)] flex-1 items-start lg:grid lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-5`}
         >
-            <aside className="fixed top-24 z-30 -ml-2 hidden h-[calc(100vh-6rem)] w-full shrink-0 lg:sticky lg:block">
+            <aside className="fixed top-20 z-30 hidden h-[calc(100vh-5rem)] w-full shrink-0 lg:sticky lg:block">
                 <div className="h-full pr-6 overflow-y-auto scrollbar-hide w-full">
                     <Sidebar />
                 </div>
             </aside>
-            <main className="relative py-6 lg:gap-10 lg:py-8 scrollbar-hide">
+            <main className="relative py-4">
                 {children}
             </main>
         </Container>

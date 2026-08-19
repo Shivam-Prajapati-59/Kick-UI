@@ -214,6 +214,22 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "timeframe-tabs",
+      "type": "registry:component",
+      "title": "Timeframe Tabs",
+      "description": "A scrollable, controlled pill-tab row with an animated active-state highlight and a slot for trailing content.",
+      "category": "components",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/timeframe-tabs/timeframe-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

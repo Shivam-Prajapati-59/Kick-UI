@@ -70,6 +70,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "components"
   },
   {
+    "slug": "timeframe-tabs",
+    "title": "Timeframe Tabs",
+    "description": "A scrollable, controlled pill-tab row with an animated active-state highlight and a slot for trailing content.",
+    "category": "components"
+  },
+  {
     "slug": "feature-showcase",
     "title": "Feature Showcase",
     "description": "A feature section with animated visual states.",

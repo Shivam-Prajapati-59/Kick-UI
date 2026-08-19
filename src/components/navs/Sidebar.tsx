@@ -93,7 +93,7 @@ function NavItem({
                         initial={{ opacity: 0, scaleY: 0.5 }}
                         animate={{ opacity: 1, scaleY: 1 }}
                         exit={{ opacity: 0, scaleY: 0.5 }}
-                        className="absolute w-0.5 h-2.5 bg-primary/50 rounded-full"
+                        className="absolute w-0.5 h-2.5 bg-primary rounded-full"
                         style={{ left: "-16px", top: "calc(50% - 5px)" }}
                         transition={{ type: "spring", stiffness: 500, damping: 35 }}
                     />
@@ -129,10 +129,21 @@ function CategorySection({
 }) {
     if (category.items.length === 0) return null;
 
+    const isCategoryActive = category.items.some(
+        (item) => pathname === `${category.basePath}/${item.slug}`,
+    );
+
     return (
         <div>
             {/* Section header — sits ABOVE the vertical line */}
-            <div className="mb-1 text-[13px] font-medium text-muted-foreground/65 tracking-[0.08em] select-none">
+            <div
+                className={cn(
+                    "mb-1.5 text-xs font-bold uppercase tracking-wider select-none",
+                    isCategoryActive
+                        ? "text-primary"
+                        : "text-muted-foreground/60",
+                )}
+            >
                 {category.title}
             </div>
 

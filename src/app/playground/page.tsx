@@ -1,9 +1,10 @@
-import TransactionItem from "./TransactionItem";
+import TimeFrame from "./TimeFrame";
+
 
 const page = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <TransactionItem />
+    <div className="flex items-center justify-center">
+      <TimeFrame />
     </div>
   );
 };

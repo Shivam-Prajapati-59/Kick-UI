@@ -146,6 +146,17 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "timeframe-tabs",
+      "type": "registry:component",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/components/timeframe-tabs/timeframe-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

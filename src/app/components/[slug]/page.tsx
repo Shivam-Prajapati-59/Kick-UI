@@ -30,13 +30,8 @@ export default async function ComponentDocPage({
   const component = getComponentDoc((await params).slug);
   if (!component) notFound();
 
-  const { content } = await compileMDX({
-    source: component.body,
-    components: mdxComponents,
-  });
-
   return (
-    <article className="w-full space-y-8">
+    <article className="w-full space-y-6">
       <header className="space-y-2">
         <h1 className="text-4xl font-bold tracking-tight">{component.title}</h1>
         <p className="text-lg text-muted-foreground">{component.description}</p>
@@ -55,8 +50,6 @@ export default async function ComponentDocPage({
           propsData={component.props}
         />
       </CodeOptionsProvider>
-
-      <div className="max-w-3xl">{content}</div>
     </article>
   );
 }
