@@ -309,8 +309,25 @@ function validateArgs(
   return null;
 }
 
-/** Handle one parsed JSON-RPC request. Notifications (no id) resolve to `{status: 202}`. */
+/**
+ * Handle one parsed JSON-RPC message.
+ *
+ * JSON-RPC semantics: a message WITHOUT an `id` property is a notification
+ * and must never receive a response body — even for ping/tools/call or
+ * method-level errors. An explicit `id: null` is still treated as a request
+ * and receives a normal response.
+ */
 export function handleRpcMessage(message: RpcRequest): McpResponse {
+  const hasId = Object.prototype.hasOwnProperty.call(message, "id");
+  const response = dispatchRpcMessage(message);
+
+  // Collapse any dispatched result/error into an empty acknowledgement when
+  // the incoming message was a notification.
+  if (!hasId) return { status: 202 };
+  return response;
+}
+
+function dispatchRpcMessage(message: RpcRequest): McpResponse {
   const { method } = message;
 
   switch (method) {

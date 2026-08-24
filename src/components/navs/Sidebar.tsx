@@ -60,16 +60,24 @@ function NavItem({
       href={path}
       onMouseEnter={() => setHoveredPath(path)}
       onMouseLeave={() => setHoveredPath(null)}
-      onClick={() => {
+      onClick={(event) => {
+        if (
+          event.defaultPrevented ||
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
         closeMobile();
-        // Instant (not smooth): an animated scroll races the route
-        // change and jolts the sticky sidebar.
         window.scrollTo({ top: 0 });
       }}
       className={cn(
         "group relative flex cursor-pointer items-center rounded-md px-3 py-1.5 text-sm transition-colors duration-150",
         isActive
-          ? "text-primary bg-primary/[0.06] font-medium"
+          ? "text-primary bg-primary/6 font-medium"
           : "text-muted-foreground hover:text-foreground hover:bg-muted/40",
       )}
     >

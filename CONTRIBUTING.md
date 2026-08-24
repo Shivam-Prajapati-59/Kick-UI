@@ -69,7 +69,7 @@ docs: update contributing guide
 
 - ESLint (`bun lint`) and TypeScript strict (`bun typecheck`)
 - Docs index freshness (`bun docs:check`)
-- Registry output consistency (`registry:build` + git diff)
+- Registry output consistency (`bun registry:build` + git diff)
 - MCP + SEO regression suites when the dev server is running (`bun run test`)
 
 ## License

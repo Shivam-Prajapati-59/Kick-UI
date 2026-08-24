@@ -14,6 +14,9 @@ import { handleMcpPost } from "@/lib/mcp/server";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+/** Protocol versions this endpoint accepts via the Mcp-Protocol-Version header. */
+const SUPPORTED_PROTOCOL_VERSIONS = new Set(["2025-06-18", "2025-03-26"]);
+
 const CORS_HEADERS: Record<string, string> = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
@@ -36,6 +39,30 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  // Per the Streamable HTTP transport spec: when a client declares its
+  // protocol version on post-initialization requests, reject unsupported
+  // values before any processing. Absent header = pre-negotiation, allowed.
+  const protocolVersion = request.headers.get("mcp-protocol-version");
+  if (
+    protocolVersion !== null &&
+    !SUPPORTED_PROTOCOL_VERSIONS.has(protocolVersion)
+  ) {
+    return new Response(
+      JSON.stringify({
+        jsonrpc: "2.0",
+        id: null,
+        error: {
+          code: -32000,
+          message: `Unsupported Mcp-Protocol-Version "${protocolVersion}". Supported versions: ${[...SUPPORTED_PROTOCOL_VERSIONS].join(", ")}.`,
+        },
+      }),
+      {
+        status: 400,
+        headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+      },
+    );
+  }
+
   const rawBody = await request.text();
   const { status, body } = handleMcpPost(rawBody);
 

@@ -24,17 +24,27 @@ function assert(condition, label, extra) {
 async function post(body, headers = {}) {
   const res = await fetch(URL_ENDPOINT, {
     method: "POST",
-    headers: { "Content-Type": "application/json", ...headers },
+    headers: {
+      "Content-Type": "application/json",
+      // Post-initialization requests declare the negotiated protocol version.
+      ...protocolHeaders,
+      ...headers,
+    },
     body: typeof body === "string" ? body : JSON.stringify(body),
   });
+  // Read the raw body exactly once; parse JSON only when non-empty so a
+  // 202-with-body bug can never be masked by a fabricated empty string.
+  const text = await res.text();
   let json = null;
-  if (res.status !== 202 && res.status !== 204) {
+  if (text) {
     try {
-      json = await res.json();
+      json = JSON.parse(text);
     } catch {}
   }
-  return { status: res.status, json, headers: res.headers };
+  return { status: res.status, json, text, headers: res.headers };
 }
+
+let protocolHeaders = {};
 
 console.log(`\nMCP conformance suite → ${URL_ENDPOINT}\n`);
 
@@ -72,6 +82,48 @@ console.log(`\nMCP conformance suite → ${URL_ENDPOINT}\n`);
     method: "notifications/initialized",
   });
   assert(status === 202, "notifications/initialized returns 202");
+}
+
+// ── 2b. Protocol version header gate (post-initialization) ──
+{
+  protocolHeaders = { "Mcp-Protocol-Version": "2025-06-18" };
+  const { status, json } = await post({
+    jsonrpc: "2.0",
+    id: "pv1",
+    method: "ping",
+  });
+  assert(
+    status === 200 && json?.result,
+    "supported version 2025-06-18 accepted",
+  );
+
+  protocolHeaders = { "Mcp-Protocol-Version": "2025-03-26" };
+  const legacy = await post({ jsonrpc: "2.0", id: "pv2", method: "ping" });
+  assert(
+    legacy.status === 200 && legacy.json?.result,
+    "legacy fallback 2025-03-26 accepted",
+  );
+
+  protocolHeaders = { "Mcp-Protocol-Version": "1999-01-01" };
+  const rejected = await fetch(URL_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...protocolHeaders },
+    body: JSON.stringify({ jsonrpc: "2.0", id: "pv3", method: "ping" }),
+  });
+  assert(
+    rejected.status === 400,
+    "unsupported version rejected with HTTP 400",
+    rejected.status,
+  );
+  const errBody = await rejected.json();
+  assert(
+    errBody?.error?.message?.includes("Supported versions"),
+    "rejection explains supported versions",
+  );
+
+  protocolHeaders = {};
+  const noHeader = await post({ jsonrpc: "2.0", id: "pv4", method: "ping" });
+  assert(noHeader.status === 200, "absent header still allowed");
 }
 
 // ── 3. ping ──
@@ -344,6 +396,51 @@ let tools;
   assert(
     res.status === 202 && text === "",
     "notification returns empty 202 body",
+  );
+}
+
+// ── 11. Notification semantics for request-shaped methods ──
+{
+  // ping without id = notification → 202, no body.
+  const pingRes = await post({ jsonrpc: "2.0", method: "ping" });
+  assert(
+    pingRes.status === 202 && pingRes.text === "",
+    "ping-as-notification returns empty 202",
+    pingRes.text,
+  );
+}
+{
+  // tools/call without id executes silently → 202, no body.
+  const callRes = await post({
+    jsonrpc: "2.0",
+    method: "tools/call",
+    params: { name: "list_components", arguments: {} },
+  });
+  assert(
+    callRes.status === 202 && callRes.text === "",
+    "tools/call-as-notification returns empty 202",
+    callRes.text,
+  );
+}
+{
+  // Explicit id:null is still a request → normal response with body.
+  const { status, json } = await post({
+    jsonrpc: "2.0",
+    id: null,
+    method: "ping",
+  });
+  assert(
+    status === 200 && json?.result !== undefined && json.id === null,
+    "explicit id:null receives a normal response",
+  );
+}
+{
+  // Even error paths collapse to 202 for notifications (no reply allowed).
+  const errRes = await post({ jsonrpc: "2.0", method: "resources/list" });
+  assert(
+    errRes.status === 202 && errRes.text === "",
+    "unknown-method notification returns empty 202",
+    errRes.text,
   );
 }
 

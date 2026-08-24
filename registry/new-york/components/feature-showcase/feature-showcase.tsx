@@ -40,10 +40,10 @@ export interface FeatureShowcaseProps {
 /* ------------------------------------------------------------------ */
 
 const defaultImages: Record<number, string> = {
-  1: "/assets/images/feature-showcase/iphone_authentication.png",
-  2: "/assets/images/feature-showcase/iphone_wallets.png",
-  3: "/assets/images/feature-showcase/iphone_policy.png",
-  4: "/assets/images/feature-showcase/iphone_sessions.png",
+  1: "https://kick-ui.vercel.app/assets/images/feature-showcase/iphone_authentication.png",
+  2: "https://kick-ui.vercel.app/assets/images/feature-showcase/iphone_wallets.png",
+  3: "https://kick-ui.vercel.app/assets/images/feature-showcase/iphone_policy.png",
+  4: "https://kick-ui.vercel.app/assets/images/feature-showcase/iphone_sessions.png",
 };
 
 export const defaultFeatureItems: FeatureShowcaseItem[] = [
@@ -56,7 +56,8 @@ export const defaultFeatureItems: FeatureShowcaseItem[] = [
     href: "/authentication",
     cta: "Learn more",
     image: defaultImages[1],
-    overlayImage: "/assets/images/feature-showcase/smile.webp",
+    overlayImage:
+      "https://kick-ui.vercel.app/assets/images/feature-showcase/smile.webp",
   },
   {
     id: 2,
@@ -114,7 +115,7 @@ const FeatureShowcase = ({
         className,
       )}
     >
-      {/* ─── Left: Content ─────────────────────────── */}
+      {/* â”€â”€â”€ Left: Content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <div className="z-10 flex w-full flex-col justify-start py-2 lg:w-1/2 lg:py-4">
         <div className="mb-8 max-w-xl lg:mb-10">
           <h2 className="text-[28px] leading-[1.1] font-medium tracking-tight whitespace-pre-line sm:text-[36px] lg:text-[42px] xl:text-[48px]">
@@ -130,65 +131,91 @@ const FeatureShowcase = ({
           {items.map((item) => {
             const isActive = item.id === activeId;
             return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => setActiveId(item.id)}
-                aria-expanded={isActive}
-                className={cn(
-                  "group focus-visible:ring-ring focus-visible:ring-offset-background flex items-start gap-4 rounded-lg p-5 text-left transition-all outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:gap-5 lg:p-6 xl:p-8",
-                  isActive
-                    ? "bg-card text-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground bg-transparent",
-                )}
-              >
-                <div
+              <div key={item.id} className="flex flex-col">
+                <button
+                  type="button"
+                  onClick={() => setActiveId(item.id)}
+                  aria-expanded={isActive}
                   className={cn(
-                    "mt-0.5 shrink-0 transition-colors",
+                    "group focus-visible:ring-ring focus-visible:ring-offset-background flex items-start gap-4 rounded-lg p-5 text-left transition-all outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:gap-5 lg:p-6 xl:p-8",
                     isActive
-                      ? activeColor
-                      : "text-muted-foreground group-hover:text-foreground",
+                      ? "bg-card text-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground bg-transparent",
                   )}
                 >
-                  {item.icon}
-                </div>
-                <div className="flex min-w-0 flex-col items-start justify-start">
-                  <h3 className="text-[17px] leading-snug font-medium lg:text-[20px] xl:text-[22px]">
-                    {item.title}
-                  </h3>
-                  <AnimatePresence initial={false}>
-                    {isActive && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                        animate={{ height: "auto", opacity: 1, marginTop: 6 }}
-                        exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="overflow-hidden"
-                      >
-                        <p className="text-muted-foreground mt-1 text-[14px] leading-relaxed lg:text-[15px] xl:text-[16px]">
-                          {item.description}
-                        </p>
-                        {item.cta && (
-                          <span
-                            className={cn(
-                              "mt-2 block text-[14px] font-medium lg:text-[15px]",
-                              activeColor,
-                            )}
-                          >
-                            {item.cta}
-                          </span>
-                        )}
-                      </motion.div>
+                  <div
+                    className={cn(
+                      "mt-0.5 shrink-0 transition-colors",
+                      isActive
+                        ? activeColor
+                        : "text-muted-foreground group-hover:text-foreground",
                     )}
-                  </AnimatePresence>
-                </div>
-              </button>
+                  >
+                    {item.icon}
+                  </div>
+                  <div className="flex min-w-0 flex-col items-start justify-start">
+                    <h3 className="text-[17px] leading-snug font-medium lg:text-[20px] xl:text-[22px]">
+                      {item.title}
+                    </h3>
+                    <AnimatePresence initial={false}>
+                      {isActive && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                          animate={{ height: "auto", opacity: 1, marginTop: 6 }}
+                          exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <p className="text-muted-foreground mt-1 text-[14px] leading-relaxed lg:text-[15px] xl:text-[16px]">
+                            {item.description}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </button>
+
+                {/* CTA sits OUTSIDE the row button: when href exists it renders
+                    as a real anchor — never nested inside the button. */}
+                <AnimatePresence initial={false}>
+                  {isActive && item.cta && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      {item.href ? (
+                        <a
+                          href={item.href}
+                          className={cn(
+                            "-mt-1 block w-fit px-5 pb-3 text-[14px] font-medium underline-offset-4 hover:underline lg:px-6 lg:text-[15px] xl:px-8",
+                            activeColor,
+                          )}
+                        >
+                          {item.cta}
+                        </a>
+                      ) : (
+                        <span
+                          className={cn(
+                            "-mt-1 block w-fit px-5 pb-3 text-[14px] font-medium lg:px-6 lg:text-[15px] xl:px-8",
+                            activeColor,
+                          )}
+                        >
+                          {item.cta}
+                        </span>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             );
           })}
         </div>
       </div>
 
-      {/* ─── Right: Phone mockup ──────────────────── */}
+      {/* â”€â”€â”€ Right: Phone mockup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <div className="relative hidden h-[400px] w-full overflow-hidden sm:block sm:h-[500px] md:h-[600px] lg:h-[700px] lg:w-1/2 xl:h-[800px]">
         <AnimatePresence mode="wait">
           <motion.div
@@ -207,6 +234,10 @@ const FeatureShowcase = ({
                   priority
                   width={450}
                   height={900}
+                  // Unoptimized: defaults may point at a hosted URL, and
+                  // unoptimized rendering spares consumers from having to
+                  // configure images.remotePatterns for it.
+                  unoptimized
                   className="h-full w-full object-contain object-top drop-shadow-2xl"
                 />
               )}
@@ -236,7 +267,7 @@ const FeatureShowcase = ({
           </motion.div>
         </AnimatePresence>
 
-        {/* Bottom gradient — feathered shadow */}
+        {/* Bottom gradient â€” feathered shadow */}
         <div className="from-background via-background/80 pointer-events-none absolute right-0 bottom-0 left-0 z-10 h-32 bg-linear-to-t to-transparent md:h-40 lg:h-48" />
       </div>
     </div>

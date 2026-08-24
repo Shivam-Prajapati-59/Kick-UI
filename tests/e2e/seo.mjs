@@ -114,6 +114,7 @@ async function html(path) {
 
   console.log("\nNoindex hygiene:");
   const pg = await html("/playground");
+  assert(pg.status === 200, "playground returns 200", pg.status);
   assert(pg.text.includes("noindex"), "playground is noindex");
 
   console.log("\n══════════════════════════════");
