@@ -19,23 +19,6 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "kick-ui": {
-      "name": "kick-ui",
-      "homepage": "https://kick-ui.vercel.app",
-      "items": [
-        "shiny-button",
-        "cursor-web-fluid",
-        "scramble-text",
-        "text-focus",
-        "card-stack",
-        "slide-text-button",
-        "mag-dock",
-        "perspective-grid",
-        "pill-card",
-        "pixel-image",
-        "animated-list",
-        "scroll-card"
-      ]
-    }
+    "@kick-ui": "https://kick-ui.vercel.app/r/{name}.json"
   }
 }

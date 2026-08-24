@@ -152,7 +152,7 @@ function CategorySection({
                 variants={staggerContainer}
                 initial="hidden"
                 animate="show"
-                className="space-y-0.5 pl-4 pr-2 relative before:absolute before:left-0 before:top-[12px] before:bottom-[12px] before:w-[1.7px] before:bg-border/40"
+                className="space-y-0.5 pl-4 pr-2 relative before:absolute before:left-0 before:top-[12px] before:bottom-[12px] before:w-[1.7px] before:bg-border/70"
             >
                 <LayoutGroup>
                     {category.items.map((item) => {
@@ -232,9 +232,9 @@ export default function Sidebar() {
                     </SheetTrigger>
                     <SheetContent
                         side="left"
-                        className="w-[300px] bg-background p-0 border-r-white/10"
+                        className="w-[300px] bg-background p-0 border-r-border/10"
                     >
-                        <SheetHeader className="h-14 border-b border-white/10 flex items-center justify-start px-4">
+                        <SheetHeader className="h-14 border-b border-border/10 flex items-center justify-start px-4">
                             <SheetTitle className="font-bold text-foreground">
                                 Kick UI
                             </SheetTitle>

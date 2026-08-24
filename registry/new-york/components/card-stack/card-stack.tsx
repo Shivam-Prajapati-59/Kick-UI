@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, type Variants } from "motion/react";
+import { motion, useReducedMotion, type Variants } from "motion/react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -84,8 +84,18 @@ export default function CardStack({
 }: CardStackProps) {
   const [open, setOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
+    // Skip the staged intro animation when the user prefers reduced motion.
+    if (shouldReduceMotion) {
+      const skipTimer = setTimeout(() => {
+        setOpen(true);
+        setIsLoaded(true);
+      }, 0);
+      return () => clearTimeout(skipTimer);
+    }
+
     let settleTimer: ReturnType<typeof setTimeout>;
     const openTimer = setTimeout(() => {
       setOpen(true);
@@ -96,12 +106,12 @@ export default function CardStack({
       clearTimeout(openTimer);
       clearTimeout(settleTimer);
     };
-  }, [openDelay, settleDelay]);
+  }, [openDelay, settleDelay, shouldReduceMotion]);
 
   return (
     <section
       className={cn(
-        "relative flex items-center justify-center h-full min-h-125 w-full overflow-hidden",
+        "relative flex h-full min-h-125 w-full items-center justify-center overflow-hidden",
         className,
       )}
     >
@@ -121,7 +131,7 @@ export default function CardStack({
           }}
           style={{ zIndex: index }}
           className={cn(
-            "absolute w-48 h-48 rounded-[28px] border-2 dark:border-[#423546] border-[#d1c8d5] bg-card shadow-md dark:shadow-2xl flex items-center justify-center",
+            "border-border bg-card absolute flex h-48 w-48 items-center justify-center rounded-[28px] border-2 shadow-md dark:shadow-2xl",
             cardClassName,
           )}
         >
@@ -131,7 +141,7 @@ export default function CardStack({
             width={96}
             height={96}
             draggable={false}
-            className="w-24 h-24 object-contain pointer-events-none"
+            className="pointer-events-none h-24 w-24 object-contain"
           />
         </motion.div>
       ))}

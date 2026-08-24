@@ -5,10 +5,12 @@ category: layouts-sections
 demo: feature-showcase
 usage: |
   import FeatureShowcase from "@/components/ui/feature-showcase";
+  import { defaultFeatureItems } from "@/components/ui/feature-showcase";
 
   export function FeatureShowcaseDemo() {
     return (
       <FeatureShowcase
+        items={defaultFeatureItems}
         title={"Easily deploy, maintain,\nand connect wallets"}
         subtitle="Launch embedded wallets in under 7 minutes."
       />
@@ -16,8 +18,26 @@ usage: |
   }
 props:
   - name: items
-    type: FeatureShowcaseItem[]
+    type: "FeatureShowcaseItem[]"
     description: Features displayed in the section.
+  - name: title
+    type: string
+    description: Section heading rendered above the feature list.
+  - name: subtitle
+    type: string
+    description: Supporting copy under the heading.
+  - name: defaultActiveId
+    type: number
+    description: The initially active item id (defaults to the first item).
+  - name: activeColor
+    type: string
+    default: '"text-blue-600"'
+    description: Tailwind color class applied to the active accent.
+  - name: className
+    type: string
+    description: Additional classes for the root element.
 ---
 
-Feature Showcase is documented as a composition pattern while its distributable registry source is being prepared.
+Feature Showcase renders an interactive product section: a list of feature rows on one side and an animated mockup preview on the other. Selecting a row crossfades the preview with a spring-animated overlay badge.
+
+Ships with sensible defaults — render it with no props, or pass your own `items`, `title`, and `subtitle` for full control.

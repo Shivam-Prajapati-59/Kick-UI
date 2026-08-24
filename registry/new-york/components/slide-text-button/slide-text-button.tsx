@@ -29,6 +29,8 @@ const slideTransition = {
 const DefaultIcon = () => (
   <svg
     className="h-10 w-10"
+    aria-hidden="true"
+    focusable="false"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 23 18"
@@ -40,8 +42,10 @@ const DefaultIcon = () => (
   </svg>
 );
 
-export interface SlideTextButtonProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof motion.button>, "children" | "initial" | "whileHover" | "whileTap" | "variants"> {
+export interface SlideTextButtonProps extends Omit<
+  React.ComponentPropsWithoutRef<typeof motion.button>,
+  "children" | "initial" | "whileHover" | "whileTap" | "variants"
+> {
   initialText?: React.ReactNode;
   hoverText?: React.ReactNode;
 }
@@ -50,15 +54,18 @@ export default function SlideTextButton({
   initialText = <DefaultIcon />,
   hoverText = <DefaultIcon />,
   className,
+  "aria-label": ariaLabel = "Slide text button",
   ...props
 }: SlideTextButtonProps) {
   return (
     <motion.button
       initial="rest"
       whileHover="hover"
-      whileTap="tap"
+      whileFocus="hover"
+      type="button"
+      aria-label={ariaLabel}
       className={cn(
-        "relative h-[66px] w-[70px] overflow-hidden rounded-md bg-secondary",
+        "bg-secondary focus-visible:ring-ring focus-visible:ring-offset-background relative h-[66px] w-[70px] overflow-hidden rounded-md outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
         className,
       )}
       {...props}
@@ -67,7 +74,7 @@ export default function SlideTextButton({
         variants={circleVariants}
         transition={circleTransition}
         style={{ willChange: "transform, opacity" }}
-        className="absolute left-1/2 top-1/2 h-[90px] w-[90px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary-foreground"
+        className="bg-secondary-foreground absolute top-1/2 left-1/2 h-[90px] w-[90px] -translate-x-1/2 -translate-y-1/2 rounded-full"
       />
 
       <div className="relative z-10 h-full overflow-hidden">
@@ -76,10 +83,10 @@ export default function SlideTextButton({
           transition={slideTransition}
           className="h-[200%]"
         >
-          <div className="flex h-1/2 items-center justify-center font-semibold text-2xl text-secondary-foreground">
+          <div className="text-secondary-foreground flex h-1/2 items-center justify-center text-2xl font-semibold">
             {initialText}
           </div>
-          <div className="flex h-1/2 items-center justify-center font-semibold text-2xl text-primary-foreground">
+          <div className="text-primary-foreground flex h-1/2 items-center justify-center text-2xl font-semibold">
             {hoverText}
           </div>
         </motion.div>

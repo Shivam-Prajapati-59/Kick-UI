@@ -157,6 +157,17 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "feature-showcase",
+      "type": "registry:component",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [
+        {
+          "path": "registry/new-york/components/feature-showcase/feature-showcase.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

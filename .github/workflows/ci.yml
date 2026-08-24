@@ -23,6 +23,14 @@ jobs:
 
       - run: bun install --frozen-lockfile
 
+      - name: Check formatting of changed files
+        run: |
+          git fetch origin ${{ github.base_ref || github.ref_name }} --depth 1
+          CHANGED=$(git diff --name-only --diff-filter=ACM origin/${{ github.base_ref || github.ref_name }} -- '*.ts' '*.tsx' '*.css' '*.md' '*.json' '*.mjs' || true)
+          if [ -n "$CHANGED" ]; then
+            bunx prettier --check $CHANGED
+          fi
+
       - run: bun run lint
 
       - run: bun run typecheck

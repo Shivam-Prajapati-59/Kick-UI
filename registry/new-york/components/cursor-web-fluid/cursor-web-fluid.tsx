@@ -10,34 +10,61 @@ const p = `precision highp float; `;
 const s = `precision mediump sampler2D; `;
 
 const shaders = {
-  splat: [v, `${p}${s}
+  splat: [
+    v,
+    `${p}${s}
 uniform sampler2D uTarget; uniform float aspectRatio; uniform vec3 color; uniform vec2 point; uniform float radius; varying vec2 vUv;
-void main(){vec2 p=vUv-point;p.x*=aspectRatio;gl_FragColor=vec4(texture2D(uTarget,vUv).xyz+exp(-dot(p,p)/radius)*color,1.0);}`],
-  advection: [v, `${p}${s}
+void main(){vec2 p=vUv-point;p.x*=aspectRatio;gl_FragColor=vec4(texture2D(uTarget,vUv).xyz+exp(-dot(p,p)/radius)*color,1.0);}`,
+  ],
+  advection: [
+    v,
+    `${p}${s}
 uniform sampler2D uVelocity,uSource;uniform vec2 texelSize;uniform float dt,dissipation;varying vec2 vUv;
-void main(){vec2 coord=vUv-dt*texture2D(uVelocity,vUv).xy*texelSize;gl_FragColor=dissipation*texture2D(uSource,coord);}`],
-  divergence: [v, `${p}${s}
+void main(){vec2 coord=vUv-dt*texture2D(uVelocity,vUv).xy*texelSize;gl_FragColor=dissipation*texture2D(uSource,coord);}`,
+  ],
+  divergence: [
+    v,
+    `${p}${s}
 uniform sampler2D uVelocity;uniform vec2 texelSize;varying vec2 vUv;
 vec2 vel(vec2 uv){vec2 e=vec2(1.);if(uv.x<0.){uv.x=0.;e.x=-1.;}if(uv.x>1.){uv.x=1.;e.x=-1.;}if(uv.y<0.){uv.y=0.;e.y=-1.;}if(uv.y>1.){uv.y=1.;e.y=-1.;}return texture2D(uVelocity,uv).xy*e;}
-void main(){vec2 L=vUv-vec2(texelSize.x,0.),R=vUv+vec2(texelSize.x,0.),T=vUv+vec2(0.,texelSize.y),B=vUv-vec2(0.,texelSize.y);gl_FragColor=vec4(0.5*(vel(R).x-vel(L).x+vel(T).y-vel(B).y),0.,0.,1.);}`],
-  curl: [v, `${p}${s}
+void main(){vec2 L=vUv-vec2(texelSize.x,0.),R=vUv+vec2(texelSize.x,0.),T=vUv+vec2(0.,texelSize.y),B=vUv-vec2(0.,texelSize.y);gl_FragColor=vec4(0.5*(vel(R).x-vel(L).x+vel(T).y-vel(B).y),0.,0.,1.);}`,
+  ],
+  curl: [
+    v,
+    `${p}${s}
 uniform sampler2D uVelocity;uniform vec2 texelSize;varying vec2 vUv;
-void main(){vec2 L=vUv-vec2(texelSize.x,0.),R=vUv+vec2(texelSize.x,0.),T=vUv+vec2(0.,texelSize.y),B=vUv-vec2(0.,texelSize.y);float vorticity=texture2D(uVelocity,R).y-texture2D(uVelocity,L).y-texture2D(uVelocity,T).x+texture2D(uVelocity,B).x;gl_FragColor=vec4(vorticity,0.,0.,1.);}`],
-  vorticity: [v, `${p}${s}
+void main(){vec2 L=vUv-vec2(texelSize.x,0.),R=vUv+vec2(texelSize.x,0.),T=vUv+vec2(0.,texelSize.y),B=vUv-vec2(0.,texelSize.y);float vorticity=texture2D(uVelocity,R).y-texture2D(uVelocity,L).y-texture2D(uVelocity,T).x+texture2D(uVelocity,B).x;gl_FragColor=vec4(vorticity,0.,0.,1.);}`,
+  ],
+  vorticity: [
+    v,
+    `${p}${s}
 uniform sampler2D uVelocity,uCurl;uniform vec2 texelSize;uniform float curlStrength,dt;varying vec2 vUv;
-void main(){vec2 L=vUv-vec2(texelSize.x,0.),R=vUv+vec2(texelSize.x,0.),T=vUv+vec2(0.,texelSize.y),B=vUv-vec2(0.,texelSize.y);vec2 force=vec2(abs(texture2D(uCurl,T).x)-abs(texture2D(uCurl,B).x),abs(texture2D(uCurl,R).x)-abs(texture2D(uCurl,L).x));force=normalize(force+0.0001)*curlStrength*texture2D(uCurl,vUv).x;gl_FragColor=vec4(texture2D(uVelocity,vUv).xy+force*dt,0.,1.);}`],
-  pressure: [v, `${p}${s}
+void main(){vec2 L=vUv-vec2(texelSize.x,0.),R=vUv+vec2(texelSize.x,0.),T=vUv+vec2(0.,texelSize.y),B=vUv-vec2(0.,texelSize.y);vec2 force=vec2(abs(texture2D(uCurl,T).x)-abs(texture2D(uCurl,B).x),abs(texture2D(uCurl,R).x)-abs(texture2D(uCurl,L).x));force=normalize(force+0.0001)*curlStrength*texture2D(uCurl,vUv).x;gl_FragColor=vec4(texture2D(uVelocity,vUv).xy+force*dt,0.,1.);}`,
+  ],
+  pressure: [
+    v,
+    `${p}${s}
 uniform sampler2D uPressure,uDivergence;uniform vec2 texelSize;varying vec2 vUv;
-void main(){vec2 L=clamp(vUv-vec2(texelSize.x,0.),0.,1.),R=clamp(vUv+vec2(texelSize.x,0.),0.,1.),T=clamp(vUv+vec2(0.,texelSize.y),0.,1.),B=clamp(vUv-vec2(0.,texelSize.y),0.,1.);gl_FragColor=vec4(0.25*(texture2D(uPressure,L).x+texture2D(uPressure,R).x+texture2D(uPressure,T).x+texture2D(uPressure,B).x-texture2D(uDivergence,vUv).x),0.,0.,1.);}`],
-  gradientSubtract: [v, `${p}${s}
+void main(){vec2 L=clamp(vUv-vec2(texelSize.x,0.),0.,1.),R=clamp(vUv+vec2(texelSize.x,0.),0.,1.),T=clamp(vUv+vec2(0.,texelSize.y),0.,1.),B=clamp(vUv-vec2(0.,texelSize.y),0.,1.);gl_FragColor=vec4(0.25*(texture2D(uPressure,L).x+texture2D(uPressure,R).x+texture2D(uPressure,T).x+texture2D(uPressure,B).x-texture2D(uDivergence,vUv).x),0.,0.,1.);}`,
+  ],
+  gradientSubtract: [
+    v,
+    `${p}${s}
 uniform sampler2D uPressure,uVelocity;uniform vec2 texelSize;varying vec2 vUv;
-void main(){float pL=texture2D(uPressure,clamp(vUv-vec2(texelSize.x,0.),0.,1.)).x,pR=texture2D(uPressure,clamp(vUv+vec2(texelSize.x,0.),0.,1.)).x,pT=texture2D(uPressure,clamp(vUv+vec2(0.,texelSize.y),0.,1.)).x,pB=texture2D(uPressure,clamp(vUv-vec2(0.,texelSize.y),0.,1.)).x;gl_FragColor=vec4(texture2D(uVelocity,vUv).xy-vec2(pR-pL,pT-pB),0.,1.);}`],
-  clear: [v, `${p}${s}
+void main(){float pL=texture2D(uPressure,clamp(vUv-vec2(texelSize.x,0.),0.,1.)).x,pR=texture2D(uPressure,clamp(vUv+vec2(texelSize.x,0.),0.,1.)).x,pT=texture2D(uPressure,clamp(vUv+vec2(0.,texelSize.y),0.,1.)).x,pB=texture2D(uPressure,clamp(vUv-vec2(0.,texelSize.y),0.,1.)).x;gl_FragColor=vec4(texture2D(uVelocity,vUv).xy-vec2(pR-pL,pT-pB),0.,1.);}`,
+  ],
+  clear: [
+    v,
+    `${p}${s}
 uniform sampler2D uTexture;uniform float value;varying vec2 vUv;
-void main(){gl_FragColor=value*texture2D(uTexture,vUv);}`],
-  display: [v, `${p}
+void main(){gl_FragColor=value*texture2D(uTexture,vUv);}`,
+  ],
+  display: [
+    v,
+    `${p}
 uniform sampler2D uTexture;uniform float threshold,edgeSoftness;uniform vec3 inkColor;varying vec2 vUv;
-void main(){float d=clamp(length(texture2D(uTexture,vUv).rgb),0.,1.);float a=edgeSoftness>0.?smoothstep(threshold+edgeSoftness*.5,threshold-edgeSoftness*.5,d):step(threshold,d);gl_FragColor=vec4(inkColor*a,a);}`],
+void main(){float d=clamp(length(texture2D(uTexture,vUv).rgb),0.,1.);float a=edgeSoftness>0.?smoothstep(threshold+edgeSoftness*.5,threshold-edgeSoftness*.5,d):step(threshold,d);gl_FragColor=vec4(inkColor*a,a);}`,
+  ],
 };
 
 /* ─── types ───────────────────────────────────────────────────────── */
@@ -84,7 +111,13 @@ class FluidSimulation {
   simTexel!: THREE.Vector2;
   dyeTexel!: THREE.Vector2;
   material!: Record<string, THREE.ShaderMaterial>;
-  mouse!: { x: number; y: number; velocityX: number; velocityY: number; moved: boolean };
+  mouse!: {
+    x: number;
+    y: number;
+    velocityX: number;
+    velocityY: number;
+    moved: boolean;
+  };
   private _animId = 0;
   private _onResize: () => void;
   private _onMouseMove: (e: MouseEvent) => void;
@@ -106,16 +139,25 @@ class FluidSimulation {
   }
 
   _setupRenderer(canvas: HTMLCanvasElement) {
-    this.renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, premultipliedAlpha: true });
+    this.renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: false,
+      premultipliedAlpha: true,
+    });
     this.renderer.setClearColor(0x000000, 0);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    
+
     // Initial size
-    let width = canvas.parentElement ? canvas.parentElement.clientWidth : canvas.clientWidth;
-    let height = canvas.parentElement ? canvas.parentElement.clientHeight : canvas.clientHeight;
+    let width = canvas.parentElement
+      ? canvas.parentElement.clientWidth
+      : canvas.clientWidth;
+    let height = canvas.parentElement
+      ? canvas.parentElement.clientHeight
+      : canvas.clientHeight;
     if (width === 0) width = window.innerWidth;
     if (height === 0) height = window.innerHeight;
-    
+
     this.renderer.setSize(width, height);
     this.dpr = this.renderer.getPixelRatio();
     this.width = width * this.dpr;
@@ -130,7 +172,7 @@ class FluidSimulation {
         this.height = height * this.dpr;
       }
     });
-    
+
     if (canvas.parentElement) {
       this._resizeObserver.observe(canvas.parentElement);
     } else {
@@ -154,11 +196,14 @@ class FluidSimulation {
       minFilter: THREE.LinearFilter,
       magFilter: THREE.LinearFilter,
     };
-    const single = (w: number, h: number) => new THREE.WebGLRenderTarget(w, h, opts);
+    const single = (w: number, h: number) =>
+      new THREE.WebGLRenderTarget(w, h, opts);
     const double = (w: number, h: number): DoubleFBO => ({
       read: single(w, h),
       write: single(w, h),
-      swap() { [this.read, this.write] = [this.write, this.read]; },
+      swap() {
+        [this.read, this.write] = [this.write, this.read];
+      },
     });
     this.simSize = { w: simRes, h: Math.round(simRes / aspect) };
     this.dyeSize = { w: dyeRes, h: Math.round(dyeRes / aspect) };
@@ -172,51 +217,106 @@ class FluidSimulation {
   }
 
   _setupMaterials() {
-    const make = ([vert, frag]: string[], uniforms: Record<string, THREE.IUniform>) =>
-      new THREE.ShaderMaterial({ vertexShader: vert, fragmentShader: frag, uniforms, depthWrite: false, depthTest: false });
+    const make = (
+      [vert, frag]: string[],
+      uniforms: Record<string, THREE.IUniform>,
+    ) =>
+      new THREE.ShaderMaterial({
+        vertexShader: vert,
+        fragmentShader: frag,
+        uniforms,
+        depthWrite: false,
+        depthTest: false,
+      });
     const tex = (): THREE.IUniform => ({ value: null });
     const num = (v = 0): THREE.IUniform => ({ value: v });
     const vec2 = (): THREE.IUniform => ({ value: new THREE.Vector2() });
     this.material = {
-      splat: make(shaders.splat, { uTarget: tex(), aspectRatio: num(), radius: num(), color: { value: new THREE.Vector3() }, point: vec2() }),
-      advection: make(shaders.advection, { uVelocity: tex(), uSource: tex(), texelSize: vec2(), dt: num(), dissipation: num() }),
-      divergence: make(shaders.divergence, { uVelocity: tex(), texelSize: { value: this.simTexel } }),
-      curl: make(shaders.curl, { uVelocity: tex(), texelSize: { value: this.simTexel } }),
-      vorticity: make(shaders.vorticity, { uVelocity: tex(), uCurl: tex(), texelSize: { value: this.simTexel }, curlStrength: num(), dt: num() }),
-      pressure: make(shaders.pressure, { uPressure: tex(), uDivergence: tex(), texelSize: { value: this.simTexel } }),
-      gradientSubtract: make(shaders.gradientSubtract, { uPressure: tex(), uVelocity: tex(), texelSize: { value: this.simTexel } }),
+      splat: make(shaders.splat, {
+        uTarget: tex(),
+        aspectRatio: num(),
+        radius: num(),
+        color: { value: new THREE.Vector3() },
+        point: vec2(),
+      }),
+      advection: make(shaders.advection, {
+        uVelocity: tex(),
+        uSource: tex(),
+        texelSize: vec2(),
+        dt: num(),
+        dissipation: num(),
+      }),
+      divergence: make(shaders.divergence, {
+        uVelocity: tex(),
+        texelSize: { value: this.simTexel },
+      }),
+      curl: make(shaders.curl, {
+        uVelocity: tex(),
+        texelSize: { value: this.simTexel },
+      }),
+      vorticity: make(shaders.vorticity, {
+        uVelocity: tex(),
+        uCurl: tex(),
+        texelSize: { value: this.simTexel },
+        curlStrength: num(),
+        dt: num(),
+      }),
+      pressure: make(shaders.pressure, {
+        uPressure: tex(),
+        uDivergence: tex(),
+        texelSize: { value: this.simTexel },
+      }),
+      gradientSubtract: make(shaders.gradientSubtract, {
+        uPressure: tex(),
+        uVelocity: tex(),
+        texelSize: { value: this.simTexel },
+      }),
       clear: make(shaders.clear, { uTexture: tex(), value: num() }),
-      display: make(shaders.display, { uTexture: tex(), threshold: num(), edgeSoftness: num(), inkColor: { value: this.config.inkColor } }),
+      display: make(shaders.display, {
+        uTexture: tex(),
+        threshold: num(),
+        edgeSoftness: num(),
+        inkColor: { value: this.config.inkColor },
+      }),
     };
   }
 
   _setupInput() {
     this.mouse = { x: 0, y: 0, velocityX: 0, velocityY: 0, moved: false };
     const getRect = () => this.renderer.domElement.getBoundingClientRect();
-    
+
     const onMove = (x: number, y: number) => {
       const rect = getRect();
       const localX = x - rect.left;
       const localY = y - rect.top;
-      
+
       // Ignore if outside the canvas bounds
-      if (localX < 0 || localX > rect.width || localY < 0 || localY > rect.height) return;
+      if (
+        localX < 0 ||
+        localX > rect.width ||
+        localY < 0 ||
+        localY > rect.height
+      )
+        return;
 
       const sx = localX * this.dpr;
       const sy = localY * this.dpr;
-      
+
       this.mouse.velocityX = (sx - this.mouse.x) * this.config.forceStrength;
       this.mouse.velocityY = (sy - this.mouse.y) * this.config.forceStrength;
       this.mouse.x = sx;
       this.mouse.y = sy;
       this.mouse.moved = true;
     };
-    
+
     this._onMouseMove = (e: MouseEvent) => onMove(e.clientX, e.clientY);
-    this._onTouchMove = (e: TouchEvent) => { e.preventDefault(); onMove(e.touches[0].clientX, e.touches[0].clientY); };
-    
+    // Passive listener: the canvas is pointer-events:none, so tracking touches
+    // must never block native scrolling on touch devices.
+    this._onTouchMove = (e: TouchEvent) =>
+      onMove(e.touches[0].clientX, e.touches[0].clientY);
+
     window.addEventListener("mousemove", this._onMouseMove);
-    window.addEventListener("touchmove", this._onTouchMove, { passive: false });
+    window.addEventListener("touchmove", this._onTouchMove, { passive: true });
   }
 
   _pass(mat: THREE.ShaderMaterial, target: THREE.WebGLRenderTarget | null) {
@@ -296,7 +396,12 @@ class FluidSimulation {
       const dt = Math.min((now - lastTime) / 1000, 0.016);
       lastTime = now;
       if (this.mouse.moved) {
-        this._splat(this.mouse.x, this.mouse.y, this.mouse.velocityX, this.mouse.velocityY);
+        this._splat(
+          this.mouse.x,
+          this.mouse.y,
+          this.mouse.velocityX,
+          this.mouse.velocityY,
+        );
         this.mouse.moved = false;
       }
       this._simulate(dt);
@@ -313,10 +418,14 @@ class FluidSimulation {
     }
     window.removeEventListener("mousemove", this._onMouseMove);
     window.removeEventListener("touchmove", this._onTouchMove);
-    this.velocity.read.dispose(); this.velocity.write.dispose();
-    this.dye.read.dispose(); this.dye.write.dispose();
-    this.divergence.dispose(); this.curl.dispose();
-    this.pressure.read.dispose(); this.pressure.write.dispose();
+    this.velocity.read.dispose();
+    this.velocity.write.dispose();
+    this.dye.read.dispose();
+    this.dye.write.dispose();
+    this.divergence.dispose();
+    this.curl.dispose();
+    this.pressure.read.dispose();
+    this.pressure.write.dispose();
     Object.values(this.material).forEach((m) => m.dispose());
     this.quad.geometry.dispose();
     this.renderer.dispose();

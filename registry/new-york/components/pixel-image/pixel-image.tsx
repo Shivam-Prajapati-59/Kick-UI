@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const OVERLAP = 1;
@@ -42,6 +42,7 @@ export default function PixelImage({
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const tiles = useMemo(
     () =>
@@ -130,11 +131,13 @@ export default function PixelImage({
                 }}
                 initial={false}
                 animate={
-                  isHovered ? { opacity: 0 } : { opacity: 1 }
+                  isHovered && !shouldReduceMotion
+                    ? { opacity: 0 }
+                    : { opacity: 1 }
                 }
                 transition={{
-                  duration: tileDuration,
-                  delay: order[i] * step,
+                  duration: shouldReduceMotion ? 0 : tileDuration,
+                  delay: shouldReduceMotion ? 0 : order[i] * step,
                   ease: [0.33, 1, 0.68, 1],
                 }}
               />

@@ -10,8 +10,8 @@
       "description": "A card with animated SVG paths and synchronized glow effects.",
       "category": "cards",
       "dependencies": [
-        "motion",
-        "lucide-react"
+        "lucide-react",
+        "motion"
       ],
       "files": [
         {
@@ -227,6 +227,23 @@
       "files": [
         {
           "path": "registry/new-york/components/timeframe-tabs/timeframe-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "feature-showcase",
+      "type": "registry:component",
+      "title": "Feature Showcase",
+      "description": "A feature section with animated visual states.",
+      "category": "layouts-sections",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/feature-showcase/feature-showcase.tsx",
           "type": "registry:component"
         }
       ]

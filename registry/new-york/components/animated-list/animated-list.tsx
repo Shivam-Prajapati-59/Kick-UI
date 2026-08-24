@@ -28,9 +28,9 @@ export function AnimatedList<T>({
   renderItem,
   className,
 }: AnimatedListProps<T>) {
-    const listRef = useRef<HTMLDivElement>(null);
-    const [selectedIndex, setSelectedIndex] = useState<number>(-1);
-    const keyboardNavRef = useRef(false);
+  const listRef = useRef<HTMLDivElement>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const keyboardNavRef = useRef(false);
 
   // Performance Optimization: GPU Accelerated Scroll Gradients
   const { scrollYProgress } = useScroll({ container: listRef });
@@ -50,24 +50,26 @@ export function AnimatedList<T>({
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "ArrowDown" || (e.key === "Tab" && !e.shiftKey)) {
+    // Only arrow keys are intercepted — Tab/Shift+Tab must keep their native
+    // behavior so keyboard users are never trapped inside the list.
+    if (e.key === "ArrowDown") {
       e.preventDefault();
       keyboardNavRef.current = true;
       setSelectedIndex((prev) => Math.min(prev + 1, items.length - 1));
-    } else if (e.key === "ArrowUp" || (e.key === "Tab" && e.shiftKey)) {
+    } else if (e.key === "ArrowUp") {
       e.preventDefault();
       keyboardNavRef.current = true;
       setSelectedIndex((prev) => Math.max(prev - 1, 0));
     } else if (e.key === "Enter") {
       if (selectedIndex >= 0 && selectedIndex < items.length) {
-        e.preventDefault();
         handleItemClick(selectedIndex);
       }
     }
   };
 
   useEffect(() => {
-    if (!keyboardNavRef.current || selectedIndex < 0 || !listRef.current) return;
+    if (!keyboardNavRef.current || selectedIndex < 0 || !listRef.current)
+      return;
     keyboardNavRef.current = false;
     const container = listRef.current;
     const selectedItem = container.querySelector(
@@ -100,7 +102,7 @@ export function AnimatedList<T>({
         ref={listRef}
         tabIndex={0}
         onKeyDown={handleKeyDown}
-        className="w-full h-[400px] overflow-y-auto p-4 scrollbar-hide outline-none focus:outline-none"
+        className="scrollbar-hide h-[400px] w-full overflow-y-auto p-4 outline-none focus:outline-none"
       >
         {items.map((item, index) => (
           <React.Fragment key={index}>
@@ -118,13 +120,13 @@ export function AnimatedList<T>({
 
       {/* Top Gradient */}
       <motion.div
-        className="absolute top-0 left-0 right-0 h-12.5 bg-linear-to-b from-background to-transparent pointer-events-none transition-opacity duration-300 ease"
+        className="from-background ease pointer-events-none absolute top-0 right-0 left-0 h-12.5 bg-linear-to-b to-transparent transition-opacity duration-300"
         style={{ opacity: topGradientOpacity }}
       ></motion.div>
 
       {/* Bottom Gradient */}
       <motion.div
-        className="absolute bottom-0 left-0 right-0 h-25 bg-linear-to-t from-background to-transparent pointer-events-none transition-opacity duration-300 ease"
+        className="from-background ease pointer-events-none absolute right-0 bottom-0 left-0 h-25 bg-linear-to-t to-transparent transition-opacity duration-300"
         style={{ opacity: bottomGradientOpacity }}
       ></motion.div>
     </div>
