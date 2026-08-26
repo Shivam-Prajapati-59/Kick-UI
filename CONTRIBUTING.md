@@ -55,16 +55,6 @@ copied into `src/components/ui`.
 bun typecheck`. Generated outputs under `public/r/` and
    `src/generated/` must be committed.
 
-## Commit style
-
-Conventional Commits, enforced by commitlint:
-
-```text
-feat(pill-card): add size prop
-fix(animated-list): remove keyboard focus trap
-docs: update contributing guide
-```
-
 ## Checks performed on every PR
 
 - ESLint (`bun lint`) and TypeScript strict (`bun typecheck`)
