@@ -18,10 +18,9 @@
     "registry:build": "bun scripts/build-registry.mjs",
     "docs:build": "bun scripts/build-docs.mjs",
     "docs:check": "bun scripts/build-docs.mjs --check",
-    "test:mcp": "bun tests/e2e/mcp-conformance.mjs && bun tests/e2e/mcp-sdk-client.mjs",
     "test:seo": "bun tests/e2e/seo.mjs",
     "test:registry": "bun run lint && bun run typecheck && bun docs:check",
-    "test": "bun run test:registry && bun run test:mcp && bun run test:seo",
+    "test": "bun run test:registry && bun run test:seo",
     "prepare": "husky"
   },
   "dependencies": {
@@ -48,7 +47,6 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@modelcontextprotocol/sdk": "^1.30.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.2.0",
     "@types/react": "^19.2.17",

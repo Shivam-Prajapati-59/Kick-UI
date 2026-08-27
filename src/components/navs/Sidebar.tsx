@@ -143,7 +143,7 @@ function CategorySection({
       {/* Section header — sits ABOVE the vertical line */}
       <div
         className={cn(
-          "mb-1.5 text-xs font-bold tracking-wider uppercase select-none",
+          "mb-1.5 text-sm font-bold tracking-wider select-none",
           isCategoryActive ? "text-primary" : "text-muted-foreground/60",
         )}
       >

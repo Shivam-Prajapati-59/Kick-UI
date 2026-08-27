@@ -1,6 +1,6 @@
 /**
  * Final end-to-end audit — routes, metadata quality, OG images for ALL
- * components, sitemap crawl, JSON-LD validity, registry + MCP sanity.
+ * components, sitemap crawl, JSON-LD validity, and registry sanity.
  * Run: bun tests/e2e/final-audit.mjs [baseUrl]
  */
 
@@ -218,21 +218,6 @@ function metaTags(html) {
     "item JSON embeds source",
   );
   assert(one.dependencies?.includes("motion"), "item JSON declares deps");
-
-  // ── 8. MCP quick sanity ──
-  console.log("\n[MCP endpoint]");
-  const ping = await (
-    await fetch(`${BASE}/api/mcp`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // Negotiated protocol version, as real clients send post-initialize.
-        "Mcp-Protocol-Version": "2025-06-18",
-      },
-      body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/list" }),
-    })
-  ).json();
-  assert(ping.result?.tools?.length === 4, "tools/list serves 4 tools");
 
   console.log("\n══════════════════════════════");
   console.log(`FINAL AUDIT: ${passed} passed, ${failed} failed`);

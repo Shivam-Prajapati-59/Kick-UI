@@ -13,12 +13,9 @@ adheres to [Semantic Versioning](https://semver.org/).
   (WebSite, Organization, SoftwareApplication, BreadcrumbList), keyword sets,
   viewport theme-color, noindexed utility routes. Verified by a 24-case
   `tests/e2e/seo.mjs` suite; one-command regression via `bun run test`.
-- **MCP server at `/api/mcp`** (Streamable HTTP, stateless): tools
-  `list_components`, `search_components`, `get_component`,
-  `get_install_guide`. Catalog + source baked in at build time
-  (`src/generated/mcp-data.ts`) for zero runtime filesystem access.
-  Verified end-to-end against the official `@modelcontextprotocol/sdk`
-  client plus a 42-case raw JSON-RPC conformance suite (`bun test:mcp`).
+- **shadcn MCP compatibility**: Kick UI's public registry can be searched and
+  installed through the official shadcn MCP server after consumers add the
+  `@kick-ui` registry to their `components.json`.
 - `feature-showcase` registered as a distributable registry component.
 - Namespaced registry support: install via `npx shadcn add @kick-ui/<name>`
   after adding `"@kick-ui": "https://kick-ui.vercel.app/r/{name}.json"` to
@@ -41,6 +38,9 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ### Removed
 
+- The custom `/api/mcp` server, its generated catalogue, and its SDK-specific
+  test suite. The standard shadcn MCP server now provides agent access to the
+  Kick UI registry.
 - Dead app code (unused primitives, demo scratch files, unused SVG icons)
   and dead dependencies (`date-fns`, `figlet`, `shiki`,
   `rehype-pretty-code`, `@react-three/*`, `react-hook-form` stack, and more).

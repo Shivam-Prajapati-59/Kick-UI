@@ -1,6 +1,6 @@
 /**
  * Single source of truth for site identity — used by metadata, JSON-LD,
- * sitemap, robots, and the MCP server instructions.
+ * sitemap, and robots.
  */
 
 export const SITE_CONFIG = {
