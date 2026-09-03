@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import TimeframeTabsDemo from "@/components/demo/Components/TimeframeTabs";
+import { VenueSelector } from "./VenueSelector";
 
 export const metadata: Metadata = {
   title: "Playground",
@@ -9,12 +9,10 @@ export const metadata: Metadata = {
   },
 };
 
-const page = () => {
+export default function PlaygroundPage() {
   return (
-    <div className="flex items-center justify-center">
-      <TimeframeTabsDemo />
+    <div className="flex min-h-screen items-center justify-center p-4">
+      <VenueSelector />
     </div>
   );
-};
-
-export default page;
+}

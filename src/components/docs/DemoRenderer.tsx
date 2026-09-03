@@ -44,6 +44,9 @@ const demos = {
   "timeframe-tabs": dynamic(
     () => import("@/components/demo/Components/TimeframeTabs"),
   ),
+  "venue-selector": dynamic(
+    () => import("@/components/demo/Components/VenueSelector"),
+  ),
   "feature-showcase": dynamic(
     () => import("@/components/demo/Components/FeatureShowcase"),
   ),

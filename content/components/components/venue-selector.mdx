@@ -1,0 +1,67 @@
+---
+title: Venue Selector
+description: An accessible multi-venue selector with an inline, animated expansion and smooth selection feedback.
+category: components
+demo: venue-selector
+usage: |
+  "use client";
+
+  import { useState } from "react";
+  import {
+    VenueSelector,
+    VenueSelectorContent,
+    VenueSelectorItem,
+    VenueSelectorTrigger,
+    VenueSelectorValue,
+  } from "@/components/ui/venue-selector";
+
+  const venues = [
+    { value: "hyperliquid", label: "Hyperliquid" },
+    { value: "lighter", label: "Lighter" },
+    { value: "pacifica", label: "Pacifica" },
+    { value: "aster", label: "Aster" },
+  ];
+
+  export function VenueSelectorDemo() {
+    const [values, setValues] = useState(["hyperliquid", "lighter"]);
+
+    return (
+      <div className="w-56">
+        <VenueSelector values={values} onValuesChange={setValues}>
+          <VenueSelectorTrigger>
+            <VenueSelectorValue
+              placeholder="Select a venue"
+              singularLabel="venue"
+              pluralLabel="venues"
+            />
+          </VenueSelectorTrigger>
+          <VenueSelectorContent>
+            {venues.map((venue) => (
+              <VenueSelectorItem key={venue.value} value={venue.value}>
+                {venue.label}
+              </VenueSelectorItem>
+            ))}
+          </VenueSelectorContent>
+        </VenueSelector>
+      </div>
+    );
+  }
+props:
+  - name: values
+    type: string[]
+    description: Controlled selected values.
+  - name: defaultValues
+    type: string[]
+    description: Initial selected values when the component is uncontrolled.
+  - name: onValuesChange
+    type: "(values: string[]) => void"
+    description: Called whenever an item is selected or removed.
+  - name: placeholder
+    type: string
+    description: Text shown by VenueSelectorValue with no selections.
+  - name: singularLabel / pluralLabel
+    type: string
+    description: Labels used by VenueSelectorValue, such as "venue" and "venues".
+---
+
+`VenueSelectorItem` accepts any content, so you can include venue logos, icons, or descriptions while retaining the same selected tick and keyboard behavior.

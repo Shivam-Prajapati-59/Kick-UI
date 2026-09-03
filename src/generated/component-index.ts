@@ -76,6 +76,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "components"
   },
   {
+    "slug": "venue-selector",
+    "title": "Venue Selector",
+    "description": "An accessible multi-venue selector with an inline, animated expansion and smooth selection feedback.",
+    "category": "components"
+  },
+  {
     "slug": "feature-showcase",
     "title": "Feature Showcase",
     "description": "A feature section with animated visual states.",

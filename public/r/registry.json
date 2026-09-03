@@ -232,6 +232,23 @@
       ]
     },
     {
+      "name": "venue-selector",
+      "type": "registry:component",
+      "title": "Venue Selector",
+      "description": "An accessible multi-venue selector with an inline, animated expansion and smooth selection feedback.",
+      "category": "components",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/venue-selector/venue-selector.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "feature-showcase",
       "type": "registry:component",
       "title": "Feature Showcase",

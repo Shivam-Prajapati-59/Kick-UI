@@ -47,7 +47,7 @@ Dependencies (npm packages and shadcn primitives) are resolved and installed aut
 | ---------------------- | --------------------------------------------------------- |
 | **Buttons**            | Shiny Button, Slide Text Button                           |
 | **Cards**              | Card Stack, Pill Card                                     |
-| **Components**         | Mag Dock, Timeframe Tabs, Stacked Carousel, Animated List |
+| **Components**         | Venue Selector, Mag Dock, Timeframe Tabs, Stacked Carousel, Animated List |
 | **Text Animations**    | Scramble Text, Text Focus                                 |
 | **Animations**         | Cursor Web Fluid, Perspective Grid, Pixel Image           |
 | **Layouts & Sections** | Scroll Card, Feature Showcase                             |
