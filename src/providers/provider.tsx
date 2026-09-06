@@ -4,17 +4,15 @@ import { ThemeProvider } from "@/components/common/theme-provider";
 import Navbar from "@/components/layout/Navbar";
 
 export default function Provider({ children }: { children: React.ReactNode }) {
-    return (
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-        >
-            <Navbar />
-            <main className="pt-(--navbar-height)">
-                {children}
-            </main>
-        </ThemeProvider>
-    );
+  return (
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <Navbar />
+      <main className="pt-(--navbar-height)">{children}</main>
+    </ThemeProvider>
+  );
 }

@@ -12,10 +12,14 @@ export const root = path.resolve(here, "..", "..");
 export const CONTENT_DIR = path.join(root, "content", "components");
 export const DEMOS_DIR = path.join(root, "src", "demos");
 export const REGISTRY_PATH = path.join(root, "registry.json");
-export const COMPONENTS_JSON_PATH = path.join(root, "components.json");
 export const PUBLIC_DIR = path.join(root, "public", "r");
 export const GENERATED_DIR = path.join(root, "src", "generated");
-export const CATEGORIES_TS_PATH = path.join(root, "src", "lib", "component-categories.ts");
+export const CATEGORIES_TS_PATH = path.join(
+  root,
+  "src",
+  "lib",
+  "component-categories.ts",
+);
 
 export function readRegistry() {
   return JSON.parse(fs.readFileSync(REGISTRY_PATH, "utf8"));
@@ -72,9 +76,4 @@ export function getPublicNames(directory = PUBLIC_DIR) {
     .filter((name) => name.endsWith(".json") && name !== "registry.json")
     .map((name) => path.basename(name, ".json"))
     .sort();
-}
-
-export function readComponentsJsonItems() {
-  const config = JSON.parse(fs.readFileSync(COMPONENTS_JSON_PATH, "utf8"));
-  return [...(config.registries?.["kick-ui"]?.items ?? [])].sort();
 }

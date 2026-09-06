@@ -15,13 +15,21 @@ jobs:
     name: Lint & Type Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.3.14
 
       - run: bun install --frozen-lockfile
+
+      - name: Check formatting of changed files
+        run: |
+          git fetch origin ${{ github.base_ref || github.ref_name }} --depth 1
+          CHANGED=$(git diff --name-only --diff-filter=ACM origin/${{ github.base_ref || github.ref_name }} -- '*.ts' '*.tsx' '*.css' '*.md' '*.json' '*.mjs' || true)
+          if [ -n "$CHANGED" ]; then
+            bunx prettier --check $CHANGED
+          fi
 
       - run: bun run lint
 
@@ -37,7 +45,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: oven-sh/setup-bun@v2
         with:
@@ -55,3 +63,14 @@ jobs:
           test -z "$(git ls-files --others --exclude-standard -- public/r src/generated)"
 
       - run: bun run build
+
+      - name: Run SEO regression suite against production build
+        run: |
+          bun run start --port 3000 &
+          SERVER_PID=$!
+          trap "kill $SERVER_PID" EXIT
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:3000/ > /dev/null 2>&1; then break; fi
+            sleep 2
+          done
+          bun run test:seo

@@ -4,33 +4,25 @@
  * Registry consistency check. Pure verification, never writes.
  * Safe for the lint job: fails fast with messages that name the drifted maps.
  *
- * Covers, in both directions:
- * - registry items <-> docs (slug identity)
- * - registry items <-> demos (src/demos/<slug>.tsx, default export each)
- * - docs without a registry item (allowed only with `distributable: false`)
- * - registry items <-> built artifacts (public/r/<name>.json, no orphans)
- * - registry items <-> components.json local registry list
+ * Covers identity in every direction (registry items <-> docs <-> demos),
+ * per-demo default exports, built artifacts (no orphans, none missing),
+ * and homepage sync. Run with bun (`bun scripts/registry-check.mjs`).
  */
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
-import { componentDocSchema } from "./component-doc-schema.mjs";
 import {
   CONTENT_DIR,
   DEMOS_DIR,
   getDemoNames,
   getDocFiles,
   getPublicNames,
-  readComponentsJsonItems,
   readRegistry,
   registryNames,
   root,
 } from "./lib/docs.mjs";
 import {
   checkArtifacts,
-  checkComponentsJson,
   checkDemoDefaultExports,
-  checkDistributable,
   checkDuplicates,
   checkHomepage,
   checkIdentity,
@@ -39,13 +31,12 @@ import {
 const registry = readRegistry();
 const names = registryNames(registry);
 
-const docs = getDocFiles(CONTENT_DIR).map((filePath) => {
-  const slug = path.basename(filePath, ".mdx");
-  const { data } = matter(fs.readFileSync(filePath, "utf8"));
-  return { slug, ...componentDocSchema.parse(data) };
-});
+const docSlugs = getDocFiles(CONTENT_DIR).map((filePath) =>
+  path.basename(filePath, ".mdx"),
+);
 
-const demoNames = getDemoNames(DEMOS_DIR);const demoFiles = demoNames.map((name) => {
+const demoNames = getDemoNames(DEMOS_DIR);
+const demoFiles = demoNames.map((name) => {
   const source = fs.readFileSync(path.join(DEMOS_DIR, `${name}.tsx`), "utf8");
   return {
     name,
@@ -55,36 +46,28 @@ const demoNames = getDemoNames(DEMOS_DIR);const demoFiles = demoNames.map((name)
   };
 });
 
-const cliSource = fs.readFileSync(
-  path.join(root, "src", "lib", "cli-commands.ts"),
+const siteConfigSource = fs.readFileSync(
+  path.join(root, "src", "lib", "site-config.ts"),
   "utf8",
 );
-const cliHomepage = cliSource.match(/REGISTRY_HOMEPAGE\s*=\s*"([^"]+)"/)?.[1];
+const siteHomepage = siteConfigSource.match(/^\s*url:\s*"([^"]+)"/m)?.[1];
 
 const errors = [
-  ...checkDuplicates({
-    registryNames: names,
-    docSlugs: docs.map((doc) => doc.slug),
-    demoNames,
-  }),
-  ...checkIdentity({
-    registryNames: names,
-    docSlugs: docs.map((doc) => doc.slug),
-    demoNames,
-  }),
-  ...checkDistributable({ docs, registryNames: names }),
+  ...checkDuplicates({ registryNames: names, docSlugs, demoNames }),
+  ...checkIdentity({ registryNames: names, docSlugs, demoNames }),
   ...checkDemoDefaultExports({ files: demoFiles }),
   ...checkArtifacts({ registryNames: names, publicNames: getPublicNames() }),
-  ...checkComponentsJson({ registryNames: names, componentsJsonItems: readComponentsJsonItems() }),
-  ...checkHomepage({ registryHomepage: registry.homepage, cliHomepage }),
+  ...checkHomepage({ registryHomepage: registry.homepage, siteHomepage }),
 ];
 
 if (errors.length > 0) {
   for (const error of errors) console.error(`✗ ${error}`);
-  console.error(`\n${errors.length} consistency problem(s). Fix the drift above, then rebuild.`);
+  console.error(
+    `\n${errors.length} consistency problem(s). Fix the drift above, then rebuild.`,
+  );
   process.exit(1);
 }
 
 console.log(
-  `✓ Registry consistent: ${names.length} items, ${docs.length} docs, ${demoNames.length} demos`,
+  `✓ Registry consistent: ${names.length} items, ${docSlugs.length} docs, ${demoNames.length} demos`,
 );

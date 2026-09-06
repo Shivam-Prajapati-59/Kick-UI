@@ -1,10 +1,8 @@
 import { describe, expect, test } from "bun:test";
-import { componentDocSchema } from "../scripts/component-doc-schema.mjs";
+import { componentDocSchema } from "../src/lib/component-doc-schema.ts";
 import {
   checkArtifacts,
-  checkComponentsJson,
   checkDemoDefaultExports,
-  checkDistributable,
   checkDuplicates,
   checkHomepage,
   checkIdentity,
@@ -74,25 +72,15 @@ describe("checkIdentity", () => {
     expect(errors).toHaveLength(1);
     expect(errors[0]).toContain('"stray"');
   });
-});
 
-describe("checkDistributable", () => {
-  test("doc without registry item fails unless opted out", () => {
-    const errors = checkDistributable({
-      docs: [{ slug: "wip", distributable: true }],
+  test("doc without registry item is flagged with no opt-out", () => {
+    const errors = checkIdentity({
       registryNames: ["pill-card"],
+      docSlugs: ["pill-card", "wip"],
+      demoNames: ["pill-card", "wip"],
     });
     expect(errors).toHaveLength(1);
-    expect(errors[0]).toContain("distributable");
-  });
-
-  test("opted-out doc passes", () => {
-    expect(
-      checkDistributable({
-        docs: [{ slug: "wip", distributable: false }],
-        registryNames: ["pill-card"],
-      }),
-    ).toEqual([]);
+    expect(errors[0]).toContain('"wip"');
   });
 });
 
@@ -130,41 +118,21 @@ describe("checkDemoDefaultExports", () => {
   });
 });
 
-describe("checkComponentsJson", () => {
-  test("order-insensitive match passes", () => {
-    expect(
-      checkComponentsJson({
-        registryNames: ["b", "a"],
-        componentsJsonItems: ["a", "b"],
-      }),
-    ).toEqual([]);
-  });
-
-  test("drift shows both lists", () => {
-    const errors = checkComponentsJson({
-      registryNames: ["a", "b"],
-      componentsJsonItems: ["a"],
-    });
-    expect(errors).toHaveLength(1);
-    expect(errors[0]).toContain("components.json");
-  });
-});
-
 describe("checkHomepage", () => {
   const homepage = "https://kick-ui.vercel.app";
   test("matching homepages pass", () => {
     expect(
-      checkHomepage({ registryHomepage: homepage, cliHomepage: homepage }),
+      checkHomepage({ registryHomepage: homepage, siteHomepage: homepage }),
     ).toEqual([]);
   });
 
   test("drift names both sources", () => {
     const errors = checkHomepage({
       registryHomepage: homepage,
-      cliHomepage: "https://example.com",
+      siteHomepage: "https://example.com",
     });
     expect(errors).toHaveLength(1);
-    expect(errors[0]).toContain("cli-commands.ts");
+    expect(errors[0]).toContain("site-config.ts");
   });
 });
 
@@ -176,15 +144,17 @@ describe("componentDocSchema", () => {
     usage: "",
   };
 
-  test("accepts a doc without a demo field and defaults distributable", () => {
-    const parsed = componentDocSchema.parse(valid);
-    expect(parsed.distributable).toBe(true);
+  test("identity needs no demo field; legacy demo keys are stripped", () => {
+    const parsed = componentDocSchema.parse({
+      ...valid,
+      demo: "pill-card",
+    });
+    expect("demo" in parsed).toBe(false);
+    expect(parsed.title).toBe("Pill Card");
   });
 
   test("rejects empty title and unknown category", () => {
-    expect(() =>
-      componentDocSchema.parse({ ...valid, title: "" }),
-    ).toThrow();
+    expect(() => componentDocSchema.parse({ ...valid, title: "" })).toThrow();
     expect(() =>
       componentDocSchema.parse({ ...valid, category: "nope" }),
     ).toThrow();

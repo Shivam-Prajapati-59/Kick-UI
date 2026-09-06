@@ -16,6 +16,8 @@ export const demos = {
   "slide-text-button": dynamic(() => import("@/demos/slide-text-button")),
   "stacked-carousel": dynamic(() => import("@/demos/stacked-carousel")),
   "text-focus": dynamic(() => import("@/demos/text-focus")),
+  "timeframe-tabs": dynamic(() => import("@/demos/timeframe-tabs")),
+  "venue-selector": dynamic(() => import("@/demos/venue-selector")),
 } as const;
 
 export type DemoName = keyof typeof demos;

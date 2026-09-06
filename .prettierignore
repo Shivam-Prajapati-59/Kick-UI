@@ -1,0 +1,8 @@
+# Generated outputs — owned by build scripts
+public/r/
+src/generated/
+
+# Dependencies & build output
+node_modules/
+.next/
+bun.lock

@@ -68,7 +68,7 @@ export function MobileNav({
                                         href={link.href}
                                         onClick={closeMobileNav}
                                         className={cn(
-                                            "block py-1 text-sm font-mono font-medium uppercase tracking-[0.16em] transition-colors",
+                                            "block py-1 text-sm font-mono font-medium tracking-[0.16em] transition-colors",
                                             isActive
                                                 ? "text-foreground"
                                                 : "text-muted-foreground hover:text-foreground"
@@ -96,7 +96,7 @@ export function MobileNav({
                                                 href={href}
                                                 onClick={closeMobileNav}
                                                 className={cn(
-                                                    "block py-1 text-sm font-medium uppercase tracking-[0.16em] transition-colors",
+                                                    "block py-1 text-sm font-medium tracking-[0.16em] transition-colors",
                                                     isActive
                                                         ? "text-foreground"
                                                         : "text-muted-foreground hover:text-foreground",

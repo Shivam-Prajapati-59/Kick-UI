@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
 import { ShieldCheck, Database, Radio, Monitor, Wallet } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const CYCLE = 2.4;
@@ -23,6 +23,7 @@ const PATH_START_Y = 38;
 const PillCard = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ w: 350, h: 450 });
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -42,7 +43,8 @@ const PillCard = () => {
   const ICON_Y = H - 155;
   const PATH_END_Y = ICON_Y + 3;
 
-  const totalWidth = ICON_LIST.length * ICON_SIZE + (ICON_LIST.length - 1) * ICON_GAP;
+  const totalWidth =
+    ICON_LIST.length * ICON_SIZE + (ICON_LIST.length - 1) * ICON_GAP;
   const startX = (W - totalWidth) / 2;
 
   const ICONS = ICON_LIST.map((icon, i) => ({
@@ -57,10 +59,10 @@ const PillCard = () => {
   };
 
   return (
-    <div className="relative w-full max-w-87.5 h-112.5 overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm">
+    <div className="border-border bg-card text-card-foreground relative h-112.5 w-full max-w-87.5 overflow-hidden rounded-xl border shadow-sm">
       <div ref={containerRef} className="absolute inset-0">
         <svg
-          className="absolute inset-0 w-full h-full pointer-events-none"
+          className="pointer-events-none absolute inset-0 h-full w-full"
           viewBox={`0 0 ${W} ${H}`}
           fill="none"
         >
@@ -79,7 +81,7 @@ const PillCard = () => {
               transition={{
                 duration: CYCLE,
                 ease: "linear",
-                repeat: Infinity,
+                repeat: shouldReduceMotion ? 0 : Infinity,
                 delay: i * STAGGER,
                 times: [0, ARRIVE, ARRIVE + 0.1, 1],
               }}
@@ -104,15 +106,17 @@ const PillCard = () => {
         ))}
       </div>
 
-      <div className="relative z-10 flex flex-col items-center h-full p-6">
-        <button className="rounded-lg border border-border bg-secondary px-5 py-2 flex items-center gap-2 shadow-xs">
+      <div className="relative z-10 flex h-full flex-col items-center p-6">
+        <button className="border-border bg-secondary flex items-center gap-2 rounded-lg border px-5 py-2 shadow-xs">
           <Radio size={16} className="text-primary" />
-          <span className="text-sm font-medium text-foreground">rpc : mainnet-1</span>
+          <span className="text-foreground text-sm font-medium">
+            rpc : mainnet-1
+          </span>
         </button>
 
         <div className="mt-auto space-y-1.5 pb-2">
-          <h3 className="text-xl font-medium text-foreground">MCP Server</h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <h3 className="text-foreground text-xl font-medium">MCP Server</h3>
+          <p className="text-muted-foreground text-sm leading-relaxed">
             A hosted server with 160+ blockchain tools for any MCP client.
           </p>
         </div>
@@ -131,41 +135,55 @@ const Icon = ({
   cycle: number;
   arrive: number;
   delay: number;
-}) => (
-  <motion.div
-    animate={{
-      boxShadow: [
-        "0px 0px 0px oklch(0.5905 0.2097 303.5671 / 0)",
-        "0px 0px 0px oklch(0.5905 0.2097 303.5671 / 0)",
-        "0px 0px 18px oklch(0.5905 0.2097 303.5671 / 0.5)",
-        "0px 0px 0px oklch(0.5905 0.2097 303.5671 / 0)",
-      ],
-      color: [
-        "#9ca3af",
-        "#9ca3af",
-        "oklch(0.5905 0.2097 303.5671)",
-        "#9ca3af",
-      ],
-    }}
-    transition={{
-      duration: cycle,
-      ease: "linear",
-      repeat: Infinity,
-      delay,
-      times: [0, arrive - 0.01, arrive + 0.05, 1],
-    }}
-    whileHover={{
-      boxShadow: "0px 0px 20px oklch(0.5905 0.2097 303.5671 / 0.55)",
-      color: "oklch(0.5905 0.2097 303.5671)",
-    }}
-    className={cn(
-      "relative flex items-center justify-center rounded-xl cursor-pointer backdrop-blur-xs",
-      "bg-secondary text-foreground border border-border shadow-xs",
-      "w-14 h-14",
-    )}
-  >
-    {children}
-  </motion.div>
-);
+}) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  if (shouldReduceMotion) {
+    return (
+      <div className="border-border bg-secondary text-muted-foreground relative flex h-14 w-14 items-center justify-center rounded-xl border shadow-xs">
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <motion.div
+      animate={{
+        boxShadow: [
+          "0px 0px 0px color-mix(in oklab, var(--primary) 0%, transparent)",
+          "0px 0px 0px color-mix(in oklab, var(--primary) 0%, transparent)",
+          "0px 0px 18px color-mix(in oklab, var(--primary) 50%, transparent)",
+          "0px 0px 0px color-mix(in oklab, var(--primary) 0%, transparent)",
+        ],
+        color: [
+          "var(--muted-foreground)",
+          "var(--muted-foreground)",
+          "var(--primary)",
+          "var(--muted-foreground)",
+        ],
+      }}
+      transition={{
+        duration: cycle,
+        ease: "linear",
+        repeat: Infinity,
+        delay,
+        times: [0, arrive - 0.01, arrive + 0.05, 1],
+        repeatType: "loop",
+      }}
+      whileHover={{
+        boxShadow:
+          "0px 0px 20px color-mix(in oklab, var(--primary) 55%, transparent)",
+        color: "var(--primary)",
+      }}
+      className={cn(
+        "relative flex cursor-pointer items-center justify-center rounded-xl backdrop-blur-xs",
+        "bg-secondary text-foreground border-border border shadow-xs",
+        "h-14 w-14",
+      )}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 export default PillCard;

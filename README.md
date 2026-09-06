@@ -1,77 +1,103 @@
+<div align="center">
+
 # Kick UI
 
-Kick UI is a shadcn-compatible React component library built with Next.js,
-Tailwind CSS, Radix UI, and Motion. Components are accessible, customizable,
-and installed as source code so you retain full ownership.
+**Beautifully animated UI components for React.**
+Accessible · Customizable · Open Source — installed as source code you own.
 
-## Use a component
+[![License: MIT](https://img.shields.io/badge/License-MIT-8b5cf6.svg)](./LICENSE)
+[![Built with shadcn CLI](https://img.shields.io/badge/install-shadcn%20CLI-0ea5e9.svg)](https://ui.shadcn.com/docs/cli)
+[![Next.js 16](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org)
+[![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8)](https://tailwindcss.com)
 
-Install an individual component with the shadcn CLI:
+[Documentation](https://kick-ui.vercel.app/docs) · [Component Catalog](https://kick-ui.vercel.app/components) · [Report Bug](https://github.com/shivambadmos/kick-ui/issues)
+
+</div>
+
+---
+
+## Install
+
+One command per component — no package to install, you own the code:
 
 ```bash
 npx shadcn@latest add https://kick-ui.vercel.app/r/shiny-button.json
 ```
 
-Or browse the [documentation](https://kick-ui.vercel.app/docs) and component
-catalog to find the install command for each component.
+Or add Kick UI as a namespace once, then use short names everywhere:
 
-## Categories
+```bash
+npx shadcn@latest add @kick-ui/shiny-button
+```
 
-- Buttons
-- Cards
-- Components
-- Text animations
-- Layouts and sections
-- Animations
+```jsonc
+// components.json
+{
+  "registries": {
+    "@kick-ui": "https://kick-ui.vercel.app/r/{name}.json",
+  },
+}
+```
+
+Dependencies (npm packages and shadcn primitives) are resolved and installed automatically by the CLI.
+
+## Components
+
+| Category               | Highlights                                                                |
+| ---------------------- | ------------------------------------------------------------------------- |
+| **Buttons**            | Shiny Button, Slide Text Button                                           |
+| **Cards**              | Card Stack, Pill Card                                                     |
+| **Components**         | Venue Selector, Mag Dock, Timeframe Tabs, Stacked Carousel, Animated List |
+| **Text Animations**    | Scramble Text, Text Focus                                                 |
+| **Animations**         | Cursor Web Fluid, Perspective Grid, Pixel Image                           |
+| **Layouts & Sections** | Scroll Card, Feature Showcase                                             |
+
+Browse live previews and copy-paste install commands at
+[kick-ui.vercel.app/components](https://kick-ui.vercel.app/components).
+
+## AI-ready with shadcn MCP
+
+Kick UI is a shadcn-compatible registry, so it works with the official
+[shadcn MCP server](https://ui.shadcn.com/docs/registry/mcp). Add the
+`@kick-ui` registry to your project's `components.json` as shown above, then
+configure the shadcn MCP server for your coding agent.
+
+For example, with Codex add this to `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.shadcn]
+command = "npx"
+args = ["shadcn@latest", "mcp"]
+```
+
+Restart your MCP client and ask it to search or install Kick UI components,
+for example: _"Add @kick-ui/shiny-button to my project."_
+
+## Built with
+
+React 19 · Next.js 16 · Tailwind CSS 4 · Motion · Radix UI · TypeScript (strict)
 
 ## Develop locally
 
 ```bash
 bun install
-bun dev
+bun dev          # docs site on localhost:3000
 ```
 
 Useful checks:
 
 ```bash
-bun lint
-bun typecheck
-bun run registry:check
-bun test
-bun registry:build
-bun run build
+bun lint         # ESLint
+bun typecheck    # tsc --noEmit (strict)
+bun run registry:check  # pipeline consistency, no writes
+bun run test:unit       # pipeline unit tests (bun test)
+bun registry:build && bun docs:build
 ```
 
-## Project structure
-
-```text
-src/app/                 Routes and documentation pages
-src/demos/               One live preview module per item (src/demos/<name>.tsx)
-src/components/ui/       App-local UI primitives
-src/lib/component-docs.ts
-                         Reads docs + registry source at build time
-src/lib/component-categories.ts
-                         Generated category definitions (do not edit manually)
-src/generated/           Generated docs index + demo map (do not edit manually)
-scripts/lib/             Shared pipeline helpers (single source of truth)
-registry/                Source distributed through the shadcn registry
-public/r/                Generated registry JSON (do not edit manually)
-```
-
-## Adding a component
-
-Identity is the filename: the registry name, doc filename, and demo
-filename must all match (`<name>` below is one string in four places).
-
-1. Add the distributable source under `registry/new-york/components/<name>/`.
-2. Register it in `registry.json` (and `components.json` under
-   `registries.kick-ui.items`).
-3. Add `content/components/<category>/<name>.mdx` (no `demo` field; set
-   `distributable: false` while a doc has no distributable source yet).
-4. Add `src/demos/<name>.tsx` with a default export rendering the preview.
-5. Run `bun registry:check`, then `bun registry:build && bun docs:build`,
-   then `bun typecheck && bun lint && bun test`.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) to add a component. Identity is
+the filename: the registry name, doc filename, and demo filename must all
+match, and the build pipeline validates everything else.
 
 ## License
 
-MIT
+Distributed under the [MIT License](./LICENSE).

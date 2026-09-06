@@ -10,64 +10,10 @@ export interface ComponentIndexItem {
 
 export const componentIndex: ComponentIndexItem[] = [
   {
-    "slug": "animated-list",
-    "title": "Animated List",
-    "description": "A generic animated list with keyboard navigation and auto-scroll.",
-    "category": "components"
-  },
-  {
-    "slug": "card-stack",
-    "title": "Card Stack",
-    "description": "A stacked card fan animation.",
-    "category": "cards"
-  },
-  {
     "slug": "cursor-web-fluid",
     "title": "Cursor Web Fluid",
     "description": "A fluid animation that follows the cursor.",
     "category": "animations"
-  },
-  {
-    "slug": "feature-showcase",
-    "title": "Feature Showcase",
-    "description": "A feature section with animated visual states.",
-    "category": "layouts-sections"
-  },
-  {
-    "slug": "mag-dock",
-    "title": "MagDock",
-    "description": "A spring-animated dock with icons, tooltips, and active states.",
-    "category": "components"
-  },
-  {
-    "slug": "perspective-grid",
-    "title": "Perspective Grid",
-    "description": "A 3D-perspective grid that tilts on hover.",
-    "category": "components"
-  },
-  {
-    "slug": "pill-card",
-    "title": "Pill Card",
-    "description": "A card with animated SVG paths and synchronized glow effects.",
-    "category": "cards"
-  },
-  {
-    "slug": "pixel-image",
-    "title": "Pixel Image",
-    "description": "A hover-driven pixelated dissolve between two images.",
-    "category": "components"
-  },
-  {
-    "slug": "scramble-text",
-    "title": "Scramble Text",
-    "description": "A hover-driven text scramble animation with a smooth decode sweep.",
-    "category": "text-animations"
-  },
-  {
-    "slug": "scroll-card",
-    "title": "Scroll Card",
-    "description": "A scroll-linked card layout with synchronized image transitions and text reveals.",
-    "category": "layouts-sections"
   },
   {
     "slug": "shiny-button",
@@ -82,10 +28,76 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "buttons"
   },
   {
+    "slug": "card-stack",
+    "title": "Card Stack",
+    "description": "A stacked card fan animation.",
+    "category": "cards"
+  },
+  {
+    "slug": "pill-card",
+    "title": "Pill Card",
+    "description": "A card with animated SVG paths and synchronized glow effects.",
+    "category": "cards"
+  },
+  {
     "slug": "stacked-carousel",
     "title": "Stacked Carousel",
     "description": "A self-playing card stack that cycles through items with a smooth, seamless fly-up transition.",
     "category": "cards"
+  },
+  {
+    "slug": "animated-list",
+    "title": "Animated List",
+    "description": "A generic animated list with keyboard navigation and auto-scroll.",
+    "category": "components"
+  },
+  {
+    "slug": "mag-dock",
+    "title": "MagDock",
+    "description": "A spring-animated dock with icons, tooltips, and active states.",
+    "category": "components"
+  },
+  {
+    "slug": "perspective-grid",
+    "title": "Perspective Grid",
+    "description": "A 3D-perspective grid that tilts on hover.",
+    "category": "components"
+  },
+  {
+    "slug": "pixel-image",
+    "title": "Pixel Image",
+    "description": "A hover-driven pixelated dissolve between two images.",
+    "category": "components"
+  },
+  {
+    "slug": "timeframe-tabs",
+    "title": "Timeframe Tabs",
+    "description": "A scrollable, controlled pill-tab row with an animated active-state highlight and a slot for trailing content.",
+    "category": "components"
+  },
+  {
+    "slug": "venue-selector",
+    "title": "Venue Selector",
+    "description": "An accessible multi-venue selector with an inline, animated expansion and smooth selection feedback.",
+    "category": "components"
+  },
+  {
+    "slug": "feature-showcase",
+    "title": "Feature Showcase",
+    "description": "A feature section with animated visual states.",
+    "category": "layouts-sections"
+  },
+  {
+    "slug": "scroll-card",
+    "title": "Scroll Card",
+    "description": "A scroll-linked card layout with synchronized image transitions and text reveals.",
+    "category": "layouts-sections"
+  },
+  {
+    "slug": "scramble-text",
+    "title": "Scramble Text",
+    "description": "A hover-driven text scramble animation with a smooth decode sweep.",
+    "category": "text-animations"
   },
   {
     "slug": "text-focus",

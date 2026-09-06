@@ -1,4 +1,5 @@
 import type { PackageManager } from "@/hooks/useCodeOptions";
+import { SITE_CONFIG } from "./site-config";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -45,10 +46,11 @@ export const PKG_MANAGERS: PackageManager[] = ["npm", "pnpm", "yarn", "bun"];
 /* ------------------------------------------------------------------ */
 
 /**
- * Must match registry.json `homepage`. Enforced by
- * scripts/registry-check.mjs so the docs example can never drift.
+ * Derived from SITE_CONFIG so the docs example can never drift from the
+ * canonical site address. scripts/registry-check.mjs enforces that
+ * SITE_CONFIG.url matches registry.json `homepage`.
  */
-export const REGISTRY_HOMEPAGE = "https://kick-ui.vercel.app";
+export const REGISTRY_HOMEPAGE = SITE_CONFIG.url;
 
 export const EXAMPLE_COMPONENT_NAME = "shiny-button";
 
@@ -105,7 +107,7 @@ export function generateInstallCommands(
 export function getCurrentCommand(
   commands: GeneratedCommands,
   mode: "cli" | "manual",
-  packageManager: PackageManager
+  packageManager: PackageManager,
 ): string {
   if (mode === "manual") {
     return commands.manual?.[packageManager] ?? "";

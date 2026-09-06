@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -36,10 +36,12 @@ export function StackedCarousel<T>({
 }: StackedCarouselProps<T>) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAdvancing, setIsAdvancing] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isAdvancingRef = useRef(false);
   const onAdvanceRef = useRef(onAdvance);
   const activeIndexRef = useRef(activeIndex);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     onAdvanceRef.current = onAdvance;
@@ -64,10 +66,11 @@ export function StackedCarousel<T>({
   }, [items.length, advanceDelay]);
 
   useEffect(() => {
-    if (items.length < 2) return;
+    // Respect prefers-reduced-motion and pause on hover/focus (WCAG 2.2.2).
+    if (items.length < 2 || shouldReduceMotion || isPaused) return;
     const timer = window.setInterval(advanceStack, interval);
     return () => window.clearInterval(timer);
-  }, [advanceStack, interval, items.length]);
+  }, [advanceStack, interval, items.length, shouldReduceMotion, isPaused]);
 
   useEffect(() => {
     return () => {
@@ -84,19 +87,29 @@ export function StackedCarousel<T>({
       <div
         className="relative flex items-center justify-center"
         style={{ height: containerHeight }}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onFocus={() => setIsPaused(true)}
+        onBlur={() => setIsPaused(false)}
       >
         <div className="relative w-full" style={{ height: stackHeight }}>
           {items.map((item, index) => {
-            const position = (index - activeIndex + items.length) % items.length;
+            const position =
+              (index - activeIndex + items.length) % items.length;
             const isActive = position === 0;
+            const itemKey =
+              item != null && typeof item === "object" && "id" in item
+                ? String((item as { id?: unknown }).id)
+                : `index-${index}`;
 
             return (
               <motion.article
-                key={String((item as { id?: unknown }).id ?? index)}
+                key={itemKey}
                 layout
                 animate={{
                   y: isActive && isAdvancing ? [0, -100] : position * 13,
-                  scale: isActive && isAdvancing ? [1, 0.9] : 1 - position * 0.04,
+                  scale:
+                    isActive && isAdvancing ? [1, 0.9] : 1 - position * 0.04,
                   opacity: 1,
                 }}
                 transition={
@@ -106,7 +119,7 @@ export function StackedCarousel<T>({
                 }
                 style={{ zIndex: items.length - position }}
                 className={cn(
-                  "absolute inset-x-0 top-0 flex h-20.5 items-center justify-between overflow-hidden rounded-2xl border border-border bg-card px-3 py-2 shadow-sm",
+                  "border-border bg-card absolute inset-x-0 top-0 flex h-20.5 items-center justify-between overflow-hidden rounded-2xl border px-3 py-2 shadow-sm",
                   cardClassName,
                 )}
                 aria-current={isActive ? "true" : undefined}

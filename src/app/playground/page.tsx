@@ -1,11 +1,18 @@
-import TransactionItem from "./TransactionItem";
+import type { Metadata } from "next";
+import { VenueSelector } from "./VenueSelector";
 
-const page = () => {
-  return (
-    <div className="flex min-h-screen items-center justify-center">
-      <TransactionItem />
-    </div>
-  );
+export const metadata: Metadata = {
+  title: "Playground",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
-export default page;
+export default function PlaygroundPage() {
+  return (
+    <div className="flex min-h-screen items-center justify-center p-4">
+      <VenueSelector />
+    </div>
+  );
+}

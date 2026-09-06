@@ -64,17 +64,14 @@ export function checkIdentity({ registryNames, docSlugs, demoNames }) {
       );
     }
   }
+  for (const slug of docs) {
+    if (!registry.has(slug)) {
+      errors.push(
+        `doc "${slug}" has no registry item. Add the source + registry.json entry, or remove the doc.`,
+      );
+    }
+  }
   return errors;
-}
-
-export function checkDistributable({ docs, registryNames }) {
-  const registry = new Set(registryNames);
-  return docs
-    .filter((doc) => !registry.has(doc.slug) && doc.distributable !== false)
-    .map(
-      (doc) =>
-        `doc "${doc.slug}" has no registry item. Add the source + registry.json entry, or set "distributable: false" in its frontmatter.`,
-    );
 }
 
 export function checkArtifacts({ registryNames, publicNames }) {
@@ -107,21 +104,10 @@ export function checkDemoDefaultExports({ files }) {
     );
 }
 
-export function checkHomepage({ registryHomepage, cliHomepage }) {
-  if (registryHomepage !== cliHomepage) {
+export function checkHomepage({ registryHomepage, siteHomepage }) {
+  if (registryHomepage !== siteHomepage) {
     return [
-      `homepage drift: registry.json says "${registryHomepage}" but src/lib/cli-commands.ts says "${cliHomepage}". Keep REGISTRY_HOMEPAGE in sync.`,
-    ];
-  }
-  return [];
-}
-
-export function checkComponentsJson({ registryNames, componentsJsonItems }) {
-  const want = [...registryNames].sort();
-  const have = [...componentsJsonItems].sort();
-  if (JSON.stringify(want) !== JSON.stringify(have)) {
-    return [
-      `components.json registry items are stale (want [${want.join(", ")}], have [${have.join(", ")}]). Sync registries.kick-ui.items with registry.json.`,
+      `homepage drift: registry.json says "${registryHomepage}" but src/lib/site-config.ts says "${siteHomepage}". Keep SITE_CONFIG.url in sync.`,
     ];
   }
   return [];

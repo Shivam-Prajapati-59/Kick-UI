@@ -10,8 +10,8 @@
       "description": "A card with animated SVG paths and synchronized glow effects.",
       "category": "cards",
       "dependencies": [
-        "motion",
-        "lucide-react"
+        "lucide-react",
+        "motion"
       ],
       "files": [
         {
@@ -211,6 +211,56 @@
       "files": [
         {
           "path": "registry/new-york/components/stacked-carousel/stacked-carousel.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "timeframe-tabs",
+      "type": "registry:component",
+      "title": "Timeframe Tabs",
+      "description": "A scrollable, controlled pill-tab row with an animated active-state highlight and a slot for trailing content.",
+      "category": "components",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/timeframe-tabs/timeframe-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "venue-selector",
+      "type": "registry:component",
+      "title": "Venue Selector",
+      "description": "An accessible multi-venue selector with an inline, animated expansion and smooth selection feedback.",
+      "category": "components",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/venue-selector/venue-selector.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "feature-showcase",
+      "type": "registry:component",
+      "title": "Feature Showcase",
+      "description": "A feature section with animated visual states.",
+      "category": "layouts-sections",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/feature-showcase/feature-showcase.tsx",
           "type": "registry:component"
         }
       ]

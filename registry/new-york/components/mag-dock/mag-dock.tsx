@@ -62,7 +62,7 @@ function MagDockIcon({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.9 }}
             transition={{ duration: 0.12 }}
-            className="pointer-events-none absolute bottom-full mb-6 left-1/2 z-50 -translate-x-1/2 whitespace-nowrap rounded-md border border-border/50 bg-popover px-2 py-1 text-xs font-medium text-popover-foreground shadow-lg"
+            className="border-border/50 bg-popover text-popover-foreground pointer-events-none absolute bottom-full left-1/2 z-50 mb-6 -translate-x-1/2 rounded-md border px-2 py-1 text-xs font-medium whitespace-nowrap shadow-lg"
           >
             {name}
           </motion.div>
@@ -81,10 +81,10 @@ function MagDockIcon({
         whileTap={{ scale: 0.88 }}
         className={cn(
           "flex cursor-pointer items-center justify-center rounded-2xl",
-          "bg-linear-to-b from-background/30 to-background/10 text-foreground",
+          "from-background/30 to-background/10 text-foreground bg-linear-to-b",
           "shadow-[0_2px_8px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.2)]",
           "dark:shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)]",
-          "transition-colors hover:from-background/40 hover:to-background/15",
+          "hover:from-background/40 hover:to-background/15 transition-colors",
         )}
       >
         <Icon className="h-1/2 w-1/2" strokeWidth={1.75} />
@@ -101,11 +101,11 @@ export default function MagDock({ items, className }: MagDockProps) {
       className={cn("flex w-full items-center justify-center p-10", className)}
     >
       <motion.div
-        onMouseMove={(e) => mouseX.set(e.pageX)}
+        onMouseMove={(e) => mouseX.set(e.clientX)}
         onMouseLeave={() => mouseX.set(Infinity)}
         className={cn(
           "mx-auto flex h-16 items-end gap-2 rounded-2xl px-3 pb-2",
-          "border border-border/40",
+          "border-border/40 border",
           "bg-background/70 backdrop-blur-2xl",
           "shadow-[0_8px_32px_rgba(0,0,0,0.12)]",
           "dark:shadow-[0_8px_32px_rgba(0,0,0,0.45)]",

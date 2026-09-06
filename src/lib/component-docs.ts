@@ -1,39 +1,17 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { z } from "zod";
+import {
+  componentDocSchema,
+  type ComponentDocFrontmatter,
+} from "./component-doc-schema.ts";
+import type { ComponentCategory } from "@/lib/component-categories";
 import type { PropItem } from "@/lib/types";
 
-import { componentCategories, type ComponentCategory } from "@/lib/component-categories";
+import { componentCategories } from "@/lib/component-categories";
 
 const contentDirectory = path.join(process.cwd(), "content", "components");
 const registryPath = path.join(process.cwd(), "registry.json");
-
-const categorySchema = z.enum(
-  componentCategories.map((category) => category.id) as [
-    ComponentCategory,
-    ...ComponentCategory[],
-  ],
-);
-
-const propSchema = z.object({
-  name: z.string().min(1),
-  type: z.string().min(1),
-  default: z.string().optional(),
-  description: z.string().optional(),
-});
-
-const frontmatterSchema = z.object({
-  title: z.string().min(1),
-  description: z.string().min(1),
-  category: categorySchema,
-  usage: z.string().default(""),
-  props: z.array(propSchema).default([]),
-  fullPreview: z.boolean().default(false),
-  distributable: z.boolean().default(true),
-});
-
-export type ComponentDocFrontmatter = z.infer<typeof frontmatterSchema>;
 
 interface RegistryFile {
   path: string;
@@ -80,7 +58,7 @@ function getDocFiles(directory = contentDirectory): string[] {
 function parseDoc(filePath: string): ComponentDoc {
   const slug = path.basename(filePath, ".mdx");
   const parsed = matter(fs.readFileSync(filePath, "utf8"));
-  const frontmatter = frontmatterSchema.parse(parsed.data);
+  const frontmatter = componentDocSchema.parse(parsed.data);
   const registryItem = getRegistryItem(slug);
   const sourcePath = registryItem?.files[0]?.path;
   const sourceCode = sourcePath
