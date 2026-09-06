@@ -1,0 +1,4 @@
+# Byte-compared by docs:check / registry:build output diffing — these must be
+# LF on every platform, otherwise freshness checks fail on Windows checkouts.
+src/generated/* text eol=lf
+public/r/* text eol=lf
