@@ -1,11 +1,11 @@
 "use client";
 
-import { StackedCarousel } from "@/components/ui/stacked-carousel";
+import { StackedCarousel } from "@registry/new-york/components/stacked-carousel/stacked-carousel";
 import {
   TransactionItemContent,
   defaultTransactionItems,
   type TransactionItemData,
-} from "@/components/demo/Components/StackedCarousel";
+} from "@/demos/stacked-carousel";
 
 export default function TransactionItem() {
   return (
