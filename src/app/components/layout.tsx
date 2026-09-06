@@ -1,5 +1,4 @@
 import Container from "@/components/common/Container";
-import StripedSeparator from "@/components/common/StripedSeparator";
 import Sidebar from "@/components/navs/Sidebar";
 import { Montserrat } from "next/font/google";
 
@@ -19,8 +18,8 @@ export default function ComponentsLayout({
     <Container
       className={`${montserrat.variable} flex-1 items-start [font-family:var(--font-montserrat)] lg:grid lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-5`}
     >
-      <aside className="fixed top-20 z-30 hidden h-[calc(100vh-5rem)] w-full shrink-0 lg:sticky lg:block">
-        <div className="scrollbar-hide h-full w-full overflow-y-auto pr-6">
+      <aside className="fixed top-(--navbar-height) z-30 hidden h-[calc(100vh-var(--navbar-height))] w-full shrink-0 lg:sticky lg:block">
+        <div className="h-full w-full pr-6">
           <Sidebar />
         </div>
       </aside>

@@ -1,4 +1,5 @@
 import type { PackageManager } from "@/hooks/useCodeOptions";
+import { SITE_CONFIG } from "./site-config";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -39,6 +40,23 @@ const INSTALL_CMDS: Record<PackageManager, string> = {
 };
 
 export const PKG_MANAGERS: PackageManager[] = ["npm", "pnpm", "yarn", "bun"];
+
+/* ------------------------------------------------------------------ */
+/*  Canonical registry address + docs example                          */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Derived from SITE_CONFIG so the docs example can never drift from the
+ * canonical site address. scripts/registry-check.mjs enforces that
+ * SITE_CONFIG.url matches registry.json `homepage`.
+ */
+export const REGISTRY_HOMEPAGE = SITE_CONFIG.url;
+
+export const EXAMPLE_COMPONENT_NAME = "shiny-button";
+
+export const EXAMPLE_INSTALL_COMMAND = `npx shadcn@latest add ${REGISTRY_HOMEPAGE}/r/${EXAMPLE_COMPONENT_NAME}.json`;
+
+export const REGISTRY_INSTALL_COMMAND = `npx shadcn@latest add ${REGISTRY_HOMEPAGE}/r/registry.json`;
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -89,7 +107,7 @@ export function generateInstallCommands(
 export function getCurrentCommand(
   commands: GeneratedCommands,
   mode: "cli" | "manual",
-  packageManager: PackageManager
+  packageManager: PackageManager,
 ): string {
   if (mode === "manual") {
     return commands.manual?.[packageManager] ?? "";

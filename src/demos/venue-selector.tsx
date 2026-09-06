@@ -13,32 +13,32 @@ import {
 type VenueId = "hyperliquid" | "lighter" | "pacifica" | "aster";
 
 const venues: Record<VenueId, { id: VenueId; name: string; logoUrl: string }> =
-{
-  hyperliquid: {
-    id: "hyperliquid",
-    name: "Hyperliquid",
-    logoUrl:
-      "https://assets.coingecko.com/coins/images/50882/standard/hyperliquid.jpg?1729431300",
-  },
-  lighter: {
-    id: "lighter",
-    name: "Lighter",
-    logoUrl:
-      "https://assets.coingecko.com/coins/images/71121/standard/lighter.png?1765888098",
-  },
-  pacifica: {
-    id: "pacifica",
-    name: "Pacifica",
-    logoUrl:
-      "https://assets.coingecko.com/markets/images/22171/large/Cyan_Logo_Dark_Background_%281%29.png?1764569549",
-  },
-  aster: {
-    id: "aster",
-    name: "Aster",
-    logoUrl:
-      "https://assets.coingecko.com/coins/images/69040/standard/_ASTER.png?1757326782",
-  },
-};
+  {
+    hyperliquid: {
+      id: "hyperliquid",
+      name: "Hyperliquid",
+      logoUrl:
+        "https://assets.coingecko.com/coins/images/50882/standard/hyperliquid.jpg?1729431300",
+    },
+    lighter: {
+      id: "lighter",
+      name: "Lighter",
+      logoUrl:
+        "https://assets.coingecko.com/coins/images/71121/standard/lighter.png?1765888098",
+    },
+    pacifica: {
+      id: "pacifica",
+      name: "Pacifica",
+      logoUrl:
+        "https://assets.coingecko.com/markets/images/22171/large/Cyan_Logo_Dark_Background_%281%29.png?1764569549",
+    },
+    aster: {
+      id: "aster",
+      name: "Aster",
+      logoUrl:
+        "https://assets.coingecko.com/coins/images/69040/standard/_ASTER.png?1757326782",
+    },
+  };
 
 export default function VenueSelectorDemo() {
   const [values, setValues] = useState<VenueId[]>(["hyperliquid", "lighter"]);

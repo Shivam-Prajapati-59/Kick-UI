@@ -4,6 +4,9 @@
  */
 
 const BASE = process.argv[2] || "http://localhost:3000";
+import registryConfig from "../../registry.json";
+
+const EXPECTED_COMPONENT_URLS = registryConfig.items.length;
 let passed = 0;
 let failed = 0;
 
@@ -102,8 +105,8 @@ async function html(path) {
   const componentUrls = (sm.text.match(/\/components\/[a-z-]+<\/loc>/g) || [])
     .length;
   assert(
-    componentUrls === 15,
-    "sitemap lists all 15 components",
+    componentUrls === EXPECTED_COMPONENT_URLS,
+    `sitemap lists all ${EXPECTED_COMPONENT_URLS} components`,
     componentUrls,
   );
   const rb = await html("/robots.txt");

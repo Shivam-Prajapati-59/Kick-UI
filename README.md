@@ -43,14 +43,14 @@ Dependencies (npm packages and shadcn primitives) are resolved and installed aut
 
 ## Components
 
-| Category               | Highlights                                                |
-| ---------------------- | --------------------------------------------------------- |
-| **Buttons**            | Shiny Button, Slide Text Button                           |
-| **Cards**              | Card Stack, Pill Card                                     |
+| Category               | Highlights                                                                |
+| ---------------------- | ------------------------------------------------------------------------- |
+| **Buttons**            | Shiny Button, Slide Text Button                                           |
+| **Cards**              | Card Stack, Pill Card                                                     |
 | **Components**         | Venue Selector, Mag Dock, Timeframe Tabs, Stacked Carousel, Animated List |
-| **Text Animations**    | Scramble Text, Text Focus                                 |
-| **Animations**         | Cursor Web Fluid, Perspective Grid, Pixel Image           |
-| **Layouts & Sections** | Scroll Card, Feature Showcase                             |
+| **Text Animations**    | Scramble Text, Text Focus                                                 |
+| **Animations**         | Cursor Web Fluid, Perspective Grid, Pixel Image                           |
+| **Layouts & Sections** | Scroll Card, Feature Showcase                                             |
 
 Browse live previews and copy-paste install commands at
 [kick-ui.vercel.app/components](https://kick-ui.vercel.app/components).
@@ -89,10 +89,14 @@ Useful checks:
 ```bash
 bun lint         # ESLint
 bun typecheck    # tsc --noEmit (strict)
+bun run registry:check  # pipeline consistency, no writes
+bun run test:unit       # pipeline unit tests (bun test)
 bun registry:build && bun docs:build
 ```
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) to add a component. The `registry/` folder is the single source of truth; adding a component touches four files, and the build pipeline validates everything else.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) to add a component. Identity is
+the filename: the registry name, doc filename, and demo filename must all
+match, and the build pipeline validates everything else.
 
 ## License
 

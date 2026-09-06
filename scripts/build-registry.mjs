@@ -19,7 +19,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import matter from "gray-matter";
 import { registryItemSchema, registrySchema } from "shadcn/schema";
-import { createComponentDocSchema } from "../src/lib/component-doc-schema.ts";
+import { componentDocSchema } from "../src/lib/component-doc-schema.ts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -31,16 +31,6 @@ const registryConfig = JSON.parse(
 const OUT_DIR = path.join(root, "public", "r");
 const DOCS_DIR = path.join(root, "content", "components");
 fs.mkdirSync(OUT_DIR, { recursive: true });
-const demoSource = fs.readFileSync(
-  path.join(root, "src", "components", "docs", "DemoRenderer.tsx"),
-  "utf-8",
-);
-const demoNames = new Set(
-  [...demoSource.matchAll(/^\s*"([^"]+)":\s*dynamic\(/gm)].map(
-    (match) => match[1],
-  ),
-);
-const componentDocSchema = createComponentDocSchema(demoNames);
 
 // Framework/builtin packages every React project already provides.
 const EXCLUDED_DEPS = new Set(["react", "react-dom", "next"]);

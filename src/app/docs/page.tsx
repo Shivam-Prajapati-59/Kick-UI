@@ -19,9 +19,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { componentCategories } from "@/lib/component-categories";
+import { EXAMPLE_INSTALL_COMMAND } from "@/lib/cli-commands";
 
-const installCommand =
-  "npx shadcn@latest add https://kick-ui.vercel.app/r/shiny-button.json";
+const installCommand = EXAMPLE_INSTALL_COMMAND;
 
 export default function DocsPage() {
   return (

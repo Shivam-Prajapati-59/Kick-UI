@@ -1,1 +1,1 @@
-export { default as VenueSelector } from "@/components/demo/Components/VenueSelector";
+export { default as VenueSelector } from "@/demos/venue-selector";

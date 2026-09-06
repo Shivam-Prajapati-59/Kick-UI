@@ -37,6 +37,10 @@ jobs:
 
       - run: bun run docs:check
 
+      - run: bun run registry:check
+
+      - run: bun run test
+
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -55,7 +59,18 @@ jobs:
 
       - name: Verify generated registry files are committed
         run: |
-          git diff --exit-code -- public/r
-          test -z "$(git ls-files --others --exclude-standard -- public/r)"
+          git diff --exit-code -- public/r src/generated src/lib/component-categories.ts
+          test -z "$(git ls-files --others --exclude-standard -- public/r src/generated)"
 
       - run: bun run build
+
+      - name: Run SEO regression suite against production build
+        run: |
+          bun run start --port 3000 &
+          SERVER_PID=$!
+          trap "kill $SERVER_PID" EXIT
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:3000/ > /dev/null 2>&1; then break; fi
+            sleep 2
+          done
+          bun run test:seo

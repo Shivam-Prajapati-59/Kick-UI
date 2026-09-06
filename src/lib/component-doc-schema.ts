@@ -11,6 +11,11 @@ import {
  *  - scripts/build-docs.mjs (build-time validation + index generation)
  *  - scripts/build-registry.mjs (registry metadata)
  *  - src/lib/component-docs.ts (runtime docs reader)
+ *
+ * Identity comes from the doc filename (slug); the preview demo is derived
+ * from the same slug via the src/demos/<slug>.tsx convention, so there is
+ * no `demo` field. scripts/registry-check.mjs verifies the slug/demo
+ * identity in both directions.
  */
 
 export const categorySchema = z.enum(
@@ -24,7 +29,6 @@ const baseComponentDocSchema = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
   category: categorySchema,
-  demo: z.string().min(1),
   usage: z.string().default(""),
   props: z
     .array(
@@ -42,15 +46,3 @@ const baseComponentDocSchema = z.object({
 export const componentDocSchema = baseComponentDocSchema;
 
 export type ComponentDocFrontmatter = z.infer<typeof componentDocSchema>;
-
-/** Schema factory that additionally validates `demo` against registered demos. */
-export function createComponentDocSchema(demoNames: ReadonlySet<string>) {
-  return baseComponentDocSchema.extend({
-    demo: z
-      .string()
-      .min(1)
-      .refine((demo) => demoNames.has(demo), {
-        message: "Demo must reference a registered runtime demo.",
-      }),
-  });
-}

@@ -16,11 +16,13 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "registry:build": "bun scripts/build-registry.mjs",
+    "registry:check": "bun scripts/registry-check.mjs",
     "docs:build": "bun scripts/build-docs.mjs",
     "docs:check": "bun scripts/build-docs.mjs --check",
     "test:seo": "bun tests/e2e/seo.mjs",
-    "test:registry": "bun run lint && bun run typecheck && bun docs:check",
-    "test": "bun run test:registry && bun run test:seo",
+    "test:registry": "bun run lint && bun run typecheck && bun docs:check && bun run registry:check",
+    "test:unit": "bun test tests",
+    "test": "bun run test:registry && bun run test:unit",
     "prepare": "husky"
   },
   "dependencies": {

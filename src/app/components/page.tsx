@@ -22,8 +22,8 @@ export default function ComponentsPage() {
   const docsByCategory = getComponentDocsByCategory();
 
   return (
-    <div className="space-y-8">
-      <header className="max-w-3xl space-y-2">
+    <div className="space-y-12">
+      <header className="max-w-3xl space-y-4">
         <h1 className="text-4xl font-bold tracking-tight">Components</h1>
         <p className="text-muted-foreground text-lg">
           Accessible, customizable React components you can preview, copy, and

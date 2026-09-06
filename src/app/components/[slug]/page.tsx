@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { ComponentPreviewClient } from "@/components/docs/ComponentPreviewClient";
-import { DemoRenderer, type DemoName } from "@/components/docs/DemoRenderer";
+import { DemoRenderer } from "@/components/docs/DemoRenderer";
 import { CodeOptionsProvider } from "@/hooks/useCodeOptions";
 import { getAllComponentDocs, getComponentDoc } from "@/lib/component-docs";
 import { SITE_CONFIG } from "@/lib/site-config";
@@ -132,7 +132,7 @@ export default async function ComponentDocPage({
       <CodeOptionsProvider>
         <ComponentPreviewClient
           slug={component.slug}
-          preview={<DemoRenderer name={component.demo as DemoName} />}
+          preview={<DemoRenderer name={component.slug} />}
           fullPreview={component.fullPreview}
           sourceCode={component.sourceCode}
           sourceFilename={component.sourceFilename}

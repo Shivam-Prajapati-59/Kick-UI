@@ -249,7 +249,7 @@ export default function Sidebar() {
             </SheetHeader>
             <div
               ref={mobileScrollRef}
-              className="scrollbar-hide h-[calc(100vh-3.5rem)] overflow-y-auto pt-6"
+              className="scrollbar-slim h-[calc(100vh-3.5rem)] overflow-y-auto pt-6"
             >
               {NavigationContent}
             </div>
@@ -258,11 +258,11 @@ export default function Sidebar() {
       </div>
 
       {/* ─── Desktop Sidebar ───────────────────────────────────── */}
-      <aside className="relative hidden h-full w-full lg:block">
+      <div className="relative hidden h-full w-full lg:block">
         <div className="relative h-full overflow-hidden">
           <div
             ref={desktopScrollRef}
-            className="scrollbar-hide h-full overflow-y-auto px-2"
+            className="scrollbar-slim h-full overflow-y-auto px-2"
           >
             {NavigationContent}
           </div>
@@ -270,7 +270,7 @@ export default function Sidebar() {
           {/* Bottom fade‑out gradient */}
           <div className="from-background pointer-events-none absolute bottom-0 left-0 z-10 h-24 w-full bg-linear-to-t to-transparent" />
         </div>
-      </aside>
+      </div>
     </>
   );
 }

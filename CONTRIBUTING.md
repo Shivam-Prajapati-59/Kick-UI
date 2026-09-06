@@ -29,38 +29,43 @@ copied into `src/components/ui`.
    - Spread remaining props onto the root element where sensible.
    - Use design tokens (`bg-card`, `text-muted-foreground`, `var(--primary)`)
      — never hardcode palette hexes.
-   - Respect `prefers-reduced-motion` via `useReducedMotion()` for any
-     autoplaying or infinite animation (see `scramble-text.tsx` for the
-     reference implementation).
-   - Keep demo data in the demo wrapper (`src/components/demo/**`), not in
-     the distributable source.
 
-2. **Create a demo wrapper** under `src/components/demo/<Area>/<Name>.tsx`
-   importing from `@registry/new-york/components/...` that renders a
-   representative example.
+- Respect `prefers-reduced-motion` via `useReducedMotion()` for any
+  autoplaying or infinite animation (see `scramble-text.tsx` for the
+  reference implementation).
+- Keep demo data in the demo module (`src/demos/<name>.tsx`), not in
+  the distributable source.
 
-3. **Register the demo key** in `src/components/docs/DemoRenderer.tsx`.
-   The key must match the `demo:` frontmatter field in the next step.
+2. **Create the demo module** at `src/demos/<name>.tsx` with a default
+   export rendering a representative example. The filename must match the
+   registry name exactly — `docs:build` generates the preview map from
+   this directory, so there is no map to edit by hand.
 
-4. **Write the docs page** at
+3. **Write the docs page** at
    `content/components/<category>/<name>.mdx` with frontmatter:
-   `title`, `description`, `category`, `demo`, `usage`, `props`.
-   The build validates all of it (schema + demo-key resolution).
+   `title`, `description`, `category`, `usage`, `props`.
+   No `demo` field: the preview is derived from the filename. The build
+   validates all of it, and `registry:check` verifies the
+   registry/doc/demo identity in both directions.
 
-5. **Register the item** in `registry.json`: name, type
+4. **Register the item** in `registry.json`: name, type
    `registry:component`, files path, and any extra `dependencies`
    (npm deps are otherwise auto-detected from imports by the build).
 
-6. **Verify**: `bun docs:build && bun registry:build && bun lint &&
-bun typecheck`. Generated outputs under `public/r/` and
-   `src/generated/` must be committed.
+5. **Verify**: `bun run registry:check && bun docs:build &&
+bun registry:build && bun lint && bun typecheck && bun run test:unit`.
+   Generated outputs under `public/r/` and `src/generated/` must be
+   committed.
 
 ## Checks performed on every PR
 
 - ESLint (`bun lint`) and TypeScript strict (`bun typecheck`)
+- Pipeline consistency (`bun run registry:check`, no writes)
 - Docs index freshness (`bun docs:check`)
 - Registry output consistency (`bun registry:build` + git diff)
-- MCP + SEO regression suites when the dev server is running (`bun run test`)
+- Pipeline unit tests (`bun run test:unit`)
+- SEO regression suite against a running dev server (`bun run test:seo`
+  with `bun dev` up on localhost:3000)
 
 ## License
 
