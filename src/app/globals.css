@@ -3,6 +3,9 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* Single token for the fixed navbar height. Provider padding and the
+     docs sidebar offset both derive from it so they cannot drift apart. */
+  --navbar-height: 5rem;
   --background: oklch(0.9831 0.0029 308.4282);
   --foreground: oklch(0.1946 0.0421 305.9101);
   --card: oklch(0.95 0.006 308.4);
@@ -217,6 +220,24 @@
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Slim visible scrollbar for nav scroll areas (sidebar, mobile sheet).
+   Prefer over scrollbar-hide wherever users must discover scrolling. */
+.scrollbar-slim {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.scrollbar-slim::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-slim::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-slim::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 9999px;
 }
 
 /* Hide scrollbars inside code blocks */

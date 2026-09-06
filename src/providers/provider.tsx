@@ -12,7 +12,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
             disableTransitionOnChange
         >
             <Navbar />
-            <main className="pt-20">
+            <main className="pt-(--navbar-height)">
                 {children}
             </main>
         </ThemeProvider>

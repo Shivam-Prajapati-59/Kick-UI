@@ -228,7 +228,7 @@ export default function Sidebar() {
                                 Kick UI
                             </SheetTitle>
                         </SheetHeader>
-                        <div className="h-[calc(100vh-3.5rem)] pt-6 overflow-y-auto scrollbar-hide">
+                        <div className="h-[calc(100vh-3.5rem)] pt-6 overflow-y-auto scrollbar-slim">
                             {NavigationContent}
                         </div>
                     </SheetContent>
@@ -236,16 +236,16 @@ export default function Sidebar() {
             </div>
 
             {/* ─── Desktop Sidebar ───────────────────────────────────── */}
-            <aside className="hidden lg:block w-full h-full relative">
+            <div className="hidden lg:block w-full h-full relative">
                 <div className="h-full relative overflow-hidden">
-                    <div className="h-full px-2 overflow-y-auto scrollbar-hide">
+                    <div className="h-full px-2 overflow-y-auto scrollbar-slim">
                         {NavigationContent}
                     </div>
 
                     {/* Bottom fade‑out gradient */}
                     <div className="absolute bottom-0 left-0 w-full h-24 bg-linear-to-t from-background to-transparent pointer-events-none z-10" />
                 </div>
-            </aside>
+            </div>
         </>
     );
 }

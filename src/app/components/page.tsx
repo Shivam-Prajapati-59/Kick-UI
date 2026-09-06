@@ -7,7 +7,7 @@ export default function ComponentsPage() {
   const docsByCategory = getComponentDocsByCategory();
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-10">
       <header className="max-w-3xl space-y-4">
         <h1 className="text-4xl font-bold tracking-tight">Components</h1>
         <p className="text-lg text-muted-foreground">
