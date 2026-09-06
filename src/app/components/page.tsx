@@ -1,5 +1,4 @@
 import { Link } from "next-view-transitions";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { componentCategories } from "@/lib/component-categories";
 import { getComponentDocsByCategory } from "@/lib/component-docs";
@@ -10,7 +9,6 @@ export default function ComponentsPage() {
   return (
     <div className="space-y-12">
       <header className="max-w-3xl space-y-4">
-        <Badge variant="secondary">Kick UI Library</Badge>
         <h1 className="text-4xl font-bold tracking-tight">Components</h1>
         <p className="text-lg text-muted-foreground">
           Accessible, customizable React components you can preview, copy, and install.
