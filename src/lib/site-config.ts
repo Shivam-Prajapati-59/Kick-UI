@@ -21,7 +21,7 @@ export const SITE_CONFIG = {
     "shadcn registry",
     "kick ui",
   ],
-  github: "https://github.com/shivambadmos/kick-ui",
+  github: "https://github.com/Shivam-Prajapati-59/Kick-UI",
   twitter: "https://x.com/shivambadmos",
   twitterHandle: "@shivambadmos",
 } as const;

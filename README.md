@@ -10,7 +10,7 @@ Accessible · Customizable · Open Source — installed as source code you own.
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org)
 [![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8)](https://tailwindcss.com)
 
-[Documentation](https://kick-ui.vercel.app/docs) · [Component Catalog](https://kick-ui.vercel.app/components) · [Report Bug](https://github.com/shivambadmos/kick-ui/issues)
+[Documentation](https://kick-ui.vercel.app/docs) · [Component Catalog](https://kick-ui.vercel.app/components) · [Report Bug](https://github.com/Shivam-Prajapati-59/Kick-UI/issues)
 
 </div>
 
