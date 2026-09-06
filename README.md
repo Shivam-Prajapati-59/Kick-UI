@@ -36,6 +36,8 @@ Useful checks:
 ```bash
 bun lint
 bun typecheck
+bun run registry:check
+bun test
 bun registry:build
 bun run build
 ```
@@ -44,24 +46,31 @@ bun run build
 
 ```text
 src/app/                 Routes and documentation pages
-src/components/demo/     Live component previews
+src/demos/               One live preview module per item (src/demos/<name>.tsx)
 src/components/ui/       App-local UI primitives
-src/lib/component-registry.tsx
-                         Documentation metadata and preview catalog
+src/lib/component-docs.ts
+                         Reads docs + registry source at build time
 src/lib/component-categories.ts
-                         Typed category definitions
+                         Generated category definitions (do not edit manually)
+src/generated/           Generated docs index + demo map (do not edit manually)
+scripts/lib/             Shared pipeline helpers (single source of truth)
 registry/                Source distributed through the shadcn registry
 public/r/                Generated registry JSON (do not edit manually)
 ```
 
 ## Adding a component
 
+Identity is the filename: the registry name, doc filename, and demo
+filename must all match (`<name>` below is one string in four places).
+
 1. Add the distributable source under `registry/new-york/components/<name>/`.
-2. Register it in `registry.json`.
-3. Add its documentation metadata and preview to
-   `src/lib/component-registry.tsx`.
-4. Add it to the appropriate category in `src/config/Sidebar.tsx`.
-5. Run `bun registry:build && bun typecheck && bun lint`.
+2. Register it in `registry.json` (and `components.json` under
+   `registries.kick-ui.items`).
+3. Add `content/components/<category>/<name>.mdx` (no `demo` field; set
+   `distributable: false` while a doc has no distributable source yet).
+4. Add `src/demos/<name>.tsx` with a default export rendering the preview.
+5. Run `bun registry:check`, then `bun registry:build && bun docs:build`,
+   then `bun typecheck && bun lint && bun test`.
 
 ## License
 
