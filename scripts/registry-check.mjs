@@ -31,6 +31,7 @@ import {
   checkComponentsJson,
   checkDemoDefaultExports,
   checkDistributable,
+  checkDuplicates,
   checkHomepage,
   checkIdentity,
 } from "./lib/verify.mjs";
@@ -61,6 +62,11 @@ const cliSource = fs.readFileSync(
 const cliHomepage = cliSource.match(/REGISTRY_HOMEPAGE\s*=\s*"([^"]+)"/)?.[1];
 
 const errors = [
+  ...checkDuplicates({
+    registryNames: names,
+    docSlugs: docs.map((doc) => doc.slug),
+    demoNames,
+  }),
   ...checkIdentity({
     registryNames: names,
     docSlugs: docs.map((doc) => doc.slug),

@@ -136,7 +136,7 @@ const FeatureShowcase = ({
             const isActive = item.id === activeId;
             return (
               <button
-                key={item.id}
+                type="button" key={item.id}
                 onClick={() => setActiveId(item.id)}
                 className={cn(
                   "group flex items-start gap-4 lg:gap-5 p-5 lg:p-6 xl:p-8 rounded-lg transition-all text-left",
@@ -171,15 +171,16 @@ const FeatureShowcase = ({
                         <p className="text-[14px] lg:text-[15px] xl:text-[16px] text-muted-foreground leading-relaxed mt-1">
                           {item.description}
                         </p>
-                        {item.cta && (
-                          <span
+                        {item.cta && item.href && (
+                          <a
+                            href={item.href}
                             className={cn(
                               "font-medium mt-2 text-[14px] lg:text-[15px] block",
                               activeColor,
                             )}
                           >
                             {item.cta}
-                          </span>
+                          </a>
                         )}
                       </motion.div>
                     )}

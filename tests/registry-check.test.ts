@@ -5,9 +5,43 @@ import {
   checkComponentsJson,
   checkDemoDefaultExports,
   checkDistributable,
+  checkDuplicates,
   checkHomepage,
   checkIdentity,
 } from "../scripts/lib/verify.mjs";
+
+describe("checkDuplicates", () => {
+  test("unique names pass", () => {
+    expect(
+      checkDuplicates({
+        registryNames: ["pill-card"],
+        docSlugs: ["pill-card"],
+        demoNames: ["pill-card"],
+      }),
+    ).toEqual([]);
+  });
+
+  test("duplicate doc slug is rejected before membership checks", () => {
+    const errors = checkDuplicates({
+      registryNames: ["pill-card"],
+      docSlugs: ["pill-card", "pill-card"],
+      demoNames: ["pill-card"],
+    });
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain('duplicate doc slug "pill-card"');
+  });
+
+  test("duplicates in every map are all reported", () => {
+    const errors = checkDuplicates({
+      registryNames: ["pill-card", "pill-card"],
+      docSlugs: ["mag-dock", "mag-dock"],
+      demoNames: ["scroll-card", "scroll-card"],
+    });
+    expect(errors).toHaveLength(3);
+    expect(errors.join("\n")).toContain("registry.json");
+    expect(errors.join("\n")).toContain("src/demos");
+  });
+});
 
 describe("checkIdentity", () => {
   test("matching registry, docs and demos pass", () => {

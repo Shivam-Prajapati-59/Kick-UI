@@ -6,6 +6,39 @@
  * the fix is obvious without re-running the investigation.
  */
 
+function duplicates(values) {
+  const seen = new Set();
+  const repeated = new Set();
+  for (const value of values) {
+    if (seen.has(value)) repeated.add(value);
+    seen.add(value);
+  }
+  return [...repeated].sort();
+}
+
+/**
+ * Duplicate names collapse silently inside Sets, so membership checks
+ * below would pass over ambiguous input (e.g. docSlugs
+ * ["pill-card", "pill-card"] matching one registry item). Reject them
+ * first, naming the map each duplicate came from.
+ */
+export function checkDuplicates({ registryNames, docSlugs, demoNames }) {
+  const errors = [];
+  const sources = [
+    ["registry item", registryNames, 'registry.json "items"'],
+    ["doc slug", docSlugs, "content/**"],
+    ["demo", demoNames, "src/demos"],
+  ];
+  for (const [label, values, hint] of sources) {
+    for (const name of duplicates(values ?? [])) {
+      errors.push(
+        `duplicate ${label} "${name}" in ${hint}. Names must be unique before membership checks run.`,
+      );
+    }
+  }
+  return errors;
+}
+
 export function checkIdentity({ registryNames, docSlugs, demoNames }) {
   const errors = [];
   const registry = new Set(registryNames);
