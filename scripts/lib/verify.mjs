@@ -1,0 +1,95 @@
+/**
+ * Pure pipeline-consistency checks (no filesystem access).
+ * Imported by scripts/registry-check.mjs and by tests/.
+ * Every function takes plain data and returns a list of human-readable
+ * error strings (empty = pass). Error messages name the drifted maps so
+ * the fix is obvious without re-running the investigation.
+ */
+
+export function checkIdentity({ registryNames, docSlugs, demoNames }) {
+  const errors = [];
+  const registry = new Set(registryNames);
+  const docs = new Set(docSlugs);
+  const demos = new Set(demoNames);
+
+  for (const name of registry) {
+    if (!docs.has(name)) {
+      errors.push(
+        `registry item "${name}" has no doc (expected content/**/${name}.mdx).`,
+      );
+    }
+    if (!demos.has(name)) {
+      errors.push(
+        `registry item "${name}" has no demo (expected src/demos/${name}.tsx with a default export).`,
+      );
+    }
+  }
+  for (const demo of demos) {
+    if (!docs.has(demo)) {
+      errors.push(
+        `demo "${demo}" has no doc (expected content/**/${demo}.mdx).`,
+      );
+    }
+  }
+  return errors;
+}
+
+export function checkDistributable({ docs, registryNames }) {
+  const registry = new Set(registryNames);
+  return docs
+    .filter((doc) => !registry.has(doc.slug) && doc.distributable !== false)
+    .map(
+      (doc) =>
+        `doc "${doc.slug}" has no registry item. Add the source + registry.json entry, or set "distributable: false" in its frontmatter.`,
+    );
+}
+
+export function checkArtifacts({ registryNames, publicNames }) {
+  const errors = [];
+  const built = new Set(publicNames);
+  for (const name of registryNames) {
+    if (!built.has(name)) {
+      errors.push(
+        `registry item "${name}" has no built artifact (run bun registry:build and commit public/r/${name}.json).`,
+      );
+    }
+  }
+  const declared = new Set(registryNames);
+  for (const name of publicNames) {
+    if (!declared.has(name)) {
+      errors.push(
+        `orphan artifact "public/r/${name}.json" has no registry item. Delete it or re-add the item to registry.json.`,
+      );
+    }
+  }
+  return errors;
+}
+
+export function checkDemoDefaultExports({ files }) {
+  return files
+    .filter((file) => !file.hasDefaultExport)
+    .map(
+      (file) =>
+        `demo "src/demos/${file.name}.tsx" has no default export. The generated demo map requires one default export per file.`,
+    );
+}
+
+export function checkHomepage({ registryHomepage, cliHomepage }) {
+  if (registryHomepage !== cliHomepage) {
+    return [
+      `homepage drift: registry.json says "${registryHomepage}" but src/lib/cli-commands.ts says "${cliHomepage}". Keep REGISTRY_HOMEPAGE in sync.`,
+    ];
+  }
+  return [];
+}
+
+export function checkComponentsJson({ registryNames, componentsJsonItems }) {
+  const want = [...registryNames].sort();
+  const have = [...componentsJsonItems].sort();
+  if (JSON.stringify(want) !== JSON.stringify(have)) {
+    return [
+      `components.json registry items are stale (want [${want.join(", ")}], have [${have.join(", ")}]). Sync registries.kick-ui.items with registry.json.`,
+    ];
+  }
+  return [];
+}

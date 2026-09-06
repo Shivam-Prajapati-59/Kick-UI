@@ -34,7 +34,8 @@
         "pill-card",
         "pixel-image",
         "animated-list",
-        "scroll-card"
+        "scroll-card",
+        "stacked-carousel"
       ]
     }
   }

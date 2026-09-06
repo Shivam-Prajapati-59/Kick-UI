@@ -1,0 +1,12 @@
+/** Minimal ambient types for bun:test (no @types/bun installed). */
+declare module "bun:test" {
+  export function describe(name: string, fn: () => void): void;
+  export function test(name: string, fn: () => void | Promise<void>): void;
+  export function expect(actual: unknown): {
+    toBe(expected: unknown): void;
+    toEqual(expected: unknown): void;
+    toHaveLength(length: number): void;
+    toContain(item: unknown): void;
+    toThrow(): void;
+  };
+}
