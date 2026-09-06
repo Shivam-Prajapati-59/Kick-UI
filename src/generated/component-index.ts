@@ -10,22 +10,10 @@ export interface ComponentIndexItem {
 
 export const componentIndex: ComponentIndexItem[] = [
   {
-    "slug": "cursor-web-fluid",
-    "title": "Cursor Web Fluid",
-    "description": "A fluid animation that follows the cursor.",
-    "category": "animations"
-  },
-  {
-    "slug": "shiny-button",
-    "title": "Shiny Button",
-    "description": "A button with a smooth shiny animation effect.",
-    "category": "buttons"
-  },
-  {
-    "slug": "slide-text-button",
-    "title": "Slide Text Button",
-    "description": "A button with sliding text and an expanding hover background.",
-    "category": "buttons"
+    "slug": "animated-list",
+    "title": "Animated List",
+    "description": "A generic animated list with keyboard navigation and auto-scroll.",
+    "category": "components"
   },
   {
     "slug": "card-stack",
@@ -34,22 +22,16 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "cards"
   },
   {
-    "slug": "pill-card",
-    "title": "Pill Card",
-    "description": "A card with animated SVG paths and synchronized glow effects.",
-    "category": "cards"
+    "slug": "cursor-web-fluid",
+    "title": "Cursor Web Fluid",
+    "description": "A fluid animation that follows the cursor.",
+    "category": "animations"
   },
   {
-    "slug": "stacked-carousel",
-    "title": "Stacked Carousel",
-    "description": "A self-playing card stack that cycles through items with a smooth, seamless fly-up transition.",
-    "category": "cards"
-  },
-  {
-    "slug": "animated-list",
-    "title": "Animated List",
-    "description": "A generic animated list with keyboard navigation and auto-scroll.",
-    "category": "components"
+    "slug": "feature-showcase",
+    "title": "Feature Showcase",
+    "description": "A feature section with animated visual states.",
+    "category": "layouts-sections"
   },
   {
     "slug": "mag-dock",
@@ -64,16 +46,22 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "components"
   },
   {
+    "slug": "pill-card",
+    "title": "Pill Card",
+    "description": "A card with animated SVG paths and synchronized glow effects.",
+    "category": "cards"
+  },
+  {
     "slug": "pixel-image",
     "title": "Pixel Image",
     "description": "A hover-driven pixelated dissolve between two images.",
     "category": "components"
   },
   {
-    "slug": "feature-showcase",
-    "title": "Feature Showcase",
-    "description": "A feature section with animated visual states.",
-    "category": "layouts-sections"
+    "slug": "scramble-text",
+    "title": "Scramble Text",
+    "description": "A hover-driven text scramble animation with a smooth decode sweep.",
+    "category": "text-animations"
   },
   {
     "slug": "scroll-card",
@@ -82,10 +70,22 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "layouts-sections"
   },
   {
-    "slug": "scramble-text",
-    "title": "Scramble Text",
-    "description": "A hover-driven text scramble animation with a smooth decode sweep.",
-    "category": "text-animations"
+    "slug": "shiny-button",
+    "title": "Shiny Button",
+    "description": "A button with a smooth shiny animation effect.",
+    "category": "buttons"
+  },
+  {
+    "slug": "slide-text-button",
+    "title": "Slide Text Button",
+    "description": "A button with sliding text and an expanding hover background.",
+    "category": "buttons"
+  },
+  {
+    "slug": "stacked-carousel",
+    "title": "Stacked Carousel",
+    "description": "A self-playing card stack that cycles through items with a smooth, seamless fly-up transition.",
+    "category": "cards"
   },
   {
     "slug": "text-focus",

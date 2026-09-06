@@ -45,7 +45,7 @@ export default async function ComponentDocPage({
       <CodeOptionsProvider>
         <ComponentPreviewClient
           slug={component.slug}
-          preview={<DemoRenderer name={component.demo} />}
+          preview={<DemoRenderer name={component.slug} />}
           fullPreview={component.fullPreview}
           sourceCode={component.sourceCode}
           sourceFilename={component.sourceFilename}

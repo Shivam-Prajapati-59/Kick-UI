@@ -2,36 +2,35 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { z } from "zod";
-import type { ComponentCategory } from "@/lib/component-categories";
 import type { PropItem } from "@/lib/types";
+
+import { componentCategories, type ComponentCategory } from "@/lib/component-categories";
 
 const contentDirectory = path.join(process.cwd(), "content", "components");
 const registryPath = path.join(process.cwd(), "registry.json");
 
-const categorySchema = z.enum([
-  "buttons",
-  "cards",
-  "components",
-  "text-animations",
-  "layouts-sections",
-  "animations",
-]);
+const categorySchema = z.enum(
+  componentCategories.map((category) => category.id) as [
+    ComponentCategory,
+    ...ComponentCategory[],
+  ],
+);
 
 const propSchema = z.object({
-  name: z.string(),
-  type: z.string(),
+  name: z.string().min(1),
+  type: z.string().min(1),
   default: z.string().optional(),
   description: z.string().optional(),
 });
 
 const frontmatterSchema = z.object({
-  title: z.string(),
-  description: z.string(),
+  title: z.string().min(1),
+  description: z.string().min(1),
   category: categorySchema,
-  demo: z.string(),
   usage: z.string().default(""),
   props: z.array(propSchema).default([]),
   fullPreview: z.boolean().default(false),
+  distributable: z.boolean().default(true),
 });
 
 export type ComponentDocFrontmatter = z.infer<typeof frontmatterSchema>;
@@ -114,20 +113,13 @@ export function getComponentDoc(slug: string): ComponentDoc | undefined {
 }
 
 export function getComponentDocsByCategory() {
-  return getAllComponentDocs().reduce(
-    (groups, doc) => {
-      groups[doc.category].push(doc);
-      return groups;
-    },
-    {
-      buttons: [],
-      cards: [],
-      components: [],
-      "text-animations": [],
-      "layouts-sections": [],
-      animations: [],
-    } as Record<ComponentCategory, ComponentDoc[]>,
-  );
+  const groups = Object.fromEntries(
+    componentCategories.map((category) => [category.id, [] as ComponentDoc[]]),
+  ) as Record<ComponentCategory, ComponentDoc[]>;
+  return getAllComponentDocs().reduce((acc, doc) => {
+    acc[doc.category].push(doc);
+    return acc;
+  }, groups);
 }
 
 export function getProps(props: ComponentDoc["props"]): PropItem[] {

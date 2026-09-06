@@ -7,45 +7,20 @@
  * and generates the corresponding JSON in public/r/.
  *
  * Also writes public/r/registry.json as the collection index.
+ *
+ * Consistency between registry items, docs, demos and artifacts is
+ * enforced separately by scripts/registry-check.mjs (pure check, CI-safe).
  */
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import matter from "gray-matter";
-import { createComponentDocSchema } from "./component-doc-schema.mjs";
+import { componentDocSchema } from "./component-doc-schema.mjs";
+import { PUBLIC_DIR, findDocPath, readRegistry, root } from "./lib/docs.mjs";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(__dirname, "..");
+const registryConfig = readRegistry();
 
-const registryConfig = JSON.parse(
-  fs.readFileSync(path.join(root, "registry.json"), "utf-8")
-);
-
-const OUT_DIR = path.join(root, "public", "r");
-const DOCS_DIR = path.join(root, "content", "components");
-fs.mkdirSync(OUT_DIR, { recursive: true });
-const demoSource = fs.readFileSync(
-  path.join(root, "src", "components", "docs", "DemoRenderer.tsx"),
-  "utf-8",
-);
-const demoNames = new Set(
-  [...demoSource.matchAll(/^\s*"([^"]+)":\s*dynamic\(/gm)].map((match) => match[1]),
-);
-const componentDocSchema = createComponentDocSchema(demoNames);
-
-function findDocPath(slug, directory = DOCS_DIR) {
-  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
-    const entryPath = path.join(directory, entry.name);
-    if (entry.isDirectory()) {
-      const match = findDocPath(slug, entryPath);
-      if (match) return match;
-    } else if (entry.name === `${slug}.mdx`) {
-      return entryPath;
-    }
-  }
-  return undefined;
-}
+fs.mkdirSync(PUBLIC_DIR, { recursive: true });
 
 const registryItems = [];
 
@@ -73,7 +48,7 @@ for (const item of registryConfig.items) {
     type: item.type,
   };
 
-  const outPath = path.join(OUT_DIR, `${item.name}.json`);
+  const outPath = path.join(PUBLIC_DIR, `${item.name}.json`);
   fs.writeFileSync(outPath, JSON.stringify(output, null, 2));
   console.log(`✓ Generated ${item.name}.json`);
 
@@ -98,7 +73,7 @@ const registryIndex = {
 };
 
 fs.writeFileSync(
-  path.join(OUT_DIR, "registry.json"),
+  path.join(PUBLIC_DIR, "registry.json"),
   JSON.stringify(registryIndex, null, 2)
 );
 console.log(`✓ Generated registry.json with ${registryItems.length} items`);
