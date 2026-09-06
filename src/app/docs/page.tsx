@@ -4,9 +4,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { componentCategories } from "@/lib/component-categories";
+import { EXAMPLE_INSTALL_COMMAND } from "@/lib/cli-commands";
 
-const installCommand =
-  "npx shadcn@latest add https://kick-ui.vercel.app/r/shiny-button.json";
+const installCommand = EXAMPLE_INSTALL_COMMAND;
 
 export const metadata = {
   title: "Documentation - Kick UI",

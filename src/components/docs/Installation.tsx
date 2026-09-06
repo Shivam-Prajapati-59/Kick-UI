@@ -2,6 +2,10 @@
 
 import React from "react";
 import CodeBlock from "./CodeBlock";
+import {
+  EXAMPLE_INSTALL_COMMAND,
+  REGISTRY_INSTALL_COMMAND,
+} from "@/lib/cli-commands";
 
 const Installation = () => {
   return (
@@ -23,10 +27,10 @@ const Installation = () => {
       </p>
 
       <h4 className="docs-category-subtitle">Single component</h4>
-      <CodeBlock>{`npx shadcn@latest add https://kick-ui.vercel.app/r/shiny-button.json`}</CodeBlock>
+      <CodeBlock>{EXAMPLE_INSTALL_COMMAND}</CodeBlock>
 
       <h4 className="docs-category-subtitle">Full registry</h4>
-      <CodeBlock>{`npx shadcn@latest add https://kick-ui.vercel.app/r/registry.json`}</CodeBlock>
+      <CodeBlock>{REGISTRY_INSTALL_COMMAND}</CodeBlock>
 
       <p className="docs-paragraph dim" style={{ marginTop: "1rem" }}>
         You can also use other package managers — just swap the prefix:{" "}

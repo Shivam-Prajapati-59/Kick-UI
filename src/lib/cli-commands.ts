@@ -41,6 +41,22 @@ const INSTALL_CMDS: Record<PackageManager, string> = {
 export const PKG_MANAGERS: PackageManager[] = ["npm", "pnpm", "yarn", "bun"];
 
 /* ------------------------------------------------------------------ */
+/*  Canonical registry address + docs example                          */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Must match registry.json `homepage`. Enforced by
+ * scripts/registry-check.mjs so the docs example can never drift.
+ */
+export const REGISTRY_HOMEPAGE = "https://kick-ui.vercel.app";
+
+export const EXAMPLE_COMPONENT_NAME = "shiny-button";
+
+export const EXAMPLE_INSTALL_COMMAND = `npx shadcn@latest add ${REGISTRY_HOMEPAGE}/r/${EXAMPLE_COMPONENT_NAME}.json`;
+
+export const REGISTRY_INSTALL_COMMAND = `npx shadcn@latest add ${REGISTRY_HOMEPAGE}/r/registry.json`;
+
+/* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
 /* ------------------------------------------------------------------ */
 
