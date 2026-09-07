@@ -13,6 +13,7 @@ export const CONTENT_DIR = path.join(root, "content", "components");
 export const DEMOS_DIR = path.join(root, "src", "demos");
 export const REGISTRY_PATH = path.join(root, "registry.json");
 export const PUBLIC_DIR = path.join(root, "public", "r");
+export const COMPONENTS_JSON_PATH = path.join(root, "components.json");
 export const GENERATED_DIR = path.join(root, "src", "generated");
 export const CATEGORIES_TS_PATH = path.join(
   root,
@@ -66,6 +67,12 @@ export function getDemoNames(directory = DEMOS_DIR) {
     .filter((name) => name.endsWith(".tsx"))
     .map((name) => path.basename(name, ".tsx"))
     .sort();
+}
+
+/** Registry shorthand template from components.json, if present. */
+export function readComponentsJsonUrl() {
+  const config = JSON.parse(fs.readFileSync(COMPONENTS_JSON_PATH, "utf8"));
+  return config.registries?.["@kick-ui"] ?? undefined;
 }
 
 /** Built registry artifacts, excluding the collection index. */

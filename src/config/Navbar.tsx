@@ -3,6 +3,8 @@ export interface NavItem {
     href: string;
 }
 
+import { SITE_CONFIG } from "@/lib/site-config";
+
 export const navbarConfig = {
     logo: {
         src: '/logo1.png',
@@ -19,7 +21,7 @@ export const navbarConfig = {
         { label: 'Docs', href: '/docs' },
     ] as NavItem[],
     links: {
-        github: "https://github.com/shivambadmos/kick-ui",
-        twitter: "https://x.com/shivambadmos"
+        github: SITE_CONFIG.github,
+        twitter: SITE_CONFIG.twitter
     }
 };

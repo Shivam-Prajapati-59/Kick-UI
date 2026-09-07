@@ -16,6 +16,7 @@ import {
   getDemoNames,
   getDocFiles,
   getPublicNames,
+  readComponentsJsonUrl,
   readRegistry,
   registryNames,
   root,
@@ -57,7 +58,11 @@ const errors = [
   ...checkIdentity({ registryNames: names, docSlugs, demoNames }),
   ...checkDemoDefaultExports({ files: demoFiles }),
   ...checkArtifacts({ registryNames: names, publicNames: getPublicNames() }),
-  ...checkHomepage({ registryHomepage: registry.homepage, siteHomepage }),
+  ...checkHomepage({
+    registryHomepage: registry.homepage,
+    siteHomepage,
+    componentsJsonUrl: readComponentsJsonUrl(),
+  }),
 ];
 
 if (errors.length > 0) {

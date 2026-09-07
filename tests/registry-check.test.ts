@@ -134,6 +134,26 @@ describe("checkHomepage", () => {
     expect(errors).toHaveLength(1);
     expect(errors[0]).toContain("site-config.ts");
   });
+
+  test("components.json template on another domain fails", () => {
+    const errors = checkHomepage({
+      registryHomepage: homepage,
+      siteHomepage: homepage,
+      componentsJsonUrl: "https://example.com/r/{name}.json",
+    });
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("components.json");
+  });
+
+  test("components.json template on the same domain passes", () => {
+    expect(
+      checkHomepage({
+        registryHomepage: homepage,
+        siteHomepage: homepage,
+        componentsJsonUrl: `${homepage}/r/{name}.json`,
+      }),
+    ).toEqual([]);
+  });
 });
 
 describe("componentDocSchema", () => {

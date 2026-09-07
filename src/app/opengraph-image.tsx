@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { SITE_CONFIG } from "@/lib/site-config";
+import { SITE_CONFIG, SITE_HOST } from "@/lib/site-config";
 
 export const alt = `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`;
 export const size = { width: 1200, height: 630 };
@@ -81,7 +81,7 @@ export default async function OpengraphImage() {
           gap: 24,
         }}
       >
-        <span>kick-ui.vercel.app</span>
+        <span>{SITE_HOST}</span>
         <span>·</span>
         <span>npx shadcn add @kick-ui</span>
       </div>

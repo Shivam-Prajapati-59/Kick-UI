@@ -21,7 +21,13 @@ export const SITE_CONFIG = {
     "shadcn registry",
     "kick ui",
   ],
-  github: "https://github.com/shivambadmos/kick-ui",
-  twitter: "https://x.com/shivambadmos",
-  twitterHandle: "@shivambadmos",
+  github: "https://github.com/Shivam-Prajapati-59/Kick-UI",
+  twitter: "https://x.com/Shivamp69_",
+  twitterHandle: "@Shivamp69_",
 } as const;
+
+/**
+ * Host without protocol, for display contexts (OG images).
+ * Derived so a domain change touches only `url` above.
+ */
+export const SITE_HOST = SITE_CONFIG.url.replace(/^https?:\/\//, "");

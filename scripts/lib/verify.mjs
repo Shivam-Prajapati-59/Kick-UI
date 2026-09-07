@@ -104,11 +104,29 @@ export function checkDemoDefaultExports({ files }) {
     );
 }
 
-export function checkHomepage({ registryHomepage, siteHomepage }) {
+/**
+ * @param {{ registryHomepage: string, siteHomepage: string | undefined, componentsJsonUrl?: string }} args
+ */
+export function checkHomepage({
+  registryHomepage,
+  siteHomepage,
+  componentsJsonUrl = undefined,
+}) {
+  const errors = [];
   if (registryHomepage !== siteHomepage) {
-    return [
+    errors.push(
       `homepage drift: registry.json says "${registryHomepage}" but src/lib/site-config.ts says "${siteHomepage}". Keep SITE_CONFIG.url in sync.`,
-    ];
+    );
   }
-  return [];
+  if (componentsJsonUrl) {
+    const templateOrigin = new URL(
+      componentsJsonUrl.replace("{name}", "placeholder"),
+    ).origin;
+    if (templateOrigin !== registryHomepage) {
+      errors.push(
+        `components.json registry template points at "${templateOrigin}" but registry.json homepage is "${registryHomepage}". Keep them on one domain.`,
+      );
+    }
+  }
+  return errors;
 }

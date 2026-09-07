@@ -39,11 +39,13 @@ export interface FeatureShowcaseProps {
 /*  Default data                                                       */
 /* ------------------------------------------------------------------ */
 
+// Relative paths resolve against the deployed domain automatically and need
+// no remotePatterns entry, so they survive a domain change untouched.
 const defaultImages: Record<number, string> = {
-  1: "https://kick-ui.vercel.app/assets/images/feature-showcase/iphone_authentication.png",
-  2: "https://kick-ui.vercel.app/assets/images/feature-showcase/iphone_wallets.png",
-  3: "https://kick-ui.vercel.app/assets/images/feature-showcase/iphone_policy.png",
-  4: "https://kick-ui.vercel.app/assets/images/feature-showcase/iphone_sessions.png",
+  1: "/assets/images/feature-showcase/iphone_authentication.png",
+  2: "/assets/images/feature-showcase/iphone_wallets.png",
+  3: "/assets/images/feature-showcase/iphone_policy.png",
+  4: "/assets/images/feature-showcase/iphone_sessions.png",
 };
 
 export const defaultFeatureItems: FeatureShowcaseItem[] = [
@@ -56,8 +58,7 @@ export const defaultFeatureItems: FeatureShowcaseItem[] = [
     href: "/authentication",
     cta: "Learn more",
     image: defaultImages[1],
-    overlayImage:
-      "https://kick-ui.vercel.app/assets/images/feature-showcase/smile.webp",
+    overlayImage: "/assets/images/feature-showcase/smile.webp",
   },
   {
     id: 2,
