@@ -15,7 +15,12 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { motion, AnimatePresence, LayoutGroup } from "motion/react";
-import { getActiveCategories, type SidebarCategory } from "@/config/Sidebar";
+import {
+  getActiveCategories,
+  sidebarStaticSections,
+  type SidebarCategory,
+  type SidebarStaticSection,
+} from "@/config/Sidebar";
 
 // ─── Animation Presets ───────────────────────────────────────────────────────
 
@@ -55,9 +60,14 @@ function NavItem({
   setHoveredPath: (p: string | null) => void;
   closeMobile: () => void;
 }) {
+  // External profile links leave the app in a new tab; internal links
+  // stay client-side rendered.
+  const isExternal = path.startsWith("http");
   return (
     <Link
       href={path}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noreferrer" : undefined}
       onMouseEnter={() => setHoveredPath(path)}
       onMouseLeave={() => setHoveredPath(null)}
       onClick={(event) => {
@@ -71,8 +81,9 @@ function NavItem({
         ) {
           return;
         }
+        // No manual scrolling: Next.js restores scroll natively on
+        // navigation, and a forced scrollTo fights the transition.
         closeMobile();
-        window.scrollTo({ top: 0 });
       }}
       className={cn(
         "group relative flex cursor-pointer items-center rounded-md px-3 py-1.5 text-sm transition-colors duration-150",
@@ -155,7 +166,7 @@ function CategorySection({
         variants={staggerContainer}
         initial="hidden"
         animate="show"
-        className="before:bg-border/70 relative space-y-0.5 pr-2 pl-4 before:absolute before:top-[12px] before:bottom-[12px] before:left-0 before:w-[1.7px]"
+        className="before:bg-border/70 relative space-y-0.5 pr-2 pl-4 before:absolute before:top-3 before:bottom-[12px] before:left-0 before:w-[1.7px]"
       >
         <LayoutGroup>
           {category.items.map((item) => {
@@ -173,6 +184,59 @@ function CategorySection({
               </motion.div>
             );
           })}
+        </LayoutGroup>
+      </motion.div>
+    </div>
+  );
+}
+
+// ─── Static Section (hand-written pages: resources, guides) ────────────────
+
+function StaticSection({
+  section,
+  pathname,
+  hoveredPath,
+  setHoveredPath,
+  closeMobile,
+}: {
+  section: SidebarStaticSection;
+  pathname: string;
+  hoveredPath: string | null;
+  setHoveredPath: (p: string | null) => void;
+  closeMobile: () => void;
+}) {
+  const isSectionActive = section.items.some((item) => pathname === item.href);
+
+  return (
+    <div>
+      <div
+        className={cn(
+          "mb-1.5 text-sm font-bold tracking-wider select-none",
+          isSectionActive ? "text-primary" : "text-muted-foreground/60",
+        )}
+      >
+        {section.title}
+      </div>
+
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate="show"
+        className="before:bg-border/70 relative space-y-0.5 pr-2 pl-4 before:absolute before:top-3 before:bottom-3 before:left-0 before:w-[1.7px]"
+      >
+        <LayoutGroup>
+          {section.items.map((item) => (
+            <motion.div key={item.href} variants={staggerItem}>
+              <NavItem
+                path={item.href}
+                label={item.label}
+                isActive={pathname === item.href}
+                isHovered={hoveredPath === item.href}
+                setHoveredPath={setHoveredPath}
+                closeMobile={closeMobile}
+              />
+            </motion.div>
+          ))}
         </LayoutGroup>
       </motion.div>
     </div>
@@ -206,6 +270,16 @@ export default function Sidebar() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.35 }}
       >
+        {sidebarStaticSections.map((section) => (
+          <StaticSection
+            key={section.title}
+            section={section}
+            pathname={pathname}
+            hoveredPath={hoveredPath}
+            setHoveredPath={setHoveredPath}
+            closeMobile={closeMobile}
+          />
+        ))}
         {visibleCategories.map((cat) => (
           <CategorySection
             key={cat.title}
@@ -249,7 +323,7 @@ export default function Sidebar() {
             </SheetHeader>
             <div
               ref={mobileScrollRef}
-              className="scrollbar-slim h-[calc(100vh-3.5rem)] overflow-y-auto pt-6"
+              className="scrollbar-hide h-[calc(100vh-3.5rem)] overflow-y-auto pt-6"
             >
               {NavigationContent}
             </div>
@@ -262,7 +336,7 @@ export default function Sidebar() {
         <div className="relative h-full overflow-hidden">
           <div
             ref={desktopScrollRef}
-            className="scrollbar-slim h-full overflow-y-auto px-2"
+            className="scrollbar-hide h-full overflow-y-auto px-2"
           >
             {NavigationContent}
           </div>

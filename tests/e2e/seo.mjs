@@ -80,34 +80,55 @@ async function html(path) {
   assert(h.text.includes('"@type":"BreadcrumbList"'), "BreadcrumbList schema");
 
   console.log("\nOG image routes:");
-  let r = await fetch(`${BASE}/components/timeframe-tabs/opengraph-image`);
-  assert(r.status === 200, "component OG image 200", r.status);
+  // Component pages share the root OG image (no per-slug routes); the page
+  // metadata must point at it.
+  const pageOgImage =
+    /<meta[^>]*property="og:image"[^>]*content="([^"]+)"/.exec(h.text)?.[1] ??
+    "";
+  let pageOgPathOk = false;
+  try {
+    pageOgPathOk = new URL(pageOgImage, BASE).pathname === "/opengraph-image";
+  } catch {
+    pageOgPathOk = false;
+  }
   assert(
-    (r.headers.get("content-type") || "").includes("image/png"),
-    "component OG image is PNG",
-    r.headers.get("content-type"),
+    pageOgPathOk,
+    "component page falls back to root OG image",
+    pageOgImage,
+  );
+  let r = await fetch(`${BASE}/opengraph-image`);
+  assert(
+    r.status === 200 &&
+      (r.headers.get("content-type") || "").includes("image/png"),
+    "root OG image 200 PNG",
   );
   const buf = Buffer.from(await r.arrayBuffer());
   assert(
     buf.length > 10000,
     `OG image has real content (${Math.round(buf.length / 1024)}KB)`,
   );
-  r = await fetch(`${BASE}/opengraph-image`);
-  assert(
-    r.status === 200 &&
-      (r.headers.get("content-type") || "").includes("image/png"),
-    "root OG image 200 PNG",
-  );
 
   console.log("\nSitemap & robots:");
   const sm = await html("/sitemap.xml");
   assert(sm.status === 200, "sitemap 200");
-  const componentUrls = (sm.text.match(/\/components\/[a-z-]+<\/loc>/g) || [])
-    .length;
+  const foundComponentUrls = [
+    ...sm.text.matchAll(/<loc>([^<]*\/components\/[^<]*)<\/loc>/g),
+  ].map((match) => match[1]);
+  const expectedComponentUrls = registryConfig.items.map(
+    (item) => `${registryConfig.homepage}/components/${item.name}`,
+  );
+  const missingUrls = expectedComponentUrls.filter(
+    (url) => !foundComponentUrls.includes(url),
+  );
+  const extraUrls = foundComponentUrls.filter(
+    (url) => !expectedComponentUrls.includes(url),
+  );
   assert(
-    componentUrls === EXPECTED_COMPONENT_URLS,
+    missingUrls.length === 0 &&
+      extraUrls.length === 0 &&
+      foundComponentUrls.length === expectedComponentUrls.length,
     `sitemap lists all ${EXPECTED_COMPONENT_URLS} components`,
-    componentUrls,
+    `missing=${missingUrls.join(",") || "none"} extra=${extraUrls.join(",") || "none"} found=${foundComponentUrls.length}`,
   );
   const rb = await html("/robots.txt");
   assert(

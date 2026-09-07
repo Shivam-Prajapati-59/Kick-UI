@@ -33,7 +33,10 @@ export interface CodeOptionsContextValue {
 
 const STORAGE_PREFIX = "kick-ui-";
 
-function usePersistedState<T>(key: string, defaultValue: T): [T, (v: T) => void] {
+export function usePersistedState<T>(
+  key: string,
+  defaultValue: T,
+): [T, (v: T) => void] {
   const storageKey = `${STORAGE_PREFIX}${key}`;
 
   const getSnapshot = () => {
@@ -64,7 +67,11 @@ function usePersistedState<T>(key: string, defaultValue: T): [T, (v: T) => void]
     };
   };
 
-  const value = useSyncExternalStore(subscribe, getSnapshot, () => defaultValue);
+  const value = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    () => defaultValue,
+  );
 
   const setValue = (nextValue: T) => {
     try {
@@ -104,10 +111,22 @@ export function CodeOptionsProvider({
   defaultPackageManager = "npm",
   defaultInstallMode = "cli",
 }: CodeOptionsProviderProps) {
-  const [language, setLanguage] = usePersistedState<Language>("lang", defaultLanguage);
-  const [style, setStyle] = usePersistedState<StylePreset>("style", defaultStyle);
-  const [packageManager, setPackageManager] = usePersistedState<PackageManager>("pkg", defaultPackageManager);
-  const [installMode, setInstallMode] = usePersistedState<InstallMode>("mode", defaultInstallMode);
+  const [language, setLanguage] = usePersistedState<Language>(
+    "lang",
+    defaultLanguage,
+  );
+  const [style, setStyle] = usePersistedState<StylePreset>(
+    "style",
+    defaultStyle,
+  );
+  const [packageManager, setPackageManager] = usePersistedState<PackageManager>(
+    "pkg",
+    defaultPackageManager,
+  );
+  const [installMode, setInstallMode] = usePersistedState<InstallMode>(
+    "mode",
+    defaultInstallMode,
+  );
 
   return (
     <CodeOptionsContext.Provider
@@ -136,7 +155,7 @@ export function useCodeOptions(): CodeOptionsContextValue {
   if (!ctx) {
     throw new Error(
       "useCodeOptions must be used within a <CodeOptionsProvider>. " +
-      "Wrap your component tree (e.g. in the layout or page) with <CodeOptionsProvider>."
+        "Wrap your component tree (e.g. in the layout or page) with <CodeOptionsProvider>.",
     );
   }
   return ctx;

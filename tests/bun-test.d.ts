@@ -8,5 +8,19 @@ declare module "bun:test" {
     toHaveLength(length: number): void;
     toContain(item: unknown): void;
     toThrow(): void;
+    not: {
+      toBe(expected: unknown): void;
+      toEqual(expected: unknown): void;
+      toBeNull(): void;
+      toBeUndefined(): void;
+    };
+    resolves: {
+      toBe(expected: unknown): Promise<void>;
+      toEqual(expected: unknown): Promise<void>;
+      toBeUndefined(): Promise<void>;
+    };
+    rejects: {
+      toThrow(): Promise<void>;
+    };
   };
 }

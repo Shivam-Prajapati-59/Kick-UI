@@ -13,6 +13,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/docs",
+        destination: "/docs/cli",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

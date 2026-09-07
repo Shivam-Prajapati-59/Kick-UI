@@ -9,7 +9,13 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-export default function ComponentsLayout({
+/**
+ * Shared docs-browsing chrome for /components/* and /docs/*. One layout
+ * instance persists across section switches, so the sidebar, container
+ * and their entrance animations mount once instead of replaying like a
+ * full page reload on every docs<->components navigation.
+ */
+export default function BrowseLayout({
   children,
 }: {
   children: React.ReactNode;

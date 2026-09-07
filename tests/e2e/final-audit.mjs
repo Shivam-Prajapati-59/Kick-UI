@@ -44,7 +44,10 @@ function metaTags(html) {
   const routes = [
     "/",
     "/components",
-    "/docs",
+    "/docs/nextjs",
+    "/docs/tailwind-css",
+    "/docs/utilities",
+    "/docs/cli",
     "/playground",
     "/sitemap.xml",
     "/robots.txt",
@@ -68,7 +71,7 @@ function metaTags(html) {
   for (const [path, expectTitle] of [
     ["/", "Kick UI — Beautifully animated UI components for React"],
     ["/components", "Components | Kick UI"],
-    ["/docs", "Docs | Kick UI"],
+    ["/docs/cli", "CLI | Kick UI"],
     ["/components/timeframe-tabs", "Timeframe Tabs | Kick UI"],
   ]) {
     const { text } = await html(path);
@@ -159,21 +162,28 @@ function metaTags(html) {
     }
   }
 
-  // ── 5. Per-component OG images — every registered slug ──
+  // ── 5. OG images — components share the root image (no per-slug routes) ──
   console.log("\n[OG images — every component]");
   let ogOk = 0;
   for (const s of slugs) {
-    const res = await fetch(`${BASE}/components/${s}/opengraph-image`);
-    const okHttp = res.status === 200;
-    const isPng = (res.headers.get("content-type") || "").includes("image/png");
-    const size = Buffer.from(await res.arrayBuffer()).length;
-    const big = size > 8000;
-    if (okHttp && isPng && big) ogOk++;
-    else assert(false, `OG image ${s}`, `${res.status} ${size}b`);
+    const page = await fetch(`${BASE}/components/${s}`);
+    const pageHtml = await page.text();
+    const pageOg =
+      /<meta[^>]*property="og:image"[^>]*content="([^"]+)"/.exec(
+        pageHtml,
+      )?.[1] ?? "";
+    let ogPathOk = false;
+    try {
+      ogPathOk = new URL(pageOg, BASE).pathname === "/opengraph-image";
+    } catch {
+      ogPathOk = false;
+    }
+    if (page.status === 200 && ogPathOk) ogOk++;
+    else assert(false, `OG image fallback ${s}`, `${page.status} ${pageOg}`);
   }
   assert(
     ogOk === slugs.length,
-    `all ${slugs.length} component OG images render (${ogOk}/${slugs.length})`,
+    `all ${slugs.length} component pages fall back to the root OG image (${ogOk}/${slugs.length})`,
   );
 
   // ── 6. Sitemap crawl — every URL must resolve ──

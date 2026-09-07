@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
 import { useCodeOptions } from "@/hooks/useCodeOptions";
 import { coldarkDarkLike, coldarkLightLike } from "@/lib/code-theme";
-import { playCopySound } from "@/lib/copy-sound";
+import { unlockSound, useCopyChime } from "@/lib/sound";
 import {
   generateInstallCommands,
   getCurrentCommand,
@@ -108,6 +108,7 @@ export default function CliInstallation({
   /* ---- copy state ---- */
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const copyChime = useCopyChime();
 
   /* ---- current command ---- */
   const currentCommand = useMemo(() => {
@@ -117,16 +118,20 @@ export default function CliInstallation({
 
   const handleCopy = useCallback(async () => {
     if (!currentCommand) return;
+    void unlockSound();
     try {
       await navigator.clipboard.writeText(currentCommand);
       setCopied(true);
-      playCopySound();
+      copyChime.chime();
       if (timerRef.current) clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(() => setCopied(false), 2000);
+      timerRef.current = setTimeout(() => {
+        setCopied(false);
+        copyChime.reset();
+      }, 2000);
     } catch {
       // clipboard unavailable
     }
-  }, [currentCommand]);
+  }, [currentCommand, copyChime]);
 
   /* ---- guards ---- */
   if (!commands) {
