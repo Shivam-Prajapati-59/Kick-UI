@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
 import { useCodeOptions } from "@/hooks/useCodeOptions";
 import { coldarkDarkLike, coldarkLightLike } from "@/lib/code-theme";
+import { playCopySound } from "@/lib/copy-sound";
 import {
   generateInstallCommands,
   getCurrentCommand,
@@ -24,7 +25,10 @@ import PnpmIcon from "@/components/svgs/tools/pnpm";
 import YarnIcon from "@/components/svgs/tools/yarn";
 import BunIcon from "@/components/svgs/tools/Bun";
 
-const PKG_ICONS: Record<PackageManager, React.ComponentType<{ className?: string }>> = {
+const PKG_ICONS: Record<
+  PackageManager,
+  React.ComponentType<{ className?: string }>
+> = {
   npm: NpmIcon,
   pnpm: PnpmIcon,
   yarn: YarnIcon,
@@ -63,13 +67,13 @@ function PkgButtons({ selected, onSelect }: PkgButtonsProps) {
             key={pm}
             onClick={() => onSelect(pm)}
             className={cn(
-              "relative rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-200 inline-flex items-center gap-1.5",
+              "relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-200",
               selected === pm
                 ? "bg-primary/10 text-primary"
-                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
             )}
           >
-            <Icon className="w-4 h-4 shrink-0" />
+            <Icon className="h-4 w-4 shrink-0" />
             {pm}
           </button>
         );
@@ -116,6 +120,7 @@ export default function CliInstallation({
     try {
       await navigator.clipboard.writeText(currentCommand);
       setCopied(true);
+      playCopySound();
       if (timerRef.current) clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -126,7 +131,7 @@ export default function CliInstallation({
   /* ---- guards ---- */
   if (!commands) {
     return (
-      <div className="my-4 text-sm text-muted-foreground">
+      <div className="text-muted-foreground my-4 text-sm">
         Component &ldquo;{slug}&rdquo; not found in registry.
       </div>
     );
@@ -139,10 +144,7 @@ export default function CliInstallation({
       {/* Mode tabs (shadcn Tabs) */}
       <div className="mb-2 flex items-center justify-between gap-2">
         {/* Left: shadcn Tabs for CLI / Manual */}
-        <Tabs
-          value={mode}
-          onValueChange={(v) => setMode(v as InstallMode)}
-        >
+        <Tabs value={mode} onValueChange={(v) => setMode(v as InstallMode)}>
           <TabsList className="h-8">
             <TabsTrigger value="cli" className="px-3 py-1 text-xs">
               CLI
@@ -174,9 +176,9 @@ export default function CliInstallation({
       </div>
 
       {/* Command display */}
-      <div className="overflow-hidden rounded-lg border border-border bg-card">
+      <div className="border-border bg-card overflow-hidden rounded-lg border">
         {/* Package manager tabs */}
-        <div className="flex items-center border-b border-border/50 bg-muted/20 px-3 py-2">
+        <div className="border-border/50 bg-muted/20 flex items-center border-b px-3 py-2">
           <PkgButtons selected={packageManager} onSelect={setPackageManager} />
         </div>
 
@@ -201,11 +203,11 @@ export default function CliInstallation({
           <button
             onClick={handleCopy}
             className={cn(
-              "absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-7 w-7 items-center justify-center rounded-md",
-              "border border-border transition-all duration-200",
+              "absolute top-1/2 right-3 z-10 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-md",
+              "border-border border transition-all duration-200",
               copied
                 ? "bg-emerald-600/20 text-emerald-400"
-                : "bg-background text-muted-foreground hover:bg-muted hover:text-foreground"
+                : "bg-background text-muted-foreground hover:bg-muted hover:text-foreground",
             )}
             aria-label={copied ? "Copied!" : "Copy install command"}
           >
