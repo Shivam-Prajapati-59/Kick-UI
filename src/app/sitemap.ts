@@ -5,13 +5,19 @@ import { SITE_CONFIG } from "@/lib/site-config";
 export default function sitemap(): MetadataRoute.Sitemap {
   // No lastModified: we don't track real content-modification timestamps,
   // and fabricated `new Date()` values erode crawler trust in the signal.
-  const staticRoutes = ["", "/components", "/docs", "/playground"].map(
-    (route) => ({
-      url: `${SITE_CONFIG.url}${route}`,
-      changeFrequency: "weekly" as const,
-      priority: route === "" ? 1 : 0.8,
-    }),
-  );
+  const staticRoutes = [
+    "",
+    "/components",
+    "/playground",
+    "/docs/cli",
+    "/docs/nextjs",
+    "/docs/tailwind-css",
+    "/docs/utilities",
+  ].map((route) => ({
+    url: `${SITE_CONFIG.url}${route}`,
+    changeFrequency: "weekly" as const,
+    priority: route === "" ? 1 : 0.8,
+  }));
 
   const componentRoutes = componentIndex.map((component) => ({
     url: `${SITE_CONFIG.url}/components/${component.slug}`,
