@@ -1,13 +1,13 @@
 "use client";
 
 import { CheckCheck, CopyCheckIcon } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 
 import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { coldarkLightLike } from "@/lib/code-theme";
-import { playCopySound } from "@/lib/copy-sound";
+import { unlockSound, useCopyChime } from "@/lib/sound";
 
 const COPY_RESET_MS = 2000;
 
@@ -23,21 +23,28 @@ const CodeBlock = ({
   showLineNumbers = false,
 }: CodeBlockProps) => {
   const [copied, setCopied] = useState(false);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const copyChime = useCopyChime();
   const { resolvedTheme } = useTheme();
   const syntaxTheme =
     resolvedTheme === "light" ? coldarkLightLike : coldarkDark;
 
   const handleCopy = useCallback(async () => {
     const text = String(children).trim();
+    void unlockSound();
     try {
       await navigator.clipboard.writeText(text);
     } catch {
       return;
     }
     setCopied(true);
-    playCopySound();
-    setTimeout(() => setCopied(false), COPY_RESET_MS);
-  }, [children]);
+    copyChime.chime();
+    if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+    copyTimerRef.current = setTimeout(() => {
+      setCopied(false);
+      copyChime.reset();
+    }, COPY_RESET_MS);
+  }, [children, copyChime]);
 
   return (
     <div className="docs-code">

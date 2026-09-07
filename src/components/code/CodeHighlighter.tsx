@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDarkLike, coldarkLightLike } from "@/lib/code-theme";
-import { playCopySound } from "@/lib/copy-sound";
+import { unlockSound, useCopyChime } from "@/lib/sound";
 
 /* ------------------------------------------------------------------ */
 /*  Per-route expansion state — survives re-renders within a session   */
@@ -65,6 +65,7 @@ export default function CodeHighlighter({
   /* ---- copy state ---- */
   const [copied, setCopied] = useState(false);
   const copyTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const copyChime = useCopyChime();
 
   /* ---- expand/collapse state (persisted per route) ---- */
   const [expanded, setExpanded] = useState(
@@ -83,16 +84,20 @@ export default function CodeHighlighter({
   /* ---- handlers ---- */
   const handleCopy = useCallback(async () => {
     if (!codeString) return;
+    void unlockSound();
     try {
       await navigator.clipboard.writeText(codeString);
       setCopied(true);
-      playCopySound();
+      copyChime.chime();
       if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
-      copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
+      copyTimerRef.current = setTimeout(() => {
+        setCopied(false);
+        copyChime.reset();
+      }, 2000);
     } catch {
       // clipboard API unavailable — no-op
     }
-  }, [codeString]);
+  }, [codeString, copyChime]);
 
   /* ---- render ---- */
   if (!codeString) {

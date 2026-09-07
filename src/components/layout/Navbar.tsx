@@ -10,6 +10,7 @@ import { Github, Search } from "lucide-react";
 import { navbarConfig } from "@/config/Navbar";
 import Container from "../common/Container";
 import { ThemeToggleButton } from "../custom/ThemeToggle";
+import { SoundToggleButton } from "../custom/SoundToggle";
 import { Button } from "../ui/button";
 import { MobileNav } from "./MobileNav";
 
@@ -132,6 +133,7 @@ export default function Navbar() {
               </a>
             </Button>
             <ThemeToggleButton />
+            <SoundToggleButton />
 
             <div className="lg:hidden">
               <MobileNav items={mobileNavItems} />
