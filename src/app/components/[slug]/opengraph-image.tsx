@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getComponentDoc } from "@/lib/component-docs";
-import { SITE_CONFIG } from "@/lib/site-config";
+import { SITE_CONFIG, SITE_HOST } from "@/lib/site-config";
 
 export const alt = "Component preview";
 export const size = { width: 1200, height: 630 };
@@ -78,7 +78,7 @@ export default async function ComponentOpengraphImage({
       </div>
 
       <div style={{ display: "flex", fontSize: 24, color: "#8b7ba8" }}>
-        kick-ui.vercel.app/components/{component?.slug ?? ""}
+        {SITE_HOST}/components/{component?.slug ?? ""}
       </div>
     </div>,
     { ...size },

@@ -42,7 +42,7 @@ async function html(path) {
   assert(h.text.includes("og:title"), "og:title present");
   assert(h.text.includes('og:type" content="website'), "og:type website");
   assert(
-    h.text.includes("https://kick-ui.vercel.app"),
+    h.text.includes(registryConfig.homepage),
     "absolute og:url / metadataBase applied",
   );
   assert(
@@ -111,7 +111,7 @@ async function html(path) {
   );
   const rb = await html("/robots.txt");
   assert(
-    rb.text.includes("Sitemap: https://kick-ui.vercel.app/sitemap.xml"),
+    rb.text.includes(`Sitemap: ${registryConfig.homepage}/sitemap.xml`),
     "robots references sitemap",
   );
 

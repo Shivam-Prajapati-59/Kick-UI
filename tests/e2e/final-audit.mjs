@@ -5,6 +5,7 @@
  */
 
 const BASE = process.argv[2] || "http://localhost:3000";
+import registryConfig from "../../registry.json";
 let passed = 0;
 let failed = 0;
 const issues = [];
@@ -48,23 +49,7 @@ function metaTags(html) {
     "/sitemap.xml",
     "/robots.txt",
   ];
-  const slugs = [
-    "animated-list",
-    "card-stack",
-    "cursor-web-fluid",
-    "feature-showcase",
-    "mag-dock",
-    "perspective-grid",
-    "pill-card",
-    "pixel-image",
-    "scramble-text",
-    "scroll-card",
-    "shiny-button",
-    "slide-text-button",
-    "stacked-carousel",
-    "text-focus",
-    "timeframe-tabs",
-  ];
+  const slugs = registryConfig.items.map((item) => item.name);
   for (const s of slugs) routes.push(`/components/${s}`);
   let allOk = true;
   for (const r of routes) {
@@ -78,7 +63,7 @@ function metaTags(html) {
 
   // ── 2. Metadata quality on key pages ──
   // Canonicals resolve through metadataBase to the production domain.
-  const PROD = "https://kick-ui.vercel.app";
+  const PROD = registryConfig.homepage;
   console.log("\n[Metadata quality]");
   for (const [path, expectTitle] of [
     ["/", "Kick UI — Beautifully animated UI components for React"],
@@ -174,7 +159,7 @@ function metaTags(html) {
     }
   }
 
-  // ── 5. Per-component OG images — ALL 15 ──
+  // ── 5. Per-component OG images — every registered slug ──
   console.log("\n[OG images — every component]");
   let ogOk = 0;
   for (const s of slugs) {
@@ -186,7 +171,10 @@ function metaTags(html) {
     if (okHttp && isPng && big) ogOk++;
     else assert(false, `OG image ${s}`, `${res.status} ${size}b`);
   }
-  assert(ogOk === 15, `all 15 component OG images render (${ogOk}/15)`);
+  assert(
+    ogOk === slugs.length,
+    `all ${slugs.length} component OG images render (${ogOk}/${slugs.length})`,
+  );
 
   // ── 6. Sitemap crawl — every URL must resolve ──
   console.log("\n[Sitemap crawl]");
@@ -195,7 +183,7 @@ function metaTags(html) {
   assert(urls.length >= 19, `sitemap has ${urls.length} URLs (19+ expected)`);
   let deadUrls = 0;
   for (const u of urls) {
-    const local = u.replace("https://kick-ui.vercel.app", BASE);
+    const local = u.replace(PROD, BASE);
     const res = await fetch(local);
     if (res.status !== 200) {
       deadUrls++;
@@ -207,7 +195,10 @@ function metaTags(html) {
   // ── 7. Registry endpoints sanity ──
   console.log("\n[Registry endpoints]");
   const idx = await (await fetch(`${BASE}/r/registry.json`)).json();
-  assert(idx.items?.length === 15, "/r/registry.json lists 15 items");
+  assert(
+    idx.items?.length === registryConfig.items.length,
+    `/r/registry.json lists ${registryConfig.items.length} items`,
+  );
   const one = await (await fetch(`${BASE}/r/shiny-button.json`)).json();
   assert(
     one.$schema?.includes("registry-item.json"),
