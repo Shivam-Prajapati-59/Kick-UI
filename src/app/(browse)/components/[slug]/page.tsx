@@ -119,7 +119,7 @@ export default async function ComponentDocPage({
   if (!component) notFound();
 
   return (
-    <article className="w-full space-y-6">
+    <article className="w-full space-y-6 py-4">
       <ComponentJsonLd
         slug={component.slug}
         title={component.title}
