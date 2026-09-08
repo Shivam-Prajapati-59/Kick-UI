@@ -15,7 +15,7 @@ import { createUISFX, type CueName, type UISFXPlayer } from "uisfx";
  */
 
 export const SOUND_PACK = "minimal" as const;
-export const SOUND_VOLUME = 0.7;
+export const SOUND_VOLUME = 1;
 export const SOUND_STORAGE_KEY = "kick-ui-sound";
 
 /** Product action -> semantic cue. Only committed outcomes get a cue. */

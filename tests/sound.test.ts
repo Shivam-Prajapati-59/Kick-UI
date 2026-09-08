@@ -43,9 +43,9 @@ describe("sound constants", () => {
     }
   });
 
-  test("copy maps to the copy cue at the specified volume", () => {
+  test("copy maps to the copy cue at full master volume", () => {
     expect(ACTION_CUES.copy).toBe("copy");
-    expect(SOUND_VOLUME).toBe(0.7);
+    expect(SOUND_VOLUME).toBe(1);
   });
 });
 
