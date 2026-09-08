@@ -25,7 +25,7 @@ export interface InstallableComponent {
 /*  Package manager mapping                                            */
 /* ------------------------------------------------------------------ */
 
-const CLI_PREFIXES: Record<PackageManager, string> = {
+export const CLI_PREFIXES: Record<PackageManager, string> = {
   npm: "npx",
   pnpm: "pnpm dlx",
   yarn: "yarn dlx",

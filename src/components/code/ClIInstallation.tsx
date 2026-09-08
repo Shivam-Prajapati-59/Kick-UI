@@ -8,32 +8,15 @@ import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
 import { useCodeOptions } from "@/hooks/useCodeOptions";
 import { coldarkDarkLike, coldarkLightLike } from "@/lib/code-theme";
 import { unlockSound, useCopyChime } from "@/lib/sound";
-import {
-  generateInstallCommands,
-  getCurrentCommand,
-  PKG_MANAGERS,
-} from "@/lib/cli-commands";
-import type { PackageManager, InstallMode } from "@/hooks/useCodeOptions";
+import { generateInstallCommands, getCurrentCommand } from "@/lib/cli-commands";
+import type { InstallMode } from "@/hooks/useCodeOptions";
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import NpmIcon from "@/components/svgs/tools/npm";
-import PnpmIcon from "@/components/svgs/tools/pnpm";
-import YarnIcon from "@/components/svgs/tools/yarn";
-import BunIcon from "@/components/svgs/tools/Bun";
-
-const PKG_ICONS: Record<
-  PackageManager,
-  React.ComponentType<{ className?: string }>
-> = {
-  npm: NpmIcon,
-  pnpm: PnpmIcon,
-  yarn: YarnIcon,
-  bun: BunIcon,
-};
+import { PkgManagerTabs } from "./CommandTabs";
 
 /* ------------------------------------------------------------------ */
 /*  Props                                                              */
@@ -51,36 +34,6 @@ interface CliInstallationProps {
 /* ------------------------------------------------------------------ */
 /*  Sub-components                                                     */
 /* ------------------------------------------------------------------ */
-
-interface PkgButtonsProps {
-  selected: PackageManager;
-  onSelect: (pm: PackageManager) => void;
-}
-
-function PkgButtons({ selected, onSelect }: PkgButtonsProps) {
-  return (
-    <div className="flex items-center gap-0.5 overflow-x-auto">
-      {PKG_MANAGERS.map((pm) => {
-        const Icon = PKG_ICONS[pm];
-        return (
-          <button
-            key={pm}
-            onClick={() => onSelect(pm)}
-            className={cn(
-              "relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-200",
-              selected === pm
-                ? "bg-primary/10 text-primary"
-                : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
-            )}
-          >
-            <Icon className="h-4 w-4 shrink-0" />
-            {pm}
-          </button>
-        );
-      })}
-    </div>
-  );
-}
 
 export default function CliInstallation({
   slug,
@@ -184,7 +137,11 @@ export default function CliInstallation({
       <div className="border-border bg-card overflow-hidden rounded-lg border">
         {/* Package manager tabs */}
         <div className="border-border/50 bg-muted/20 flex items-center border-b px-3 py-2">
-          <PkgButtons selected={packageManager} onSelect={setPackageManager} />
+          <PkgManagerTabs
+            value={packageManager}
+            onValueChange={setPackageManager}
+            showIcons
+          />
         </div>
 
         {/* Command + copy */}

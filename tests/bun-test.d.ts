@@ -13,6 +13,7 @@ declare module "bun:test" {
       toEqual(expected: unknown): void;
       toBeNull(): void;
       toBeUndefined(): void;
+      toContain(item: unknown): void;
     };
     resolves: {
       toBe(expected: unknown): Promise<void>;
