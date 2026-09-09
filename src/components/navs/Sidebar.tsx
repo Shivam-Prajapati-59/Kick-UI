@@ -26,23 +26,6 @@ import {
 
 const spring = { type: "spring" as const, stiffness: 380, damping: 28 };
 
-const staggerContainer = {
-  hidden: { opacity: 1 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.04, delayChildren: 0.06 },
-  },
-};
-
-const staggerItem = {
-  hidden: { opacity: 0, x: -8 },
-  show: {
-    opacity: 1,
-    x: 0,
-    transition: { type: "spring" as const, stiffness: 400, damping: 30 },
-  },
-};
-
 // ─── Nav Item ────────────────────────────────────────────────────────────────
 
 function NavItem({
@@ -162,17 +145,12 @@ function CategorySection({
       </div>
 
       {/* Items list with vertical guide line starting from the top */}
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        animate="show"
-        className="before:bg-border/70 relative space-y-0.5 pr-2 pl-4 before:absolute before:top-3 before:bottom-[12px] before:left-0 before:w-[1.7px]"
-      >
+      <div className="before:bg-border/70 relative space-y-0.5 pr-2 pl-4 before:absolute before:top-3 before:bottom-[12px] before:left-0 before:w-[1.7px]">
         <LayoutGroup>
           {category.items.map((item) => {
             const path = `${category.basePath}/${item.slug}`;
             return (
-              <motion.div key={item.slug} variants={staggerItem}>
+              <div key={item.slug}>
                 <NavItem
                   path={path}
                   label={item.label}
@@ -181,11 +159,11 @@ function CategorySection({
                   setHoveredPath={setHoveredPath}
                   closeMobile={closeMobile}
                 />
-              </motion.div>
+              </div>
             );
           })}
         </LayoutGroup>
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -218,15 +196,10 @@ function StaticSection({
         {section.title}
       </div>
 
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        animate="show"
-        className="before:bg-border/70 relative space-y-0.5 pr-2 pl-4 before:absolute before:top-3 before:bottom-3 before:left-0 before:w-[1.7px]"
-      >
+      <div className="before:bg-border/70 relative space-y-0.5 pr-2 pl-4 before:absolute before:top-3 before:bottom-3 before:left-0 before:w-[1.7px]">
         <LayoutGroup>
           {section.items.map((item) => (
-            <motion.div key={item.href} variants={staggerItem}>
+            <div key={item.href}>
               <NavItem
                 path={item.href}
                 label={item.label}
@@ -235,10 +208,10 @@ function StaticSection({
                 setHoveredPath={setHoveredPath}
                 closeMobile={closeMobile}
               />
-            </motion.div>
+            </div>
           ))}
         </LayoutGroup>
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -264,12 +237,7 @@ export default function Sidebar() {
 
   const NavigationContent = (
     <div className="relative pb-28">
-      <motion.div
-        className="space-y-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.35 }}
-      >
+      <div className="space-y-6">
         {sidebarStaticSections.map((section) => (
           <StaticSection
             key={section.title}
@@ -290,7 +258,7 @@ export default function Sidebar() {
             closeMobile={closeMobile}
           />
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 

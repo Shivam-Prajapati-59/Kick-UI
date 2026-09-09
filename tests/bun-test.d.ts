@@ -8,6 +8,10 @@ declare module "bun:test" {
     toHaveLength(length: number): void;
     toContain(item: unknown): void;
     toThrow(): void;
+    toBeGreaterThan(expected: number): void;
+    toBeGreaterThanOrEqual(expected: number): void;
+    toBeLessThan(expected: number): void;
+    toBeLessThanOrEqual(expected: number): void;
     not: {
       toBe(expected: unknown): void;
       toEqual(expected: unknown): void;

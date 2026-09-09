@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { DEFAULT_GUIDE_SLUG, guideHref } from "./src/config/docs";
 
 const nextConfig: NextConfig = {
   images: {
@@ -17,7 +18,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/docs",
-        destination: "/docs/cli",
+        destination: guideHref(DEFAULT_GUIDE_SLUG),
         permanent: true,
       },
     ];

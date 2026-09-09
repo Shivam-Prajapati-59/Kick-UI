@@ -34,12 +34,12 @@ interface FileLabelProps {
   filename: string;
 }
 
-function FileLabel({ filename }: FileLabelProps) {
+export function FileLabel({ filename }: FileLabelProps) {
   return (
     <div
       className={cn(
-        "mb-2 inline-flex items-center gap-2 rounded-lg border border-border",
-        "bg-muted/30 px-3 py-1.5 text-xs font-medium text-muted-foreground"
+        "border-border mb-2 inline-flex items-center gap-2 rounded-lg border",
+        "bg-muted/30 text-muted-foreground px-3 py-1.5 text-xs font-medium",
       )}
     >
       <FileCode2 className="h-3.5 w-3.5 shrink-0" />
@@ -72,7 +72,11 @@ interface CodeOptionsProps {
  * </CodeOptions>
  * ```
  */
-export default function CodeOptions({ children, filename, className }: CodeOptionsProps) {
+export default function CodeOptions({
+  children,
+  filename,
+  className,
+}: CodeOptionsProps) {
   return (
     <div className={cn("mt-0 w-full", className)}>
       {/* Filename label */}

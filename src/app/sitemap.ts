@@ -1,19 +1,12 @@
 import type { MetadataRoute } from "next";
 import { componentIndex } from "@/generated/component-index";
+import { guideHref, guideSections } from "@/config/docs";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // No lastModified: we don't track real content-modification timestamps,
   // and fabricated `new Date()` values erode crawler trust in the signal.
-  const staticRoutes = [
-    "",
-    "/components",
-    "/playground",
-    "/docs/cli",
-    "/docs/nextjs",
-    "/docs/tailwind-css",
-    "/docs/utilities",
-  ].map((route) => ({
+  const staticRoutes = ["", "/components", "/playground"].map((route) => ({
     url: `${SITE_CONFIG.url}${route}`,
     changeFrequency: "weekly" as const,
     priority: route === "" ? 1 : 0.8,
@@ -25,5 +18,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...componentRoutes];
+  const guideRoutes = guideSections
+    .flatMap((section) => section.pages)
+    .map((page) => ({
+      url: `${SITE_CONFIG.url}${guideHref(page.slug)}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    }));
+
+  return [...staticRoutes, ...componentRoutes, ...guideRoutes];
 }

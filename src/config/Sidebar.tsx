@@ -1,4 +1,5 @@
 import { componentIndex } from "@/generated/component-index";
+import { guideHref, guideSections } from "./docs";
 import {
   componentCategories,
   type ComponentCategory,
@@ -44,22 +45,25 @@ export interface SidebarStaticSection {
 
 /**
  * Hand-written sections for non-component pages (personal links, setup
- * guides). Rendered above the generated component categories wherever the
- * sidebar appears. Content for these pages lands later; entries exist so
- * the information architecture is reviewable now.
+ * guides). Guide entries derive from src/config/docs.ts — the Resources
+ * entry is a plain external link with no page behind it. Rendered above
+ * the generated component categories wherever the sidebar appears.
  */
 export const sidebarStaticSections: SidebarStaticSection[] = [
   {
     title: "Follow for Updates",
-    items: [{ label: "Twitter @Shivamp69_", href: SITE_CONFIG.twitter }],
-  },
-  {
-    title: "Installation",
     items: [
-      { label: "Install Next.js", href: "/docs/nextjs" },
-      { label: "Install Tailwind CSS", href: "/docs/tailwind-css" },
-      { label: "Add Utilities", href: "/docs/utilities" },
-      { label: "CLI", href: "/docs/cli" },
+      {
+        label: `Twitter ${SITE_CONFIG.twitterHandle}`,
+        href: SITE_CONFIG.twitter,
+      },
     ],
   },
+  ...guideSections.map((section) => ({
+    title: section.title,
+    items: section.pages.map((page) => ({
+      label: page.title,
+      href: guideHref(page.slug),
+    })),
+  })),
 ];

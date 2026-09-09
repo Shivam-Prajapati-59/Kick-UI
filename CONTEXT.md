@@ -18,6 +18,12 @@ review exposes fuzziness.
   usage snippet, and props table. The filename is the slug.
 - **Demo** — `src/demos/<name>.tsx` with a default export rendering the live
   preview for that slug.
+- **Guide** — a hand-written docs page under `/docs/<slug>`, declared
+  once in `src/config/docs.ts` as slug, title, description, and typed
+  content sections (paragraphs with `code`/link markup, snippets,
+  commands). Sidebar entries, page metadata, sitemap routes, and audit
+  crawl targets all derive from it; pages themselves are metadata plus
+  the shared `GuidePage` renderer.
 - **Identity** — the shared name binding item, doc, and demo together. The
   filename is the truth; nothing else declares it. There is no `demo`
   field anywhere.
@@ -48,6 +54,8 @@ review exposes fuzziness.
   filename, and `src/demos/<name>.tsx`. `registry:check` enforces every
   direction, and both builds fail hard on orphans; do not add a second
   declaration of the name, and do not invent placeholder sources.
+- Guide data lives in `src/config/docs.ts` only: never restate a guide
+  slug, title, or description in sidebars, pages, sitemap, or audits.
 - Docs install examples derive from `SITE_CONFIG.url` via
   `src/lib/cli-commands.ts`, kept in sync with `registry.json` by check.
 - Pure pipeline verification lives in `scripts/lib/verify.mjs` (no

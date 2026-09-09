@@ -6,6 +6,11 @@
 
 const BASE = process.argv[2] || "http://localhost:3000";
 import registryConfig from "../../registry.json";
+import {
+  getGuidePage,
+  guideHref,
+  guideSections,
+} from "../../src/config/docs.ts";
 let passed = 0;
 let failed = 0;
 const issues = [];
@@ -41,13 +46,13 @@ function metaTags(html) {
 (async () => {
   // ── 1. All routes return 200 ──
   console.log("\n[Routes]");
+  const guideRoutes = guideSections
+    .flatMap((section) => section.pages)
+    .map((page) => guideHref(page.slug));
   const routes = [
     "/",
     "/components",
-    "/docs/nextjs",
-    "/docs/tailwind-css",
-    "/docs/utilities",
-    "/docs/cli",
+    ...guideRoutes,
     "/playground",
     "/sitemap.xml",
     "/robots.txt",
@@ -71,7 +76,7 @@ function metaTags(html) {
   for (const [path, expectTitle] of [
     ["/", "Kick UI — Beautifully animated UI components for React"],
     ["/components", "Components | Kick UI"],
-    ["/docs/cli", "CLI | Kick UI"],
+    [guideHref("cli"), `${getGuidePage("cli").title} | Kick UI`],
     ["/components/timeframe-tabs", "Timeframe Tabs | Kick UI"],
   ]) {
     const { text } = await html(path);
