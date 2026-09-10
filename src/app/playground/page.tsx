@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { VenueSelector } from "./VenueSelector";
 import FooterWordmark from "@/components/svgs/brand/FooterWordmark";
 
 export const metadata: Metadata = {
