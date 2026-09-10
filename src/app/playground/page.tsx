@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { VenueSelector } from "./VenueSelector";
+import FooterWordmark from "@/components/svgs/brand/FooterWordmark";
 
 export const metadata: Metadata = {
   title: "Playground",
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 export default function PlaygroundPage() {
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
-      <VenueSelector />
+      <FooterWordmark text="Kick UI" />
     </div>
   );
 }
