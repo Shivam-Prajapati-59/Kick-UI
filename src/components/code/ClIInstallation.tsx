@@ -8,6 +8,7 @@ import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
 import { useCodeOptions } from "@/hooks/useCodeOptions";
 import { coldarkDarkLike, coldarkLightLike } from "@/lib/code-theme";
 import { unlockSound, useCopyChime } from "@/lib/sound";
+import { toast } from "@/components/feedback/Toaster";
 import { generateInstallCommands, getCurrentCommand } from "@/lib/cli-commands";
 import type { InstallMode } from "@/hooks/useCodeOptions";
 import {
@@ -76,6 +77,7 @@ export default function CliInstallation({
       await navigator.clipboard.writeText(currentCommand);
       setCopied(true);
       copyChime.chime();
+      toast("Copied to clipboard");
       if (timerRef.current) clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => {
         setCopied(false);

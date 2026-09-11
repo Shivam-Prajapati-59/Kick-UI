@@ -12,6 +12,7 @@ import Container from "../common/Container";
 import { ThemeToggleButton } from "../custom/ThemeToggle";
 import { Button } from "../ui/button";
 import { MobileNav } from "./MobileNav";
+import { useCommandMenu } from "../command/CommandMenu";
 
 // Extract static derivations outside the component to prevent recreation on every render
 const mobileNavItems = navbarConfig.mobileNavItems.map((item) => ({
@@ -20,7 +21,7 @@ const mobileNavItems = navbarConfig.mobileNavItems.map((item) => ({
 }));
 
 export default function Navbar() {
-  const [, setSearchOpen] = useState(false);
+  const { setOpen: setMenuOpen } = useCommandMenu();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const hoverPillId = useId();
 
@@ -105,10 +106,10 @@ export default function Navbar() {
               variant="outline"
               size="sm"
               aria-label="Search"
-              onClick={() => setSearchOpen(true)}
+              onClick={() => setMenuOpen(true)}
               className="group text-muted-foreground hover:text-foreground flex items-center gap-2 py-4"
             >
-              <Search className="h-4 w-4" />
+              <Search className="h-4 w-4" data-icon="inline-start" />
               <span className="hidden sm:inline">Search Components</span>
               <kbd className="border-border bg-muted hidden items-center gap-0.5 rounded border px-1.5 py-0.5 text-[10px] sm:flex">
                 <span>⌘</span>K

@@ -8,6 +8,7 @@ import { useTheme } from "next-themes";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDarkLike, coldarkLightLike } from "@/lib/code-theme";
 import { unlockSound, useCopyChime } from "@/lib/sound";
+import { toast } from "@/components/feedback/Toaster";
 
 /* ------------------------------------------------------------------ */
 /*  Per-route expansion state — survives re-renders within a session   */
@@ -89,6 +90,7 @@ export default function CodeHighlighter({
       await navigator.clipboard.writeText(codeString);
       setCopied(true);
       copyChime.chime();
+      toast("Copied to clipboard");
       if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
       copyTimerRef.current = setTimeout(() => {
         setCopied(false);

@@ -8,6 +8,7 @@ import { PrismAsync as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDarkLike, coldarkLightLike } from "@/lib/code-theme";
 import { TokenizedLines, type CodeToken } from "@/lib/code-tokens";
 import { unlockSound, useCopyChime } from "@/lib/sound";
+import { toast } from "@/components/feedback/Toaster";
 import { cn } from "@/lib/utils";
 
 const COPY_RESET_MS = 2000;
@@ -48,6 +49,7 @@ const CodeBlock = ({
     }
     setCopied(true);
     copyChime.chime();
+    toast("Copied to clipboard");
     if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
     copyTimerRef.current = setTimeout(() => {
       setCopied(false);

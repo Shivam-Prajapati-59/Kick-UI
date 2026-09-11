@@ -276,7 +276,7 @@ export default function Sidebar() {
               size="sm"
               className="text-muted-foreground h-8"
             >
-              <Menu className="mr-2 h-4 w-4" />
+              <Menu className="mr-2 h-4 w-4" data-icon="inline-start" />
               Menu
             </Button>
           </SheetTrigger>

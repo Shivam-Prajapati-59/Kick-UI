@@ -1,18 +1,22 @@
 "use client";
 
-import { ThemeProvider } from "@/components/common/theme-provider";
+import { MotionConfig } from "motion/react";
 import Navbar from "@/components/layout/Navbar";
+import {
+  CommandMenu,
+  CommandMenuProvider,
+} from "@/components/command/CommandMenu";
+import { Toaster } from "@/components/feedback/Toaster";
 
 export default function Provider({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <Navbar />
-      <main className="pt-(--navbar-height)">{children}</main>
-    </ThemeProvider>
+    <MotionConfig reducedMotion="user">
+      <CommandMenuProvider>
+        <Navbar />
+        <main className="pt-(--navbar-height)">{children}</main>
+        <CommandMenu />
+        <Toaster />
+      </CommandMenuProvider>
+    </MotionConfig>
   );
 }

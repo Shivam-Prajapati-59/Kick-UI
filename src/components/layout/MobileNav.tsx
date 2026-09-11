@@ -5,7 +5,12 @@ import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { sidebarCategories, sidebarStaticSections } from "@/config/Sidebar";
 import { cn } from "@/lib/utils";
 
@@ -46,6 +51,7 @@ export function MobileNav({
         overlayClassName="hidden"
         className="bg-background top-16 h-[calc(100dvh-4rem)] w-screen max-w-none gap-0 border-0 p-0 shadow-none sm:max-w-none [&>button:last-child]:hidden"
       >
+        <SheetTitle className="sr-only">Site navigation</SheetTitle>
         <div className="flex-1 [scrollbar-gutter:stable] overflow-y-auto px-5 py-6">
           <nav className="w-full max-w-sm space-y-8">
             <section className="space-y-4">

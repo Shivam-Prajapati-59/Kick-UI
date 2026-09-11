@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Provider from "@/providers/provider";
+import { ThemeProvider } from "@/components/common/theme-provider";
 import { ViewTransitions } from "next-view-transitions";
 import { SITE_CONFIG } from "@/lib/site-config";
 
@@ -108,7 +109,14 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <Provider>{children}</Provider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Provider>{children}</Provider>
+          </ThemeProvider>
           <JsonLd />
         </body>
       </html>
