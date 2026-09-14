@@ -264,6 +264,43 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "trading-chart",
+      "type": "registry:component",
+      "title": "Trading Chart",
+      "description": "A live candlestick chart with volume pane, timeframe tabs, crosshair OHLC readout, and a full drawing toolkit (trend lines, fib retracement, brush, eraser).",
+      "category": "charts",
+      "dependencies": [
+        "lightweight-charts",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "timeframe-tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/trading-chart/trading-chart.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/components/trading-chart/drawings.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/components/trading-chart/drawings-primitive.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/components/trading-chart/market-data.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/components/trading-chart/live-feed.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

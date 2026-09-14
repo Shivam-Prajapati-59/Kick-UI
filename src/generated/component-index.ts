@@ -46,6 +46,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "cards"
   },
   {
+    "slug": "trading-chart",
+    "title": "Trading Chart",
+    "description": "A live candlestick chart with volume pane, timeframe tabs, crosshair OHLC readout, and a full drawing toolkit (trend lines, fib retracement, brush, eraser).",
+    "category": "charts"
+  },
+  {
     "slug": "animated-list",
     "title": "Animated List",
     "description": "A generic animated list with keyboard navigation and auto-scroll.",

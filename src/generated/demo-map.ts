@@ -17,6 +17,7 @@ export const demos = {
   "stacked-carousel": dynamic(() => import("@/demos/stacked-carousel")),
   "text-focus": dynamic(() => import("@/demos/text-focus")),
   "timeframe-tabs": dynamic(() => import("@/demos/timeframe-tabs")),
+  "trading-chart": dynamic(() => import("@/demos/trading-chart")),
   "venue-selector": dynamic(() => import("@/demos/venue-selector")),
 } as const;
 

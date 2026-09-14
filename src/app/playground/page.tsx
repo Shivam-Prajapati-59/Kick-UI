@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import FooterWordmark from "@/components/svgs/brand/FooterWordmark";
+import TradingChartDemo from "@/demos/trading-chart";
 
 export const metadata: Metadata = {
   title: "Playground",
@@ -12,7 +12,9 @@ export const metadata: Metadata = {
 export default function PlaygroundPage() {
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
-      <FooterWordmark text="Kick UI" />
+      <div className="w-full max-w-5xl">
+        <TradingChartDemo />
+      </div>
     </div>
   );
 }

@@ -179,6 +179,34 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "trading-chart",
+      "type": "registry:component",
+      "dependencies": ["lightweight-charts", "motion", "lucide-react"],
+      "registryDependencies": ["timeframe-tabs"],
+      "files": [
+        {
+          "path": "registry/new-york/components/trading-chart/trading-chart.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/components/trading-chart/drawings.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/components/trading-chart/drawings-primitive.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/components/trading-chart/market-data.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/components/trading-chart/live-feed.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

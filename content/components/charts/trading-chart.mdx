@@ -1,0 +1,201 @@
+---
+title: Trading Chart
+description: A live candlestick chart with volume pane, timeframe tabs, crosshair OHLC readout, and a full drawing toolkit (trend lines, fib retracement, brush, eraser).
+category: charts
+usage: |
+  "use client";
+  import { useEffect, useRef, useState } from "react";
+  import type {
+    CandlestickData,
+    HistogramData,
+    UTCTimestamp,
+  } from "lightweight-charts";
+  import { TradingChart } from "@/components/ui/trading-chart";
+  import {
+    fetchHistory,
+    subscribeKlines,
+  } from "@/components/ui/live-feed";
+  import type { OhlcvDataset } from "@/components/ui/market-data";
+
+  // 1. Install the component (pulls timeframe-tabs automatically).
+  //    npx shadcn@latest add https://kick-ui.vercel.app/r/trading-chart.json
+
+  function upsert<T extends { time: UTCTimestamp }>(list: T[], entry: T): T[] {
+    const last = list[list.length - 1];
+    if (!last || entry.time > last.time) return [...list, entry];
+    if (entry.time === last.time) return [...list.slice(0, -1), entry];
+    return list;
+  }
+
+  export function BtcChart() {
+    const [timeframe, setTimeframe] = useState("1H");
+    const [base, setBase] = useState<OhlcvDataset | null>(null);
+    const [tick, setTick] = useState<{
+      candle: CandlestickData<UTCTimestamp>;
+      volume: HistogramData<UTCTimestamp>;
+    } | null>(null);
+    const [live, setLive] = useState(false);
+    const [failed, setFailed] = useState(false);
+    const tickRef = useRef<{
+      candle: CandlestickData<UTCTimestamp>;
+      volume: HistogramData<UTCTimestamp>;
+    } | null>(null);
+
+    // Reset everything before switching: stale candles, tick, and failure
+    // state must not persist into the new timeframe.
+    const switchTimeframe = (id: string) => {
+      if (id === timeframe) return;
+      setBase(null);
+      setTick(null);
+      tickRef.current = null;
+      setFailed(false);
+      setLive(false);
+      setTimeframe(id);
+    };
+
+  // 2. Load real klines; reconnect the socket forever on drops.
+  useEffect(() => {
+    let unsubscribe: (() => void) | null = null;
+    let retryTimer: ReturnType<typeof setTimeout> | null = null;
+    let attempt = 0;
+    let cancelled = false;
+    const controller = new AbortController();
+    const applyTick = (
+      candle: CandlestickData<UTCTimestamp>,
+      volume: HistogramData<UTCTimestamp>,
+    ) => {
+      if (cancelled) return;
+      const prev = tickRef.current;
+      if (prev && prev.candle.time < candle.time) {
+        // New interval: fold the finalized bar into history so its live
+        // values are kept instead of snapping back to the fetched ones.
+        const finalized = prev;
+        setBase((prevDataset) => {
+          if (!prevDataset) return prevDataset;
+          return {
+            ...prevDataset,
+            candles: upsert(prevDataset.candles, finalized.candle),
+            volumes: upsert(prevDataset.volumes, finalized.volume),
+          };
+        });
+      }
+      const next = { candle, volume };
+      tickRef.current = next;
+      setTick(next);
+    };
+    const connect = () => {
+      if (cancelled) return;
+      unsubscribe = subscribeKlines(timeframe, {
+        onTick: (t) => {
+          if (cancelled) return;
+          attempt = 0;
+          setLive(true);
+          applyTick(t.candle, t.volume);
+        },
+        onDisconnect: () => {
+          if (cancelled) return;
+          unsubscribe = null;
+          setLive(false);
+          const delay = Math.min(2000 * 2 ** attempt, 30000);
+          attempt += 1;
+          retryTimer = setTimeout(connect, delay);
+        },
+      });
+    };
+    fetchHistory(timeframe, controller.signal)
+      .then((real) => {
+        if (cancelled) return;
+        setBase(real);
+        setTick(null);
+        tickRef.current = null;
+        connect();
+      })
+      .catch(() => {
+        if (!cancelled) setFailed(true);
+      });
+    return () => {
+      cancelled = true;
+      controller.abort();
+      if (retryTimer) clearTimeout(retryTimer);
+      unsubscribe?.();
+    };
+  }, [timeframe]);
+
+    // 3. Merge the streaming bar, then render. Nothing renders until the
+    //    first history arrives — no placeholder data.
+    if (failed) return <p>Couldn&apos;t load live data.</p>;
+    if (!base) return <p>Connecting to live feed…</p>;
+    const candles = tick ? upsert(base.candles, tick.candle) : base.candles;
+    const volumes = tick ? upsert(base.volumes, tick.volume) : base.volumes;
+    return (
+      <TradingChart
+        candles={candles}
+        volumes={volumes}
+        dataKey={`${timeframe}:${base.candles[0]?.time ?? 0}`}
+        symbol="BTC"
+        quote="USD"
+        logoSrc="https://assets.coingecko.com/coins/images/1/large/bitcoin.png"
+        activeTimeframe={timeframe}
+        onTimeframeChange={switchTimeframe}
+        feedStatus={live ? "live" : "connecting"}
+      />
+    );
+  }
+props:
+  - name: candles
+    type: CandlestickData<UTCTimestamp>[]
+    description: Candles to render. Append a new entry (or replace the last) to stream live data.
+  - name: volumes
+    type: HistogramData<UTCTimestamp>[]
+    description: Matching volumes. Omit to hide the volume pane.
+  - name: dataKey
+    type: string
+    description: Dataset identity (e.g. `${timeframe}:${candles[0]?.time}`). A change performs a full resync instead of a last-bar update — derive it from the data so fresh history always resyncs.
+  - name: symbol
+    type: string
+    default: '"BTC"'
+    description: Base asset label in the header.
+  - name: quote
+    type: string
+    default: '"USD"'
+    description: Quote asset label in the header.
+  - name: logoSrc
+    type: string
+    description: Coin/logo image URL shown next to the symbol. Hidden when omitted.
+  - name: timeframes
+    type: "{ id: string; label: string }[]"
+    default: 1m, 5m, 15m, 1H, 4H, 1D
+    description: Timeframe pills. Pass [] to hide the selector.
+  - name: activeTimeframe
+    type: string
+    description: Controlled active timeframe id.
+  - name: defaultTimeframe
+    type: string
+    description: Uncontrolled initial timeframe id.
+  - name: onTimeframeChange
+    type: "(id: string) => void"
+    description: Called with the timeframe id when the user picks one.
+  - name: feedStatus
+    type: '"live" | "connecting" | "simulated"'
+    description: Feed state shown as a status dot. Omit to hide the dot (static datasets).
+  - name: showDrawingTools
+    type: boolean
+    default: "true"
+    description: Show the drawing-tools rail (trend, fib, brush, eraser, undo, clear).
+  - name: drawings
+    type: Drawing[]
+    description: Controlled drawings.
+  - name: defaultDrawings
+    type: Drawing[]
+    description: Uncontrolled initial drawings.
+  - name: onDrawingsChange
+    type: "(drawings: Drawing[]) => void"
+    description: Called with the next drawings on every add, erase, undo, or clear.
+  - name: height
+    type: number
+    default: "380"
+    description: Chart height in px.
+  - name: className
+    type: string
+    description: Additional classes for the root card.
+---
