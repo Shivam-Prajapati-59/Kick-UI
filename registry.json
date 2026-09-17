@@ -207,6 +207,17 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "pill-button",
+      "type": "registry:component",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/components/pill-button/pill-button.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

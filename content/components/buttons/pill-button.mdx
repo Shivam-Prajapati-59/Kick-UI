@@ -1,0 +1,31 @@
+---
+title: Pill Button
+description: An iOS-glass pill button with edge shadows that expand inward on hover and a refraction ripple on press.
+category: buttons
+usage: |
+  import { PillButton } from "@/components/ui/pill-button";
+
+  export function PillButtonDemo() {
+    return (
+      <PillButton>
+        <img
+          src="https://cdn.prod.website-files.com/6840859dc0e82803d10f5190/685503b55e9cc865a796e3e6_Russia.svg"
+          alt="Russian"
+          className="h-10 w-10 object-contain"
+        />
+        <span>Russian</span>
+      </PillButton>
+    );
+  }
+props:
+  - name: children
+    type: React.ReactNode
+    description: Content rendered inside the pill — an icon, a label, or both.
+  - name: className
+    type: string
+    description: Additional classes merged over the glass defaults.
+  - name: type
+    type: '"button" | "submit" | "reset"'
+    default: '"button"'
+    description: Native button type.
+---

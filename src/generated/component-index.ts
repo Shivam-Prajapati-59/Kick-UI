@@ -16,6 +16,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "animations"
   },
   {
+    "slug": "pill-button",
+    "title": "Pill Button",
+    "description": "An iOS-glass pill button with edge shadows that expand inward on hover and a refraction ripple on press.",
+    "category": "buttons"
+  },
+  {
     "slug": "shiny-button",
     "title": "Shiny Button",
     "description": "A button with a smooth shiny animation effect.",

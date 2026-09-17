@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import TradingChartDemo from "@/demos/trading-chart";
 
 export const metadata: Metadata = {
   title: "Playground",
@@ -11,10 +10,10 @@ export const metadata: Metadata = {
 
 export default function PlaygroundPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
-      <div className="w-full max-w-5xl">
-        <TradingChartDemo />
-      </div>
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background p-4">
+      <p className="text-sm text-muted-foreground">
+        Nothing here yet — drop the next experiment into this route.
+      </p>
     </div>
   );
 }

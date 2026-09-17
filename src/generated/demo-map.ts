@@ -8,6 +8,7 @@ export const demos = {
   "feature-showcase": dynamic(() => import("@/demos/feature-showcase")),
   "mag-dock": dynamic(() => import("@/demos/mag-dock")),
   "perspective-grid": dynamic(() => import("@/demos/perspective-grid")),
+  "pill-button": dynamic(() => import("@/demos/pill-button")),
   "pill-card": dynamic(() => import("@/demos/pill-card")),
   "pixel-image": dynamic(() => import("@/demos/pixel-image")),
   "scramble-text": dynamic(() => import("@/demos/scramble-text")),
