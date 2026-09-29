@@ -5,6 +5,7 @@ export const demos = {
   "animated-list": dynamic(() => import("@/demos/animated-list")),
   "card-stack": dynamic(() => import("@/demos/card-stack")),
   "cursor-web-fluid": dynamic(() => import("@/demos/cursor-web-fluid")),
+  "deposit-modal": dynamic(() => import("@/demos/deposit-modal")),
   "feature-showcase": dynamic(() => import("@/demos/feature-showcase")),
   "mag-dock": dynamic(() => import("@/demos/mag-dock")),
   "perspective-grid": dynamic(() => import("@/demos/perspective-grid")),
