@@ -249,6 +249,23 @@
       ]
     },
     {
+      "name": "deposit-modal",
+      "type": "registry:component",
+      "title": "Deposit Modal",
+      "description": "A responsive, accessible deposit-address modal with network safeguards, copy feedback, expiry handling, and a mobile-friendly layout.",
+      "category": "components",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/deposit-modal/deposit-modal.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "feature-showcase",
       "type": "registry:component",
       "title": "Feature Showcase",

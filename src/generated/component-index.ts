@@ -64,6 +64,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "components"
   },
   {
+    "slug": "deposit-modal",
+    "title": "Deposit Modal",
+    "description": "A responsive, accessible deposit-address modal with network safeguards, copy feedback, expiry handling, and a mobile-friendly layout.",
+    "category": "components"
+  },
+  {
     "slug": "mag-dock",
     "title": "MagDock",
     "description": "A spring-animated dock with icons, tooltips, and active states.",
