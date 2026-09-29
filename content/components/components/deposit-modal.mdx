@@ -1,0 +1,82 @@
+---
+title: Deposit Modal
+description: A responsive, accessible deposit-address modal with network safeguards, copy feedback, expiry handling, and a mobile-friendly layout.
+category: components
+fullPreview: true
+usage: |
+  "use client";
+
+  import { useState } from "react";
+  import DepositModal from "@/components/ui/deposit-modal";
+
+  export function DepositModalDemo() {
+    const [open, setOpen] = useState(false);
+
+    return (
+      <>
+        <button onClick={() => setOpen(true)}>Deposit USDC</button>
+        <DepositModal
+          open={open}
+          onOpenChange={setOpen}
+          address="4usmCo6FvB7T5jBVSc1rcKRAHAmNgF88MSN7xda5mh"
+          amount="125.00"
+          amountLabel="Amount to deposit"
+          token={{
+            symbol: "USDC",
+            iconUrl: "https://example.com/usdc.png",
+          }}
+          network={{
+            name: "Solana",
+            iconUrl: "https://example.com/solana.png",
+          }}
+          minDeposit="10"
+        />
+      </>
+    );
+  }
+props:
+  - name: open
+    type: boolean
+    description: Controls whether the modal is visible.
+  - name: onOpenChange
+    type: "(open: boolean) => void"
+    description: Called when the user closes the modal or its visibility changes.
+  - name: address
+    type: string
+    description: The deposit address to display and copy.
+  - name: amount
+    type: string
+    default: '"0.000"'
+    description: The amount displayed in the ticket header.
+  - name: amountLabel
+    type: string
+    description: Optional label displayed above the amount.
+  - name: token
+    type: "{ symbol: string; iconUrl: string }"
+    description: Token symbol and icon URL.
+  - name: network
+    type: "{ name: string; iconUrl: string; color?: string }"
+    description: Network name, icon URL, and optional accent color.
+  - name: explorerBaseUrl
+    type: string
+    default: '"https://solscan.io/account"'
+    description: Base URL used to create the explorer link.
+  - name: minDeposit
+    type: string
+    description: Optional minimum deposit amount shown in the warning.
+  - name: expiresAt
+    type: Date | number
+    description: Expiry timestamp; copy and explorer actions disable after expiry.
+  - name: notice
+    type: React.ReactNode
+    description: Extra content appended to the deposit warning.
+  - name: onRefresh
+    type: "() => void"
+    description: Optional handler used to refresh expired deposit details.
+  - name: isRefreshing
+    type: boolean
+    default: "false"
+    description: Shows the refresh action's loading state.
+---
+
+The modal uses `next/image` for token and network icons. Add each remote icon host to `images.remotePatterns` in `next.config.ts` before using external image URLs.

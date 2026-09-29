@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import DepositDemo from "./DepositDemo";
 
 export const metadata: Metadata = {
   title: "Playground",
@@ -11,9 +12,7 @@ export const metadata: Metadata = {
 export default function PlaygroundPage() {
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background p-4">
-      <p className="text-sm text-muted-foreground">
-        Nothing here yet — drop the next experiment into this route.
-      </p>
+      <DepositDemo />
     </div>
   );
 }
