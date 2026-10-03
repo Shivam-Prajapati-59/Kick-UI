@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { sidebarCategories, sidebarStaticSections } from "@/config/Sidebar";
+import { categoryIcons, staticSectionIcons } from "@/config/sidebar-icons";
 import { cn } from "@/lib/utils";
 
 type NavItem = {
@@ -79,64 +80,77 @@ export function MobileNav({
               })}
             </section>
 
-            {sidebarStaticSections.map((section) => (
-              <section key={section.title} className="space-y-4">
-                <h3 className="text-muted-foreground/60 text-xs font-bold tracking-wider uppercase">
-                  {section.title}
-                </h3>
-                <div className="space-y-4">
-                  {section.items.map((item) => {
-                    const isActive = pathname === item.href;
+            {sidebarStaticSections.map((section) => {
+              const Icon = staticSectionIcons[section.title];
+              return (
+                <section key={section.title} className="space-y-4">
+                  <h3 className="text-muted-foreground/60 flex items-center gap-2 text-xs font-bold tracking-wider uppercase">
+                    {Icon && (
+                      <Icon
+                        className="h-3.5 w-3.5 shrink-0"
+                        aria-hidden="true"
+                      />
+                    )}
+                    {section.title}
+                  </h3>
+                  <div className="space-y-4">
+                    {section.items.map((item) => {
+                      const isActive = pathname === item.href;
 
-                    return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={closeMobileNav}
-                        className={cn(
-                          "block py-1 text-sm font-medium tracking-[0.16em] transition-colors",
-                          isActive
-                            ? "text-foreground"
-                            : "text-muted-foreground hover:text-foreground",
-                        )}
-                      >
-                        {item.label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </section>
-            ))}
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={closeMobileNav}
+                          className={cn(
+                            "block py-1 text-sm font-medium tracking-[0.16em] transition-colors",
+                            isActive
+                              ? "text-foreground"
+                              : "text-muted-foreground hover:text-foreground",
+                          )}
+                        >
+                          {item.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </section>
+              );
+            })}
 
-            {sidebarCategories.map((category) => (
-              <section key={category.title} className="space-y-4">
-                <h3 className="text-muted-foreground/60 text-xs font-bold tracking-wider uppercase">
-                  {category.title}
-                </h3>
-                <div className="space-y-4">
-                  {category.items.map((item) => {
-                    const href = `${category.basePath}/${item.slug}`;
-                    const isActive = pathname === href;
+            {sidebarCategories.map((category) => {
+              const Icon = categoryIcons[category.category];
+              return (
+                <section key={category.title} className="space-y-4">
+                  <h3 className="text-muted-foreground/60 flex items-center gap-2 text-xs font-bold tracking-wider uppercase">
+                    <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    {category.title}
+                  </h3>
+                  <div className="space-y-4">
+                    {category.items.map((item) => {
+                      const href = `${category.basePath}/${item.slug}`;
+                      const isActive = pathname === href;
 
-                    return (
-                      <Link
-                        key={href}
-                        href={href}
-                        onClick={closeMobileNav}
-                        className={cn(
-                          "block py-1 text-sm font-medium tracking-[0.16em] transition-colors",
-                          isActive
-                            ? "text-foreground"
-                            : "text-muted-foreground hover:text-foreground",
-                        )}
-                      >
-                        {item.label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </section>
-            ))}
+                      return (
+                        <Link
+                          key={href}
+                          href={href}
+                          onClick={closeMobileNav}
+                          className={cn(
+                            "block py-1 text-sm font-medium tracking-[0.16em] transition-colors",
+                            isActive
+                              ? "text-foreground"
+                              : "text-muted-foreground hover:text-foreground",
+                          )}
+                        >
+                          {item.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </section>
+              );
+            })}
           </nav>
         </div>
       </SheetContent>

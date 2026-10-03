@@ -29,35 +29,33 @@ export const ThemeToggleButton = ({
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
   }, [resolvedTheme, setTheme]);
 
-    // Dark-mode keyboard shortcut: plain `d`, or Cmd/Ctrl+Shift+D.
-    // The typing-target guard lives inline in the same condition so the
-    // shortcut provably never hijacks text entry.
-    useEffect(() => {
-        const onKeyDown = (event: KeyboardEvent) => {
-            const target = event.target as HTMLElement | null;
-            if (
-                !!target &&
-                (target.tagName === 'INPUT' ||
-                    target.tagName === 'TEXTAREA' ||
-                    target.tagName === 'SELECT' ||
-                    target.isContentEditable)
-            ) {
-                return;
-            }
-            const mod = event.metaKey || event.ctrlKey;
-            if (
-                (!mod && !event.shiftKey && event.key.toLowerCase() === 'd') ||
-                (mod &&
-                    event.shiftKey &&
-                    event.key.toLowerCase() === 'd')
-            ) {
-                event.preventDefault();
-                toggleTheme();
-            }
-        };
-        window.addEventListener('keydown', onKeyDown);
-        return () => window.removeEventListener('keydown', onKeyDown);
-    }, [toggleTheme]);
+  // Dark-mode keyboard shortcut: plain `d`, or Cmd/Ctrl+Shift+D.
+  // The typing-target guard lives inline in the same condition so the
+  // shortcut provably never hijacks text entry.
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (
+        !!target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+      const mod = event.metaKey || event.ctrlKey;
+      if (
+        (!mod && !event.shiftKey && event.key.toLowerCase() === "d") ||
+        (mod && event.shiftKey && event.key.toLowerCase() === "d")
+      ) {
+        event.preventDefault();
+        toggleTheme();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [toggleTheme]);
 
   const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     if (!document.startViewTransition) {
@@ -96,9 +94,13 @@ export const ThemeToggleButton = ({
     );
   };
 
+  // `icon-sm` (size-8) rather than `icon` (size-9): the navbar's other
+  // outline buttons are size="sm" (h-8), and a 4px taller toggle reads as
+  // misaligned next to them. The pre-hydration placeholder below must use the
+  // same size or the button visibly resizes once the theme is resolved.
   if (!mounted) {
     return (
-      <Button variant="outline" size="icon" className={className} disabled>
+      <Button variant="outline" size="icon-sm" className={className} disabled>
         <div className="h-[1.2rem] w-[1.2rem] shrink-0" />
       </Button>
     );
@@ -107,15 +109,15 @@ export const ThemeToggleButton = ({
   return (
     <Button
       variant="outline"
-      size={showLabel ? "default" : "icon"}
+      size={showLabel ? "default" : "icon-sm"}
       onClick={handleClick}
       className={cn(
         "group hover:bg-accent relative overflow-hidden transition-colors",
         showLabel && "gap-2 px-4",
         className,
       )}
-            aria-label="Toggle theme"
-            title="Toggle theme (D)"
+      aria-label="Toggle theme"
+      title="Toggle theme (D)"
     >
       <motion.div
         initial={false}

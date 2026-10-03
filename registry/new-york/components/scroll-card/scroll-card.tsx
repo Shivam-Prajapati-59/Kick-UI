@@ -1,7 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { motion, MotionValue, useMotionValueEvent, useScroll, useSpring, useTransform } from "motion/react";
+import {
+  motion,
+  MotionValue,
+  useMotionValueEvent,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import { useRef, useState, type RefObject } from "react";
 
 export interface ScrollCardFeature {
@@ -32,12 +39,14 @@ const defaultFeatures: ScrollCardFeature[] = [
   },
   {
     title: "Developer-Friendly APIs",
-    description: "Simple SDKs for wallet creation, signing, and user onboarding.",
+    description:
+      "Simple SDKs for wallet creation, signing, and user onboarding.",
     image: "/assets/dummy/Card3.png",
   },
   {
     title: "Enterprise-Grade Security",
-    description: "Policy-based access controls with secure distributed custody.",
+    description:
+      "Policy-based access controls with secure distributed custody.",
     image: "/assets/dummy/Card4.png",
   },
 ];
@@ -70,8 +79,8 @@ export default function ScrollCard({
       style={{ height: scrollHeight }}
     >
       <div className="sticky top-0 flex h-[var(--scroll-card-viewport-height,100vh)] items-center">
-        <div className="grid w-full grid-cols-1 items-center gap-6 md:gap-10 md:grid-cols-2">
-          <div className="relative w-full overflow-hidden rounded-xl h-[300px] md:h-[490px]">
+        <div className="grid w-full grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-10">
+          <div className="relative h-[300px] w-full overflow-hidden rounded-xl md:h-[490px]">
             {features.map((feature, index) => (
               <ScrollImage
                 key={feature.title}
@@ -83,7 +92,7 @@ export default function ScrollCard({
             ))}
           </div>
 
-          <div className="relative h-[300px] md:h-[490px]">
+          <div className="relative flex h-[300px] flex-col gap-4 md:h-[490px] md:gap-6">
             {features.map((feature, index) => (
               <TextItem
                 key={feature.title}
@@ -107,7 +116,11 @@ interface ScrollItemProps {
   progress: MotionValue<number>;
 }
 
-function useActiveValue(progress: MotionValue<number>, index: number, total: number) {
+function useActiveValue(
+  progress: MotionValue<number>,
+  index: number,
+  total: number,
+) {
   const sectionLength = 1 / total;
   const start = index * sectionLength;
   const end = (index + 1) * sectionLength;
@@ -120,25 +133,29 @@ function useActiveValue(progress: MotionValue<number>, index: number, total: num
     : isLast
       ? [slideStart, start, 1]
       : [slideStart, start, end];
-  const outputs = isFirst
-    ? [1, 1, 0]
-    : isLast
-      ? [0, 1, 1]
-      : [0, 1, 0];
+  const outputs = isFirst ? [1, 1, 0] : isLast ? [0, 1, 1] : [0, 1, 0];
 
   const active = useTransform(progress, inputs, outputs);
   return { active, start, end, slideStart, isFirst, isLast };
 }
 
 function ScrollImage({ feature, index, total, progress }: ScrollItemProps) {
-  const { start, end, slideStart, isFirst, isLast } = useActiveValue(progress, index, total);
+  const { start, end, slideStart, isFirst, isLast } = useActiveValue(
+    progress,
+    index,
+    total,
+  );
 
   const y = useTransform(
     progress,
     isFirst ? [0, 1] : [slideStart, start],
     isFirst ? ["0%", "0%"] : ["100%", "0%"],
   );
-  const scale = useTransform(progress, isLast ? [0, 1] : [start, end], isLast ? [1, 1] : [1, 0.7]);
+  const scale = useTransform(
+    progress,
+    isLast ? [0, 1] : [start, end],
+    isLast ? [1, 1] : [1, 0.7],
+  );
   const hidePoint = Math.min(end + 0.001, 1);
   const opacity = useTransform(
     progress,
@@ -148,14 +165,20 @@ function ScrollImage({ feature, index, total, progress }: ScrollItemProps) {
 
   return (
     <motion.div
-      style={{ y, scale, opacity, zIndex: index, willChange: "transform, opacity" }}
+      style={{
+        y,
+        scale,
+        opacity,
+        zIndex: index,
+        willChange: "transform, opacity",
+      }}
       className="absolute inset-0 origin-top"
     >
       <Image
         src={feature.image}
         alt={feature.title}
         fill
-        className="object-cover rounded-xl"
+        className="rounded-xl object-cover"
         draggable={false}
         sizes="(max-width: 768px) 100vw, 50vw"
       />
@@ -180,15 +203,16 @@ function TextItem({ feature, index, total, progress }: ScrollItemProps) {
     <div className="flex flex-col space-y-2 md:space-y-5">
       <motion.h2
         style={{ letterSpacing }}
-        className={`max-w-sm text-3xl md:text-4xl font-medium leading-[1.15] tracking-tight transition-colors duration-300 ${isActive ? "text-foreground" : "text-muted-foreground"
-          }`}
+        className={`max-w-sm text-2xl leading-[1.15] font-medium tracking-tight transition-colors duration-300 md:text-3xl ${
+          isActive ? "text-foreground" : "text-muted-foreground"
+        }`}
       >
         {feature.title}
       </motion.h2>
       <motion.div style={{ height: descHeight }} className="overflow-hidden">
         <motion.p
           style={{ opacity: descOpacity, y: descY }}
-          className="max-w-md text-sm md:text-[16px] leading-relaxed text-muted-foreground"
+          className="text-muted-foreground max-w-md text-sm leading-relaxed md:text-[16px]"
         >
           {feature.description}
         </motion.p>

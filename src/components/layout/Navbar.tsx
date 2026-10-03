@@ -4,10 +4,11 @@ import { useState, useId } from "react";
 import Image from "next/image";
 import { Link } from "next-view-transitions";
 import { motion, AnimatePresence } from "motion/react";
-import { Github, Search } from "lucide-react";
+import { Github, Search, Star } from "lucide-react";
 
 // Internal Config & Components
 import { navbarConfig } from "@/config/Navbar";
+import { formatStarCount } from "@/lib/github-stars";
 import Container from "../common/Container";
 import { ThemeToggleButton } from "../custom/ThemeToggle";
 import { Button } from "../ui/button";
@@ -20,7 +21,11 @@ const mobileNavItems = navbarConfig.mobileNavItems.map((item) => ({
   href: item.href,
 }));
 
-export default function Navbar() {
+export default function Navbar({
+  starCount = null,
+}: {
+  starCount?: number | null;
+}) {
   const { setOpen: setMenuOpen } = useCommandMenu();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const hoverPillId = useId();
@@ -116,21 +121,47 @@ export default function Navbar() {
               </kbd>
             </Button>
 
-            {/* Theme Toggle */}
+            {/* GitHub link + star count */}
             <Button
               asChild
               variant="outline"
-              size="icon"
-              className="hidden text-sm font-medium lg:flex"
+              size="sm"
+              className="group text-muted-foreground hover:text-foreground hidden items-center gap-2 lg:flex"
             >
-              <a
+              <Link
                 href={navbarConfig.links.github}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="View Kick UI on GitHub"
+                aria-label={
+                  starCount === null
+                    ? "View Kick UI on GitHub"
+                    : `View Kick UI on GitHub — ${starCount.toLocaleString()} ${
+                        starCount === 1 ? "star" : "stars"
+                      }`
+                }
               >
-                <Github />
-              </a>
+                {/* Lucide rather than public/assets/svgs/github1.svg: the
+                    asset hardcodes fill="#161614" and an <image href> cannot
+                    inherit currentColor, so it vanishes in dark mode. */}
+                <Github className="h-4 w-4" />
+                {starCount !== null && (
+                  <>
+                    {/* Divider — inset from the button padding so it reads as
+                        an internal split rather than an outer border. */}
+                    <span
+                      aria-hidden="true"
+                      className="bg-border mx-0.5 h-4 w-px shrink-0"
+                    />
+                    <Star
+                      className="group-hover:text-primary h-3.5 w-3.5 transition-colors"
+                      data-icon="inline-start"
+                    />
+                    <span className="text-sm font-medium tabular-nums">
+                      {formatStarCount(starCount)}
+                    </span>
+                  </>
+                )}
+              </Link>
             </Button>
             <ThemeToggleButton />
 

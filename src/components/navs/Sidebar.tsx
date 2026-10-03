@@ -21,6 +21,7 @@ import {
   type SidebarCategory,
   type SidebarStaticSection,
 } from "@/config/Sidebar";
+import { categoryIcons, staticSectionIcons } from "@/config/sidebar-icons";
 
 // ─── Animation Presets ───────────────────────────────────────────────────────
 
@@ -51,6 +52,7 @@ function NavItem({
       href={path}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noreferrer" : undefined}
+      data-sidebar-active={isActive ? "true" : undefined}
       onMouseEnter={() => setHoveredPath(path)}
       onMouseLeave={() => setHoveredPath(null)}
       onClick={(event) => {
@@ -131,16 +133,18 @@ function CategorySection({
   const isCategoryActive = category.items.some(
     (item) => pathname === `${category.basePath}/${item.slug}`,
   );
+  const Icon = categoryIcons[category.category];
 
   return (
     <div>
       {/* Section header — sits ABOVE the vertical line */}
       <div
         className={cn(
-          "mb-1.5 text-sm font-bold tracking-wider select-none",
-          isCategoryActive ? "text-primary" : "text-muted-foreground/60",
+          "mb-1.5 flex items-center gap-2 text-sm font-bold tracking-wider select-none",
+          isCategoryActive ? "text-primary" : "text-muted-foreground",
         )}
       >
+        <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
         {category.title}
       </div>
 
@@ -184,15 +188,17 @@ function StaticSection({
   closeMobile: () => void;
 }) {
   const isSectionActive = section.items.some((item) => pathname === item.href);
+  const Icon = staticSectionIcons[section.title];
 
   return (
     <div>
       <div
         className={cn(
-          "mb-1.5 text-sm font-bold tracking-wider select-none",
-          isSectionActive ? "text-primary" : "text-muted-foreground/60",
+          "mb-1.5 flex items-center gap-2 text-sm font-bold tracking-wider select-none",
+          isSectionActive ? "text-primary" : "text-muted-foreground",
         )}
       >
+        {Icon && <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />}
         {section.title}
       </div>
 
@@ -225,10 +231,39 @@ export default function Sidebar() {
   const desktopScrollRef = useRef<HTMLDivElement>(null);
   const mobileScrollRef = useRef<HTMLDivElement>(null);
 
-  // Reset internal sidebar scroll on navigation so the list doesn't stay pushed up
+  /**
+   * Reveal the active item instead of resetting the list to the top.
+   *
+   * Resetting to 0 on every navigation threw away the reader's position, so
+   * picking a component near the end of a long category snapped the whole
+   * list back to the first entry. Measuring each container by hand keeps the
+   * page itself still — Element.scrollIntoView would walk up and scroll the
+   * window too, which fights the sticky sidebar.
+   *
+   * Both containers are handled: the mobile sheet and the desktop rail render
+   * the same nav tree, and only one of them is mounted at a time.
+   */
   useEffect(() => {
-    if (desktopScrollRef.current) desktopScrollRef.current.scrollTop = 0;
-    if (mobileScrollRef.current) mobileScrollRef.current.scrollTop = 0;
+    for (const ref of [desktopScrollRef, mobileScrollRef]) {
+      const container = ref.current;
+      if (!container) continue;
+
+      const active = container.querySelector<HTMLElement>(
+        '[data-sidebar-active="true"]',
+      );
+      if (!active) continue;
+
+      const containerBox = container.getBoundingClientRect();
+      const activeBox = active.getBoundingClientRect();
+
+      // Only move when the item is actually clipped, so re-selecting a
+      // visible item leaves the list exactly where the reader left it.
+      if (activeBox.top < containerBox.top) {
+        container.scrollTop -= containerBox.top - activeBox.top;
+      } else if (activeBox.bottom > containerBox.bottom) {
+        container.scrollTop += activeBox.bottom - containerBox.bottom;
+      }
+    }
   }, [pathname]);
 
   const closeMobile = () => setIsOpen(false);

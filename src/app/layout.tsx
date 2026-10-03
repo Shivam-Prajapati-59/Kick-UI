@@ -5,6 +5,7 @@ import Provider from "@/providers/provider";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import { ViewTransitions } from "next-view-transitions";
 import { SITE_CONFIG } from "@/lib/site-config";
+import { getGithubStars } from "@/lib/github-stars";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -98,11 +99,16 @@ function JsonLd() {
   );
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Fetched here rather than inside Navbar: Navbar is a client component, and
+  // a browser-side fetch would hit GitHub's per-IP rate limit on every visit.
+  // `getGithubStars` returns null on any failure, so the badge simply hides.
+  const starCount = await getGithubStars();
+
   return (
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
@@ -115,7 +121,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Provider>{children}</Provider>
+            <Provider starCount={starCount}>{children}</Provider>
           </ThemeProvider>
           <JsonLd />
         </body>
