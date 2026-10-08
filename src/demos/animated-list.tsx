@@ -198,7 +198,7 @@ const CryptoCard = ({
       whileInView="visible"
       viewport={{ once: false, amount: 0.2, root: listRef }}
       className={cn(
-        "flex items-center justify-between p-4 mb-2 rounded-lg shadow-sm border border-border cursor-pointer transition-colors",
+        "border-border mb-2 flex cursor-pointer items-center justify-between rounded-lg border p-4 shadow-sm transition-colors",
         isSelected ? "bg-accent" : "bg-card hover:bg-accent/50",
       )}
       onMouseEnter={onMouseEnter}
@@ -211,12 +211,12 @@ const CryptoCard = ({
           alt={coin.name}
           width={40}
           height={40}
-          className="w-10 h-10 object-contain"
+          className="h-10 w-10 object-contain"
           unoptimized
         />
         <div>
           <h3 className="font-semibold">{coin.name}</h3>
-          <p className="text-sm text-muted-foreground">{coin.symbol}</p>
+          <p className="text-muted-foreground text-sm">{coin.symbol}</p>
         </div>
       </div>
       <div className="text-right">
@@ -239,6 +239,7 @@ const AnimatedListDemo = () => {
   return (
     <AnimatedList
       items={AnimatedListItems}
+      className="mx-auto xl:max-w-[400px]"
       renderItem={(
         item: CryptoListItem,
         index: number,

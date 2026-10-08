@@ -211,6 +211,20 @@
     @apply bg-background text-foreground;
     letter-spacing: var(--tracking-normal);
   }
+
+  /* Number inputs: drop the spinner arrows.
+     Chrome/Safari need the pseudo-elements cleared; Firefox needs
+     `-moz-appearance: textfield`. Keep `type="number"` so mobile still
+     serves a numeric keypad. */
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 /* Hide scrollbar but keep scroll functionality */

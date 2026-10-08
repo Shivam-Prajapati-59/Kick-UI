@@ -14,7 +14,7 @@ const footerLinks = [
     ],
   },
   {
-    title: "Community",
+    title: "Socials",
     links: [
       { label: "GitHub", href: SITE_CONFIG.github },
       { label: "X / Twitter", href: SITE_CONFIG.twitter },
@@ -52,7 +52,7 @@ const LandingFooter = () => {
           <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-20">
             {footerLinks.map((section) => (
               <div key={section.title}>
-                <h3 className="text-foreground/80 mb-4 text-sm font-semibold tracking-[0.18em] uppercase">
+                <h3 className="text-foreground/80 mb-4 text-md font-bold tracking-[0.18em]">
                   {section.title}
                 </h3>
 

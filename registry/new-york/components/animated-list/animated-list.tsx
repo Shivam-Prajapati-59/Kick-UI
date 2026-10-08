@@ -34,7 +34,9 @@ export function AnimatedList<T>({
 
   // Performance Optimization: GPU Accelerated Scroll Gradients
   const { scrollYProgress } = useScroll({ container: listRef });
-  const topGradientOpacity = useTransform(scrollYProgress, [0, 0.05], [0, 1]);
+  // Top blend stays visible from load (mirrors the bottom blend's
+  // always-on presence) instead of fading in only after scrolling.
+  const topGradientOpacity = useTransform(scrollYProgress, [0, 0.05], [1, 1]);
   const bottomGradientOpacity = useTransform(
     scrollYProgress,
     [0.95, 1],

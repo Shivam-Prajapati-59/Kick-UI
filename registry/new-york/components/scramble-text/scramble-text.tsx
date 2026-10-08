@@ -117,7 +117,7 @@ const ScrambleText = ({
             onFocus={() => setIsHovered(true)}
             onBlur={() => setIsHovered(false)}
             className={cn(
-                "group relative inline-flex items-center cursor-pointer text-4xl font-bold leading-normal tracking-[0.08em] text-foreground no-underline uppercase sm:text-5xl",
+                "group relative inline-flex items-center cursor-pointer text-4xl font-bold leading-normal tracking-[0.08em] text-foreground no-underline  sm:text-5xl",
                 className,
             )}
         >

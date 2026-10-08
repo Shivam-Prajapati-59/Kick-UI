@@ -9,7 +9,7 @@ export default function GlobalError({
 }) {
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 text-center">
-      <p className="text-muted-foreground text-sm font-medium tracking-widest uppercase">
+      <p className="text-muted-foreground text-md font-medium tracking-widest">
         Something went wrong
       </p>
       <h1 className="text-3xl font-bold tracking-tight">Unexpected error</h1>
