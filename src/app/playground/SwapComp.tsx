@@ -527,7 +527,7 @@ export default function SwapComp({
     };
 
     return (
-        <div className="text-card-foreground bg-card w-[480px] rounded-[24px] p-2">
+        <div className="text-card-foreground bg-card w-full max-w-[480px] rounded-[24px] p-2">
             {/* Header: title + chain selector */}
             <div className="flex items-center justify-between px-2 pt-1 pb-3">
                 <span className="text-base font-semibold">Swap</span>

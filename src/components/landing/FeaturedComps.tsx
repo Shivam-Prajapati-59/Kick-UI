@@ -17,8 +17,7 @@ import { cn } from "@/lib/utils";
 import StackedCarouselDemo from "@/demos/stacked-carousel";
 import AnimatedListDemo from "@/demos/animated-list";
 import PillButtonDemo from "@/demos/pill-button";
-import { div } from "three/src/nodes/math/OperatorNode.js";
-import { fa } from "zod/v4/locales";
+
 
 const ScrambleText = dynamic(
   () => import("@registry/new-york/components/scramble-text/scramble-text"),
@@ -145,7 +144,7 @@ const boxes: Box[] = [
     framed: false,
     content: (
       <div className="flex w-full justify-center">
-        <div className="-translate-x-3">
+        <div className="-translate-x-6">
           <div className="scale-[2.25]">
             <SlideTextButton />
           </div>
@@ -160,7 +159,7 @@ const boxes: Box[] = [
     framed: false,
     content: (
       <div className="flex w-full justify-start">
-        <div className="translate-x-22">
+        <div className="translate-x-26">
           <ScrambleText text="# Web3 " className="text-7xl font-bold" />
         </div>
       </div>
@@ -172,7 +171,7 @@ const boxes: Box[] = [
     color: "border-success/40 bg-success/15 text-success",
     framed: false,
     content: (
-      <div className="-translate-y-20 -translate-x-0">
+      <div className="-translate-y-15 translate-x-15">
         <AnimatedListDemo />
       </div>
     )
@@ -191,7 +190,7 @@ const boxes: Box[] = [
     place: "col-start-5 col-end-9 row-start-5 row-end-10",
     color: "border-accent-foreground/40 bg-accent text-accent-foreground",
     content: (
-      <div className="scale-95 mt-18">
+      <div className="scale-95 mt-35 pl-8">
         <PillCard />
       </div>
     ),
@@ -200,24 +199,24 @@ const boxes: Box[] = [
 
 const FeaturedComps = () => {
   return (
-    <section>
+    <section className="hidden min-[1440px]:block pb-12">
       {/* Section header */}
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="mx-auto max-w-7xl px-4 text-center">
         <p className="text-primary text-sm font-medium">Featured Components</p>
 
-        <h2 className="mt-2 max-w-3xl text-3xl leading-tight font-light md:text-5xl">
+        <h2 className="mx-auto mt-2 max-w-3xl text-3xl leading-tight font-light md:text-5xl">
           Watch our <span className="font-medium">signature components</span>
         </h2>
 
-        <p className="text-muted-foreground mt-4 max-w-2xl text-base md:text-lg">
+        <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-base md:text-lg">
           Try the newest interactive effects. Every preview below is the real
           component — hover, focus, and tap it, then copy the source.
         </p>
       </div>
 
       {/* Placement grid: 12 columns × 10 rows, 8px gaps */}
-      <div className="mx-auto mt-12 max-w-full">
-        <div className="bg-background grid h-[960px] grid-cols-12 grid-rows-9 gap-2 rounded-2xl">
+      <div className="relative mx-auto mt-12 max-w-full">
+        <div className="bg-background relative grid h-[1060px] grid-cols-12 grid-rows-9 gap-2 rounded-2xl pb-6">
           {boxes.map((box) => (
             <div
               key={box.id}
@@ -233,7 +232,50 @@ const FeaturedComps = () => {
               {box.content ?? box.id}
             </div>
           ))}
+          {/* Interior dashed separators — inset so they never touch the outer border */}
+          {/* 1. Centre vertical: between box 1 (cols 1-4) and box 2 (cols 5-12) */}
+          <div
+            aria-hidden
+            className="border-border pointer-events-none absolute top-[3%] bottom-[46%] left-[33.1%] border-l border-dashed"
+          />
+          {/* 2. Top horizontal: below CardStack, above slide-text / scramble row */}
+          <div
+            aria-hidden
+            className="border-border pointer-events-none absolute top-[32.5%] right-[1%] left-[33.1%] border-t border-dashed"
+          />
+          {/* 3. Middle vertical: between slide-text + scramble cluster and AnimatedList, running up */}
+          <div
+            aria-hidden
+            className="border-border pointer-events-none absolute top-[32.5%] bottom-[3%] left-[66.4%] border-l border-dashed"
+          />
+          {/* 4. Mid horizontal: above StackedCarousel / PillCard, below slide + scramble */}
+          <div
+            aria-hidden
+            className="border-border pointer-events-none absolute right-[33.7%] bottom-[46%] left-[1%] border-t border-dashed"
+          />
         </div>
+        {/* betweem Stakced Craosuel and pill card line  */}
+        <div
+          aria-hidden
+          className="border-border pointer-events-none absolute top-[54.1%] bottom-[3%] left-[36.1%] border-l border-dashed"
+        />
+
+        {/* line between slidetext and scramble text  */}
+        <div
+          aria-hidden
+          className="border-border pointer-events-none absolute top-[32.7%] bottom-[46%] left-[47%] border-l border-dashed"
+        />
+      </div>
+
+      {/* Section footer — link to full catalog */}
+      <div className="mt-10 flex justify-center">
+        <Link
+          href="/components"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-10 items-center justify-center gap-2 rounded-md px-6 text-sm font-medium transition-all"
+        >
+          View all components
+          <ArrowUpRight className="size-4" />
+        </Link>
       </div>
     </section>
   );
