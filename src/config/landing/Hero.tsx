@@ -17,14 +17,14 @@ export const heroConfig = {
   badgeHref: "/components/trading-chart",
 
   title: {
-    line1: "Your Ultimate UI Library For",
+    line1: "The Ultimate UI Library for Web3",
     line2: "Designing Faster. Shipping Smarter.",
   },
 
   description:
-    `${componentCount}+ beautifully crafted, animated UI components built with ` +
-    "React, Tailwind CSS, and Motion — installed as source code you own via the " +
-    "shadcn CLI, ready to power your next website or product.",
+    `${componentCount}+ beautifully crafted, animated React components for Web3 and modern apps, ` +
+    "built with Tailwind CSS and Motion — installed as source code you own via the " +
+    "shadcn CLI, ready to power your next dapp or product.",
 
   cta: {
     primary: {

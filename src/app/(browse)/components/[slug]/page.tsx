@@ -75,7 +75,9 @@ function ComponentJsonLd({
         operatingSystem: "Any",
         author: { "@id": `${SITE_CONFIG.url}#organization` },
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-        keywords: [category, "react", "shadcn", "tailwind css"].join(", "),
+        keywords: [category, "react", "web3", "shadcn", "tailwind css"].join(
+          ", ",
+        ),
       },
       {
         "@type": "BreadcrumbList",
@@ -105,7 +107,10 @@ function ComponentJsonLd({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{
+        // Escape `<` so a `</script>` sequence in content can never break out.
+        __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+      }}
     />
   );
 }

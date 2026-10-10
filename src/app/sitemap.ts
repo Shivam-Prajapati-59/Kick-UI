@@ -6,7 +6,9 @@ import { SITE_CONFIG } from "@/lib/site-config";
 export default function sitemap(): MetadataRoute.Sitemap {
   // No lastModified: we don't track real content-modification timestamps,
   // and fabricated `new Date()` values erode crawler trust in the signal.
-  const staticRoutes = ["", "/components", "/playground"].map((route) => ({
+  // `/playground` is deliberately excluded: it serves `noindex`, and a
+  // sitemap must list only URLs intended for indexing.
+  const staticRoutes = ["", "/components"].map((route) => ({
     url: `${SITE_CONFIG.url}${route}`,
     changeFrequency: "weekly" as const,
     priority: route === "" ? 1 : 0.8,

@@ -74,6 +74,27 @@ export interface CardStackProps {
   cardClassName?: string;
 }
 
+/**
+ * Mobile fallback: below `md` the fan-out positions (±300px) overflow the
+ * viewport, so only the first card renders, pinned in its stacked slot with
+ * no fan or hover motion. Full responsiveness lands later; until then the
+ * mobile view stays a clean single card. SSR-safe: resolves after mount so
+ * the first client render always matches the server.
+ */
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
+    const update = () => setIsMobile(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 export default function CardStack({
   items = cryptoCards,
   openDelay = 600,
@@ -85,6 +106,10 @@ export default function CardStack({
   const [open, setOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+
+  // Mobile shows the first card only — no fan-out behind it.
+  const visibleItems = isMobile ? items.slice(0, 1) : items;
 
   useEffect(() => {
     // Skip the staged intro animation when the user prefers reduced motion.
@@ -115,14 +140,14 @@ export default function CardStack({
         className,
       )}
     >
-      {items.map((card, index) => (
+      {visibleItems.map((card, index) => (
         <motion.div
           key={card.id}
           custom={card.position}
           variants={CARD_VARIANTS}
-          initial="hidden"
-          animate={open ? "fanned" : "stacked"}
-          whileHover={{ y: hoverOffset, scale: 1 }}
+          initial={isMobile ? "stacked" : "hidden"}
+          animate={isMobile ? "stacked" : open ? "fanned" : "stacked"}
+          whileHover={isMobile ? undefined : { y: hoverOffset, scale: 1 }}
           transition={{
             type: "spring",
             stiffness: 170,

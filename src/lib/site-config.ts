@@ -6,14 +6,21 @@
 export const SITE_CONFIG = {
   name: "Kick UI",
   url: "https://kick-ui.vercel.app",
-  tagline: "Beautifully animated UI components for React",
+  tagline: "Beautifully animated React & Web3 UI components",
   description:
-    "A collection of beautifully designed, animated UI components for React. Accessible, customizable, open source — installed as source code you own via the shadcn CLI.",
+    "Kick UI is an open-source React component library for Web3 and modern apps — animated, accessible UI components installed as source code you own via the shadcn CLI.",
   keywords: [
     "react ui components",
     "shadcn ui",
     "animated components",
     "tailwind css components",
+    "web3 ui components",
+    "web3 react component library",
+    "best react component library for web3",
+    "crypto ui components",
+    "defi dashboard components",
+    "dapp ui kit",
+    "web3 design system",
     "framer motion components",
     "next.js ui library",
     "open source react components",

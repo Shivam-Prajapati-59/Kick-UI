@@ -19,6 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
+  applicationName: SITE_CONFIG.name,
   title: {
     default: `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`,
     template: `%s | ${SITE_CONFIG.name}`,
@@ -94,7 +95,10 @@ function JsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{
+        // Escape `<` so a `</script>` sequence in content can never break out.
+        __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+      }}
     />
   );
 }

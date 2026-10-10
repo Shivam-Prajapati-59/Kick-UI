@@ -12,7 +12,14 @@ import { getComponentDocsByCategory } from "@/lib/component-docs";
 export const metadata: Metadata = {
   title: "Components",
   description:
-    "Browse every Kick UI component — animated buttons, cards, text effects, docks, carousels, and layout sections. Copy the install command and ship in seconds.",
+    "Browse every Kick UI component — Web3-ready trading charts, animated buttons, cards, text effects, docks and sections. Copy the install command and ship in seconds.",
+  keywords: [
+    "web3 ui components",
+    "react component library",
+    "animated react components",
+    "crypto dashboard components",
+    "shadcn components",
+  ],
   alternates: {
     canonical: "/components",
   },

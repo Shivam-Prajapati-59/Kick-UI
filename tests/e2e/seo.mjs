@@ -35,7 +35,7 @@ async function html(path) {
   assert(h.status === 200, "/ returns 200");
   assert(
     h.text.includes(
-      "<title>Kick UI — Beautifully animated UI components for React</title>",
+      "<title>Kick UI — Beautifully animated React &amp; Web3 UI components</title>",
     ),
     "default title with tagline",
   );
@@ -56,10 +56,7 @@ async function html(path) {
       h.text.includes('"@type":"Organization"'),
     "WebSite + Organization schema",
   );
-  assert(
-    h.text.includes("max-image-preview"),
-    "googleBot max-image-preview directive",
-  );
+  assert(h.text.includes("max-image-preview"), "googleBot max-image-preview directive");
 
   console.log("\nSEO regression — component page:");
   h = await html("/components/timeframe-tabs");
@@ -134,6 +131,10 @@ async function html(path) {
   assert(
     rb.text.includes(`Sitemap: ${registryConfig.homepage}/sitemap.xml`),
     "robots references sitemap",
+  );
+  assert(
+    !sm.text.includes("/playground"),
+    "sitemap excludes noindex playground",
   );
 
   console.log("\nNoindex hygiene:");

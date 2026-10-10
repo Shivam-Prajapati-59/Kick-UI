@@ -74,7 +74,7 @@ function metaTags(html) {
   const PROD = registryConfig.homepage;
   console.log("\n[Metadata quality]");
   for (const [path, expectTitle] of [
-    ["/", "Kick UI — Beautifully animated UI components for React"],
+    ["/", "Kick UI — Beautifully animated React &amp; Web3 UI components"],
     ["/components", "Components | Kick UI"],
     [guideHref("cli"), `${getGuidePage("cli").title} | Kick UI`],
     ["/components/timeframe-tabs", "Timeframe Tabs | Kick UI"],

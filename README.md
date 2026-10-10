@@ -2,7 +2,7 @@
 
 # Kick UI
 
-**Beautifully animated UI components for React.**
+**Beautifully animated React & Web3 UI components.**
 Accessible · Customizable · Open Source — installed as source code you own.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-8b5cf6.svg)](./LICENSE)
