@@ -52,7 +52,7 @@ export const PKG_MANAGERS: PackageManager[] = ["npm", "pnpm", "yarn", "bun"];
  */
 export const REGISTRY_HOMEPAGE = SITE_CONFIG.url;
 
-export const EXAMPLE_COMPONENT_NAME = "shiny-button";
+export const EXAMPLE_COMPONENT_NAME = "pill-button";
 
 export const EXAMPLE_INSTALL_COMMAND = `npx shadcn@latest add ${REGISTRY_HOMEPAGE}/r/${EXAMPLE_COMPONENT_NAME}.json`;
 

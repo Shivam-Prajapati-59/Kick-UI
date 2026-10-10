@@ -16,8 +16,6 @@ import { getCategoryMetadata } from "@/lib/component-categories";
 import { cn } from "@/lib/utils";
 import StackedCarouselDemo from "@/demos/stacked-carousel";
 import AnimatedListDemo from "@/demos/animated-list";
-import PillButtonDemo from "@/demos/pill-button";
-
 
 const ScrambleText = dynamic(
   () => import("@registry/new-york/components/scramble-text/scramble-text"),
@@ -171,41 +169,93 @@ const boxes: Box[] = [
     color: "border-success/40 bg-success/15 text-success",
     framed: false,
     content: (
-      <div className="-translate-y-15 translate-x-15">
+      <div className="translate-x-15 -translate-y-15">
         <AnimatedListDemo />
       </div>
-    )
+    ),
   },
   {
     id: 4,
     place: "col-start-1 col-end-6 row-start-6 row-end-8",
     color: "border-destructive/40 bg-destructive/15 text-destructive",
     framed: false,
-    content: (
-      <StackedCarouselDemo />
-    ),
+    content: <StackedCarouselDemo />,
   },
   {
     id: 5,
     place: "col-start-5 col-end-9 row-start-5 row-end-10",
     color: "border-accent-foreground/40 bg-accent text-accent-foreground",
     content: (
-      <div className="scale-95 mt-35 pl-8">
+      <div className="mt-35 scale-95 pl-8">
         <PillCard />
       </div>
     ),
-  }
+  },
 ];
+
+/**
+ * Interior dashed separators for the collage grid.
+ *
+ * Static dashed line with optional edge fade via CSS mask (no animation).
+ * `borderClass` is the literal border side ("border-l" or "border-t")
+ * so Tailwind can see and generate it.
+ *
+ * `fadeFrom` controls where the line melts into the background along its
+ * own axis: "start" = top (vertical) / left (horizontal), "end" = bottom
+ * (vertical) / right (horizontal), "both" = fades in from both ends and
+ * is solid across the middle. Omitted ("none") = fully visible, no mask —
+ * used by the centre lines, which should not fade at all.
+ */
+type FadeFrom = "none" | "start" | "end" | "both";
+
+const FADE_MASKS: {
+  "border-l": Record<Exclude<FadeFrom, "none">, string>;
+  "border-t": Record<Exclude<FadeFrom, "none">, string>;
+} = {
+  "border-l": {
+    start: "linear-gradient(to bottom, transparent, black 40%)",
+    end: "linear-gradient(to top, transparent, black 40%)",
+    both: "linear-gradient(to bottom, transparent, black 40%, black 60%, transparent)",
+  },
+  "border-t": {
+    start: "linear-gradient(to right, transparent, black 40%)",
+    end: "linear-gradient(to left, transparent, black 40%)",
+    both: "linear-gradient(to right, transparent, black 40%, black 60%, transparent)",
+  },
+};
+
+const DashedSeparator = ({
+  borderClass,
+  className,
+  fadeFrom = "none",
+}: {
+  borderClass: "border-l" | "border-t";
+  className: string;
+  fadeFrom?: FadeFrom;
+}) => {
+  const mask =
+    fadeFrom === "none" ? undefined : FADE_MASKS[borderClass][fadeFrom];
+
+  return (
+    <div
+      aria-hidden
+      style={mask ? { maskImage: mask, WebkitMaskImage: mask } : undefined}
+      className={cn(
+        "border-primary/40 pointer-events-none absolute border-dashed",
+        borderClass,
+        className,
+      )}
+    />
+  );
+};
 
 const FeaturedComps = () => {
   return (
-    <section className="hidden min-[1440px]:block pb-12">
+    <section className="hidden pb-12 min-[1440px]:block">
       {/* Section header */}
       <div className="mx-auto max-w-7xl px-4 text-center">
-        <p className="text-primary text-sm font-medium">Featured Components</p>
-
-        <h2 className="mx-auto mt-2 max-w-3xl text-3xl leading-tight font-light md:text-5xl">
-          Watch our <span className="font-medium">signature components</span>
+        <h2 className="mx-auto mt-2 max-w-3xl text-3xl leading-tight font-medium md:text-5xl lg:text-6xl">
+          Featured Components
         </h2>
 
         <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-base md:text-lg">
@@ -224,7 +274,7 @@ const FeaturedComps = () => {
                 `${box.place} flex items-center justify-center overflow-hidden rounded-xl`,
                 box.content
                   ? box.framed
-                    ? "border-border  border"
+                    ? "border-border border"
                     : "bg-transparent"
                   : `border ${box.color} text-lg font-semibold tabular-nums md:text-2xl`,
               )}
@@ -232,38 +282,43 @@ const FeaturedComps = () => {
               {box.content ?? box.id}
             </div>
           ))}
-          {/* Interior dashed separators — inset so they never touch the outer border */}
+          {/* Interior dashed separators — inset so they never touch the outer border. */}
           {/* 1. Centre vertical: between box 1 (cols 1-4) and box 2 (cols 5-12) */}
-          <div
-            aria-hidden
-            className="border-border pointer-events-none absolute top-[3%] bottom-[46%] left-[33.1%] border-l border-dashed"
+          <DashedSeparator
+            borderClass="border-l"
+            fadeFrom="start"
+            className="top-[3%] bottom-[46%] left-[33.1%]"
           />
-          {/* 2. Top horizontal: below CardStack, above slide-text / scramble row */}
-          <div
-            aria-hidden
-            className="border-border pointer-events-none absolute top-[32.5%] right-[1%] left-[33.1%] border-t border-dashed"
+          {/* 2. Top horizontal: below CardStack, above slide-text / scramble row (touches the right grid edge → fades from the right) */}
+          <DashedSeparator
+            borderClass="border-t"
+            fadeFrom="end"
+            className="top-[32.5%] right-[1%] left-[33.1%]"
           />
-          {/* 3. Middle vertical: between slide-text + scramble cluster and AnimatedList, running up */}
-          <div
-            aria-hidden
-            className="border-border pointer-events-none absolute top-[32.5%] bottom-[3%] left-[66.4%] border-l border-dashed"
+          {/* 3. Middle vertical: between slide-text + scramble cluster and AnimatedList (touches the bottom grid edge → fades from the bottom) */}
+          <DashedSeparator
+            borderClass="border-l"
+            fadeFrom="end"
+            className="top-[32.5%] bottom-[3%] left-[66.4%]"
           />
-          {/* 4. Mid horizontal: above StackedCarousel / PillCard, below slide + scramble */}
-          <div
-            aria-hidden
-            className="border-border pointer-events-none absolute right-[33.7%] bottom-[46%] left-[1%] border-t border-dashed"
+          {/* 4. Mid horizontal: above StackedCarousel / PillCard (touches the left grid edge → fades from the left) */}
+          <DashedSeparator
+            borderClass="border-t"
+            fadeFrom="start"
+            className="right-[33.7%] bottom-[46%] left-[1%]"
           />
         </div>
-        {/* betweem Stakced Craosuel and pill card line  */}
-        <div
-          aria-hidden
-          className="border-border pointer-events-none absolute top-[54.1%] bottom-[3%] left-[36.1%] border-l border-dashed"
+        {/* Line between Stacked Carousel and Pill Card (touches the bottom grid edge → fades from the bottom) */}
+        <DashedSeparator
+          borderClass="border-l"
+          fadeFrom="end"
+          className="top-[54.1%] bottom-[3%] left-[36.1%]"
         />
 
-        {/* line between slidetext and scramble text  */}
-        <div
-          aria-hidden
-          className="border-border pointer-events-none absolute top-[32.7%] bottom-[46%] left-[47%] border-l border-dashed"
+        {/* Line between SlideText and ScrambleText */}
+        <DashedSeparator
+          borderClass="border-l"
+          className="top-[32.7%] bottom-[46%] left-[47%]"
         />
       </div>
 

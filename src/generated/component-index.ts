@@ -22,12 +22,6 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "buttons"
   },
   {
-    "slug": "shiny-button",
-    "title": "Shiny Button",
-    "description": "A button with a smooth shiny animation effect.",
-    "category": "buttons"
-  },
-  {
     "slug": "slide-text-button",
     "title": "Slide Text Button",
     "description": "A button with sliding text and an expanding hover background.",

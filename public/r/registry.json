@@ -21,25 +21,6 @@
       ]
     },
     {
-      "name": "shiny-button",
-      "type": "registry:component",
-      "title": "Shiny Button",
-      "description": "A button with a smooth shiny animation effect.",
-      "category": "buttons",
-      "dependencies": [
-        "motion"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
-      "files": [
-        {
-          "path": "registry/new-york/components/shiny-button/shiny-button.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "cursor-web-fluid",
       "type": "registry:component",
       "title": "Cursor Web Fluid",

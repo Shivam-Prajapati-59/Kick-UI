@@ -64,7 +64,7 @@ export function PkgManagerTabs({
 }
 
 interface CommandTabsProps {
-  /** Command without the manager prefix, e.g. "shadcn@latest add @kick-ui/shiny-button". */
+  /** Command without the manager prefix, e.g. "shadcn@latest add @kick-ui/pill-button". */
   command: string;
   /** Unique id scoping copy/expand state for this block. */
   snippetId: string;

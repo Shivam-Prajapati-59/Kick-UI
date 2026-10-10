@@ -18,9 +18,9 @@ import { Home, Mail, Trash2, Activity, XCircle } from "lucide-react";
  * deliberately excluded: a WebGL scene and a websocket on the landing page
  * would cost far more than they're worth above the fold.
  */
-const ShinyButton = dynamic(() =>
-  import("@registry/new-york/components/shiny-button/shiny-button").then(
-    (m) => m.ShinyButton,
+const PillButton = dynamic(() =>
+  import("@registry/new-york/components/pill-button/pill-button").then(
+    (m) => m.PillButton,
   ),
 );
 const ScrambleText = dynamic(
@@ -84,13 +84,9 @@ interface ShowcaseItem {
 
 export const showcase: ShowcaseItem[] = [
   {
-    slug: "shiny-button",
+    slug: "pill-button",
     span: "lg:col-span-3",
-    preview: (
-      <ShinyButton duration={2.4} shimmerWidth={140}>
-        Ship it
-      </ShinyButton>
-    ),
+    preview: <PillButton>Ship it</PillButton>,
   },
   {
     slug: "scramble-text",

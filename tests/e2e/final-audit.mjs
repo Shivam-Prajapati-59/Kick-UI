@@ -214,13 +214,13 @@ function metaTags(html) {
     idx.items?.length === registryConfig.items.length,
     `/r/registry.json lists ${registryConfig.items.length} items`,
   );
-  const one = await (await fetch(`${BASE}/r/shiny-button.json`)).json();
+  const one = await (await fetch(`${BASE}/r/pill-button.json`)).json();
   assert(
     one.$schema?.includes("registry-item.json"),
     "item JSON carries schema ref",
   );
   assert(
-    one.files?.[0]?.content?.includes("ShinyButton"),
+    one.files?.[0]?.content?.includes("PillButton"),
     "item JSON embeds source",
   );
   assert(one.dependencies?.includes("motion"), "item JSON declares deps");

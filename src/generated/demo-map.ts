@@ -14,7 +14,6 @@ export const demos = {
   "pixel-image": dynamic(() => import("@/demos/pixel-image")),
   "scramble-text": dynamic(() => import("@/demos/scramble-text")),
   "scroll-card": dynamic(() => import("@/demos/scroll-card")),
-  "shiny-button": dynamic(() => import("@/demos/shiny-button")),
   "slide-text-button": dynamic(() => import("@/demos/slide-text-button")),
   "stacked-carousel": dynamic(() => import("@/demos/stacked-carousel")),
   "text-focus": dynamic(() => import("@/demos/text-focus")),

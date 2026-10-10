@@ -59,7 +59,7 @@ const PRESS_SHADOW =
 
 /** Edge-light tint for the glass effect — dark in light mode, white in dark
  *  mode, so the shadows, glows, border, and ripples read identically on both.
- *  Same portable-`<style>` + `.dark`-flip pattern as `shiny-button`. */
+ *  Portable-`<style>` + `.dark`-flip pattern keeps the file self-contained. */
 const pillGlassCss = `
   .pill-glass-scope {
     --glass-edge: 0, 0, 0;

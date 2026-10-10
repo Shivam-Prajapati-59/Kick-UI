@@ -379,7 +379,7 @@ Do you want to use CSS variables for colors? yes`,
                 kind: "command",
                 command: {
                   command:
-                    "shadcn@latest add https://kick-ui.vercel.app/r/shiny-button.json",
+                    "shadcn@latest add https://kick-ui.vercel.app/r/pill-button.json",
                   snippetId: "cli-add-url",
                 },
               },
@@ -402,7 +402,7 @@ Do you want to use CSS variables for colors? yes`,
               {
                 kind: "command",
                 command: {
-                  command: "shadcn@latest add @kick-ui/shiny-button",
+                  command: "shadcn@latest add @kick-ui/pill-button",
                   snippetId: "cli-add-ns",
                 },
               },
@@ -418,14 +418,14 @@ Do you want to use CSS variables for colors? yes`,
               {
                 kind: "command",
                 command: {
-                  command: "shadcn@latest add @kick-ui/shiny-button -y",
+                  command: "shadcn@latest add @kick-ui/pill-button -y",
                   snippetId: "cli-flag-yes",
                 },
               },
               {
                 kind: "command",
                 command: {
-                  command: "shadcn@latest add @kick-ui/shiny-button -o",
+                  command: "shadcn@latest add @kick-ui/pill-button -o",
                   snippetId: "cli-flag-overwrite",
                 },
               },
@@ -433,7 +433,7 @@ Do you want to use CSS variables for colors? yes`,
                 kind: "command",
                 command: {
                   command:
-                    "shadcn@latest add @kick-ui/shiny-button -c ./apps/web",
+                    "shadcn@latest add @kick-ui/pill-button -c ./apps/web",
                   snippetId: "cli-flag-cwd",
                 },
               },
@@ -505,7 +505,7 @@ Do you want to use CSS variables for colors? yes`,
               },
               {
                 kind: "paragraph",
-                text: "For example: “Add @kick-ui/shiny-button to my project.” For the full command reference, see the [shadcn CLI docs](https://ui.shadcn.com/docs/cli).",
+                text: "For example: “Add @kick-ui/pill-button to my project.” For the full command reference, see the [shadcn CLI docs](https://ui.shadcn.com/docs/cli).",
               },
             ],
           },

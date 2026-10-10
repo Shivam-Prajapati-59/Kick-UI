@@ -12,14 +12,14 @@ import {
 } from "@/components/ui/tooltip";
 
 const Hero = () => {
-  const { badgeText, title, description, cta, techStack } = heroConfig;
+  const { badgeText, badgeHref, title, description, cta, techStack } = heroConfig;
 
   return (
     // No <Container> here: app/page.tsx already wraps the whole landing page
     // in one. Nesting a second one double-applied px-4 and re-ran the fade-in.
     <section className="flex flex-col items-center gap-8 py-20 text-center">
       {/* Intro Badge */}
-      <IntroduceText text={badgeText} />
+      <IntroduceText text={badgeText} href={badgeHref} />
 
       {/* Hero Text */}
       <div className="max-w-3xl space-y-4">

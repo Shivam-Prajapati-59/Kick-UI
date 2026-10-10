@@ -24,7 +24,7 @@ import { PkgManagerTabs } from "./CommandTabs";
 /* ------------------------------------------------------------------ */
 
 interface CliInstallationProps {
-  /** Component slug from the registry (e.g. "shiny-button") */
+  /** Component slug from the registry (e.g. "pill-button") */
   slug: string;
   registryUrl?: string;
   dependencies: string[];

@@ -13,7 +13,8 @@ import { componentIndex } from "@/generated/component-index";
 const componentCount = componentIndex.length - 1;
 
 export const heroConfig = {
-  badgeText: `${componentCount} components · MIT licensed`,
+  badgeText: "Introducing new Trading Chart",
+  badgeHref: "/components/trading-chart",
 
   title: {
     line1: "Your Ultimate UI Library For",

@@ -21,13 +21,13 @@ Accessible · Customizable · Open Source — installed as source code you own.
 One command per component — no package to install, you own the code:
 
 ```bash
-npx shadcn@latest add https://kick-ui.vercel.app/r/shiny-button.json
+npx shadcn@latest add https://kick-ui.vercel.app/r/pill-button.json
 ```
 
 Or add Kick UI as a namespace once, then use short names everywhere:
 
 ```bash
-npx shadcn@latest add @kick-ui/shiny-button
+npx shadcn@latest add @kick-ui/pill-button
 ```
 
 ```jsonc
@@ -45,7 +45,7 @@ Dependencies (npm packages and shadcn primitives) are resolved and installed aut
 
 | Category               | Highlights                                                                |
 | ---------------------- | ------------------------------------------------------------------------- |
-| **Buttons**            | Shiny Button, Slide Text Button                                           |
+| **Buttons**            | Pill Button, Slide Text Button                                            |
 | **Cards**              | Card Stack, Pill Card                                                     |
 | **Components**         | Venue Selector, Mag Dock, Timeframe Tabs, Stacked Carousel, Animated List |
 | **Text Animations**    | Scramble Text, Text Focus                                                 |
@@ -71,7 +71,7 @@ args = ["shadcn@latest", "mcp"]
 ```
 
 Restart your MCP client and ask it to search or install Kick UI components,
-for example: _"Add @kick-ui/shiny-button to my project."_
+for example: _"Add @kick-ui/pill-button to my project."_
 
 ## Built with
 

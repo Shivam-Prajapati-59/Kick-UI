@@ -15,18 +15,6 @@
       ]
     },
     {
-      "name": "shiny-button",
-      "type": "registry:component",
-      "dependencies": ["motion"],
-      "registryDependencies": ["button"],
-      "files": [
-        {
-          "path": "registry/new-york/components/shiny-button/shiny-button.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "cursor-web-fluid",
       "type": "registry:component",
       "dependencies": ["three"],

@@ -10,7 +10,7 @@ describe("buildCommandEntries", () => {
     const ids = entries.map((entry) => entry.id);
     expect(ids).toContain("home");
     expect(ids).toContain("components");
-    expect(ids).toContain("component:shiny-button");
+    expect(ids).toContain("component:pill-button");
     expect(ids).toContain("guide:cli");
     expect(ids).toContain("action:toggle-theme");
     expect(new Set(ids).size).toBe(ids.length);
@@ -34,8 +34,8 @@ describe("filterCommandEntries", () => {
 
   test("matches case-insensitively across label, hint, and id", () => {
     expect(
-      filterCommandEntries(entries, "SHINY").map((entry) => entry.id),
-    ).toContain("component:shiny-button");
+      filterCommandEntries(entries, "PILL").map((entry) => entry.id),
+    ).toContain("component:pill-button");
     expect(filterCommandEntries(entries, "guide").length).toBeGreaterThan(0);
   });
 
