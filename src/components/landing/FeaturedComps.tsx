@@ -3,16 +3,7 @@
 import * as React from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Home,
-  Mail,
-  Trash2,
-  Activity,
-  XCircle,
-} from "lucide-react";
-import { componentIndex } from "@/generated/component-index";
-import { getCategoryMetadata } from "@/lib/component-categories";
+import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import StackedCarouselDemo from "@/demos/stacked-carousel";
 import AnimatedListDemo from "@/demos/animated-list";
@@ -20,19 +11,12 @@ import AnimatedListDemo from "@/demos/animated-list";
 const ScrambleText = dynamic(
   () => import("@registry/new-york/components/scramble-text/scramble-text"),
 );
-const TextFocus = dynamic(
-  () => import("@registry/new-york/components/text-focus/text-focus"),
-);
 const CardStack = dynamic(
   () => import("@registry/new-york/components/card-stack/card-stack"),
-);
-const MagDock = dynamic(
-  () => import("@registry/new-york/components/mag-dock/mag-dock"),
 );
 const PixelImage = dynamic(
   () => import("@registry/new-york/components/pixel-image/pixel-image"),
 );
-
 const SlideTextButton = dynamic(
   () =>
     import("@registry/new-york/components/slide-text-button/slide-text-button"),
@@ -105,14 +89,6 @@ const stackItems = [
     image: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png",
     position: { x: 300, y: -5, rotate: 10 },
   },
-];
-
-const dockItems = [
-  { id: 1, icon: Home, name: "Home", active: true },
-  { id: 2, icon: Mail, name: "Mail", active: true },
-  { id: 3, icon: XCircle, name: "Close" },
-  { id: 4, icon: Trash2, name: "Trash" },
-  { id: 5, icon: Activity, name: "Activity", active: true },
 ];
 
 const boxes: Box[] = [
@@ -253,19 +229,19 @@ const FeaturedComps = () => {
   return (
     <section className="hidden pb-12 min-[1440px]:block">
       {/* Section header */}
-      <div className="mx-auto max-w-7xl px-4 text-center">
-        <h2 className="mx-auto mt-2 max-w-3xl text-3xl leading-tight font-medium md:text-5xl lg:text-6xl">
+      <div className="mx-auto px-4 text-left">
+        <h2 className="mt-2 max-w-3xl text-3xl leading-tight font-medium md:text-5xl lg:text-6xl">
           Featured Components
         </h2>
 
-        <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-base md:text-lg">
+        <p className="text-muted-foreground mt-4 max-w-2xl text-base md:text-lg">
           Try the newest interactive effects. Every preview below is the real
           component — hover, focus, and tap it, then copy the source.
         </p>
       </div>
 
       {/* Placement grid: 12 columns × 10 rows, 8px gaps */}
-      <div className="relative mx-auto mt-12 max-w-full">
+      <div className="relative mx-auto mt-2 max-w-full">
         <div className="bg-background relative grid h-[1060px] grid-cols-12 grid-rows-9 gap-2 rounded-2xl pb-6">
           {boxes.map((box) => (
             <div

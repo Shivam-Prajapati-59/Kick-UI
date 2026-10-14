@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useId } from "react";
+import { useEffect, useState, useId } from "react";
 import Image from "next/image";
 import { Link } from "next-view-transitions";
 import { motion, AnimatePresence } from "motion/react";
@@ -29,9 +29,23 @@ export default function Navbar({
   const { setOpen: setMenuOpen } = useCommandMenu();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const hoverPillId = useId();
+  // Blur the navbar only once the page scrolls — at rest it stays fully
+  // transparent so the hero gradient shows through cleanly.
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 8);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   return (
-    <motion.nav className="fixed top-0 left-0 z-50 w-full backdrop-blur-xl backdrop-saturate-150">
+    <motion.nav
+      className={`fixed top-0 left-0 z-50 w-full transition-[backdrop-filter] duration-300 ${
+        scrolled ? "backdrop-blur-xl backdrop-saturate-150" : ""
+      }`}
+    >
       <Container className="py-3">
         <div className="flex items-center justify-between">
           {/* Left Side */}

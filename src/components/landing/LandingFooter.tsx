@@ -39,7 +39,7 @@ const LandingFooter = () => {
                 className="rounded-lg"
               />
 
-              <h2 className="text-2xl font-bold">ick-UI</h2>
+              <h2 className="text-2xl font-bold translate-y-2.5">ick-UI</h2>
             </Link>
 
             <p className="text-muted-foreground mt-4 max-w-sm text-sm leading-6">

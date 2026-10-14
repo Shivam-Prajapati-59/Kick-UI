@@ -13,18 +13,17 @@ import { componentIndex } from "@/generated/component-index";
 const componentCount = componentIndex.length - 1;
 
 export const heroConfig = {
-  badgeText: "Introducing new Trading Chart",
+  badgeLabel: "New",
+  badgeText: "Trading Chart is out",
   badgeHref: "/components/trading-chart",
 
   title: {
-    line1: "The Ultimate UI Library for Web3",
-    line2: "Designing Faster. Shipping Smarter.",
+    line1: "React UI Components for Web3",
+    line2: "Build Dapps faster.",
   },
-
   description:
-    `${componentCount}+ beautifully crafted, animated React components for Web3 and modern apps, ` +
-    "built with Tailwind CSS and Motion — installed as source code you own via the " +
-    "shadcn CLI, ready to power your next dapp or product.",
+    `${componentCount}+ animated React components built with Tailwind CSS and Motion. ` +
+    "Copy the source with the shadcn CLI and own your code.",
 
   cta: {
     primary: {
