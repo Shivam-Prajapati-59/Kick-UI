@@ -224,7 +224,11 @@ const DepositModal = ({
   const copyTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const pressStartedOnBackdrop = React.useRef(false);
   const onOpenChangeRef = React.useRef(onOpenChange);
-  onOpenChangeRef.current = onOpenChange;
+  // Ref sync belongs in an effect — writing it during render breaks
+  // concurrent rendering (the next render may discard the write).
+  React.useEffect(() => {
+    onOpenChangeRef.current = onOpenChange;
+  });
 
   const secondsLeft = useSecondsLeft(open ? expiresAt : undefined);
   const isExpired = secondsLeft === 0;
@@ -242,16 +246,25 @@ const DepositModal = ({
     }
   }, [address, explorerBaseUrl, isExpired]);
 
-  React.useEffect(() => setMounted(true), []);
+  // Mount flag gates SSR output (`if (!mounted) return null`). Deferred via
+  // rAF so the state update is async — a sync setState in the effect body
+  // would cascade renders.
+  React.useEffect(() => {
+    const id = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
   React.useEffect(
     () => () => {
       if (copyTimer.current) clearTimeout(copyTimer.current);
     },
     [],
   );
+  // Reset the copied indicator when its context changes. The reset is
+  // scheduled async — a sync setState in the effect body would cascade.
   React.useEffect(() => {
-    setCopied(false);
     if (copyTimer.current) clearTimeout(copyTimer.current);
+    const resetTimer = setTimeout(() => setCopied(false), 0);
+    return () => clearTimeout(resetTimer);
   }, [address, open]);
 
   // Escape, scroll lock without layout shift, focus in / focus restore.

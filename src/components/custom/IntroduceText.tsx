@@ -72,11 +72,9 @@ const IntroduceText = ({
       {/* 1. Changed w-full max-w-lg to w-fit so it hugs the text.
                 Placement (centered vs left) is owned by the parent. */}
       {href ? (
-        <Link
-          href={href}
-          aria-label={text}
-          className="group/pill rounded-[11px]"
-        >
+        // No aria-label: the accessible name must come from the visible
+        // content (badge + text) so they match (WCAG 2.5.3 Label in Name).
+        <Link href={href} className="group/pill rounded-[11px]">
           {pill}
         </Link>
       ) : (
