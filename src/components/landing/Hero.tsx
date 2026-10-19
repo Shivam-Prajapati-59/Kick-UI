@@ -2,7 +2,7 @@
 
 import { Button } from "../ui/button";
 import { ShaderBackground } from "../ui/shader-background";
-import Web3KitHero from "./Web3KitHero";
+import Web3Hero from "./Web3HeroIllustration";
 import Container from "../common/Container";
 import IntroduceText from "../custom/IntroduceText";
 import { heroConfig } from "@/config/landing/Hero";
@@ -106,7 +106,7 @@ const Hero = () => {
           </div>
           {/* Isometric web3 illustration */}
           <div className="relative mx-auto w-full max-w-[680px]">
-            <Web3KitHero background={false} className="h-auto w-full" />
+            <Web3Hero background={false} className="h-auto w-full" />
           </div>
         </div>
       </Container>
