@@ -1,8 +1,6 @@
 import ReactIcon from "@/components/svgs/frameworks/React";
-import NextJsIcon from "@/components/svgs/frameworks/NextJs";
 import TailwindCss from "@/components/svgs/libraries/TailwindCss";
 import Motion from "@/components/svgs/libraries/Motion";
-import ShadcnIcon from "@/components/svgs/libraries/ShadcnIcon";
 import { componentIndex } from "@/generated/component-index";
 
 /**
@@ -40,24 +38,22 @@ export const heroConfig = {
 
   techStack: [
     {
-      name: "Next.js",
-      icon: NextJsIcon,
-    },
-    {
       name: "React",
       icon: ReactIcon,
+      // package.json: react 19.2.8
+      version: "v19.2",
     },
     {
       name: "Tailwind CSS",
       icon: TailwindCss,
-    },
-    {
-      name: "shadcn/ui",
-      icon: ShadcnIcon,
+      // package.json: tailwindcss ^4.3.3 — reference shows major only
+      version: "v4",
     },
     {
       name: "Motion",
       icon: Motion,
+      // package.json: motion ^12.43.0
+      version: "v12.43",
     },
   ],
 } as const;

@@ -8,6 +8,11 @@
 // itself — no bright blobs. The active recipe follows `next-themes`
 // `resolvedTheme` (root ThemeProvider required). Static (timeScale 0):
 // renders on demand and pauses offscreen, so it costs one frame.
+//
+// FIX: blob centres are now hard-coded (blobCenter) instead of coming from a
+// sin()-based hash. The hash was GPU/driver dependent, so the layout changed
+// randomly between loads (two blobs merging into one).
+//
 // Adapted from Paper Shaders: https://shaders.paper.design/static-mesh-gradient
 // Paper Shaders is licensed under Apache-2.0.
 
@@ -84,14 +89,6 @@ float grainHash(vec2 p) {
   vec3 p3 = fract(vec3(p.xyx) * 0.1031);
   p3 += dot(p3, p3.yzx + 33.33);
   return fract((p3.x + p3.y) * p3.z);
-}
-
-vec2 hash22(vec2 p) {
-#ifndef GL_FRAGMENT_PRECISION_HIGH
-  p = mod(p, 31.0);
-#endif
-  float n = sin(dot(p, vec2(41.0, 289.0)));
-  return fract(vec2(15731.743, 7892.321) * n);
 }
 
 float noise(vec2 p) {
@@ -185,14 +182,34 @@ vec3 hueRotate(vec3 col, float a) {
   return toRGB * yiq;
 }
 
+// Fixed blob centres (in the scaled p-space, i.e. screen units of the shorter
+// side * u_scale). No hash, so the layout is identical on every GPU/driver.
+//   x: negative = left,  positive = right
+//   y: negative = down,  positive = up
+vec2 blobCenter(int i) {
+  if (i == 0) return vec2(-0.80,  0.00); // dark base anchor
+  if (i == 1) return vec2(-0.42,  0.68); // top blob
+  return            vec2( 0.97, -0.58);  // bottom-right blob
+}
+
+// Per-blob opacity. 1.0 = full strength, lower = fainter and more blended
+// into the background gradient. Tune the top blob (index 1) here.
+float blobStrength(int i) {
+  if (i == 1) return 0.45; // top blob (was effectively 1.0)
+  return 1.0;
+}
+
 vec3 shade(vec2 uv, vec2 p, float t) {
   vec3 color = u_colors[0] * 0.2;
   float weight = 0.2;
   for (int i = 0; i < 8; i++) {
     if (float(i) >= u_colorCount) break;
-    float fi = float(i);
-    vec2 center = (hash22(vec2(fi, u_seed)) - 0.5) * (0.7 + u_intensity * 1.4);
-    float influence = exp(-dot(p - center, p - center) * mix(13.0, 2.0, u_paramA));
+    // Spread blobs horizontally on wide canvases (2.1 ≈ the layout the
+    // positions were tuned on). Narrower canvases keep the original spacing.
+    float aspect = u_resolution.x / u_resolution.y;
+    vec2 center = blobCenter(i) * vec2(max(aspect / 2.1, 1.0), 1.0);
+    float influence = blobStrength(i)
+      * exp(-dot(p - center, p - center) * mix(13.0, 2.0, u_paramA));
     color += u_colors[i] * influence;
     weight += influence;
   }
@@ -323,9 +340,9 @@ const UNIFORMS = {
   ],
   colorCount: 3,
   scale: 1.92,
-  intensity: 0.86,
-  paramA: 0.55,
-  warp: 0.1,
+  intensity: 0.86, // no longer affects blob positions (fixed in blobCenter)
+  paramA: 0.55, // blob size/softness: higher = larger and softer
+  warp: 0.0, // 0 = no noise warp, so nothing GPU-dependent shifts the layout
   detail: 2.624,
   contrast: 1.005,
   brightness: 0.0,
@@ -335,7 +352,7 @@ const UNIFORMS = {
   blur: 0.0,
   grain: 0.12,
   seed: 1.0,
-  rotate: 1.9373,
+  rotate: 0.0, // 0 so the blobCenter numbers mean what they say
   offsetX: 0.0,
   offsetY: 0.0,
   drift: 0.0,

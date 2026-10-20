@@ -8,23 +8,11 @@ import IntroduceText from "../custom/IntroduceText";
 import { heroConfig } from "@/config/landing/Hero";
 import { Download } from "lucide-react";
 import Link from "next/link";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import HeroTechStack from "./HeroTechStack";
 
 const Hero = () => {
-  const {
-    badgeLabel,
-    badgeText,
-    badgeHref,
-    title,
-    description,
-    cta,
-    techStack,
-  } = heroConfig;
+  const { badgeLabel, badgeText, badgeHref, title, description, cta } =
+    heroConfig;
 
   return (
     <section className="relative isolate -mt-(--navbar-height) overflow-hidden">
@@ -33,11 +21,13 @@ const Hero = () => {
         className="pointer-events-none absolute inset-0 mask-[linear-gradient(to_bottom,black_0%,black_74%,transparent_100%)] opacity-90 dark:opacity-80"
       >
         <ShaderBackground className="absolute inset-0 h-full w-full" />
+        {/* Bottom fade only. The old left/right fade (10% each side) is what
+            made the shader look like a box. */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to right, var(--background) 0%, transparent 10%, transparent 90%, var(--background) 100%), linear-gradient(to bottom, transparent 0%, transparent 74%, var(--background) 100%)",
+              "linear-gradient(to bottom, transparent 0%, transparent 74%, var(--background) 100%)",
           }}
         />
       </div>
@@ -80,29 +70,8 @@ const Hero = () => {
               </Button>
             </div>
 
-            {/* Tech Stack with Tooltips & Animations */}
-            <TooltipProvider delayDuration={200}>
-              <div className="flex flex-wrap items-center justify-center gap-2 pt-2 lg:justify-start">
-                {techStack.map((tech) => {
-                  const Icon = tech.icon;
-
-                  return (
-                    <Tooltip key={tech.name}>
-                      <TooltipTrigger asChild>
-                        <div className="group cursor-pointer p-2 transition-all duration-300 ease-in-out hover:scale-125">
-                          {/* CHANGED: Increased size to h-8 w-8 */}
-                          <Icon className="text-muted-foreground group-hover:text-primary h-8 w-8 transition-colors" />
-                        </div>
-                      </TooltipTrigger>
-                      {/* CHANGED: Direction set to "top" */}
-                      <TooltipContent side="top" className="font-medium">
-                        <p>{tech.name}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  );
-                })}
-              </div>
-            </TooltipProvider>
+            {/* Tech Stack & Animations */}
+            <HeroTechStack />
           </div>
           {/* Isometric web3 illustration */}
           <div className="relative mx-auto w-full max-w-[680px]">
