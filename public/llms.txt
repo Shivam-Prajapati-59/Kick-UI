@@ -1,0 +1,24 @@
+# Kick UI
+
+> Kick UI is an open-source collection of animated React and Web3 UI components. Components use Tailwind CSS and Motion and can be installed as source code through the shadcn CLI.
+
+## Start here
+
+- [Component catalog](https://www.kickui.xyz/components): Browse components and live previews.
+- [CLI installation guide](https://www.kickui.xyz/docs/cli): Install components through the shadcn CLI.
+- [Next.js setup](https://www.kickui.xyz/docs/nextjs): Set up a compatible Next.js project.
+- [Tailwind CSS setup](https://www.kickui.xyz/docs/tailwind-css): Add the required styles and tokens.
+- [Shared utilities](https://www.kickui.xyz/docs/utilities): Add helpers used by components.
+
+## Component examples
+
+- [Trading Chart](https://www.kickui.xyz/components/trading-chart): Candlestick chart with volume, timeframes, and drawing tools.
+- [Deposit Modal](https://www.kickui.xyz/components/deposit-modal): Deposit address interface with network and expiry states.
+- [Venue Selector](https://www.kickui.xyz/components/venue-selector): Multi-venue selection interface.
+- [Pill Button](https://www.kickui.xyz/components/pill-button): Animated glass-style button.
+- [Scramble Text](https://www.kickui.xyz/components/scramble-text): Hover-driven text animation.
+
+## Source and registry
+
+- [GitHub repository](https://github.com/Shivam-Prajapati-59/Kick-UI): Source code, license, and contribution details.
+- [Registry index](https://www.kickui.xyz/r/registry.json): Available registry items.

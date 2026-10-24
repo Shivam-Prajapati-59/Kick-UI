@@ -1,5 +1,7 @@
 <div align="center">
 
+<a href="https://www.kickui.xyz"><img src="./public/logo1.png" alt="Kick UI logo" width="96" /></a>
+
 # Kick UI
 
 **Beautifully animated React & Web3 UI components.**
@@ -10,7 +12,7 @@ Accessible · Customizable · Open Source — installed as source code you own.
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org)
 [![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8)](https://tailwindcss.com)
 
-[Documentation](https://kick-ui.vercel.app/docs) · [Component Catalog](https://kick-ui.vercel.app/components) · [Report Bug](https://github.com/Shivam-Prajapati-59/Kick-UI/issues)
+[Website](https://www.kickui.xyz) · [Documentation](https://www.kickui.xyz/docs) · [Component Catalog](https://www.kickui.xyz/components) · [Report Bug](https://github.com/Shivam-Prajapati-59/Kick-UI/issues)
 
 </div>
 
@@ -21,7 +23,7 @@ Accessible · Customizable · Open Source — installed as source code you own.
 One command per component — no package to install, you own the code:
 
 ```bash
-npx shadcn@latest add https://kick-ui.vercel.app/r/pill-button.json
+npx shadcn@latest add https://www.kickui.xyz/r/pill-button.json
 ```
 
 Or add Kick UI as a namespace once, then use short names everywhere:
@@ -34,7 +36,7 @@ npx shadcn@latest add @kick-ui/pill-button
 // components.json
 {
   "registries": {
-    "@kick-ui": "https://kick-ui.vercel.app/r/{name}.json",
+    "@kick-ui": "https://www.kickui.xyz/r/{name}.json",
   },
 }
 ```
@@ -53,7 +55,7 @@ Dependencies (npm packages and shadcn primitives) are resolved and installed aut
 | **Layouts & Sections** | Scroll Card, Feature Showcase                                             |
 
 Browse live previews and copy-paste install commands at
-[kick-ui.vercel.app/components](https://kick-ui.vercel.app/components).
+[kickui.xyz/components](https://www.kickui.xyz/components).
 
 ## AI-ready with shadcn MCP
 

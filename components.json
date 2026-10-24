@@ -19,6 +19,6 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "@kick-ui": "https://kick-ui.vercel.app/r/{name}.json"
+    "@kick-ui": "https://www.kickui.xyz/r/{name}.json"
   }
 }

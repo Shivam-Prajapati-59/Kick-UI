@@ -179,7 +179,7 @@ function metaTags(html) {
       )?.[1] ?? "";
     let ogPathOk = false;
     try {
-      ogPathOk = new URL(pageOg, BASE).pathname === "/opengraph-image";
+      ogPathOk = new URL(pageOg, BASE).pathname === "/og-image.png";
     } catch {
       ogPathOk = false;
     }

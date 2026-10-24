@@ -40,13 +40,13 @@ export async function generateMetadata({
       title: `${title} — ${SITE_CONFIG.name}`,
       description,
       siteName: SITE_CONFIG.name,
-      images: [`${SITE_CONFIG.url}/opengraph-image`],
+      images: [`${SITE_CONFIG.url}/og-image.png`],
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} — ${SITE_CONFIG.name}`,
       description,
-      images: [`${SITE_CONFIG.url}/opengraph-image`],
+      images: [`${SITE_CONFIG.url}/og-image.png`],
     },
   };
 }

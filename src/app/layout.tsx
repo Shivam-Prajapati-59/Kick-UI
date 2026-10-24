@@ -40,6 +40,14 @@ export const metadata: Metadata = {
     siteName: SITE_CONFIG.name,
     title: `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`,
     description: SITE_CONFIG.description,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Kick UI logo with React UI Components for Web3 and an illustrated Web3 interface",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -47,6 +55,7 @@ export const metadata: Metadata = {
     creator: SITE_CONFIG.twitterHandle,
     title: `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`,
     description: SITE_CONFIG.description,
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,

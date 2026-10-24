@@ -42,23 +42,15 @@ export default function Navbar({
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 z-50 w-full transition-[backdrop-filter] duration-300 ${
-        scrolled ? "backdrop-blur-xl backdrop-saturate-150" : ""
-      }`}
+      className={`fixed top-0 left-0 z-50 w-full transition-[backdrop-filter] duration-300 ${scrolled ? "backdrop-blur-xl backdrop-saturate-150" : ""
+        }`}
     >
       <Container className="py-3">
         <div className="flex items-center justify-between">
           {/* Left Side */}
           <div className="flex items-center gap-8">
             {/* Logo */}
-            <motion.div
-              initial={{ opacity: 0, x: -16 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.5,
-                delay: 0.1,
-                ease: [0.25, 0.1, 0.25, 1],
-              }}
+            <div
             >
               <Link
                 href="/"
@@ -78,7 +70,7 @@ export default function Navbar({
                   ick UI
                 </span>
               </Link>
-            </motion.div>
+            </div>
 
             {/* Desktop Nav Links */}
             <nav
@@ -149,9 +141,8 @@ export default function Navbar({
                 aria-label={
                   starCount === null
                     ? "View Kick UI on GitHub"
-                    : `View Kick UI on GitHub — ${starCount.toLocaleString()} ${
-                        starCount === 1 ? "star" : "stars"
-                      }`
+                    : `View Kick UI on GitHub — ${starCount.toLocaleString()} ${starCount === 1 ? "star" : "stars"
+                    }`
                 }
               >
                 {/* Lucide rather than public/assets/svgs/github1.svg: the

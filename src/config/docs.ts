@@ -379,7 +379,7 @@ Do you want to use CSS variables for colors? yes`,
                 kind: "command",
                 command: {
                   command:
-                    "shadcn@latest add https://kick-ui.vercel.app/r/pill-button.json",
+                    "shadcn@latest add https://www.kickui.xyz/r/pill-button.json",
                   snippetId: "cli-add-url",
                 },
               },
@@ -394,7 +394,7 @@ Do you want to use CSS variables for colors? yes`,
                   filename: "components.json",
                   code: `{
   "registries": {
-    "@kick-ui": "https://kick-ui.vercel.app/r/{name}.json"
+    "@kick-ui": "https://www.kickui.xyz/r/{name}.json"
   }
 }`,
                 },
@@ -491,7 +491,7 @@ Do you want to use CSS variables for colors? yes`,
                   filename: "components.json",
                   code: `{
   "registries": {
-    "@kick-ui": "https://kick-ui.vercel.app/r/{name}.json"
+    "@kick-ui": "https://www.kickui.xyz/r/{name}.json"
   }
 }`,
                 },

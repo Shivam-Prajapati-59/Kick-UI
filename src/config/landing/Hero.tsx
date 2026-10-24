@@ -21,7 +21,7 @@ export const heroConfig = {
   },
   description:
     `${componentCount}+ animated React components built with Tailwind CSS and Motion. ` +
-    "Copy the source with the shadcn CLI and own your code.",
+    "Copy the source CLI, customize every detail, and ship faster.",
 
   cta: {
     primary: {

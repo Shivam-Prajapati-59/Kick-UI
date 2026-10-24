@@ -5,7 +5,7 @@
 
 export const SITE_CONFIG = {
   name: "Kick UI",
-  url: "https://kick-ui.vercel.app",
+  url: "https://www.kickui.xyz",
   tagline: "Beautifully animated React & Web3 UI components",
   description:
     "Kick UI is an open-source React component library for Web3 and modern apps — animated, accessible UI components installed as source code you own via the shadcn CLI.",

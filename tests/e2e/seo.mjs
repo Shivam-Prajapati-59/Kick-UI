@@ -84,7 +84,7 @@ async function html(path) {
     "";
   let pageOgPathOk = false;
   try {
-    pageOgPathOk = new URL(pageOgImage, BASE).pathname === "/opengraph-image";
+    pageOgPathOk = new URL(pageOgImage, BASE).pathname === "/og-image.png";
   } catch {
     pageOgPathOk = false;
   }
@@ -93,7 +93,7 @@ async function html(path) {
     "component page falls back to root OG image",
     pageOgImage,
   );
-  let r = await fetch(`${BASE}/opengraph-image`);
+  let r = await fetch(`${BASE}/og-image.png`);
   assert(
     r.status === 200 &&
       (r.headers.get("content-type") || "").includes("image/png"),

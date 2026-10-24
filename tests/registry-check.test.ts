@@ -119,7 +119,7 @@ describe("checkDemoDefaultExports", () => {
 });
 
 describe("checkHomepage", () => {
-  const homepage = "https://kick-ui.vercel.app";
+  const homepage = "https://www.kickui.xyz";
   test("matching homepages pass", () => {
     expect(
       checkHomepage({ registryHomepage: homepage, siteHomepage: homepage }),

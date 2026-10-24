@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "kick-ui",
-  "homepage": "https://kick-ui.vercel.app",
+  "homepage": "https://www.kickui.xyz",
   "items": [
     {
       "name": "pill-card",

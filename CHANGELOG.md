@@ -18,7 +18,7 @@ adheres to [Semantic Versioning](https://semver.org/).
   `@kick-ui` registry to their `components.json`.
 - `feature-showcase` registered as a distributable registry component.
 - Namespaced registry support: install via `npx shadcn add @kick-ui/<name>`
-  after adding `"@kick-ui": "https://kick-ui.vercel.app/r/{name}.json"` to
+  after adding `"@kick-ui": "https://www.kickui.xyz/r/{name}.json"` to
   your `components.json`.
 - MIT LICENSE file, CONTRIBUTING guide, commitlint + husky hooks,
   lint-staged, Dependabot config.
