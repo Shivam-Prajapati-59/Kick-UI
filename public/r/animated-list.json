@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "animated-list",
   "title": "Animated List",
-  "description": "A generic animated list with keyboard navigation and auto-scroll.",
+  "description": "An animated React list with keyboard navigation, automatic scrolling, and a customizable item renderer.",
   "dependencies": [
     "motion"
   ],

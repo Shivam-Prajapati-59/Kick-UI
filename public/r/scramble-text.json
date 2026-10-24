@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "scramble-text",
   "title": "Scramble Text",
-  "description": "A hover-driven text scramble animation with a smooth decode sweep.",
+  "description": "A React text animation that scrambles characters on hover, then reveals the original text with a decode sweep.",
   "dependencies": [
     "motion"
   ],

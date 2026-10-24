@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "venue-selector",
   "title": "Venue Selector",
-  "description": "An accessible multi-venue selector with an inline, animated expansion and smooth selection feedback.",
+  "description": "An animated React multi-select for trading venues with keyboard navigation, controlled selection, and clear selection feedback.",
   "dependencies": [
     "lucide-react",
     "motion"

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "feature-showcase",
   "title": "Feature Showcase",
-  "description": "A feature section with animated visual states.",
+  "description": "An animated React feature section with selectable content and synchronized visual states.",
   "dependencies": [
     "lucide-react",
     "motion"

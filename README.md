@@ -1,10 +1,13 @@
 <div align="center">
 
-<a href="https://www.kickui.xyz"><img src="./public/logo1.png" alt="Kick UI logo" width="96" /></a>
+<h1 align="center">
+  <img src="./public/logo1.png" alt="K" width="42" height="42" align="middle" />
+  <span style="display: inline-block; transform: translate(-10px, 17.7px);">
+  ick UI
+</span>
+</h1>
 
-# Kick UI
-
-**Beautifully animated React & Web3 UI components.**
+**Animated React UI Components for Web3.**
 Accessible · Customizable · Open Source — installed as source code you own.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-8b5cf6.svg)](./LICENSE)
@@ -45,14 +48,15 @@ Dependencies (npm packages and shadcn primitives) are resolved and installed aut
 
 ## Components
 
-| Category               | Highlights                                                                |
-| ---------------------- | ------------------------------------------------------------------------- |
-| **Buttons**            | Pill Button, Slide Text Button                                            |
-| **Cards**              | Card Stack, Pill Card                                                     |
-| **Components**         | Venue Selector, Mag Dock, Timeframe Tabs, Stacked Carousel, Animated List |
-| **Text Animations**    | Scramble Text, Text Focus                                                 |
-| **Animations**         | Cursor Web Fluid, Perspective Grid, Pixel Image                           |
-| **Layouts & Sections** | Scroll Card, Feature Showcase                                             |
+| Category               | Components                                                                                           |
+| ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Buttons**            | Pill Button, Slide Text Button                                                                       |
+| **Cards**              | Card Stack, Pill Card, Stacked Carousel                                                              |
+| **Components**         | Animated List, Deposit Modal, MagDock, Perspective Grid, Pixel Image, Timeframe Tabs, Venue Selector |
+| **Text Animations**    | Scramble Text, Text Focus                                                                            |
+| **Layouts & Sections** | Feature Showcase, Scroll Card                                                                        |
+| **Animations**         | Cursor Web Fluid                                                                                     |
+| **Charts**             | Trading Chart                                                                                        |
 
 Browse live previews and copy-paste install commands at
 [kickui.xyz/components](https://www.kickui.xyz/components).

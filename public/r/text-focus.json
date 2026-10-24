@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "text-focus",
   "title": "Text Focus",
-  "description": "A text element that focuses on hover.",
+  "description": "A React text effect that brings the hovered word into focus while blurring surrounding words.",
   "dependencies": [
     "motion"
   ],

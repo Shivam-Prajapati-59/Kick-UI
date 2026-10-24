@@ -36,7 +36,9 @@ export function StackedCarousel<T>({
 }: StackedCarouselProps<T>) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAdvancing, setIsAdvancing] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocusWithin, setIsFocusWithin] = useState(false);
+  const isPaused = isHovered || isFocusWithin;
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isAdvancingRef = useRef(false);
   const onAdvanceRef = useRef(onAdvance);
@@ -87,10 +89,16 @@ export function StackedCarousel<T>({
       <div
         className="relative flex items-center justify-center"
         style={{ height: containerHeight }}
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        onFocus={() => setIsPaused(true)}
-        onBlur={() => setIsPaused(false)}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onFocus={() => setIsFocusWithin(true)}
+        onBlur={(event) => {
+          if (
+            !event.currentTarget.contains(event.relatedTarget as Node | null)
+          ) {
+            setIsFocusWithin(false);
+          }
+        }}
       >
         <div className="relative w-full" style={{ height: stackHeight }}>
           {items.map((item, index) => {

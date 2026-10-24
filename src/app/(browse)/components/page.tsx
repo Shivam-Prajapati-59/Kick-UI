@@ -9,29 +9,46 @@ import {
 import { componentCategories } from "@/lib/component-categories";
 import { getComponentDocsByCategory } from "@/lib/component-docs";
 
+import { SITE_CONFIG } from "@/lib/site-config";
+
+const title = "Animated React & Web3 UI Components";
+const description =
+  "Explore animated React and Web3 UI components for trading dashboards, wallets, and modern apps. Preview each component and install its source with the shadcn CLI.";
+const url = `${SITE_CONFIG.url}/components`;
+const socialTitle = `${title} | ${SITE_CONFIG.name}`;
+const image = `${SITE_CONFIG.url}/og-image.png`;
+
 export const metadata: Metadata = {
-  title: "Components",
-  description:
-    "Browse every Kick UI component — Web3-ready trading charts, animated buttons, cards, text effects, docks and sections. Copy the install command and ship in seconds.",
-  keywords: [
-    "web3 ui components",
-    "react component library",
-    "animated react components",
-    "crypto dashboard components",
-    "shadcn components",
-  ],
-  alternates: {
-    canonical: "/components",
+  title,
+  description,
+  alternates: { canonical: url },
+  openGraph: {
+    type: "website",
+    url,
+    siteName: SITE_CONFIG.name,
+    title: socialTitle,
+    description,
+    images: [{
+      url: image,
+      width: 1200,
+      height: 630,
+      alt: "Kick UI logo and illustrated Web3 interface",
+    }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: socialTitle,
+    description,
+    images: [image],
   },
 };
-
 export default function ComponentsPage() {
   const docsByCategory = getComponentDocsByCategory();
 
   return (
     <div className="space-y-12 pb-4">
       <header className="max-w-3xl space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">Components</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Animated React & Web3 UI Components</h1>
         <p className="text-muted-foreground text-lg">
           Accessible, customizable React components you can preview, copy, and
           install.

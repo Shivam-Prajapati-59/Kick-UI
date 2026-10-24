@@ -1,6 +1,7 @@
 ---
 title: Slide Text Button
-description: A button with sliding text and an expanding hover background.
+seoTitle: Animated Slide Text Button for React
+description: A React button with sliding text or icon content and an expanding background on hover or keyboard focus.
 category: buttons
 usage: |
   import SlideTextButton from "@/components/ui/slide-text-button";
@@ -10,9 +11,9 @@ usage: |
   }
 props:
   - name: initialText
-    type: string
-    description: Text shown before hover.
+    type: React.ReactNode
+    description: Content shown before hover or focus.
   - name: hoverText
-    type: string
-    description: Text shown on hover.
+    type: React.ReactNode
+    description: Content shown on hover or focus.
 ---

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "cursor-web-fluid",
   "title": "Cursor Web Fluid",
-  "description": "A fluid animation that follows the cursor.",
+  "description": "A cursor-following fluid effect for React with adjustable color, trail fade, cursor force, and vorticity.",
   "dependencies": [
     "three"
   ],

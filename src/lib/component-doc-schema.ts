@@ -41,6 +41,7 @@ const baseComponentDocSchema = z.object({
     )
     .default([]),
   fullPreview: z.boolean().default(false),
+  seoTitle: z.string().min(1).optional(),
 });
 
 export const componentDocSchema = baseComponentDocSchema;

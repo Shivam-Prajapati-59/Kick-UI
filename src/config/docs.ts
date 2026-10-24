@@ -338,10 +338,10 @@ export function Example({ active }: { active: boolean }) {
       },
       {
         slug: "cli",
-        title: "CLI",
+        title: "Install Components with shadcn CLI",
         description:
-          "Install any Kick UI component straight into your project with a single shadcn CLI command you own.",
-        tagline: "Installing Kick UI with the Shadcn CLI",
+          "Install Kick UI React components with the shadcn CLI. Add only what you need, keep the source code, and customize it in your project.",
+        tagline: "Add a component to your project with one command.",
         sections: [
           {
             heading: "Initialization",

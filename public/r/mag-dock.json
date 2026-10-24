@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "mag-dock",
   "title": "MagDock",
-  "description": "A spring-animated dock with icons, tooltips, and active states.",
+  "description": "A spring-animated React dock with icons, tooltips, and active states for app navigation.",
   "dependencies": [
     "motion"
   ],

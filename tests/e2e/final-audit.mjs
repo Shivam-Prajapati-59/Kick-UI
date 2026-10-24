@@ -74,10 +74,13 @@ function metaTags(html) {
   const PROD = registryConfig.homepage;
   console.log("\n[Metadata quality]");
   for (const [path, expectTitle] of [
-    ["/", "Kick UI — Beautifully animated React &amp; Web3 UI components"],
-    ["/components", "Components | Kick UI"],
+    ["/", "Kick UI — Animated React UI Components for Web3"],
+    ["/components", "Animated React &amp; Web3 UI Components | Kick UI"],
     [guideHref("cli"), `${getGuidePage("cli").title} | Kick UI`],
-    ["/components/timeframe-tabs", "Timeframe Tabs | Kick UI"],
+    [
+      "/components/timeframe-tabs",
+      "React Timeframe Tabs for Trading Charts | Kick UI",
+    ],
   ]) {
     const { text } = await html(path);
     const title = /<title>([^<]+)<\/title>/.exec(text)?.[1];
@@ -107,7 +110,11 @@ function metaTags(html) {
   {
     const { text } = await html("/components/pill-card");
     const t = metaTags(text);
-    assert(t["og:title"] === "Pill Card — Kick UI", "og:title", t["og:title"]);
+    assert(
+      t["og:title"] === "Animated SVG Pill Card for React — Kick UI",
+      "og:title",
+      t["og:title"],
+    );
     assert(t["og:description"]?.length > 20, "og:description present");
     assert(t["og:type"] === "article", "og:type article");
     assert(t["og:site_name"] === "Kick UI", "og:site_name");
@@ -131,8 +138,8 @@ function metaTags(html) {
       const ld = JSON.parse(ldMatch[1]);
       const types = (ld["@graph"] || []).map((n) => n["@type"]);
       assert(
-        types.includes("SoftwareApplication"),
-        "JSON-LD valid, has SoftwareApplication",
+        types.includes("SoftwareSourceCode"),
+        "JSON-LD valid, has SoftwareSourceCode",
         types.join(","),
       );
       assert(types.includes("BreadcrumbList"), "JSON-LD has BreadcrumbList");

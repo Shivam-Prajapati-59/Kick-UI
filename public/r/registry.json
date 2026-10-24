@@ -7,7 +7,7 @@
       "name": "pill-card",
       "type": "registry:component",
       "title": "Pill Card",
-      "description": "A card with animated SVG paths and synchronized glow effects.",
+      "description": "A React card with animated SVG paths and synchronized glow effects.",
       "category": "cards",
       "dependencies": [
         "lucide-react",
@@ -24,7 +24,7 @@
       "name": "cursor-web-fluid",
       "type": "registry:component",
       "title": "Cursor Web Fluid",
-      "description": "A fluid animation that follows the cursor.",
+      "description": "A cursor-following fluid effect for React with adjustable color, trail fade, cursor force, and vorticity.",
       "category": "animations",
       "dependencies": [
         "three"
@@ -40,7 +40,7 @@
       "name": "scramble-text",
       "type": "registry:component",
       "title": "Scramble Text",
-      "description": "A hover-driven text scramble animation with a smooth decode sweep.",
+      "description": "A React text animation that scrambles characters on hover, then reveals the original text with a decode sweep.",
       "category": "text-animations",
       "dependencies": [
         "motion"
@@ -56,7 +56,7 @@
       "name": "text-focus",
       "type": "registry:component",
       "title": "Text Focus",
-      "description": "A text element that focuses on hover.",
+      "description": "A React text effect that brings the hovered word into focus while blurring surrounding words.",
       "category": "text-animations",
       "dependencies": [
         "motion"
@@ -72,7 +72,7 @@
       "name": "card-stack",
       "type": "registry:component",
       "title": "Card Stack",
-      "description": "A stacked card fan animation.",
+      "description": "An animated React card stack that spreads overlapping cards into a fan layout.",
       "category": "cards",
       "dependencies": [
         "motion"
@@ -88,7 +88,7 @@
       "name": "slide-text-button",
       "type": "registry:component",
       "title": "Slide Text Button",
-      "description": "A button with sliding text and an expanding hover background.",
+      "description": "A React button with sliding text or icon content and an expanding background on hover or keyboard focus.",
       "category": "buttons",
       "dependencies": [
         "motion"
@@ -104,7 +104,7 @@
       "name": "mag-dock",
       "type": "registry:component",
       "title": "MagDock",
-      "description": "A spring-animated dock with icons, tooltips, and active states.",
+      "description": "A spring-animated React dock with icons, tooltips, and active states for app navigation.",
       "category": "components",
       "dependencies": [
         "motion"
@@ -120,7 +120,7 @@
       "name": "perspective-grid",
       "type": "registry:component",
       "title": "Perspective Grid",
-      "description": "A 3D-perspective grid that tilts on hover.",
+      "description": "A perspective-tilted React grid for displaying blockchain networks with animated chain cards and a customizable heading.",
       "category": "components",
       "dependencies": [
         "motion"
@@ -136,7 +136,7 @@
       "name": "pixel-image",
       "type": "registry:component",
       "title": "Pixel Image",
-      "description": "A hover-driven pixelated dissolve between two images.",
+      "description": "A React image transition that reveals a second image through a pixelated hover dissolve.",
       "category": "components",
       "dependencies": [
         "motion"
@@ -152,7 +152,7 @@
       "name": "animated-list",
       "type": "registry:component",
       "title": "Animated List",
-      "description": "A generic animated list with keyboard navigation and auto-scroll.",
+      "description": "An animated React list with keyboard navigation, automatic scrolling, and a customizable item renderer.",
       "category": "components",
       "dependencies": [
         "motion"
@@ -168,7 +168,7 @@
       "name": "scroll-card",
       "type": "registry:component",
       "title": "Scroll Card",
-      "description": "A scroll-linked card layout with synchronized image transitions and text reveals.",
+      "description": "A scroll-driven React feature section with sticky cards, synchronized image transitions, and text reveals.",
       "category": "layouts-sections",
       "dependencies": [
         "motion"
@@ -184,7 +184,7 @@
       "name": "stacked-carousel",
       "type": "registry:component",
       "title": "Stacked Carousel",
-      "description": "A self-playing card stack that cycles through items with a smooth, seamless fly-up transition.",
+      "description": "An automatically advancing React card carousel with fly-up transitions that pauses on hover or focus.",
       "category": "cards",
       "dependencies": [
         "motion"
@@ -200,7 +200,7 @@
       "name": "timeframe-tabs",
       "type": "registry:component",
       "title": "Timeframe Tabs",
-      "description": "A scrollable, controlled pill-tab row with an animated active-state highlight and a slot for trailing content.",
+      "description": "Scrollable React timeframe tabs for trading charts with an animated active state, controlled selection, and optional trailing actions.",
       "category": "components",
       "dependencies": [
         "motion"
@@ -216,7 +216,7 @@
       "name": "venue-selector",
       "type": "registry:component",
       "title": "Venue Selector",
-      "description": "An accessible multi-venue selector with an inline, animated expansion and smooth selection feedback.",
+      "description": "An animated React multi-select for trading venues with keyboard navigation, controlled selection, and clear selection feedback.",
       "category": "components",
       "dependencies": [
         "lucide-react",
@@ -233,7 +233,7 @@
       "name": "deposit-modal",
       "type": "registry:component",
       "title": "Deposit Modal",
-      "description": "A responsive, accessible deposit-address modal with network safeguards, copy feedback, expiry handling, and a mobile-friendly layout.",
+      "description": "An accessible React modal for crypto deposits with token and network details, a copyable address, minimum deposit guidance, and expiry handling.",
       "category": "components",
       "dependencies": [
         "lucide-react",
@@ -250,7 +250,7 @@
       "name": "feature-showcase",
       "type": "registry:component",
       "title": "Feature Showcase",
-      "description": "A feature section with animated visual states.",
+      "description": "An animated React feature section with selectable content and synchronized visual states.",
       "category": "layouts-sections",
       "dependencies": [
         "lucide-react",
@@ -267,7 +267,7 @@
       "name": "trading-chart",
       "type": "registry:component",
       "title": "Trading Chart",
-      "description": "A live candlestick chart with volume pane, timeframe tabs, crosshair OHLC readout, and a full drawing toolkit (trend lines, fib retracement, brush, eraser).",
+      "description": "A React candlestick chart for trading dashboards with live OHLCV data, volume, timeframe tabs, crosshair readouts, and drawing tools.",
       "category": "charts",
       "dependencies": [
         "lightweight-charts",
@@ -304,7 +304,7 @@
       "name": "pill-button",
       "type": "registry:component",
       "title": "Pill Button",
-      "description": "An iOS-glass pill button with edge shadows that expand inward on hover and a refraction ripple on press.",
+      "description": "A glass-style React pill button with animated edge glows, expanding hover shadows, and a ripple on press.",
       "category": "buttons",
       "dependencies": [
         "motion"

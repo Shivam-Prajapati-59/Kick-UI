@@ -11,9 +11,9 @@ export default function CursorWebFluidDemo() {
     <>
       {/* Instructional label */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 select-none">
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
+        <p className="text-4xl sm:text-5xl font-extrabold tracking-tight">
           Move your cursor here
-        </h1>
+        </p>
         <p className="mt-2 text-lg text-foreground">
           Experience the WebGL Fluid
         </p>

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "card-stack",
   "title": "Card Stack",
-  "description": "A stacked card fan animation.",
+  "description": "An animated React card stack that spreads overlapping cards into a fan layout.",
   "dependencies": [
     "motion"
   ],

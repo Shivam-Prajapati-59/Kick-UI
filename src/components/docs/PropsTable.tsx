@@ -10,9 +10,9 @@ const PropsTable: React.FC<PropsTableProps> = ({ propsData }) => {
 
     return (
         <div>
-            <h1 className="mb-5 text-2xl font-bold tracking-tight">
+            <h2 className="mb-5 text-2xl font-bold tracking-tight">
                 Props
-            </h1>
+            </h2>
             <div className="w-full overflow-x-auto rounded-xl border bg-background">
                 <table className="w-full text-sm">
                     <thead className="border-b bg-muted/50 font-medium">

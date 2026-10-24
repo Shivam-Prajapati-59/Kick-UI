@@ -18,19 +18,13 @@ export async function generateMetadata({
   const component = getComponentDoc((await params).slug);
   if (!component) return { title: "Component not found" };
 
-  const title = component.title;
+  const title = component.seoTitle ?? component.title;
   const description = component.description;
   const url = `/components/${component.slug}`;
 
   return {
     title,
     description,
-    keywords: [
-      `${title} react component`,
-      `${title} shadcn`,
-      getCategoryMetadata(component.category).label.toLowerCase(),
-      ...SITE_CONFIG.keywords.slice(0, 4),
-    ],
     alternates: {
       canonical: url,
     },
@@ -51,7 +45,7 @@ export async function generateMetadata({
   };
 }
 
-/** SoftwareApplication + BreadcrumbList structured data for rich results. */
+/** Source code and breadcrumb structured data for component pages. */
 function ComponentJsonLd({
   slug,
   title,
@@ -67,17 +61,15 @@ function ComponentJsonLd({
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "SoftwareApplication",
+        "@type": "SoftwareSourceCode",
         name: `${title} — ${SITE_CONFIG.name}`,
         description,
         url: `${SITE_CONFIG.url}/components/${slug}`,
-        applicationCategory: "DeveloperApplication",
-        operatingSystem: "Any",
+        codeRepository: SITE_CONFIG.github,
+        programmingLanguage: "TypeScript",
+        runtimePlatform: "React",
         author: { "@id": `${SITE_CONFIG.url}#organization` },
-        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-        keywords: [category, "react", "web3", "shadcn", "tailwind css"].join(
-          ", ",
-        ),
+        keywords: [category, "react", "web3", "tailwind css"].join(", "),
       },
       {
         "@type": "BreadcrumbList",
@@ -131,7 +123,7 @@ export default async function ComponentDocPage({
         description={component.description}
         category={component.category}
       />
-      <header className="space-y-2">
+      <header className="space-y-3">
         <h1 className="text-4xl font-bold tracking-tight">{component.title}</h1>
         <p className="text-muted-foreground text-lg">{component.description}</p>
       </header>

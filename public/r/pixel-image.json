@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "pixel-image",
   "title": "Pixel Image",
-  "description": "A hover-driven pixelated dissolve between two images.",
+  "description": "A React image transition that reveals a second image through a pixelated hover dissolve.",
   "dependencies": [
     "motion"
   ],

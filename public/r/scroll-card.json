@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "scroll-card",
   "title": "Scroll Card",
-  "description": "A scroll-linked card layout with synchronized image transitions and text reveals.",
+  "description": "A scroll-driven React feature section with sticky cards, synchronized image transitions, and text reveals.",
   "dependencies": [
     "motion"
   ],

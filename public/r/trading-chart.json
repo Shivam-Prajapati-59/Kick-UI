@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "trading-chart",
   "title": "Trading Chart",
-  "description": "A live candlestick chart with volume pane, timeframe tabs, crosshair OHLC readout, and a full drawing toolkit (trend lines, fib retracement, brush, eraser).",
+  "description": "A React candlestick chart for trading dashboards with live OHLCV data, volume, timeframe tabs, crosshair readouts, and drawing tools.",
   "dependencies": [
     "lightweight-charts",
     "lucide-react",

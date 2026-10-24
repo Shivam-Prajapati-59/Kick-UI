@@ -12,16 +12,16 @@ const componentCount = componentIndex.length - 1;
 
 export const heroConfig = {
   badgeLabel: "New",
-  badgeText: "Trading Chart is out",
+  badgeText: "Trading Chart is Out",
   badgeHref: "/components/trading-chart",
 
   title: {
-    line1: "React UI Components for Web3",
-    line2: "Build Dapps faster.",
+    line1: "Animated React UI for Web3",
+    line2: "Build dapps that stand out.",
   },
   description:
-    `${componentCount}+ animated React components built with Tailwind CSS and Motion. ` +
-    "Copy the source CLI, customize every detail, and ship faster.",
+    `${componentCount}+ open-source components for wallets, trading dashboards, and onchain apps. ` +
+    "Install editable React source with the shadcn CLI, then make it your own.",
 
   cta: {
     primary: {

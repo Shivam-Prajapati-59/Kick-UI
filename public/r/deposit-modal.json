@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "deposit-modal",
   "title": "Deposit Modal",
-  "description": "A responsive, accessible deposit-address modal with network safeguards, copy feedback, expiry handling, and a mobile-friendly layout.",
+  "description": "An accessible React modal for crypto deposits with token and network details, a copyable address, minimum deposit guidance, and expiry handling.",
   "dependencies": [
     "lucide-react",
     "motion"

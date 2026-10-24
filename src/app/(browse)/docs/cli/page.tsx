@@ -1,16 +1,10 @@
-import type { Metadata } from "next";
 import GuidePage from "@/components/docs/GuidePage";
-import { getGuidePage, guideHref } from "@/config/docs";
+import { getGuidePage } from "@/config/docs";
+import { guideMetadata } from "@/lib/guide-metadata";
 
 const page = getGuidePage("cli");
 
-export const metadata: Metadata = {
-  title: page.title,
-  description: page.description,
-  alternates: {
-    canonical: guideHref(page.slug),
-  },
-};
+export const metadata = guideMetadata(page);
 
 export default function CliPage() {
   return <GuidePage slug="cli" />;

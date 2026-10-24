@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "slide-text-button",
   "title": "Slide Text Button",
-  "description": "A button with sliding text and an expanding hover background.",
+  "description": "A React button with sliding text or icon content and an expanding background on hover or keyboard focus.",
   "dependencies": [
     "motion"
   ],

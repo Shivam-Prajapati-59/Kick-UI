@@ -10,22 +10,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // sitemap must list only URLs intended for indexing.
   const staticRoutes = ["", "/components"].map((route) => ({
     url: `${SITE_CONFIG.url}${route}`,
-    changeFrequency: "weekly" as const,
-    priority: route === "" ? 1 : 0.8,
   }));
 
   const componentRoutes = componentIndex.map((component) => ({
     url: `${SITE_CONFIG.url}/components/${component.slug}`,
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
   }));
 
   const guideRoutes = guideSections
     .flatMap((section) => section.pages)
     .map((page) => ({
       url: `${SITE_CONFIG.url}${guideHref(page.slug)}`,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
     }));
 
   return [...staticRoutes, ...componentRoutes, ...guideRoutes];

@@ -12,109 +12,109 @@ export const componentIndex: ComponentIndexItem[] = [
   {
     "slug": "cursor-web-fluid",
     "title": "Cursor Web Fluid",
-    "description": "A fluid animation that follows the cursor.",
+    "description": "A cursor-following fluid effect for React with adjustable color, trail fade, cursor force, and vorticity.",
     "category": "animations"
   },
   {
     "slug": "pill-button",
     "title": "Pill Button",
-    "description": "An iOS-glass pill button with edge shadows that expand inward on hover and a refraction ripple on press.",
+    "description": "A glass-style React pill button with animated edge glows, expanding hover shadows, and a ripple on press.",
     "category": "buttons"
   },
   {
     "slug": "slide-text-button",
     "title": "Slide Text Button",
-    "description": "A button with sliding text and an expanding hover background.",
+    "description": "A React button with sliding text or icon content and an expanding background on hover or keyboard focus.",
     "category": "buttons"
   },
   {
     "slug": "card-stack",
     "title": "Card Stack",
-    "description": "A stacked card fan animation.",
+    "description": "An animated React card stack that spreads overlapping cards into a fan layout.",
     "category": "cards"
   },
   {
     "slug": "pill-card",
     "title": "Pill Card",
-    "description": "A card with animated SVG paths and synchronized glow effects.",
+    "description": "A React card with animated SVG paths and synchronized glow effects.",
     "category": "cards"
   },
   {
     "slug": "stacked-carousel",
     "title": "Stacked Carousel",
-    "description": "A self-playing card stack that cycles through items with a smooth, seamless fly-up transition.",
+    "description": "An automatically advancing React card carousel with fly-up transitions that pauses on hover or focus.",
     "category": "cards"
   },
   {
     "slug": "trading-chart",
     "title": "Trading Chart",
-    "description": "A live candlestick chart with volume pane, timeframe tabs, crosshair OHLC readout, and a full drawing toolkit (trend lines, fib retracement, brush, eraser).",
+    "description": "A React candlestick chart for trading dashboards with live OHLCV data, volume, timeframe tabs, crosshair readouts, and drawing tools.",
     "category": "charts"
   },
   {
     "slug": "animated-list",
     "title": "Animated List",
-    "description": "A generic animated list with keyboard navigation and auto-scroll.",
+    "description": "An animated React list with keyboard navigation, automatic scrolling, and a customizable item renderer.",
     "category": "components"
   },
   {
     "slug": "deposit-modal",
     "title": "Deposit Modal",
-    "description": "A responsive, accessible deposit-address modal with network safeguards, copy feedback, expiry handling, and a mobile-friendly layout.",
+    "description": "An accessible React modal for crypto deposits with token and network details, a copyable address, minimum deposit guidance, and expiry handling.",
     "category": "components"
   },
   {
     "slug": "mag-dock",
     "title": "MagDock",
-    "description": "A spring-animated dock with icons, tooltips, and active states.",
+    "description": "A spring-animated React dock with icons, tooltips, and active states for app navigation.",
     "category": "components"
   },
   {
     "slug": "perspective-grid",
     "title": "Perspective Grid",
-    "description": "A 3D-perspective grid that tilts on hover.",
+    "description": "A perspective-tilted React grid for displaying blockchain networks with animated chain cards and a customizable heading.",
     "category": "components"
   },
   {
     "slug": "pixel-image",
     "title": "Pixel Image",
-    "description": "A hover-driven pixelated dissolve between two images.",
+    "description": "A React image transition that reveals a second image through a pixelated hover dissolve.",
     "category": "components"
   },
   {
     "slug": "timeframe-tabs",
     "title": "Timeframe Tabs",
-    "description": "A scrollable, controlled pill-tab row with an animated active-state highlight and a slot for trailing content.",
+    "description": "Scrollable React timeframe tabs for trading charts with an animated active state, controlled selection, and optional trailing actions.",
     "category": "components"
   },
   {
     "slug": "venue-selector",
     "title": "Venue Selector",
-    "description": "An accessible multi-venue selector with an inline, animated expansion and smooth selection feedback.",
+    "description": "An animated React multi-select for trading venues with keyboard navigation, controlled selection, and clear selection feedback.",
     "category": "components"
   },
   {
     "slug": "feature-showcase",
     "title": "Feature Showcase",
-    "description": "A feature section with animated visual states.",
+    "description": "An animated React feature section with selectable content and synchronized visual states.",
     "category": "layouts-sections"
   },
   {
     "slug": "scroll-card",
     "title": "Scroll Card",
-    "description": "A scroll-linked card layout with synchronized image transitions and text reveals.",
+    "description": "A scroll-driven React feature section with sticky cards, synchronized image transitions, and text reveals.",
     "category": "layouts-sections"
   },
   {
     "slug": "scramble-text",
     "title": "Scramble Text",
-    "description": "A hover-driven text scramble animation with a smooth decode sweep.",
+    "description": "A React text animation that scrambles characters on hover, then reveals the original text with a decode sweep.",
     "category": "text-animations"
   },
   {
     "slug": "text-focus",
     "title": "Text Focus",
-    "description": "A text element that focuses on hover.",
+    "description": "A React text effect that brings the hovered word into focus while blurring surrounding words.",
     "category": "text-animations"
   }
 ] as ComponentIndexItem[];

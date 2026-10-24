@@ -35,7 +35,7 @@ async function html(path) {
   assert(h.status === 200, "/ returns 200");
   assert(
     h.text.includes(
-      "<title>Kick UI — Beautifully animated React &amp; Web3 UI components</title>",
+      "<title>Kick UI — Animated React UI Components for Web3</title>",
     ),
     "default title with tagline",
   );
@@ -56,13 +56,18 @@ async function html(path) {
       h.text.includes('"@type":"Organization"'),
     "WebSite + Organization schema",
   );
-  assert(h.text.includes("max-image-preview"), "googleBot max-image-preview directive");
+  assert(
+    h.text.includes("max-image-preview"),
+    "googleBot max-image-preview directive",
+  );
 
   console.log("\nSEO regression — component page:");
   h = await html("/components/timeframe-tabs");
   assert(h.status === 200, "component page 200");
   assert(
-    h.text.includes("<title>Timeframe Tabs | Kick UI</title>"),
+    h.text.includes(
+      "<title>React Timeframe Tabs for Trading Charts | Kick UI</title>",
+    ),
     "templated title",
   );
   assert(h.text.includes('og:type" content="article'), "og:type article");
@@ -71,8 +76,8 @@ async function html(path) {
     "canonical to component path",
   );
   assert(
-    h.text.includes('"@type":"SoftwareApplication"'),
-    "SoftwareApplication schema",
+    h.text.includes('"@type":"SoftwareSourceCode"'),
+    "SoftwareSourceCode schema",
   );
   assert(h.text.includes('"@type":"BreadcrumbList"'), "BreadcrumbList schema");
 
