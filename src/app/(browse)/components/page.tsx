@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
-import { Link } from "next-view-transitions";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { componentCategories } from "@/lib/component-categories";
 import { getComponentDocsByCategory } from "@/lib/component-docs";
-
+import { ComponentCatalogCard } from "@/components/catalog/ComponentCatalogCard";
+import { CatalogPreview } from "@/components/catalog/CatalogPreview";
 import { SITE_CONFIG } from "@/lib/site-config";
+import { stillPreviewComponents } from "@/components/catalog/stills";
 
 const title = "Animated React & Web3 UI Components";
 const description =
-  "Explore animated React and Web3 UI components for trading dashboards, wallets, and modern apps. Preview each component and install its source with the shadcn CLI.";
+  "Browse animated React and Web3 UI components for wallets, trading dashboards, and dapps. Preview and install with shadcn.";
 const url = `${SITE_CONFIG.url}/components`;
 const socialTitle = `${title} | ${SITE_CONFIG.name}`;
 const image = `${SITE_CONFIG.url}/og-image.png`;
@@ -73,22 +68,26 @@ export default function ComponentsPage() {
               </p>
             </div>
             <div className="grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {docs.map((doc) => (
-                <Link
-                  key={doc.slug}
-                  href={`/components/${doc.slug}`}
-                  className="focus-visible:ring-ring rounded-xl focus-visible:ring-2 focus-visible:outline-none"
-                >
-                  <Card className="border-border/60 hover:bg-muted/50 h-full transition-colors">
-                    <CardHeader className="space-y-3">
-                      <CardTitle className="text-lg">{doc.title}</CardTitle>
-                      <CardDescription className="line-clamp-2 text-sm">
-                        {doc.description}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                </Link>
-              ))}
+              {docs.map((doc) => {
+                const StillPreview = stillPreviewComponents[doc.slug];
+
+                return (
+                  <ComponentCatalogCard
+                    key={doc.slug}
+                    slug={doc.slug}
+                    title={doc.title}
+                    description={doc.description}
+                    interactivePreview={!StillPreview}
+                    preview={
+                      StillPreview ? (
+                        <StillPreview />
+                      ) : (
+                        <CatalogPreview slug={doc.slug} title={doc.title} />
+                      )
+                    }
+                  />
+                );
+              })}
             </div>
           </section>
         );

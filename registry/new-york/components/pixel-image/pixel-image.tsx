@@ -86,7 +86,7 @@ export default function PixelImage({
   return (
     <div className={cn("w-[500px] max-w-full", className)}>
       <div
-        className="relative overflow-hidden rounded-2xl border p-3"
+        className="relative overflow-hidden rounded-2xl p-3"
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
       >

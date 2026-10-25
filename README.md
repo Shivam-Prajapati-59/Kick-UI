@@ -1,10 +1,7 @@
 <div align="center">
 
 <h1 align="center">
-  <img src="./public/logo1.png" alt="K" width="42" height="42" align="middle" />
-  <span style="display: inline-block; transform: translate(-10px, 17.7px);">
-  ick UI
-</span>
+  <img src="./public/logo12.png" alt=KickUI" width="90" height="40" align="middle" />
 </h1>
 
 **Animated React UI Components for Web3.**

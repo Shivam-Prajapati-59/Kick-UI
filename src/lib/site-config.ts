@@ -8,7 +8,7 @@ export const SITE_CONFIG = {
   url: "https://www.kickui.xyz",
   tagline: "Animated React UI Components for Web3",
   description:
-    "Explore animated React components for Web3 apps, wallets, and trading dashboards. Install editable Tailwind CSS source with the shadcn CLI.",
+    "Animated React and Web3 UI components for wallets, trading dashboards, and dapps. Copy source, customize, and ship faster.",
   github: "https://github.com/Shivam-Prajapati-59/Kick-UI",
   twitter: "https://x.com/Shivamp69_",
   twitterHandle: "@Shivamp69_",
