@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Montserrat } from "next/font/google";
 import { DemoRenderer } from "@/components/docs/DemoRenderer";
 import { PreviewThemeSync } from "@/components/docs/PreviewThemeSync";
 import { getAllComponentDocs, getComponentDoc } from "@/lib/component-docs";
+import { montserrat } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-
-const montserrat = Montserrat({
-  weight: ["300", "400", "500", "600", "700"],
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },

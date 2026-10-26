@@ -1,13 +1,6 @@
 import Container from "@/components/common/Container";
 import Sidebar from "@/components/navs/Sidebar";
-import { Montserrat } from "next/font/google";
-
-const montserrat = Montserrat({
-  weight: ["300", "400", "500", "600", "700"],
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-  display: "swap",
-});
+import { montserrat } from "@/lib/fonts";
 
 /**
  * Shared docs-browsing chrome for /components/* and /docs/*. One layout
