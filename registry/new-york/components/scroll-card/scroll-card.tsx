@@ -80,7 +80,7 @@ export default function ScrollCard({
     >
       <div className="sticky top-0 flex h-[var(--scroll-card-viewport-height,100vh)] items-center">
         <div className="grid w-full grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-10">
-          <div className="relative h-[300px] w-full overflow-hidden rounded-xl md:h-[490px]">
+          <div className="relative h-[300px] w-full overflow-hidden rounded-xl md:mx-auto md:aspect-square md:h-auto md:max-w-[420px]">
             {features.map((feature, index) => (
               <ScrollImage
                 key={feature.title}
@@ -92,7 +92,8 @@ export default function ScrollCard({
             ))}
           </div>
 
-          <div className="relative flex h-[300px] flex-col gap-4 md:h-[490px] md:gap-6">
+          {/* Text column matches the image's desktop height */}
+          <div className="relative flex h-[300px] flex-col gap-4 md:h-[420px] md:gap-6">
             {features.map((feature, index) => (
               <TextItem
                 key={feature.title}
@@ -203,9 +204,8 @@ function TextItem({ feature, index, total, progress }: ScrollItemProps) {
     <div className="flex flex-col space-y-2 md:space-y-5">
       <motion.h2
         style={{ letterSpacing }}
-        className={`max-w-sm text-2xl leading-[1.15] font-medium tracking-tight transition-colors duration-300 md:text-3xl ${
-          isActive ? "text-foreground" : "text-muted-foreground"
-        }`}
+        className={`max-w-sm text-2xl leading-[1.15] font-medium tracking-tight transition-colors duration-300 md:text-3xl ${isActive ? "text-foreground" : "text-muted-foreground"
+          }`}
       >
         {feature.title}
       </motion.h2>

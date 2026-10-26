@@ -1,10 +1,8 @@
 import { notFound } from "next/navigation";
 import { ComponentPreviewClient } from "@/components/docs/ComponentPreviewClient";
-import { DemoRenderer } from "@/components/docs/DemoRenderer";
 import { CodeOptionsProvider } from "@/hooks/useCodeOptions";
 import { getAllComponentDocs, getComponentDoc } from "@/lib/component-docs";
 import { SITE_CONFIG } from "@/lib/site-config";
-import { getCategoryMetadata } from "@/lib/component-categories";
 
 export async function generateStaticParams() {
   return getAllComponentDocs().map((component) => ({ slug: component.slug }));
@@ -131,7 +129,6 @@ export default async function ComponentDocPage({
       <CodeOptionsProvider>
         <ComponentPreviewClient
           slug={component.slug}
-          preview={<DemoRenderer name={component.slug} />}
           fullPreview={component.fullPreview}
           sourceCode={component.sourceCode}
           sourceFilename={component.sourceFilename}

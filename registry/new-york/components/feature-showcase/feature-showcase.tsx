@@ -132,7 +132,13 @@ const FeatureShowcase = ({
           {items.map((item) => {
             const isActive = item.id === activeId;
             return (
-              <div key={item.id} className="flex flex-col">
+              <div
+                key={item.id}
+                className={cn(
+                  "flex flex-col rounded-lg transition-colors",
+                  isActive && "bg-card shadow-sm",
+                )}
+              >
                 <button
                   type="button"
                   onClick={() => setActiveId(item.id)}
@@ -140,7 +146,7 @@ const FeatureShowcase = ({
                   className={cn(
                     "group focus-visible:ring-ring focus-visible:ring-offset-background flex items-start gap-4 rounded-lg p-5 text-left transition-all outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:gap-5 lg:p-6 xl:p-8",
                     isActive
-                      ? "bg-card text-foreground shadow-sm"
+                      ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground bg-transparent",
                   )}
                 >
@@ -176,8 +182,8 @@ const FeatureShowcase = ({
                   </div>
                 </button>
 
-                {/* CTA sits OUTSIDE the row button: when href exists it renders
-                    as a real anchor — never nested inside the button. */}
+                {/* Keep the CTA inside the card but outside the row button so
+                    an href can render as a valid, independently clickable link. */}
                 <AnimatePresence initial={false}>
                   {isActive && item.cta && (
                     <motion.div
@@ -191,7 +197,7 @@ const FeatureShowcase = ({
                         <a
                           href={item.href}
                           className={cn(
-                            "-mt-1 block w-fit px-5 pb-3 text-[14px] font-medium underline-offset-4 hover:underline lg:px-6 lg:text-[15px] xl:px-8",
+                            "-mt-0 ml-[60px] block w-fit pb-3 text-[14px] font-medium underline-offset-4 hover:underline lg:ml-[68px] lg:text-[15px] xl:ml-[76px]",
                             activeColor,
                           )}
                         >
@@ -200,7 +206,7 @@ const FeatureShowcase = ({
                       ) : (
                         <span
                           className={cn(
-                            "-mt-1 block w-fit px-5 pb-3 text-[14px] font-medium lg:px-6 lg:text-[15px] xl:px-8",
+                            "-mt-1 ml-[60px] block w-fit pb-3 text-[14px] font-medium lg:ml-[68px] lg:text-[15px] xl:ml-[76px]",
                             activeColor,
                           )}
                         >

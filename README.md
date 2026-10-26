@@ -1,7 +1,7 @@
 <div align="center">
 
 <h1 align="center">
-  <img src="./public/logo12.png" alt=KickUI" width="90" height="40" align="middle" />
+  <img src="./public/logo12.png" alt=KickUI" width="20%" height="20%" align="middle" />
 </h1>
 
 **Animated React UI Components for Web3.**

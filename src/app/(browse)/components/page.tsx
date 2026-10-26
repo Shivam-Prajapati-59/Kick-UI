@@ -77,7 +77,6 @@ export default function ComponentsPage() {
                     slug={doc.slug}
                     title={doc.title}
                     description={doc.description}
-                    interactivePreview={!StillPreview}
                     preview={
                       StillPreview ? (
                         <StillPreview />

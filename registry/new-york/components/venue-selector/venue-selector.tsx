@@ -122,7 +122,7 @@ function VenueSelectorTrigger({
       type="button"
       aria-haspopup="listbox"
       aria-expanded={open}
-      aria-controls={contentId}
+      aria-controls={open ? contentId : undefined}
       data-state={open ? "open" : "closed"}
       onClick={(event) => {
         onClick?.(event);

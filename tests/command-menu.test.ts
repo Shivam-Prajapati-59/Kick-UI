@@ -39,6 +39,12 @@ describe("filterCommandEntries", () => {
     expect(filterCommandEntries(entries, "guide").length).toBeGreaterThan(0);
   });
 
+  test("finds components by their descriptions", () => {
+    expect(
+      filterCommandEntries(entries, "CANDLESTICK").map((entry) => entry.id),
+    ).toContain("component:trading-chart");
+  });
+
   test("no match returns an empty list", () => {
     expect(filterCommandEntries(entries, "zzz-no-such-thing")).toEqual([]);
   });

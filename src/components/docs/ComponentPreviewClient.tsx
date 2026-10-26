@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import CodeExample, { type CodeVariants } from "@/components/code/CodeExample";
-import { motion, AnimatePresence } from "motion/react";
-import { RotateCw } from "lucide-react";
+import { Monitor, RotateCw, Smartphone, Tablet } from "lucide-react";
+import { useTheme } from "next-themes";
 import PropsTable from "./PropsTable";
+import { getPreviewHeight, type PreviewViewport } from "./preview-sizes";
 import type { PropItem } from "@/lib/types";
 
 interface ComponentPreviewClientProps {
@@ -17,25 +18,15 @@ interface ComponentPreviewClientProps {
   registryUrl?: string;
   usage?: string;
   propsData?: PropItem[];
-  preview: React.ReactNode;
   fullPreview?: boolean;
   className?: string;
 }
 
-/* ------------------------------------------------------------------ */
-/*  Smooth animated tab content wrapper                                */
-/* ------------------------------------------------------------------ */
-
-const tabVariants = {
-  initial: { opacity: 0, y: 6, filter: "blur(4px)" },
-  animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-  exit: { opacity: 0, y: -6, filter: "blur(4px)" },
-};
-
-const tabTransition = {
-  duration: 0.3,
-  ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number],
-};
+const viewports = [
+  { value: "desktop", label: "Desktop", width: null, icon: Monitor },
+  { value: "tablet", label: "Tablet", width: 768, icon: Tablet },
+  { value: "mobile", label: "Mobile", width: 390, icon: Smartphone },
+] as const;
 
 export function ComponentPreviewClient({
   slug,
@@ -45,13 +36,20 @@ export function ComponentPreviewClient({
   registryUrl,
   usage = "",
   propsData = [],
-  preview,
   fullPreview = false,
   className,
 }: ComponentPreviewClientProps) {
   const [activeTab, setActiveTab] = useState("preview");
   const [previewKey, setPreviewKey] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
+  const [loadedFrame, setLoadedFrame] = useState<string | null>(null);
+  const [viewport, setViewport] = useState<PreviewViewport>("desktop");
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const { resolvedTheme } = useTheme();
+  const selectedWidth = viewports.find(({ value }) => value === viewport)?.width;
+  const previewHeight = getPreviewHeight(slug, viewport, fullPreview);
+  const frameKey = `${slug}-${previewKey}`;
+  const frameLoaded = loadedFrame === frameKey;
 
   const variants: CodeVariants | undefined = sourceCode
     ? { tsTailwind: sourceCode }
@@ -60,8 +58,36 @@ export function ComponentPreviewClient({
   const handleReload = useCallback(() => {
     setIsSpinning(true);
     setPreviewKey((k) => k + 1);
-    setTimeout(() => setIsSpinning(false), 600);
   }, []);
+
+  const syncPreviewTheme = useCallback(() => {
+    if (resolvedTheme !== "light" && resolvedTheme !== "dark") return;
+    iframeRef.current?.contentWindow?.postMessage(
+      { type: "kickui:preview-theme", theme: resolvedTheme },
+      window.location.origin,
+    );
+  }, [resolvedTheme]);
+
+  useEffect(() => {
+    syncPreviewTheme();
+    const handleReady = (event: MessageEvent) => {
+      if (
+        event.origin === window.location.origin &&
+        event.source === iframeRef.current?.contentWindow &&
+        event.data?.type === "kickui:preview-ready"
+      ) {
+        setLoadedFrame(frameKey);
+        setIsSpinning(false);
+        syncPreviewTheme();
+      }
+    };
+    window.addEventListener("message", handleReady);
+    iframeRef.current?.contentWindow?.postMessage(
+      { type: "kickui:request-preview-ready" },
+      window.location.origin,
+    );
+    return () => window.removeEventListener("message", handleReady);
+  }, [frameKey, syncPreviewTheme]);
 
   return (
     <Tabs
@@ -69,94 +95,113 @@ export function ComponentPreviewClient({
       onValueChange={setActiveTab}
       className={cn("my-6 w-full", className)}
     >
-      <TabsList className="bg-muted/50 inline-flex h-12 items-center rounded-lg p-1">
-        <TabsTrigger
-          value="preview"
-          className="rounded-md px-3 py-1 text-sm font-medium transition-all duration-200 data-[state=active]:bg-background data-[state=active]:shadow-sm"
-        >
-          Preview
-        </TabsTrigger>
-        <TabsTrigger
-          value="code"
-          className="rounded-md px-3 py-1 text-sm font-medium transition-all duration-200 data-[state=active]:bg-background data-[state=active]:shadow-sm"
-        >
-          Code
-        </TabsTrigger>
-      </TabsList>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <TabsList className="bg-muted/50 inline-flex h-12 items-center rounded-lg p-1">
+          <TabsTrigger
+            value="preview"
+            className="rounded-md px-3 py-1 text-sm font-medium transition-all duration-200 data-[state=active]:bg-background data-[state=active]:shadow-sm"
+          >
+            Preview
+          </TabsTrigger>
+          <TabsTrigger
+            value="code"
+            className="rounded-md px-3 py-1 text-sm font-medium transition-all duration-200 data-[state=active]:bg-background data-[state=active]:shadow-sm"
+          >
+            Code
+          </TabsTrigger>
+        </TabsList>
 
-      {/* Animated tab content */}
-      <div className="relative mt-3">
-        <AnimatePresence mode="wait">
-          {activeTab === "preview" && (
-            <motion.div
-              key="preview"
-              variants={tabVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              transition={tabTransition}
+        {activeTab === "preview" && (
+          <div className="flex items-center gap-2">
+            <div
+              role="group"
+              aria-label="Preview viewport"
+              className="bg-muted/50 flex h-9 items-center rounded-lg p-1.5"
             >
-              <TabsContent value="preview" className="relative rounded-xl border border-border overflow-hidden scrollbar-hide" forceMount>
-                {/* Reload button — top-right corner */}
+              {viewports.map(({ value, label, icon: Icon }) => (
                 <button
-                  onClick={handleReload}
-                  aria-label="Reload preview"
+                  key={value}
+                  type="button"
+                  aria-label={`${label} preview`}
+                  aria-pressed={viewport === value}
+                  title={`${label} preview`}
+                  onClick={() => setViewport(value)}
                   className={cn(
-                    "absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded-md",
-                    "border border-border bg-background text-muted-foreground",
-                    "transition-all duration-200 hover:bg-muted hover:text-foreground",
-                    "opacity-60 hover:opacity-100"
+                    "flex size-8 items-center justify-center rounded-md border border-transparent text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    viewport === value && "border-border bg-background text-foreground shadow-sm hover:text-foreground dark:border-input dark:bg-input/30",
                   )}
                 >
-                  <RotateCw
-                    className={cn(
-                      "h-3.5 w-3.5 transition-transform duration-500 ease-out",
-                      isSpinning && "animate-spin"
-                    )}
-                  />
+                  <Icon className="size-4" aria-hidden="true" />
                 </button>
-
-                <div
-                  key={previewKey}
-                  className={cn(
-                    "flex items-center justify-center",
-                    fullPreview ? "min-h-100 p-0" : "min-h-87.5 p-10"
-                  )}
-                >
-                  {preview}
-                </div>
-
-              </TabsContent>
-
-              {/* Props table — only visible under Preview tab */}
-              <div className="mt-12">
-                <PropsTable propsData={propsData} />
-              </div>
-            </motion.div>
-          )}
-
-          {activeTab === "code" && (
-            <motion.div
-              key="code"
-              variants={tabVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              transition={tabTransition}
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={handleReload}
+              aria-label="Reload preview"
+              title="Reload preview"
+              className="bg-muted/50 flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <TabsContent value="code" className="scrollbar-hide" forceMount>
-                <CodeExample
-                  slug={slug}
-                  usage={usage}
-                  variants={variants}
-                  dependencies={dependencies}
-                  registryUrl={registryUrl}
-                  sourceFilename={sourceFilename}
-                />
-              </TabsContent>
-            </motion.div>
+              <RotateCw
+                className={cn("size-4", isSpinning && "animate-spin")}
+                aria-hidden="true"
+              />
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div className="relative mt-4">
+        <TabsContent
+          value="preview"
+          forceMount
+          className={cn(
+            "overflow-hidden rounded-xl border border-border bg-muted/20",
+            activeTab !== "preview" && "hidden",
           )}
-        </AnimatePresence>
+        >
+          <div
+            className="relative mx-auto w-full bg-background transition-[max-width] duration-300"
+            style={{ maxWidth: selectedWidth ?? undefined }}
+          >
+            <iframe
+              ref={iframeRef}
+              key={frameKey}
+              src={`/preview/${slug}`}
+              title={`${slug.replaceAll("-", " ")} ${viewport} preview`}
+              onLoad={() => {
+                setLoadedFrame(frameKey);
+                setIsSpinning(false);
+                syncPreviewTheme();
+              }}
+              style={{ height: previewHeight }}
+              className={cn(
+                "block w-full border-0 bg-background transition-opacity duration-200",
+                frameLoaded ? "opacity-100" : "opacity-0",
+              )}
+              aria-hidden={!frameLoaded}
+            />
+          </div>
+        </TabsContent>
+
+        {activeTab === "preview" && (
+          <div className="mt-12">
+            <PropsTable propsData={propsData} />
+          </div>
+        )}
+
+        {activeTab === "code" && (
+          <TabsContent value="code" className="scrollbar-hide" forceMount>
+            <CodeExample
+              slug={slug}
+              usage={usage}
+              variants={variants}
+              dependencies={dependencies}
+              registryUrl={registryUrl}
+              sourceFilename={sourceFilename}
+            />
+          </TabsContent>
+        )}
       </div>
     </Tabs>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useId } from "react";
+import { useEffect, useState, useId, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { Link } from "next-view-transitions";
 import { motion, AnimatePresence } from "motion/react";
@@ -21,6 +21,10 @@ const mobileNavItems = navbarConfig.mobileNavItems.map((item) => ({
   href: item.href,
 }));
 
+const subscribeToPlatform = () => () => {};
+const getShortcutModifier = () =>
+  /Mac|iPhone|iPad|iPod/.test(navigator.userAgent) ? "⌘" : "Ctrl";
+
 export default function Navbar({
   starCount = null,
 }: {
@@ -28,6 +32,11 @@ export default function Navbar({
 }) {
   const { setOpen: setMenuOpen } = useCommandMenu();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const shortcutModifier = useSyncExternalStore(
+    subscribeToPlatform,
+    getShortcutModifier,
+    () => "Ctrl",
+  );
   const hoverPillId = useId();
   // Blur the navbar only once the page scrolls — at rest it stays fully
   // transparent so the hero gradient shows through cleanly.
@@ -42,16 +51,16 @@ export default function Navbar({
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 z-50 w-full transition-[backdrop-filter] duration-300 ${scrolled ? "backdrop-blur-xl backdrop-saturate-150" : ""
-        }`}
+      className={`fixed top-0 left-0 z-50 w-full transition-[backdrop-filter] duration-300 ${
+        scrolled ? "backdrop-blur-xl backdrop-saturate-150" : ""
+      }`}
     >
       <Container className="py-3">
         <div className="flex items-center justify-between">
           {/* Left Side */}
           <div className="flex items-center gap-8">
             {/* Logo */}
-            <div
-            >
+            <div>
               <Link
                 href="/"
                 aria-label="Kick UI home"
@@ -117,13 +126,14 @@ export default function Navbar({
               variant="outline"
               size="sm"
               aria-label="Search"
+              data-search-trigger
               onClick={() => setMenuOpen(true)}
               className="group text-muted-foreground hover:text-foreground flex items-center gap-2 py-4"
             >
               <Search className="h-4 w-4" data-icon="inline-start" />
               <span className="hidden sm:inline">Search Components</span>
               <kbd className="border-border bg-muted hidden items-center gap-0.5 rounded border px-1.5 py-0.5 text-[10px] sm:flex">
-                <span>⌘</span>K
+                <span>{shortcutModifier}</span>K
               </kbd>
             </Button>
 
@@ -141,8 +151,9 @@ export default function Navbar({
                 aria-label={
                   starCount === null
                     ? "View Kick UI on GitHub"
-                    : `View Kick UI on GitHub — ${starCount.toLocaleString()} ${starCount === 1 ? "star" : "stars"
-                    }`
+                    : `View Kick UI on GitHub — ${starCount.toLocaleString()} ${
+                        starCount === 1 ? "star" : "stars"
+                      }`
                 }
               >
                 {/* Lucide rather than public/assets/svgs/github1.svg: the

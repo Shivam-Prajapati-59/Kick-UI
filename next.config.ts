@@ -3,6 +3,7 @@ import { DEFAULT_GUIDE_SLUG, guideHref } from "./src/config/docs";
 import { SITE_CONFIG } from "./src/lib/site-config";
 
 const nextConfig: NextConfig = {
+  devIndicators: false,
   images: {
     remotePatterns: [
       {
