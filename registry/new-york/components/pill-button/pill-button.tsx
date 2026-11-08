@@ -197,6 +197,8 @@ export function PillButton({
         className={cn(
           "relative isolate flex h-[68px] cursor-pointer items-center gap-2 overflow-hidden rounded-full",
           "bg-background/80 supports-[backdrop-filter]:bg-background/60 backdrop-blur-2xl",
+          "[@media(prefers-reduced-transparency:reduce)]:bg-background! [@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none",
+          "contrast-more:bg-background! contrast-more:backdrop-blur-none",
           "px-5 py-2.5 pl-2.5",
           "text-base font-normal leading-6 text-foreground",
           "outline-none transition-colors",

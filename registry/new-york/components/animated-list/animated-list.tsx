@@ -7,7 +7,12 @@ import React, {
   useCallback,
   ReactNode,
 } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import { cn } from "@/lib/utils";
 
 export interface AnimatedListProps<T> {
@@ -31,6 +36,7 @@ export function AnimatedList<T>({
   const listRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const keyboardNavRef = useRef(false);
+  const prefersReducedMotion = useReducedMotion();
 
   // Performance Optimization: GPU Accelerated Scroll Gradients
   const { scrollYProgress } = useScroll({ container: listRef });
@@ -85,18 +91,21 @@ export function AnimatedList<T>({
       const itemTop = selectedItem.offsetTop;
       const itemBottom = itemTop + selectedItem.offsetHeight;
       if (itemTop < containerScrollTop + extraMargin) {
-        container.scrollTo({ top: itemTop - extraMargin, behavior: "smooth" });
+        container.scrollTo({
+          top: itemTop - extraMargin,
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+        });
       } else if (
         itemBottom >
         containerScrollTop + containerHeight - extraMargin
       ) {
         container.scrollTo({
           top: itemBottom - containerHeight + extraMargin,
-          behavior: "smooth",
+          behavior: prefersReducedMotion ? "auto" : "smooth",
         });
       }
     }
-  }, [selectedIndex]);
+  }, [selectedIndex, prefersReducedMotion]);
 
   return (
     <div className={cn("relative w-[500px]", className)}>

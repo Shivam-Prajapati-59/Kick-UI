@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, CSSProperties } from "react";
+import { useEffect, useRef, useSyncExternalStore, CSSProperties } from "react";
 import * as THREE from "three";
 
 /* ─── shader sources ──────────────────────────────────────────────── */
@@ -568,6 +568,19 @@ export interface CursorWebFluidProps {
 
 /* ─── React component ─────────────────────────────────────────────── */
 
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
+// Server snapshot is false so SSR and hydration render the same canvas.
+function subscribeReducedMotion(onChange: () => void) {
+  const mediaQuery = window.matchMedia(REDUCED_MOTION_QUERY);
+  mediaQuery.addEventListener("change", onChange);
+  return () => mediaQuery.removeEventListener("change", onChange);
+}
+
+function getReducedMotion() {
+  return window.matchMedia(REDUCED_MOTION_QUERY).matches;
+}
+
 export default function CursorWebFluid({
   inkColor = "--foreground",
   simResolution = 256,
@@ -588,8 +601,15 @@ export default function CursorWebFluid({
   className,
 }: CursorWebFluidProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const reducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotion,
+    () => false,
+  );
 
   useEffect(() => {
+    if (reducedMotion) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -613,6 +633,7 @@ export default function CursorWebFluid({
     const sim = new FluidSimulation(canvas, config);
     return () => sim.dispose();
   }, [
+    reducedMotion,
     inkColor,
     simResolution,
     dyeResolution,
@@ -626,6 +647,8 @@ export default function CursorWebFluid({
     threshold,
     edgeSoftness,
   ]);
+
+  if (reducedMotion) return null;
 
   const canvasStyle: CSSProperties = {
     position: contained ? "absolute" : "fixed",

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "motion/react";
+import { motion, MotionConfig, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const circleVariants = {
@@ -23,7 +23,7 @@ const slideVariants = {
 const slideTransition = {
   type: "spring" as const,
   stiffness: 250,
-  damping: 22,
+  damping: 32,
 };
 
 const DefaultIcon = () => (
@@ -57,40 +57,44 @@ export default function SlideTextButton({
   "aria-label": ariaLabel = "Slide text button",
   ...props
 }: SlideTextButtonProps) {
-  return (
-    <motion.button
-      initial="rest"
-      whileHover="hover"
-      whileFocus="hover"
-      type="button"
-      aria-label={ariaLabel}
-      className={cn(
-        "bg-secondary focus-visible:ring-ring focus-visible:ring-offset-background relative h-[66px] w-[70px] overflow-hidden rounded-md outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
-        className,
-      )}
-      {...props}
-    >
-      <motion.div
-        variants={circleVariants}
-        transition={circleTransition}
-        style={{ willChange: "transform, opacity" }}
-        className="bg-secondary-foreground absolute top-1/2 left-1/2 h-[90px] w-[90px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-      />
+  const prefersReducedMotion = useReducedMotion();
 
-      <div className="relative z-10 h-full overflow-hidden">
+  return (
+    <MotionConfig reducedMotion="user">
+      <motion.button
+        initial="rest"
+        whileHover="hover"
+        whileFocus="hover"
+        type="button"
+        aria-label={ariaLabel}
+        className={cn(
+          "bg-secondary focus-visible:ring-ring focus-visible:ring-offset-background relative h-[66px] w-[70px] overflow-hidden rounded-md outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+          className,
+        )}
+        {...props}
+      >
         <motion.div
-          variants={slideVariants}
-          transition={slideTransition}
-          className="h-[200%]"
-        >
-          <div className="text-secondary-foreground flex h-1/2 items-center justify-center text-2xl font-semibold">
-            {initialText}
-          </div>
-          <div className="text-primary-foreground flex h-1/2 items-center justify-center text-2xl font-semibold">
-            {hoverText}
-          </div>
-        </motion.div>
-      </div>
-    </motion.button>
+          variants={circleVariants}
+          transition={prefersReducedMotion ? { duration: 0 } : circleTransition}
+          style={{ willChange: "transform, opacity" }}
+          className="bg-secondary-foreground absolute top-1/2 left-1/2 h-[90px] w-[90px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        />
+
+        <div className="relative z-10 h-full overflow-hidden">
+          <motion.div
+            variants={slideVariants}
+            transition={slideTransition}
+            className="h-[200%]"
+          >
+            <div className="text-secondary-foreground flex h-1/2 items-center justify-center text-2xl font-semibold">
+              {initialText}
+            </div>
+            <div className="text-primary-foreground flex h-1/2 items-center justify-center text-2xl font-semibold">
+              {hoverText}
+            </div>
+          </motion.div>
+        </div>
+      </motion.button>
+    </MotionConfig>
   );
 }

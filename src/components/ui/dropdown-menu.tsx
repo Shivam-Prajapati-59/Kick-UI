@@ -44,6 +44,8 @@ function DropdownMenuContent({
         sideOffset={sideOffset}
         className={cn(
           "bg-popover/95 backdrop-blur-xl text-popover-foreground",
+          "[@media(prefers-reduced-transparency:reduce)]:bg-popover [@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none",
+          "contrast-more:bg-popover contrast-more:backdrop-blur-none",
           "data-[state=open]:animate-in data-[state=closed]:animate-out",
           "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
           "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",

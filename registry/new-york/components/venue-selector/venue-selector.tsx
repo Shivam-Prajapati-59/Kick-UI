@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Check, ChevronDown } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const expansionEase = [0.16, 1, 0.3, 1] as const;
@@ -191,6 +191,7 @@ function VenueSelectorContent({
   ...props
 }: React.ComponentProps<"div">) {
   const { open, setOpen, contentId, triggerRef } = useVenueSelector();
+  const prefersReducedMotion = useReducedMotion();
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     onKeyDown?.(event);
@@ -241,7 +242,9 @@ function VenueSelectorContent({
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{
-            height: { duration: 0.3, ease: expansionEase },
+            height: prefersReducedMotion
+              ? { duration: 0 }
+              : { duration: 0.3, ease: expansionEase },
             opacity: { duration: 0.18, ease: "easeOut" },
           }}
           className="overflow-hidden will-change-[height,opacity]"

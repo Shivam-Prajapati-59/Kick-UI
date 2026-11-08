@@ -151,7 +151,7 @@ export default function CardStack({
           transition={{
             type: "spring",
             stiffness: 170,
-            damping: 18,
+            damping: 26,
             delay: isLoaded ? 0 : 0.1,
           }}
           style={{ zIndex: index }}

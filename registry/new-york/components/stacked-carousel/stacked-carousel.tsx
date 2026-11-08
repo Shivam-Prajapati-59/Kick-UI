@@ -123,7 +123,7 @@ export function StackedCarousel<T>({
                 transition={
                   isActive && isAdvancing
                     ? { duration: 0.48, ease: "easeInOut" }
-                    : { type: "spring", stiffness: 300, damping: 25 }
+                    : { type: "spring", stiffness: 300, damping: 35 }
                 }
                 style={{ zIndex: items.length - position }}
                 className={cn(

@@ -101,6 +101,11 @@ const CSS = `
 .dm-focus:focus-visible{outline:2px solid var(--net);outline-offset:2px}
 `;
 
+// Distance a flick would coast, using the exponential decay iOS scrolling uses.
+function projectFlick(velocity: number, decelerationRate = 0.998) {
+  return ((velocity / 1000) * decelerationRate) / (1 - decelerationRate);
+}
+
 let bodyLockCount = 0;
 let savedBodyOverflow: string | null = null;
 
@@ -389,7 +394,7 @@ const DepositModal = ({
             if (e.target === e.currentTarget && pressStartedOnBackdrop.current)
               close();
           }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-2 backdrop-blur-sm sm:p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-2 backdrop-blur-sm contrast-more:bg-black/80 contrast-more:backdrop-blur-none sm:p-4 [@media(prefers-reduced-transparency:reduce)]:bg-black/80 [@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none"
         >
           <style>{CSS}</style>
 
@@ -408,7 +413,10 @@ const DepositModal = ({
             dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={{ top: 0, bottom: 0.7 }}
             onDragEnd={(_, info) => {
-              if (info.offset.y > 110 || info.velocity.y > 600) close();
+              const height = panelRef.current?.offsetHeight;
+              if (!height) return;
+              const projected = info.offset.y + projectFlick(info.velocity.y);
+              if (projected > height * 0.4) close();
             }}
             className="max-h-[calc(100dvh-1rem)] w-full max-w-[440px] overflow-y-auto overscroll-contain sm:max-h-[calc(100dvh-2rem)]"
           >

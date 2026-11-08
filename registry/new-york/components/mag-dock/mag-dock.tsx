@@ -6,6 +6,7 @@ import {
   AnimatePresence,
   motion,
   useMotionValue,
+  useReducedMotion,
   useSpring,
   useTransform,
   type MotionValue,
@@ -24,6 +25,8 @@ interface MagDockProps {
   className?: string;
 }
 
+const RESTING_SIZE = 40;
+
 function MagDockIcon({
   mouseX,
   icon: Icon,
@@ -37,6 +40,7 @@ function MagDockIcon({
 }) {
   const ref = useRef<HTMLButtonElement>(null);
   const [hovered, setHovered] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   const distance = useTransform(mouseX, (val) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
@@ -46,7 +50,7 @@ function MagDockIcon({
   const sizeSync = useTransform(
     distance,
     [-150, -75, 0, 75, 150],
-    [40, 52, 72, 52, 40],
+    [RESTING_SIZE, 52, 72, 52, RESTING_SIZE],
   );
   const size = useSpring(sizeSync, { mass: 0.1, stiffness: 200, damping: 14 });
 
@@ -58,9 +62,21 @@ function MagDockIcon({
       <AnimatePresence>
         {hovered && (
           <motion.div
-            initial={{ opacity: 0, y: 4, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 4, scale: 0.9 }}
+            initial={
+              prefersReducedMotion
+                ? { opacity: 0 }
+                : { opacity: 0, y: 4, scale: 0.9 }
+            }
+            animate={
+              prefersReducedMotion
+                ? { opacity: 1 }
+                : { opacity: 1, y: 0, scale: 1 }
+            }
+            exit={
+              prefersReducedMotion
+                ? { opacity: 0 }
+                : { opacity: 0, y: 4, scale: 0.9 }
+            }
             transition={{ duration: 0.12 }}
             className="border-border/50 bg-popover text-popover-foreground pointer-events-none absolute bottom-full left-1/2 z-50 mb-6 -translate-x-1/2 rounded-md border px-2 py-1 text-xs font-medium whitespace-nowrap shadow-lg"
           >
@@ -74,11 +90,15 @@ function MagDockIcon({
         type="button"
         title={name}
         aria-label={name}
-        style={{ width: size, height: size, y: lift }}
+        style={{
+          width: prefersReducedMotion ? RESTING_SIZE : size,
+          height: prefersReducedMotion ? RESTING_SIZE : size,
+          y: prefersReducedMotion ? 0 : lift,
+        }}
         onHoverStart={() => setHovered(true)}
         onHoverEnd={() => setHovered(false)}
         onClick={() => onItemClick?.()}
-        whileTap={{ scale: 0.88 }}
+        whileTap={prefersReducedMotion ? undefined : { scale: 0.88 }}
         className={cn(
           "flex cursor-pointer items-center justify-center rounded-2xl",
           "from-background/30 to-background/10 text-foreground bg-linear-to-b",
@@ -107,6 +127,8 @@ export default function MagDock({ items, className }: MagDockProps) {
           "mx-auto flex h-16 items-end gap-2 rounded-2xl px-3 pb-2",
           "border-border/40 border",
           "bg-background/70 backdrop-blur-2xl",
+          "[@media(prefers-reduced-transparency:reduce)]:bg-background [@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none",
+          "contrast-more:bg-background contrast-more:border-border contrast-more:backdrop-blur-none",
           "shadow-[0_8px_32px_rgba(0,0,0,0.12)]",
           "dark:shadow-[0_8px_32px_rgba(0,0,0,0.45)]",
         )}

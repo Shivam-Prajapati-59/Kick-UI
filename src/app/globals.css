@@ -72,7 +72,7 @@
     0px 4px 10px 0px hsl(270 40% 10% / 0.1),
     0px 8px 10px -1px hsl(270 40% 10% / 0.1);
   --shadow-2xl: 0px 4px 10px 0px hsl(270 40% 10% / 0.25);
-  --tracking-normal: 0.01em;
+  --tracking-normal: 0em;
   --spacing: 0.25rem;
 }
 

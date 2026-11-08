@@ -5,6 +5,7 @@ import {
   motion,
   MotionValue,
   useMotionValueEvent,
+  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
@@ -58,6 +59,7 @@ export default function ScrollCard({
   scrollContainer,
 }: ScrollCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
     container: scrollContainer,
@@ -71,6 +73,7 @@ export default function ScrollCard({
     mass: 0.7,
     restDelta: 0.0005,
   });
+  const progress = prefersReducedMotion ? scrollYProgress : smoothProgress;
 
   return (
     <section
@@ -87,7 +90,7 @@ export default function ScrollCard({
                 feature={feature}
                 index={index}
                 total={features.length}
-                progress={smoothProgress}
+                progress={progress}
               />
             ))}
           </div>
@@ -100,7 +103,7 @@ export default function ScrollCard({
                 feature={feature}
                 index={index}
                 total={features.length}
-                progress={smoothProgress}
+                progress={progress}
               />
             ))}
           </div>
@@ -141,7 +144,8 @@ function useActiveValue(
 }
 
 function ScrollImage({ feature, index, total, progress }: ScrollItemProps) {
-  const { start, end, slideStart, isFirst, isLast } = useActiveValue(
+  const prefersReducedMotion = useReducedMotion();
+  const { active, start, end, slideStart, isFirst, isLast } = useActiveValue(
     progress,
     index,
     total,
@@ -150,19 +154,22 @@ function ScrollImage({ feature, index, total, progress }: ScrollItemProps) {
   const y = useTransform(
     progress,
     isFirst ? [0, 1] : [slideStart, start],
-    isFirst ? ["0%", "0%"] : ["100%", "0%"],
+    isFirst || prefersReducedMotion ? ["0%", "0%"] : ["100%", "0%"],
   );
   const scale = useTransform(
     progress,
     isLast ? [0, 1] : [start, end],
-    isLast ? [1, 1] : [1, 0.7],
+    isLast || prefersReducedMotion ? [1, 1] : [1, 0.7],
   );
   const hidePoint = Math.min(end + 0.001, 1);
-  const opacity = useTransform(
+  const scrollOpacity = useTransform(
     progress,
     isLast ? [0, 1] : [start, end, hidePoint, 1],
     isLast ? [1, 1] : [1, 0.2, 0, 0],
   );
+  // Images stay in place under reduced motion, so each one must fade in
+  // during its own slot instead of stacking at full opacity.
+  const opacity = prefersReducedMotion ? active : scrollOpacity;
 
   return (
     <motion.div
@@ -188,6 +195,7 @@ function ScrollImage({ feature, index, total, progress }: ScrollItemProps) {
 }
 
 function TextItem({ feature, index, total, progress }: ScrollItemProps) {
+  const prefersReducedMotion = useReducedMotion();
   const { active } = useActiveValue(progress, index, total);
   const [isActive, setIsActive] = useState(() => active.get() > 0.5);
 
@@ -195,21 +203,31 @@ function TextItem({ feature, index, total, progress }: ScrollItemProps) {
     setIsActive(v > 0.5);
   });
 
+  const maxDescHeight = 56;
+  const activeDescHeight = isActive ? maxDescHeight : 0;
   const letterSpacing = useTransform(active, [0, 1], ["-0.01em", "-0.02em"]);
-  const descHeight = useTransform(active, [0, 1], [0, 56]);
+  const descHeight = useTransform(active, [0, 1], [0, maxDescHeight]);
   const descOpacity = useTransform(active, [0, 0.6, 1], [0, 0, 1]);
-  const descY = useTransform(active, [0, 1], [-6, 0]);
+  const descY = useTransform(
+    active,
+    [0, 1],
+    [prefersReducedMotion ? 0 : -6, 0],
+  );
 
   return (
     <div className="flex flex-col space-y-2 md:space-y-5">
       <motion.h2
         style={{ letterSpacing }}
-        className={`max-w-sm text-2xl leading-[1.15] font-medium tracking-tight transition-colors duration-300 md:text-3xl ${isActive ? "text-foreground" : "text-muted-foreground"
-          }`}
+        className={`max-w-sm text-2xl leading-[1.15] font-medium tracking-tight transition-colors duration-300 md:text-3xl ${
+          isActive ? "text-foreground" : "text-muted-foreground"
+        }`}
       >
         {feature.title}
       </motion.h2>
-      <motion.div style={{ height: descHeight }} className="overflow-hidden">
+      <motion.div
+        style={{ height: prefersReducedMotion ? activeDescHeight : descHeight }}
+        className="overflow-hidden"
+      >
         <motion.p
           style={{ opacity: descOpacity, y: descY }}
           className="text-muted-foreground max-w-md text-sm leading-relaxed md:text-[16px]"

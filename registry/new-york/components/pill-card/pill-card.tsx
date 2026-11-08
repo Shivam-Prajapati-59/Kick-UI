@@ -101,6 +101,7 @@ const PillCard = () => {
           >
             <Icon cycle={CYCLE} arrive={ARRIVE} delay={i * STAGGER}>
               <icon.IconComponent className="h-1/2 w-1/2" strokeWidth={1.5} />
+
             </Icon>
           </div>
         ))}
@@ -177,6 +178,7 @@ const Icon = ({
       }}
       className={cn(
         "relative flex cursor-pointer items-center justify-center rounded-xl backdrop-blur-xs",
+        "contrast-more:backdrop-blur-none [@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none",
         "bg-secondary text-foreground border-border border shadow-xs",
         "h-14 w-14",
       )}

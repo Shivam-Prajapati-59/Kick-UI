@@ -118,7 +118,7 @@ const boxes: Box[] = [
     framed: false,
     content: (
       <div className="flex w-full justify-center">
-        <div className="-translate-x-6">
+        <div className="-translate-x-4.5">
           <div className="scale-[2.25]">
             <SlideTextButton />
           </div>
@@ -133,7 +133,7 @@ const boxes: Box[] = [
     framed: false,
     content: (
       <div className="flex w-full justify-start">
-        <div className="translate-x-26">
+        <div className="translate-x-20 2xl:translate-x-27">
           <ScrambleText text="# Web3 " className="text-7xl font-bold" />
         </div>
       </div>

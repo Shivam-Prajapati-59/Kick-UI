@@ -3,7 +3,12 @@
 import { ShieldCheck, Wallet, FileText, MousePointer } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
+import {
+  motion,
+  AnimatePresence,
+  MotionConfig,
+  useReducedMotion,
+} from "motion/react";
 import { cn } from "@/lib/utils";
 
 /* ------------------------------------------------------------------ */
@@ -106,178 +111,200 @@ const FeatureShowcase = ({
   const [activeId, setActiveId] = useState(
     defaultActiveId ?? (items.length > 0 ? items[0].id : 1),
   );
+  const prefersReducedMotion = useReducedMotion();
 
   const activeItem = items.find((item) => item.id === activeId);
 
   return (
-    <div
-      className={cn(
-        "relative flex w-full flex-col gap-6 lg:flex-row lg:gap-8",
-        className,
-      )}
-    >
-      {/* â”€â”€â”€ Left: Content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <div className="z-10 flex w-full flex-col justify-start py-2 lg:w-1/2 lg:py-4">
-        <div className="mb-8 max-w-xl lg:mb-10">
-          <h2 className="text-[28px] leading-[1.1] font-medium tracking-tight whitespace-pre-line sm:text-[36px] lg:text-[42px] xl:text-[48px]">
-            {title}
-          </h2>
-          {subtitle && (
-            <p className="text-muted-foreground mt-3 text-[15px] sm:text-[16px] lg:mt-4 lg:text-[18px]">
-              {subtitle}
-            </p>
-          )}
-        </div>
-        <div className="flex flex-col gap-2">
-          {items.map((item) => {
-            const isActive = item.id === activeId;
-            return (
-              <div
-                key={item.id}
-                className={cn(
-                  "flex flex-col rounded-lg transition-colors",
-                  isActive && "bg-card shadow-sm",
-                )}
-              >
-                <button
-                  type="button"
-                  onClick={() => setActiveId(item.id)}
-                  aria-expanded={isActive}
+    <MotionConfig reducedMotion="user">
+      <div
+        className={cn(
+          "relative flex w-full flex-col gap-6 lg:flex-row lg:gap-8",
+          className,
+        )}
+      >
+        {/* â”€â”€â”€ Left: Content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        <div className="z-10 flex w-full flex-col justify-start py-2 lg:w-1/2 lg:py-4">
+          <div className="mb-8 max-w-xl lg:mb-10">
+            <h2 className="text-[28px] leading-[1.1] font-medium tracking-tight whitespace-pre-line sm:text-[36px] lg:text-[42px] xl:text-[48px]">
+              {title}
+            </h2>
+            {subtitle && (
+              <p className="text-muted-foreground mt-3 text-[15px] sm:text-[16px] lg:mt-4 lg:text-[18px]">
+                {subtitle}
+              </p>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            {items.map((item) => {
+              const isActive = item.id === activeId;
+              return (
+                <div
+                  key={item.id}
                   className={cn(
-                    "group focus-visible:ring-ring focus-visible:ring-offset-background flex items-start gap-4 rounded-lg p-5 text-left transition-all outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:gap-5 lg:p-6 xl:p-8",
-                    isActive
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground bg-transparent",
+                    "flex flex-col rounded-lg transition-colors",
+                    isActive && "bg-card shadow-sm",
                   )}
                 >
-                  <div
+                  <button
+                    type="button"
+                    onClick={() => setActiveId(item.id)}
+                    aria-expanded={isActive}
                     className={cn(
-                      "mt-0.5 shrink-0 transition-colors",
+                      "group focus-visible:ring-ring focus-visible:ring-offset-background flex items-start gap-4 rounded-lg p-5 text-left transition-colors outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:gap-5 lg:p-6 xl:p-8",
                       isActive
-                        ? activeColor
-                        : "text-muted-foreground group-hover:text-foreground",
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground bg-transparent",
                     )}
                   >
-                    {item.icon}
-                  </div>
-                  <div className="flex min-w-0 flex-col items-start justify-start">
-                    <h3 className="text-[17px] leading-snug font-medium lg:text-[20px] xl:text-[22px]">
-                      {item.title}
-                    </h3>
-                    <AnimatePresence initial={false}>
-                      {isActive && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                          animate={{ height: "auto", opacity: 1, marginTop: 6 }}
-                          exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                          transition={{ duration: 0.3, ease: "easeInOut" }}
-                          className="overflow-hidden"
-                        >
-                          <p className="text-muted-foreground mt-1 text-[14px] leading-relaxed lg:text-[15px] xl:text-[16px]">
-                            {item.description}
-                          </p>
-                        </motion.div>
+                    <div
+                      className={cn(
+                        "mt-0.5 shrink-0 transition-colors",
+                        isActive
+                          ? activeColor
+                          : "text-muted-foreground group-hover:text-foreground",
                       )}
-                    </AnimatePresence>
-                  </div>
-                </button>
-
-                {/* Keep the CTA inside the card but outside the row button so
-                    an href can render as a valid, independently clickable link. */}
-                <AnimatePresence initial={false}>
-                  {isActive && item.cta && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: "easeInOut" }}
-                      className="overflow-hidden"
                     >
-                      {item.href ? (
-                        <a
-                          href={item.href}
-                          className={cn(
-                            "-mt-0 ml-[60px] block w-fit pb-3 text-[14px] font-medium underline-offset-4 hover:underline lg:ml-[68px] lg:text-[15px] xl:ml-[76px]",
-                            activeColor,
-                          )}
-                        >
-                          {item.cta}
-                        </a>
-                      ) : (
-                        <span
-                          className={cn(
-                            "-mt-1 ml-[60px] block w-fit pb-3 text-[14px] font-medium lg:ml-[68px] lg:text-[15px] xl:ml-[76px]",
-                            activeColor,
-                          )}
-                        >
-                          {item.cta}
-                        </span>
-                      )}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                      {item.icon}
+                    </div>
+                    <div className="flex min-w-0 flex-col items-start justify-start">
+                      <h3 className="text-[17px] leading-snug font-medium lg:text-[20px] xl:text-[22px]">
+                        {item.title}
+                      </h3>
+                      <AnimatePresence initial={false}>
+                        {isActive && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                            animate={{
+                              height: "auto",
+                              opacity: 1,
+                              marginTop: 6,
+                            }}
+                            exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                            transition={
+                              prefersReducedMotion
+                                ? {
+                                    height: { duration: 0 },
+                                    marginTop: { duration: 0 },
+                                    opacity: { duration: 0.2 },
+                                  }
+                                : { duration: 0.3, ease: "easeInOut" }
+                            }
+                            className="overflow-hidden"
+                          >
+                            <p className="text-muted-foreground mt-1 text-[14px] leading-relaxed lg:text-[15px] xl:text-[16px]">
+                              {item.description}
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </button>
+
+                  {/* Keep the CTA inside the card but outside the row button so
+                    an href can render as a valid, independently clickable link. */}
+                  <AnimatePresence initial={false}>
+                    {isActive && item.cta && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={
+                          prefersReducedMotion
+                            ? {
+                                height: { duration: 0 },
+                                opacity: { duration: 0.2 },
+                              }
+                            : { duration: 0.25, ease: "easeInOut" }
+                        }
+                        className="overflow-hidden"
+                      >
+                        {item.href ? (
+                          <a
+                            href={item.href}
+                            className={cn(
+                              "-mt-0 ml-[60px] block w-fit pb-3 text-[14px] font-medium underline-offset-4 hover:underline lg:ml-[68px] lg:text-[15px] xl:ml-[76px]",
+                              activeColor,
+                            )}
+                          >
+                            {item.cta}
+                          </a>
+                        ) : (
+                          <span
+                            className={cn(
+                              "-mt-1 ml-[60px] block w-fit pb-3 text-[14px] font-medium lg:ml-[68px] lg:text-[15px] xl:ml-[76px]",
+                              activeColor,
+                            )}
+                          >
+                            {item.cta}
+                          </span>
+                        )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* â”€â”€â”€ Right: Phone mockup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        <div className="relative hidden h-[400px] w-full overflow-hidden sm:block sm:h-[500px] md:h-[600px] lg:h-[700px] lg:w-1/2 xl:h-[800px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeId}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="absolute top-8 flex h-full w-full justify-end sm:top-10 lg:top-16 xl:top-20"
+            >
+              <div className="relative h-full w-auto max-w-[85%] md:max-w-[80%] lg:max-w-[85%]">
+                {activeItem && (
+                  <Image
+                    src={activeItem.image}
+                    alt={activeItem.title}
+                    priority
+                    width={450}
+                    height={900}
+                    // Unoptimized: defaults may point at a hosted URL, and
+                    // unoptimized rendering spares consumers from having to
+                    // configure images.remotePatterns for it.
+                    unoptimized
+                    className="h-full w-full object-contain object-top drop-shadow-2xl"
+                  />
+                )}
+                {activeItem?.overlayImage && (
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{
+                      delay: 0.2,
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 28,
+                    }}
+                    className="absolute top-[10%] left-1/2 z-20 w-[22%] -translate-x-1/2 md:w-[25%]"
+                  >
+                    <Image
+                      src={activeItem.overlayImage}
+                      alt=""
+                      width={100}
+                      height={100}
+                      className="h-auto w-full rounded-3xl drop-shadow-2xl md:rounded-4xl"
+                      unoptimized
+                    />
+                  </motion.div>
+                )}
               </div>
-            );
-          })}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Bottom gradient â€” feathered shadow */}
+          <div className="from-background via-background/80 pointer-events-none absolute right-0 bottom-0 left-0 z-10 h-32 bg-linear-to-t to-transparent md:h-40 lg:h-48" />
         </div>
       </div>
-
-      {/* â”€â”€â”€ Right: Phone mockup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <div className="relative hidden h-[400px] w-full overflow-hidden sm:block sm:h-[500px] md:h-[600px] lg:h-[700px] lg:w-1/2 xl:h-[800px]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeId}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="absolute top-8 flex h-full w-full justify-end sm:top-10 lg:top-16 xl:top-20"
-          >
-            <div className="relative h-full w-auto max-w-[85%] md:max-w-[80%] lg:max-w-[85%]">
-              {activeItem && (
-                <Image
-                  src={activeItem.image}
-                  alt={activeItem.title}
-                  priority
-                  width={450}
-                  height={900}
-                  // Unoptimized: defaults may point at a hosted URL, and
-                  // unoptimized rendering spares consumers from having to
-                  // configure images.remotePatterns for it.
-                  unoptimized
-                  className="h-full w-full object-contain object-top drop-shadow-2xl"
-                />
-              )}
-              {activeItem?.overlayImage && (
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{
-                    delay: 0.2,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                  }}
-                  className="absolute top-[10%] left-1/2 z-20 w-[22%] -translate-x-1/2 md:w-[25%]"
-                >
-                  <Image
-                    src={activeItem.overlayImage}
-                    alt=""
-                    width={100}
-                    height={100}
-                    className="h-auto w-full rounded-3xl drop-shadow-2xl md:rounded-4xl"
-                    unoptimized
-                  />
-                </motion.div>
-              )}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Bottom gradient â€” feathered shadow */}
-        <div className="from-background via-background/80 pointer-events-none absolute right-0 bottom-0 left-0 z-10 h-32 bg-linear-to-t to-transparent md:h-40 lg:h-48" />
-      </div>
-    </div>
+    </MotionConfig>
   );
 };
 

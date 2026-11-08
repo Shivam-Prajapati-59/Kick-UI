@@ -135,7 +135,7 @@ const TextFocus = ({
             wordRefs.current[index] = el;
           }}
           onMouseEnter={() => setCurrentIndex(index)}
-          className="transition-all duration-300"
+          className="transition-[filter] duration-300"
           style={{
             filter:
               index === activeIndex ? "blur(0px)" : `blur(${blurAmount}px)`,

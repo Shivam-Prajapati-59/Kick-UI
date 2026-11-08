@@ -52,7 +52,9 @@ export default function Navbar({
   return (
     <motion.nav
       className={`fixed top-0 left-0 z-50 w-full transition-[backdrop-filter] duration-300 ${
-        scrolled ? "backdrop-blur-xl backdrop-saturate-150" : ""
+        scrolled
+          ? "[@media(prefers-reduced-transparency:reduce)]:bg-background contrast-more:border-border contrast-more:bg-background backdrop-blur-xl backdrop-saturate-150 contrast-more:border-b contrast-more:backdrop-blur-none contrast-more:backdrop-saturate-100 [@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none [@media(prefers-reduced-transparency:reduce)]:backdrop-saturate-100"
+          : ""
       }`}
     >
       <Container className="py-3">

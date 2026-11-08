@@ -230,7 +230,7 @@ export function CommandMenu() {
       }}
     >
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-background/80 fixed inset-0 z-[100] backdrop-blur-sm" />
+        <Dialog.Overlay className="bg-background/80 [@media(prefers-reduced-transparency:reduce)]:bg-background/95 contrast-more:bg-background/95 fixed inset-0 z-[100] backdrop-blur-sm contrast-more:backdrop-blur-none [@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none" />
         <Dialog.Content
           onOpenAutoFocus={(event) => {
             previousFocusRef.current =

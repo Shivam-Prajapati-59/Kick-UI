@@ -680,7 +680,7 @@ export function TradingChart({
                 {feedStatus !== "simulated" && (
                   <span
                     className={cn(
-                      "absolute inline-flex h-full w-full animate-ping rounded-full opacity-60",
+                      "absolute inline-flex h-full w-full animate-ping rounded-full opacity-60 motion-reduce:animate-none",
                       feedStatus === "live" ? "bg-emerald-400" : "bg-amber-400",
                     )}
                   />
@@ -825,7 +825,7 @@ export function TradingChart({
                         transition={{
                           type: "spring",
                           stiffness: 500,
-                          damping: 40,
+                          damping: 45,
                         }}
                       />
                     )}
