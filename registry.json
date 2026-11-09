@@ -15,6 +15,17 @@
       ]
     },
     {
+      "name": "wallet-card",
+      "type": "registry:component",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [
+        {
+          "path": "registry/new-york/components/wallet-card/wallet-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "cursor-web-fluid",
       "type": "registry:component",
       "dependencies": ["three"],

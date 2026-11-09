@@ -1,0 +1,53 @@
+---
+title: Wallet Card
+seoTitle: Animated Web3 Wallet Balance Card for React
+description: A React wallet balance card with a 24h chart that draws itself, a copyable address, rewards totals, and a noise-shader border that follows the cursor.
+category: cards
+usage: |
+  import WalletCard from "@/components/ui/wallet-card";
+
+  // USD value over the past 24h, oldest first. The last entry is the current balance.
+  const history = [17760, 17810, 17930, 18020, 18110, 18190, 18270, 18240.35];
+
+  export function WalletCardDemo() {
+    return (
+      <WalletCard
+        label="Main wallet"
+        chain="Base"
+        logo="/assets/chains/base.png"
+        address="0x4f2a9b7c1d3e5f60718293a4b5c6d7e8f901c91e"
+        rewards={1521.32}
+        history={history}
+      />
+    );
+  }
+props:
+  - name: history
+    type: number[]
+    description: USD balance over the past 24h, oldest first. The last entry is the current balance, and the change, range and chart all derive from it. Non-finite values are ignored, and the chart is hidden with fewer than two points.
+  - name: address
+    type: string
+    description: Full wallet address. The header shows it shortened, and the copy button copies the whole value.
+  - name: label
+    type: string
+    default: '"Main wallet"'
+    description: Wallet name shown in the header.
+  - name: chain
+    type: string
+    description: Network name, used for the accessible label and the logo fallback.
+  - name: logo
+    type: string
+    description: Network logo URL. Without it the chain's first letter is shown instead.
+  - name: rewards
+    type: number
+    description: Lifetime rewards in USD. When set, the card shows Total rewards and Total deposited (balance minus rewards).
+  - name: className
+    type: string
+    description: Additional classes for the card.
+---
+
+The card reads `--primary`, `--background`, `--card`, `--success` and `--destructive`, so it follows your theme in light and dark mode.
+
+The logo uses `next/image`. Local paths work as they are, and a remote URL needs its host added to `images.remotePatterns` in `next.config.ts`.
+
+The border light only follows fine pointers and stays off for touch. With reduced motion enabled, the chart appears already drawn and the hover light becomes a plain ring. The copy button needs a secure context (HTTPS or localhost) to reach the clipboard.

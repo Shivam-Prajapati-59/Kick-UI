@@ -20,6 +20,7 @@ export const demos = {
   "timeframe-tabs": lazy(() => import("@/demos/timeframe-tabs")),
   "trading-chart": lazy(() => import("@/demos/trading-chart")),
   "venue-selector": lazy(() => import("@/demos/venue-selector")),
+  "wallet-card": lazy(() => import("@/demos/wallet-card")),
 } as const;
 
 export type DemoName = keyof typeof demos;

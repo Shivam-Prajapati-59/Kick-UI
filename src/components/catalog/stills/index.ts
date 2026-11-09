@@ -11,10 +11,12 @@ import { ScrollCardStill } from "./ScrollCardStill";
 import { TextFocusStill } from "./TextFocusStill";
 import { TradingChartStill } from "./TradingChartStill";
 import { VenueSelectorStill } from "./VenueSelectorStill";
+import { WalletCardStill } from "./WalletCardStill";
 
 export const stillPreviewComponents: Record<string, ComponentType> = {
   "card-stack": CardStackStill,
   "pill-card": PillCardStill,
+  "wallet-card": WalletCardStill,
   "animated-list": AnimatedListStill,
   "deposit-modal": DepositModalStill,
   "feature-showcase": FeatureShowcaseStill,

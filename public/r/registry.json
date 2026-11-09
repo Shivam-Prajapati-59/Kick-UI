@@ -21,6 +21,23 @@
       ]
     },
     {
+      "name": "wallet-card",
+      "type": "registry:component",
+      "title": "Wallet Card",
+      "description": "A React wallet balance card with a 24h chart that draws itself, a copyable address, rewards totals, and a noise-shader border that follows the cursor.",
+      "category": "cards",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/wallet-card/wallet-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "cursor-web-fluid",
       "type": "registry:component",
       "title": "Cursor Web Fluid",

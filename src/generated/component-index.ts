@@ -46,6 +46,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "cards"
   },
   {
+    "slug": "wallet-card",
+    "title": "Wallet Card",
+    "description": "A React wallet balance card with a 24h chart that draws itself, a copyable address, rewards totals, and a noise-shader border that follows the cursor.",
+    "category": "cards"
+  },
+  {
     "slug": "trading-chart",
     "title": "Trading Chart",
     "description": "A React candlestick chart for trading dashboards with live OHLCV data, volume, timeframe tabs, crosshair readouts, and drawing tools.",

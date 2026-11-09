@@ -16,6 +16,8 @@ adheres to [Semantic Versioning](https://semver.org/).
 - **shadcn MCP compatibility**: Kick UI's public registry can be searched and
   installed through the official shadcn MCP server after consumers add the
   `@kick-ui` registry to their `components.json`.
+- `wallet-card`: Web3 wallet balance card with a self-drawing 24h chart, a
+  copyable address, rewards totals and a cursor-following noise-shader border.
 - `feature-showcase` registered as a distributable registry component.
 - Namespaced registry support: install via `npx shadcn add @kick-ui/<name>`
   after adding `"@kick-ui": "https://www.kickui.xyz/r/{name}.json"` to
