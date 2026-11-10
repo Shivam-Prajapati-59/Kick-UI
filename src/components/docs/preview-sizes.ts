@@ -11,6 +11,7 @@ const previewHeights: Record<string, Partial<Record<PreviewViewport, number>>> =
   "perspective-grid": { desktop: 780, tablet: 780, mobile: 760 },
   "trading-chart": { desktop: 600, tablet: 650, mobile: 720 },
   "wallet-card": { desktop: 520, tablet: 520, mobile: 520 },
+  "glyph-card": { desktop: 420, tablet: 420, mobile: 420 },
 };
 
 export function getPreviewHeight(

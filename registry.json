@@ -26,6 +26,17 @@
       ]
     },
     {
+      "name": "glyph-card",
+      "type": "registry:component",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [
+        {
+          "path": "registry/new-york/components/glyph-card/glyph-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "cursor-web-fluid",
       "type": "registry:component",
       "dependencies": ["three"],

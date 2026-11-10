@@ -38,6 +38,23 @@
       ]
     },
     {
+      "name": "glyph-card",
+      "type": "registry:component",
+      "title": "Glyph Card",
+      "description": "A React wallet card with a drifting ASCII and pixel-block background, a token balance row, a copyable address and an add-funds button.",
+      "category": "cards",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/glyph-card/glyph-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "cursor-web-fluid",
       "type": "registry:component",
       "title": "Cursor Web Fluid",

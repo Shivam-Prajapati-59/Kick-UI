@@ -18,6 +18,8 @@ adheres to [Semantic Versioning](https://semver.org/).
   `@kick-ui` registry to their `components.json`.
 - `wallet-card`: Web3 wallet balance card with a self-drawing 24h chart, a
   copyable address, rewards totals and a cursor-following noise-shader border.
+- `glyph-card`: Web3 wallet card with a drifting ASCII and pixel-block canvas
+  background, a token row, a copyable address and an add-funds button.
 - `feature-showcase` registered as a distributable registry component.
 - Namespaced registry support: install via `npx shadcn add @kick-ui/<name>`
   after adding `"@kick-ui": "https://www.kickui.xyz/r/{name}.json"` to
