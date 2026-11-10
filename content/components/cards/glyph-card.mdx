@@ -1,0 +1,53 @@
+---
+title: Glyph Card
+seoTitle: Animated ASCII Web3 Wallet Card for React
+description: A React wallet card with a drifting ASCII and pixel-block background, a token balance row, a copyable address and an add-funds button.
+category: cards
+usage: |
+  import GlyphCard from "@/components/ui/glyph-card";
+
+  export function GlyphCardDemo() {
+    return (
+      <GlyphCard
+        chain="Ethereum"
+        logo="/assets/chains/ethereum.png"
+        address="0xB8d54f2a9b7c1d3e5f60718293a4b5c6d7e8563B"
+        balance={1248.5}
+        token={{ symbol: "USDC", amount: 1248.5, value: 1248.5 }}
+        onAdd={() => console.log("add funds")}
+      />
+    );
+  }
+props:
+  - name: chain
+    type: string
+    description: Network name shown in the header and used for the accessible label and logo fallback.
+  - name: address
+    type: string
+    description: Full wallet address. The card shows it shortened, and the copy button copies the whole value.
+  - name: balance
+    type: number
+    description: Total balance in USD. Long values shrink to stay on one line.
+  - name: logo
+    type: string
+    description: Network logo URL. Without it the chain's first letter is shown instead.
+  - name: token
+    type: "{ symbol: string; amount: number; value: number; logo?: string }"
+    description: Optional token row under the balance, with the token amount on the left and its USD value on the right.
+  - name: color
+    type: string
+    default: '"#8b65ec"'
+    description: Accent colour for the glyph field and the card tint. Any CSS colour works.
+  - name: onAdd
+    type: () => void
+    description: When set, shows the round add button and calls this on click.
+  - name: className
+    type: string
+    description: Additional classes for the card.
+---
+
+The background is a plain 2D canvas, so it needs no WebGL. It redraws at 12 frames a second for a stepped retro look, pauses while the card is off-screen, and shows a single still frame when reduced motion is enabled.
+
+The card is always light, so it reads the same on light and dark pages. Pick `color` to match the chain; the card tint is mixed from it automatically.
+
+Logos use `next/image`. Local paths work as they are, and a remote URL needs its host added to `images.remotePatterns` in `next.config.ts`. The copy button needs a secure context (HTTPS or localhost) to reach the clipboard.

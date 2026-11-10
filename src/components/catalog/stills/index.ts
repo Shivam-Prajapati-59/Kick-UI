@@ -3,6 +3,7 @@ import { AnimatedListStill } from "./AnimatedListStill";
 import { CardStackStill } from "./CardStackStill";
 import { CursorWebFluidStill } from "./CursorWebFluidStill";
 import { DepositModalStill } from "./DepositModalStill";
+import { GlyphCardStill } from "./GlyphCardStill";
 import { FeatureShowcaseStill } from "./FeatureShowcaseStill";
 import { PerspectiveGridStill } from "./PerspectiveGridStill";
 import { PillCardStill } from "./PillCardStill";
@@ -17,6 +18,7 @@ export const stillPreviewComponents: Record<string, ComponentType> = {
   "card-stack": CardStackStill,
   "pill-card": PillCardStill,
   "wallet-card": WalletCardStill,
+  "glyph-card": GlyphCardStill,
   "animated-list": AnimatedListStill,
   "deposit-modal": DepositModalStill,
   "feature-showcase": FeatureShowcaseStill,
