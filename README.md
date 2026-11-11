@@ -45,15 +45,15 @@ Dependencies (npm packages and shadcn primitives) are resolved and installed aut
 
 ## Components
 
-| Category               | Components                                                                                           |
-| ---------------------- | ---------------------------------------------------------------------------------------------------- |
-| **Buttons**            | Pill Button, Slide Text Button                                                                       |
-| **Cards**              | Card Stack, Pill Card, Stacked Carousel, Wallet Card, Glyph Card                                     |
-| **Components**         | Animated List, Deposit Modal, MagDock, Perspective Grid, Pixel Image, Timeframe Tabs, Venue Selector |
-| **Text Animations**    | Scramble Text, Text Focus                                                                            |
-| **Layouts & Sections** | Feature Showcase, Scroll Card                                                                        |
-| **Animations**         | Cursor Web Fluid                                                                                     |
-| **Charts**             | Trading Chart                                                                                        |
+| Category               | Components                                                                                                          |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Buttons**            | Pill Button, Slide Text Button                                                                                      |
+| **Cards**              | Card Stack, Pill Card, Stacked Carousel, Wallet Card, Glyph Card                                                    |
+| **Components**         | Animated List, Deposit Modal, MagDock, Perspective Grid, Pixel Image, Route Tracker, Timeframe Tabs, Venue Selector |
+| **Text Animations**    | Scramble Text, Text Focus                                                                                           |
+| **Layouts & Sections** | Feature Showcase, Scroll Card                                                                                       |
+| **Animations**         | Cursor Web Fluid                                                                                                    |
+| **Charts**             | Trading Chart                                                                                                       |
 
 Browse live previews and copy-paste install commands at
 [kickui.xyz/components](https://www.kickui.xyz/components).

@@ -1,0 +1,90 @@
+---
+title: Route Tracker
+seoTitle: Animated Cross-Chain Bridge and Swap Route Tracker for React
+description: A React card that tracks a multi-hop swap or bridge route live, with a snake-shaped token map, directional animated connectors and a step timeline.
+category: components
+usage: |
+  import RouteTracker, {
+    type RouteSegment,
+  } from "@/components/ui/route-tracker";
+
+  const ETH = "/chains/ethereum.png";
+  const SOL = "/chains/solana.png";
+
+  // ETH on Ethereum → SOL on Solana via USDC.
+  const segments: RouteSegment[] = [
+    {
+      kind: "swap",
+      from: { symbol: "ETH", chain: "Ethereum", logo: "/tokens/eth.png", chainLogo: ETH },
+      to: { symbol: "USDC", chain: "Ethereum", logo: "/tokens/usdc.png", chainLogo: ETH },
+      via: "Uniswap",
+    },
+    {
+      kind: "bridge",
+      from: { symbol: "USDC", chain: "Ethereum", logo: "/tokens/usdc.png", chainLogo: ETH },
+      to: { symbol: "USDC", chain: "Solana", logo: "/tokens/usdc.png", chainLogo: SOL },
+      via: "Circle CCTP",
+    },
+    {
+      kind: "swap",
+      from: { symbol: "USDC", chain: "Solana", logo: "/tokens/usdc.png", chainLogo: SOL },
+      to: { symbol: "SOL", chain: "Solana", logo: "/tokens/sol.png", chainLogo: SOL },
+      via: "Jupiter",
+    },
+  ];
+
+  export function RouteTrackerDemo({ step }: { step: number }) {
+    return <RouteTracker segments={segments} active={step} eta="~2 min" />;
+  }
+props:
+  - name: segments
+    type: RouteSegment[]
+    description: The route in order. Each hop is `{ kind, from, to, via }` where kind is "swap" or "bridge". Each asset is `{ symbol, chain, logo?, chainLogo?, native? }`; set `native` for a chain's own coin (ETH on Ethereum) to hide its chain badge, and a missing logo shows the first letter. Swaps get their own row and bridges become down-arrows between rows. Renders nothing when empty.
+  - name: active
+    type: number
+    description: Index of the hop in progress. Earlier hops show as done, and `segments.length` means the route is complete. Out-of-range values are clamped.
+  - name: failed
+    type: boolean
+    default: "false"
+    description: Marks the active hop as failed. Its connector stays dashed and red, its destination fades, and the route tile turns red. Ignored once the route is complete.
+  - name: title
+    type: string
+    default: '"Bridge route"'
+    description: Card heading.
+  - name: headingLevel
+    type: 2 | 3 | 4 | 5 | 6
+    default: "3"
+    description: Heading level for the title, so the card fits your page outline.
+  - name: eta
+    type: string
+    description: Estimated duration shown beside the title, for example "~3 min". Hidden once the route completes or fails.
+  - name: href
+    type: string
+    description: Explorer link. Adds an arrow button to the route tile that animates on hover and keyboard focus.
+  - name: accent
+    type: string
+    default: '"#b0a2f6"'
+    description: Route tile colour. For hex, rgb() and basic named colours the tile text picks light or dark ink by contrast ratio; other formats (oklch(), hsl(), var()) keep dark ink.
+  - name: highlight
+    type: string
+    default: '"#a6ec8f"'
+    description: Header badge and active-step colour.
+  - name: stacked
+    type: boolean
+    default: "false"
+    description: Forces the single-column layout. The card stacks automatically below a 600px viewport; use this when it sits in a narrow container on a wide screen.
+  - name: labels
+    type: Partial<RouteTrackerLabels>
+    description: Overrides any visible or screen-reader text (Swap, Bridge, Step x of y, Completed, step states and more) for translation.
+  - name: className
+    type: string
+    description: Additional classes for the card.
+---
+
+The card surface, step list and text read `--card`, `--foreground`, `--muted-foreground` and `--border`, so they follow your theme in light and dark mode. The route tile keeps its own `accent` colour in both themes.
+
+The route map is decorative and hidden from screen readers. The step list carries the same information as text, marks the current step with `aria-current="step"`, and announces status changes through a polite live region.
+
+Looping animations (the travelling dot, flowing line and pulse) pause while the card is off-screen. With reduced motion enabled, connectors and checkmarks switch state without animating and the loops stay off.
+
+Logos use `next/image`. Local paths work as they are, and a remote URL needs its host added to `images.remotePatterns` in `next.config.ts`. The card was designed with [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) and inherits your app font.

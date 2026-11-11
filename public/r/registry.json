@@ -5,7 +5,7 @@
   "items": [
     {
       "name": "pill-card",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Pill Card",
       "description": "A React card with animated SVG paths and synchronized glow effects.",
       "category": "cards",
@@ -16,13 +16,13 @@
       "files": [
         {
           "path": "registry/new-york/components/pill-card/pill-card.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "wallet-card",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Wallet Card",
       "description": "A React wallet balance card with a 24h chart that draws itself, a copyable address, rewards totals, and a noise-shader border that follows the cursor.",
       "category": "cards",
@@ -33,13 +33,13 @@
       "files": [
         {
           "path": "registry/new-york/components/wallet-card/wallet-card.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "glyph-card",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Glyph Card",
       "description": "A React wallet card with a drifting ASCII and pixel-block background, a token balance row, a copyable address and an add-funds button.",
       "category": "cards",
@@ -50,29 +50,49 @@
       "files": [
         {
           "path": "registry/new-york/components/glyph-card/glyph-card.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "route-tracker",
+      "type": "registry:ui",
+      "title": "Route Tracker",
+      "description": "A React card that tracks a multi-hop swap or bridge route live, with a snake-shaped token map, directional animated connectors and a step timeline.",
+      "category": "components",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/route-tracker/route-tracker.tsx",
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "cursor-web-fluid",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Cursor Web Fluid",
       "description": "A cursor-following fluid effect for React with adjustable color, trail fade, cursor force, and vorticity.",
       "category": "animations",
       "dependencies": [
         "three"
       ],
+      "devDependencies": [
+        "@types/three"
+      ],
       "files": [
         {
           "path": "registry/new-york/components/cursor-web-fluid/cursor-web-fluid.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "scramble-text",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Scramble Text",
       "description": "A React text animation that scrambles characters on hover, then reveals the original text with a decode sweep.",
       "category": "text-animations",
@@ -82,13 +102,13 @@
       "files": [
         {
           "path": "registry/new-york/components/scramble-text/scramble-text.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "text-focus",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Text Focus",
       "description": "A React text effect that brings the hovered word into focus while blurring surrounding words.",
       "category": "text-animations",
@@ -98,13 +118,13 @@
       "files": [
         {
           "path": "registry/new-york/components/text-focus/text-focus.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "card-stack",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Card Stack",
       "description": "An animated React card stack that spreads overlapping cards into a fan layout.",
       "category": "cards",
@@ -114,13 +134,13 @@
       "files": [
         {
           "path": "registry/new-york/components/card-stack/card-stack.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "slide-text-button",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Slide Text Button",
       "description": "A React button with sliding text or icon content and an expanding background on hover or keyboard focus.",
       "category": "buttons",
@@ -130,13 +150,13 @@
       "files": [
         {
           "path": "registry/new-york/components/slide-text-button/slide-text-button.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "mag-dock",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "MagDock",
       "description": "A spring-animated React dock with icons, tooltips, and active states for app navigation.",
       "category": "components",
@@ -146,13 +166,13 @@
       "files": [
         {
           "path": "registry/new-york/components/mag-dock/mag-dock.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "perspective-grid",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Perspective Grid",
       "description": "A perspective-tilted React grid for displaying blockchain networks with animated chain cards and a customizable heading.",
       "category": "components",
@@ -162,13 +182,13 @@
       "files": [
         {
           "path": "registry/new-york/components/perspective-grid/perspective-grid.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "pixel-image",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Pixel Image",
       "description": "A React image transition that reveals a second image through a pixelated hover dissolve.",
       "category": "components",
@@ -178,13 +198,13 @@
       "files": [
         {
           "path": "registry/new-york/components/pixel-image/pixel-image.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "animated-list",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Animated List",
       "description": "An animated React list with keyboard navigation, automatic scrolling, and a customizable item renderer.",
       "category": "components",
@@ -194,13 +214,13 @@
       "files": [
         {
           "path": "registry/new-york/components/animated-list/animated-list.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "scroll-card",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Scroll Card",
       "description": "A scroll-driven React feature section with sticky cards, synchronized image transitions, and text reveals.",
       "category": "layouts-sections",
@@ -210,13 +230,13 @@
       "files": [
         {
           "path": "registry/new-york/components/scroll-card/scroll-card.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "stacked-carousel",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Stacked Carousel",
       "description": "An automatically advancing React card carousel with fly-up transitions that pauses on hover or focus.",
       "category": "cards",
@@ -226,13 +246,13 @@
       "files": [
         {
           "path": "registry/new-york/components/stacked-carousel/stacked-carousel.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "timeframe-tabs",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Timeframe Tabs",
       "description": "Scrollable React timeframe tabs for trading charts with an animated active state, controlled selection, and optional trailing actions.",
       "category": "components",
@@ -242,13 +262,13 @@
       "files": [
         {
           "path": "registry/new-york/components/timeframe-tabs/timeframe-tabs.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "venue-selector",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Venue Selector",
       "description": "An animated React multi-select for trading venues with keyboard navigation, controlled selection, and clear selection feedback.",
       "category": "components",
@@ -259,13 +279,13 @@
       "files": [
         {
           "path": "registry/new-york/components/venue-selector/venue-selector.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "deposit-modal",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Deposit Modal",
       "description": "An accessible React modal for crypto deposits with token and network details, a copyable address, minimum deposit guidance, and expiry handling.",
       "category": "components",
@@ -276,13 +296,13 @@
       "files": [
         {
           "path": "registry/new-york/components/deposit-modal/deposit-modal.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "feature-showcase",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Feature Showcase",
       "description": "An animated React feature section with selectable content and synchronized visual states.",
       "category": "layouts-sections",
@@ -293,13 +313,13 @@
       "files": [
         {
           "path": "registry/new-york/components/feature-showcase/feature-showcase.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "trading-chart",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Trading Chart",
       "description": "A React candlestick chart for trading dashboards with live OHLCV data, volume, timeframe tabs, crosshair readouts, and drawing tools.",
       "category": "charts",
@@ -309,34 +329,34 @@
         "motion"
       ],
       "registryDependencies": [
-        "timeframe-tabs"
+        "https://www.kickui.xyz/r/timeframe-tabs.json"
       ],
       "files": [
         {
           "path": "registry/new-york/components/trading-chart/trading-chart.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         },
         {
           "path": "registry/new-york/components/trading-chart/drawings.ts",
-          "type": "registry:component"
+          "type": "registry:ui"
         },
         {
           "path": "registry/new-york/components/trading-chart/drawings-primitive.ts",
-          "type": "registry:component"
+          "type": "registry:ui"
         },
         {
           "path": "registry/new-york/components/trading-chart/market-data.ts",
-          "type": "registry:component"
+          "type": "registry:ui"
         },
         {
           "path": "registry/new-york/components/trading-chart/live-feed.ts",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "pill-button",
-      "type": "registry:component",
+      "type": "registry:ui",
       "title": "Pill Button",
       "description": "A glass-style React pill button with animated edge glows, expanding hover shadows, and a ripple on press.",
       "category": "buttons",
@@ -346,7 +366,7 @@
       "files": [
         {
           "path": "registry/new-york/components/pill-button/pill-button.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     }

@@ -94,6 +94,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "components"
   },
   {
+    "slug": "route-tracker",
+    "title": "Route Tracker",
+    "description": "A React card that tracks a multi-hop swap or bridge route live, with a snake-shaped token map, directional animated connectors and a step timeline.",
+    "category": "components"
+  },
+  {
     "slug": "timeframe-tabs",
     "title": "Timeframe Tabs",
     "description": "Scrollable React timeframe tabs for trading charts with an animated active state, controlled selection, and optional trailing actions.",
