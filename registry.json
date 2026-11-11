@@ -5,238 +5,250 @@
   "items": [
     {
       "name": "pill-card",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion", "lucide-react"],
       "files": [
         {
           "path": "registry/new-york/components/pill-card/pill-card.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "wallet-card",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion", "lucide-react"],
       "files": [
         {
           "path": "registry/new-york/components/wallet-card/wallet-card.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "glyph-card",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion", "lucide-react"],
       "files": [
         {
           "path": "registry/new-york/components/glyph-card/glyph-card.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "route-tracker",
+      "type": "registry:ui",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [
+        {
+          "path": "registry/new-york/components/route-tracker/route-tracker.tsx",
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "cursor-web-fluid",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["three"],
+      "devDependencies": ["@types/three"],
       "files": [
         {
           "path": "registry/new-york/components/cursor-web-fluid/cursor-web-fluid.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "scramble-text",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/new-york/components/scramble-text/scramble-text.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "text-focus",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/new-york/components/text-focus/text-focus.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "card-stack",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/new-york/components/card-stack/card-stack.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "slide-text-button",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/new-york/components/slide-text-button/slide-text-button.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "mag-dock",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/new-york/components/mag-dock/mag-dock.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "perspective-grid",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/new-york/components/perspective-grid/perspective-grid.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "pixel-image",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/new-york/components/pixel-image/pixel-image.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "animated-list",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/new-york/components/animated-list/animated-list.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "scroll-card",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/new-york/components/scroll-card/scroll-card.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "stacked-carousel",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/new-york/components/stacked-carousel/stacked-carousel.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "timeframe-tabs",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/new-york/components/timeframe-tabs/timeframe-tabs.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "venue-selector",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion", "lucide-react"],
       "files": [
         {
           "path": "registry/new-york/components/venue-selector/venue-selector.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "deposit-modal",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion", "lucide-react"],
       "files": [
         {
           "path": "registry/new-york/components/deposit-modal/deposit-modal.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "feature-showcase",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion", "lucide-react"],
       "files": [
         {
           "path": "registry/new-york/components/feature-showcase/feature-showcase.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "trading-chart",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["lightweight-charts", "motion", "lucide-react"],
       "registryDependencies": ["timeframe-tabs"],
       "files": [
         {
           "path": "registry/new-york/components/trading-chart/trading-chart.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         },
         {
           "path": "registry/new-york/components/trading-chart/drawings.ts",
-          "type": "registry:component"
+          "type": "registry:ui"
         },
         {
           "path": "registry/new-york/components/trading-chart/drawings-primitive.ts",
-          "type": "registry:component"
+          "type": "registry:ui"
         },
         {
           "path": "registry/new-york/components/trading-chart/market-data.ts",
-          "type": "registry:component"
+          "type": "registry:ui"
         },
         {
           "path": "registry/new-york/components/trading-chart/live-feed.ts",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "pill-button",
-      "type": "registry:component",
+      "type": "registry:ui",
       "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/new-york/components/pill-button/pill-button.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     }

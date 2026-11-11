@@ -13,6 +13,7 @@ export const demos = {
   "pill-button": lazy(() => import("@/demos/pill-button")),
   "pill-card": lazy(() => import("@/demos/pill-card")),
   "pixel-image": lazy(() => import("@/demos/pixel-image")),
+  "route-tracker": lazy(() => import("@/demos/route-tracker")),
   "scramble-text": lazy(() => import("@/demos/scramble-text")),
   "scroll-card": lazy(() => import("@/demos/scroll-card")),
   "slide-text-button": lazy(() => import("@/demos/slide-text-button")),

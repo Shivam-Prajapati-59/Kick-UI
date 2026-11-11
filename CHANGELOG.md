@@ -20,6 +20,8 @@ adheres to [Semantic Versioning](https://semver.org/).
   copyable address, rewards totals and a cursor-following noise-shader border.
 - `glyph-card`: Web3 wallet card with a drifting ASCII and pixel-block canvas
   background, a token row, a copyable address and an add-funds button.
+- `route-tracker`: live multi-hop swap and bridge route card with a snake
+  token map, directional animated connectors and a step timeline.
 - `feature-showcase` registered as a distributable registry component.
 - Namespaced registry support: install via `npx shadcn add @kick-ui/<name>`
   after adding `"@kick-ui": "https://www.kickui.xyz/r/{name}.json"` to
@@ -30,6 +32,14 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- Components now install into `components/ui/` (registry type `registry:ui`),
+  matching the import paths in the docs. This also fixes `trading-chart`,
+  whose `@/components/ui/timeframe-tabs` import broke after install.
+  Existing installs in `components/` keep working; a reinstall lands in
+  `components/ui/`, so delete the old copy and update its imports.
+- `trading-chart` installs again: its `timeframe-tabs` dependency now points
+  at the Kick UI registry instead of resolving against shadcn's.
+- `cursor-web-fluid` installs `@types/three`, so consumer builds type-check.
 - `cursor-web-fluid` no longer blocks touch scrolling on mobile devices.
 - `animated-list` no longer traps Tab/Shift+Tab keyboard focus.
 - `stacked-carousel` distributed source now handles null items safely and

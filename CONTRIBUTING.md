@@ -49,7 +49,8 @@ copied into `src/components/ui`.
    registry/doc/demo identity in both directions.
 
 4. **Register the item** in `registry.json`: name, type
-   `registry:component`, files path, and any extra `dependencies`
+   `registry:ui` (installs into `components/ui`, matching the docs imports),
+   files path, and any extra `dependencies`
    (npm deps are otherwise auto-detected from imports by the build).
 
 5. **Verify**: `bun run registry:check && bun docs:build &&

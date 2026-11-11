@@ -28,6 +28,7 @@ const registryConfig = JSON.parse(
   fs.readFileSync(path.join(root, "registry.json"), "utf-8"),
 );
 
+const OWN_ITEMS = new Set(registryConfig.items.map((item) => item.name));
 const OUT_DIR = path.join(root, "public", "r");
 const DOCS_DIR = path.join(root, "content", "components");
 fs.mkdirSync(OUT_DIR, { recursive: true });
@@ -128,11 +129,20 @@ for (const item of registryConfig.items) {
     const dependencies = [
       ...new Set([...(item.dependencies ?? []), ...detectedDeps]),
     ].sort();
+    // Type packages (e.g. @types/three) are declared by hand; imports can't
+    // reveal them.
+    const devDependencies = [...new Set(item.devDependencies ?? [])].sort();
+    // Bare names resolve against the shadcn registry, so our own items need
+    // a full URL to ours; shadcn primitives (button, ...) stay bare.
     const registryDependencies = [
-      ...new Set([
-        ...(item.registryDependencies ?? []),
-        ...detectedRegistryDeps,
-      ]),
+      ...new Set(
+        [...(item.registryDependencies ?? []), ...detectedRegistryDeps].map(
+          (dep) =>
+            OWN_ITEMS.has(dep)
+              ? `${registryConfig.homepage}/r/${dep}.json`
+              : dep,
+        ),
+      ),
     ].sort();
 
     const output = {
@@ -141,6 +151,7 @@ for (const item of registryConfig.items) {
       title: doc.title,
       description: doc.description,
       dependencies,
+      ...(devDependencies.length > 0 ? { devDependencies } : {}),
       ...(registryDependencies.length > 0 ? { registryDependencies } : {}),
       files: sources,
       type: item.type,
@@ -169,6 +180,7 @@ for (const item of registryConfig.items) {
       description: doc.description,
       category: doc.category,
       dependencies,
+      ...(devDependencies.length > 0 ? { devDependencies } : {}),
       ...(registryDependencies.length > 0 ? { registryDependencies } : {}),
       files: item.files,
     });
