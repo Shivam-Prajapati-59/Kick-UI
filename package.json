@@ -17,6 +17,7 @@
     "format": "prettier --write .",
     "registry:build": "bun scripts/build-registry.mjs",
     "registry:check": "bun scripts/registry-check.mjs",
+    "registry:install-check": "bun scripts/check-install.mjs",
     "docs:build": "bun scripts/build-docs.mjs",
     "docs:check": "bun scripts/build-docs.mjs --check",
     "test:seo": "bun tests/e2e/seo.mjs",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import SwapComp from "./SwapComp";
+import GuardCarousel from "./GuardCarousel";
 
 export const metadata: Metadata = {
   title: "Playground",
@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function PlaygroundPage() {
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background p-4">
-      <SwapComp />
+    <div className="bg-background relative min-h-screen overflow-hidden">
+      <GuardCarousel />
     </div>
   );
 }

@@ -630,7 +630,14 @@ export default function CursorWebFluid({
       inkColor: resolvedInkColor,
     };
 
-    const sim = new FluidSimulation(canvas, config);
+    let sim: FluidSimulation;
+    try {
+      sim = new FluidSimulation(canvas, config);
+    } catch {
+      // WebGL unavailable (e.g. disabled or no GPU): degrade to a
+      // transparent, inert canvas instead of throwing.
+      return;
+    }
     return () => sim.dispose();
   }, [
     reducedMotion,

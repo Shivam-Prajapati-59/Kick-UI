@@ -40,6 +40,8 @@ adheres to [Semantic Versioning](https://semver.org/).
 - `trading-chart` installs again: its `timeframe-tabs` dependency now points
   at the Kick UI registry instead of resolving against shadcn's.
 - `cursor-web-fluid` installs `@types/three`, so consumer builds type-check.
+- `cursor-web-fluid` renders nothing instead of crashing the page when
+  WebGL is unavailable (disabled or no GPU).
 - `cursor-web-fluid` no longer blocks touch scrolling on mobile devices.
 - `animated-list` no longer traps Tab/Shift+Tab keyboard focus.
 - `stacked-carousel` distributed source now handles null items safely and
