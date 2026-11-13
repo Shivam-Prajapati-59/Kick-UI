@@ -22,6 +22,9 @@ adheres to [Semantic Versioning](https://semver.org/).
   background, a token row, a copyable address and an add-funds button.
 - `route-tracker`: live multi-hop swap and bridge route card with a snake
   token map, directional animated connectors and a step timeline.
+- `vault-carousel`: animated carousel of isometric security feature cards with
+  filters, expandable detail panels, dark mode and reduced-motion support;
+  installs as a set of `vault-*.tsx` files.
 - `feature-showcase` registered as a distributable registry component.
 - Namespaced registry support: install via `npx shadcn add @kick-ui/<name>`
   after adding `"@kick-ui": "https://www.kickui.xyz/r/{name}.json"` to
@@ -40,6 +43,11 @@ adheres to [Semantic Versioning](https://semver.org/).
 - `trading-chart` installs again: its `timeframe-tabs` dependency now points
   at the Kick UI registry instead of resolving against shadcn's.
 - `cursor-web-fluid` installs `@types/three`, so consumer builds type-check.
+- `cursor-web-fluid` renders nothing instead of crashing the page when
+  WebGL is unavailable (disabled or no GPU).
+- `deposit-modal` no longer reads the clock during render, so it builds in
+  Next.js apps with `cacheComponents` (the `create-next-app` default) and
+  hydrates without a countdown mismatch.
 - `cursor-web-fluid` no longer blocks touch scrolling on mobile devices.
 - `animated-list` no longer traps Tab/Shift+Tab keyboard focus.
 - `stacked-carousel` distributed source now handles null items safely and

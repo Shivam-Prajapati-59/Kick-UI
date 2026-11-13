@@ -369,6 +369,63 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "vault-carousel",
+      "type": "registry:ui",
+      "title": "Vault Carousel",
+      "description": "An animated, draggable carousel of isometric illustrated feature cards with filter chips, expandable detail panels, light and dark themes and reduced-motion support.",
+      "category": "cards",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/vault-carousel/vault-carousel.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york/components/vault-carousel/vault-art.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york/components/vault-carousel/vault-art-core.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york/components/vault-carousel/vault-art-phone.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york/components/vault-carousel/vault-art-safe.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york/components/vault-carousel/vault-art-shield.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york/components/vault-carousel/vault-art-multisig.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york/components/vault-carousel/vault-art-padlock.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york/components/vault-carousel/vault-art-id-card.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york/components/vault-carousel/vault-art-robot.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york/components/vault-carousel/vault-art-radar.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

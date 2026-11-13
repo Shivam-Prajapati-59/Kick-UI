@@ -68,6 +68,8 @@ bun registry:build && bun lint && bun typecheck && bun run test:unit`.
 - SEO regression suite against a running dev server (`bun run test:seo`
   with `bun dev` up on localhost:3000)
 
+Before deploying registry changes, run `bun run registry:install-check` (slow: scaffolds a fresh Next.js app, then renders every component demo in headless Chrome/Edge and checks for errors; needs network).
+
 ## License
 
 By contributing you agree your contributions are licensed under the

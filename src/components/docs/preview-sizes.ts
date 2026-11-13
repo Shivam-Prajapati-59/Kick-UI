@@ -2,7 +2,10 @@ export type PreviewViewport = "desktop" | "tablet" | "mobile";
 
 // Reserve space before an iframe loads so its content never changes the
 // height of the component page after the preview becomes visible.
-const previewHeights: Record<string, Partial<Record<PreviewViewport, number>>> = {
+const previewHeights: Record<
+  string,
+  Partial<Record<PreviewViewport, number>>
+> = {
   "animated-list": { desktop: 480, tablet: 480, mobile: 470 },
   "card-stack": { desktop: 580, tablet: 580, mobile: 560 },
   "feature-showcase": { desktop: 1300, tablet: 1300, mobile: 700 },
@@ -13,6 +16,7 @@ const previewHeights: Record<string, Partial<Record<PreviewViewport, number>>> =
   "wallet-card": { desktop: 520, tablet: 520, mobile: 520 },
   "glyph-card": { desktop: 420, tablet: 420, mobile: 420 },
   "route-tracker": { desktop: 520, tablet: 520, mobile: 760 },
+  "vault-carousel": { desktop: 880, tablet: 880, mobile: 1100 },
 };
 
 export function getPreviewHeight(

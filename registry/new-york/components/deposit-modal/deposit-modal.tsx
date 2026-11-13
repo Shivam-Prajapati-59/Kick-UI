@@ -129,7 +129,9 @@ function useSecondsLeft(expiresAt?: Date | number) {
   const timestamp = expiresAt == null ? null : +new Date(expiresAt);
   const target =
     timestamp != null && Number.isFinite(timestamp) ? timestamp : null;
-  const [now, setNow] = React.useState(() => Date.now());
+  // No clock read during render: prerendering (Next.js cacheComponents)
+  // rejects it, and the server's time would never match the client's.
+  const [now, setNow] = React.useState<number | null>(null);
   React.useLayoutEffect(() => {
     if (target == null) return;
     const updateNow = () => setNow(Date.now());
@@ -137,7 +139,9 @@ function useSecondsLeft(expiresAt?: Date | number) {
     const id = setInterval(updateNow, 1000);
     return () => clearInterval(id);
   }, [target]);
-  return target == null ? null : Math.max(0, Math.round((target - now) / 1000));
+  return target == null || now == null
+    ? null
+    : Math.max(0, Math.round((target - now) / 1000));
 }
 
 const formatClock = (s: number) =>
