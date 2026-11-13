@@ -1,0 +1,70 @@
+---
+title: Vault Carousel
+seoTitle: Animated Isometric Security Feature Carousel for React
+description: An animated, draggable carousel of isometric illustrated feature cards with filter chips, expandable detail panels, light and dark themes and reduced-motion support.
+category: cards
+usage: |
+  import VaultCarousel, {
+    type VaultFeature,
+  } from "@/components/ui/vault-carousel";
+
+  const features: VaultFeature[] = [
+    {
+      name: "Spend Guard",
+      tagline: "Smart-account spending policies",
+      category: "Custody",
+      illustration: "shield-lock",
+      chain: "Arbitrum",
+      since: "2023",
+      metric: { value: "$50k", label: "Default daily limit" },
+      description:
+        "Every outgoing transfer is checked against per-asset limits and an allowlist before it can be signed.",
+    },
+    {
+      name: "Biometric Unlock",
+      tagline: "Fingerprint-gated signing",
+      category: "Identity",
+      illustration: "fingerprint",
+      chain: "Any EVM",
+      since: "2023",
+      metric: { value: "1.2M", label: "Devices enrolled" },
+      description:
+        "Signing keys sit in the device secure enclave and only release a signature after a local fingerprint match.",
+    },
+  ];
+
+  export function VaultCarouselDemo() {
+    return (
+      <VaultCarousel
+        features={features}
+        eyebrow="Security stack"
+        title={"Every key,\nguarded twice"}
+      />
+    );
+  }
+props:
+  - name: features
+    type: VaultFeature[]
+    description: Features rendered as cards. Each feature is `{ name, tagline, category, illustration, chain?, since?, metric?, description? }`.
+  - name: eyebrow
+    type: string
+    description: Eyebrow label above the title.
+  - name: title
+    type: string
+    description: Section title. Supports "\n" for a manual line break.
+  - name: className
+    type: string
+    description: Additional classes for the section root.
+---
+
+The `VaultFeature` shape: `name` (card title), `tagline` (one-line summary under the title), `category` (used for the filter chips), `illustration` (one of the built-in `VaultArtKind` values), and the optional `chain` (chain badge), `since` (shown as "Since <year>" in the open panel), `metric` (`{ value, label }`), and `description` (detail panel body).
+
+Built-in illustration kinds and their accent art: `shield-lock` (shield), `fingerprint` (phone), `face-id` (ID card), `multisig` (multisig), `vault` (safe), `key` (padlock), `radar` (radar), `robot` (robot). Each kind maps to a distinct isometric illustration.
+
+Theming uses the `dark` class: the surface, ink, muted text and hairlines switch between light cream and dark slate palettes automatically.
+
+Accessibility: the carousel is a region with keyboard support — arrow keys move between cards, Escape collapses an open panel — and every control carries an aria label. The open panel announces its content.
+
+Motion: with reduced motion enabled, cards and illustrations render fully static with no idle animation. Idle animation also pauses while the carousel is off-screen. Opening and closing a card become instant.
+
+Install note: the component is installed as several `vault-*.tsx` files into `components/ui` that must stay together — do not delete or rename individual files.

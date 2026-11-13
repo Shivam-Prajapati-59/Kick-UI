@@ -21,6 +21,7 @@ export const demos = {
   "text-focus": lazy(() => import("@/demos/text-focus")),
   "timeframe-tabs": lazy(() => import("@/demos/timeframe-tabs")),
   "trading-chart": lazy(() => import("@/demos/trading-chart")),
+  "vault-carousel": lazy(() => import("@/demos/vault-carousel")),
   "venue-selector": lazy(() => import("@/demos/venue-selector")),
   "wallet-card": lazy(() => import("@/demos/wallet-card")),
 } as const;

@@ -52,6 +52,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "cards"
   },
   {
+    "slug": "vault-carousel",
+    "title": "Vault Carousel",
+    "description": "An animated, draggable carousel of isometric illustrated feature cards with filter chips, expandable detail panels, light and dark themes and reduced-motion support.",
+    "category": "cards"
+  },
+  {
     "slug": "wallet-card",
     "title": "Wallet Card",
     "description": "A React wallet balance card with a 24h chart that draws itself, a copyable address, rewards totals, and a noise-shader border that follows the cursor.",

@@ -48,7 +48,7 @@ Dependencies (npm packages and shadcn primitives) are resolved and installed aut
 | Category               | Components                                                                                                          |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | **Buttons**            | Pill Button, Slide Text Button                                                                                      |
-| **Cards**              | Card Stack, Pill Card, Stacked Carousel, Wallet Card, Glyph Card                                                    |
+| **Cards**              | Card Stack, Pill Card, Stacked Carousel, Wallet Card, Glyph Card, Vault Carousel                                    |
 | **Components**         | Animated List, Deposit Modal, MagDock, Perspective Grid, Pixel Image, Route Tracker, Timeframe Tabs, Venue Selector |
 | **Text Animations**    | Scramble Text, Text Focus                                                                                           |
 | **Layouts & Sections** | Feature Showcase, Scroll Card                                                                                       |

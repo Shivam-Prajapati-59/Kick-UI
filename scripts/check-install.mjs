@@ -12,9 +12,7 @@
  * regressions and demos that cannot render in a customer app.
  *
  * Run: bun scripts/check-install.mjs [--keep]
- * Browser: set BROWSER_PATH to override Chrome/Edge discovery.
- * Location: set KICKUI_CHECK_DIR to scaffold somewhere other than the OS temp dir.
- */
+ * Browser: set BROWSER_PATH to override Chrome/Edge discovery. */
 
 import fs from "node:fs";
 import http from "node:http";
@@ -42,6 +40,8 @@ let server;
 let tempDir;
 let nextServer;
 let browser;
+let activeChild;
+let cleaning;
 
 /**
  * Run a command, capture output, resolve on exit (never blocks the server).
@@ -54,6 +54,7 @@ function run(command, args, cwd, timeout = 600000) {
       shell: true,
       detached: process.platform !== "win32",
     });
+    activeChild = child;
     let output = "";
     const timer = setTimeout(() => {
       output += `\nTimed out after ${timeout / 1000}s.`;
@@ -61,9 +62,14 @@ function run(command, args, cwd, timeout = 600000) {
     }, timeout);
     child.stdout.on("data", (chunk) => (output += chunk));
     child.stderr.on("data", (chunk) => (output += chunk));
-    child.on("error", reject);
+    child.on("error", (error) => {
+      clearTimeout(timer);
+      if (activeChild === child) activeChild = undefined;
+      reject(error);
+    });
     child.on("close", (code) => {
       clearTimeout(timer);
+      if (activeChild === child) activeChild = undefined;
       resolve({ code, output });
     });
   });
@@ -160,7 +166,9 @@ function prepareDemos(appDir) {
     );
     fs.writeFileSync(path.join(demosDir, `${item.name}.tsx`), demo);
 
-    const page = `import Demo from "@/demos/${item.name}";
+    const page = `"use client";
+
+import Demo from "@/demos/${item.name}";
 
 export default function Page() {
   return (
@@ -183,21 +191,26 @@ export default function Page() {
     { recursive: true },
   );
 
+  // Add the image hosts to the generated config rather than replacing it: it
+  // is what wires Tailwind into Turbopack (@tailwindcss/turbopack loader).
+  const configPath = path.join(appDir, "next.config.ts");
+  const config = fs.readFileSync(configPath, "utf8");
+  const anchor = "const nextConfig: NextConfig = {";
+  if (!config.includes(anchor)) {
+    throw new Error(`Unexpected next.config.ts shape:\n${config}`);
+  }
   fs.writeFileSync(
-    path.join(appDir, "next.config.ts"),
-    `import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+    configPath,
+    config.replace(
+      anchor,
+      `${anchor}
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "assets.coingecko.com" },
       { protocol: "https", hostname: "images.unsplash.com" },
     ],
-  },
-};
-
-export default nextConfig;
-`,
+  },`,
+    ),
   );
 
   console.log(`✓ Wrote ${items.length} demo pages`);
@@ -304,32 +317,49 @@ async function startBrowser(profileDir) {
     },
   );
 
+  // Spawn failures (e.g. ENOENT) arrive as an async "error" event.
+  let spawnFailed = false;
+  const spawnError = new Promise((_, reject) => {
+    browser.once("error", (error) => {
+      spawnFailed = true;
+      reject(
+        new Error(`Failed to launch browser ${executable}: ${error.message}`),
+      );
+    });
+  });
+  spawnError.catch(() => {});
+
   const portFile = path.join(profileDir, "DevToolsActivePort");
-  const deadline = Date.now() + 30000;
-  let port;
-  while (Date.now() < deadline) {
-    if (browser.exitCode !== null) {
+  const ready = (async () => {
+    const deadline = Date.now() + 30000;
+    let port;
+    while (Date.now() < deadline && !spawnFailed) {
+      if (browser.exitCode !== null) {
+        throw new Error(
+          `Browser exited during startup (exit ${browser.exitCode}): ${executable}`,
+        );
+      }
+      if (fs.existsSync(portFile)) {
+        port = Number(fs.readFileSync(portFile, "utf8").split(/\r?\n/)[0]);
+        if (port > 0) break;
+      }
+      await delay(100);
+    }
+    if (!port) {
       throw new Error(
-        `Browser exited during startup (exit ${browser.exitCode}): ${executable}`,
+        `Timed out waiting for browser DevTools port: ${executable}`,
       );
     }
-    if (fs.existsSync(portFile)) {
-      port = Number(fs.readFileSync(portFile, "utf8").split(/\r?\n/)[0]);
-      if (port > 0) break;
-    }
-    await delay(100);
-  }
-  if (!port) {
-    throw new Error(
-      `Timed out waiting for browser DevTools port: ${executable}`,
-    );
-  }
 
-  await waitForUrl(
-    `http://127.0.0.1:${port}/json/version`,
-    "browser DevTools",
-    15000,
-  );
+    await waitForUrl(
+      `http://127.0.0.1:${port}/json/version`,
+      "browser DevTools",
+      15000,
+    );
+    return port;
+  })();
+  ready.catch(() => {});
+  const port = await Promise.race([ready, spawnError]);
   console.log(`✓ Launched headless browser (${path.basename(executable)})`);
   return port;
 }
@@ -340,6 +370,12 @@ class Cdp {
     const cdp = new Cdp();
     cdp.ws = new WebSocket(url);
     cdp.ws.addEventListener("message", (event) => cdp.receive(event.data));
+    cdp.ws.addEventListener("close", () =>
+      cdp.rejectAll(new Error("CDP connection closed")),
+    );
+    cdp.ws.addEventListener("error", () =>
+      cdp.rejectAll(new Error("CDP connection error")),
+    );
     await new Promise((resolve, reject) => {
       cdp.ws.addEventListener("open", resolve, { once: true });
       cdp.ws.addEventListener(
@@ -370,6 +406,7 @@ class Cdp {
     const pending = this.pending.get(message.id);
     if (!pending) return;
     this.pending.delete(message.id);
+    clearTimeout(pending.timer);
     if (message.error) {
       pending.reject(
         new Error(`${message.error.message} (${message.error.code})`),
@@ -379,11 +416,32 @@ class Cdp {
     }
   }
 
-  send(method, params = {}) {
+  rejectAll(error) {
+    for (const pending of this.pending.values()) {
+      clearTimeout(pending.timer);
+      pending.reject(error);
+    }
+    this.pending.clear();
+  }
+
+  send(method, params = {}, timeout = 30000) {
+    if (this.ws.readyState !== WebSocket.OPEN) {
+      return Promise.reject(new Error(`CDP socket not open (${method})`));
+    }
     const id = this.nextId++;
     return new Promise((resolve, reject) => {
-      this.pending.set(id, { resolve, reject });
-      this.ws.send(JSON.stringify({ id, method, params }));
+      const timer = setTimeout(() => {
+        this.pending.delete(id);
+        reject(new Error(`CDP command timed out: ${method}`));
+      }, timeout);
+      this.pending.set(id, { resolve, reject, timer });
+      try {
+        this.ws.send(JSON.stringify({ id, method, params }));
+      } catch (error) {
+        clearTimeout(timer);
+        this.pending.delete(id);
+        reject(error);
+      }
     });
   }
 
@@ -481,6 +539,10 @@ async function renderItem(browserPort, appUrl, name, screenshotDir) {
       `(() => {
         const root = document.querySelector("[data-e2e-root]");
         if (!root) return { ok: false, reason: "missing [data-e2e-root]" };
+        // The root carries Tailwind's "flex"; anything else means no CSS.
+        if (getComputedStyle(root).display !== "flex") {
+          return { ok: false, reason: "Tailwind styles not applied" };
+        }
         const first = root.firstElementChild;
         if (!first) return { ok: false, reason: "root has no element children" };
         const rect = first.getBoundingClientRect();
@@ -542,6 +604,38 @@ function stopChild(child) {
   });
 }
 
+/** Stop everything we started. Idempotent: runs once, later calls share it. */
+function cleanup() {
+  cleaning ??= (async () => {
+    await stopChild(browser);
+    await stopChild(nextServer);
+    await stopChild(activeChild);
+    if (server) {
+      server.closeAllConnections?.();
+      await new Promise((resolve) => server.close(resolve));
+    }
+    if (tempDir) {
+      if (keep) {
+        console.log(`✓ Kept temp app at ${tempDir}`);
+        console.log(`✓ Screenshots in ${path.join(tempDir, "screenshots")}`);
+      } else {
+        fs.rmSync(tempDir, { recursive: true, force: true, maxRetries: 3 });
+      }
+    }
+  })();
+  return cleaning;
+}
+
+for (const [signal, code] of [
+  ["SIGINT", 130],
+  ["SIGTERM", 143],
+]) {
+  process.once(signal, async () => {
+    await cleanup();
+    process.exit(code);
+  });
+}
+
 try {
   console.log(`✓ Loaded ${items.length} registry items`);
 
@@ -549,21 +643,7 @@ try {
   base = `http://127.0.0.1:${server.address().port}`;
   console.log(`✓ Serving public/r at ${base}`);
 
-  // A package.json above the app (often a stray one in the user's home, which
-  // contains the Windows temp dir) makes Next.js and Tailwind treat that
-  // folder as the project: CSS imports break and no utilities are generated.
-  const workDir = path.resolve(process.env.KICKUI_CHECK_DIR ?? os.tmpdir());
-  for (let dir = workDir; ; dir = path.dirname(dir)) {
-    const stray = path.join(dir, "package.json");
-    if (fs.existsSync(stray)) {
-      throw new Error(
-        `${stray} sits above the test app, so Next.js and Tailwind would treat that folder as the project. Remove it or set KICKUI_CHECK_DIR to a folder with no package.json above it.`,
-      );
-    }
-    if (path.dirname(dir) === dir) break;
-  }
-  fs.mkdirSync(workDir, { recursive: true });
-  tempDir = fs.mkdtempSync(path.join(workDir, "kickui-install-"));
+  tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "kickui-install-"));
   const appDir = path.join(tempDir, "app");
   console.log(`✓ Scaffolding Next.js app in ${appDir}`);
 
@@ -665,18 +745,5 @@ try {
     console.error(`✗ Install check failed: ${error.message}`);
   process.exitCode = 1;
 } finally {
-  await stopChild(browser);
-  await stopChild(nextServer);
-  if (server) {
-    server.closeAllConnections?.();
-    await new Promise((resolve) => server.close(resolve));
-  }
-  if (tempDir) {
-    if (keep) {
-      console.log(`✓ Kept temp app at ${tempDir}`);
-      console.log(`✓ Screenshots in ${path.join(tempDir, "screenshots")}`);
-    } else {
-      fs.rmSync(tempDir, { recursive: true, force: true, maxRetries: 3 });
-    }
-  }
+  await cleanup();
 }

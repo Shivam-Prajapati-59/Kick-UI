@@ -130,12 +130,18 @@ class FluidSimulation {
     this._onResize = () => {};
     this._onMouseMove = () => {};
     this._onTouchMove = () => {};
-    this._setupRenderer(canvas);
-    this._setupScene();
-    this._setupTargets();
-    this._setupMaterials();
-    this._setupInput();
-    this._loop();
+    try {
+      this._setupRenderer(canvas);
+      this._setupScene();
+      this._setupTargets();
+      this._setupMaterials();
+      this._setupInput();
+      this._loop();
+    } catch (error) {
+      // Release observers, listeners and GPU resources registered so far.
+      this.dispose();
+      throw error;
+    }
   }
 
   _setupRenderer(canvas: HTMLCanvasElement) {
@@ -413,22 +419,20 @@ class FluidSimulation {
 
   dispose() {
     cancelAnimationFrame(this._animId);
-    if (this._resizeObserver) {
-      this._resizeObserver.disconnect();
-    }
+    this._resizeObserver?.disconnect();
     window.removeEventListener("mousemove", this._onMouseMove);
     window.removeEventListener("touchmove", this._onTouchMove);
-    this.velocity.read.dispose();
-    this.velocity.write.dispose();
-    this.dye.read.dispose();
-    this.dye.write.dispose();
-    this.divergence.dispose();
-    this.curl.dispose();
-    this.pressure.read.dispose();
-    this.pressure.write.dispose();
-    Object.values(this.material).forEach((m) => m.dispose());
-    this.quad.geometry.dispose();
-    this.renderer.dispose();
+    this.velocity?.read.dispose();
+    this.velocity?.write.dispose();
+    this.dye?.read.dispose();
+    this.dye?.write.dispose();
+    this.divergence?.dispose();
+    this.curl?.dispose();
+    this.pressure?.read.dispose();
+    this.pressure?.write.dispose();
+    if (this.material) Object.values(this.material).forEach((m) => m.dispose());
+    this.quad?.geometry.dispose();
+    this.renderer?.dispose();
   }
 }
 

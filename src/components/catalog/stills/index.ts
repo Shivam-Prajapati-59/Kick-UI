@@ -12,6 +12,7 @@ import { RouteTrackerStill } from "./RouteTrackerStill";
 import { ScrollCardStill } from "./ScrollCardStill";
 import { TextFocusStill } from "./TextFocusStill";
 import { TradingChartStill } from "./TradingChartStill";
+import { VaultCarouselStill } from "./VaultCarouselStill";
 import { VenueSelectorStill } from "./VenueSelectorStill";
 import { WalletCardStill } from "./WalletCardStill";
 
@@ -28,6 +29,7 @@ export const stillPreviewComponents: Record<string, ComponentType> = {
   "pixel-image": PixelImageStill,
   "scroll-card": ScrollCardStill,
   "trading-chart": TradingChartStill,
+  "vault-carousel": VaultCarouselStill,
   "venue-selector": VenueSelectorStill,
   "cursor-web-fluid": CursorWebFluidStill,
   "text-focus": TextFocusStill,
