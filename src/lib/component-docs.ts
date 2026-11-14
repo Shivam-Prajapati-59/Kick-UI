@@ -48,11 +48,16 @@ function getRegistryItem(slug: string) {
 }
 
 function getDocFiles(directory = contentDirectory): string[] {
-  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
-    const entryPath = path.join(directory, entry.name);
-    if (entry.isDirectory()) return getDocFiles(entryPath);
-    return entry.name.endsWith(".mdx") ? [entryPath] : [];
-  });
+  return fs
+    .readdirSync(/*turbopackIgnore: true*/ directory, { withFileTypes: true })
+    .flatMap((entry) => {
+      const entryPath = path.join(
+        /*turbopackIgnore: true*/ directory,
+        entry.name,
+      );
+      if (entry.isDirectory()) return getDocFiles(entryPath);
+      return entry.name.endsWith(".mdx") ? [entryPath] : [];
+    });
 }
 
 function parseDoc(filePath: string): ComponentDoc {
@@ -62,7 +67,10 @@ function parseDoc(filePath: string): ComponentDoc {
   const registryItem = getRegistryItem(slug);
   const sourcePath = registryItem?.files[0]?.path;
   const sourceCode = sourcePath
-    ? fs.readFileSync(path.join(process.cwd(), sourcePath), "utf8")
+    ? fs.readFileSync(
+        path.join(/*turbopackIgnore: true*/ process.cwd(), sourcePath),
+        "utf8",
+      )
     : undefined;
 
   return {

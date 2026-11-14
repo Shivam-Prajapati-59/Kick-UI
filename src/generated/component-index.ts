@@ -40,6 +40,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "cards"
   },
   {
+    "slug": "holder-testimonials",
+    "title": "Holder Testimonials",
+    "description": "An expanding-accordion tablist of holder testimonials with horizontal and vertical responsive modes, hover growth, keyboard navigation and reduced-motion support.",
+    "category": "cards"
+  },
+  {
     "slug": "pill-card",
     "title": "Pill Card",
     "description": "A React card with animated SVG paths and synchronized glow effects.",

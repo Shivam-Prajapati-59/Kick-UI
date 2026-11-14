@@ -17,6 +17,7 @@ const previewHeights: Record<
   "glyph-card": { desktop: 420, tablet: 420, mobile: 420 },
   "route-tracker": { desktop: 520, tablet: 520, mobile: 760 },
   "vault-carousel": { desktop: 880, tablet: 880, mobile: 1100 },
+  "holder-testimonials": { desktop: 560, tablet: 560, mobile: 820 },
 };
 
 export function getPreviewHeight(
