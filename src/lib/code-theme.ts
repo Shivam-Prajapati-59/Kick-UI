@@ -6,7 +6,7 @@ export const coldarkLightLike: Record<string, CSSProperties> = {
     color: "#1f2937",
     background: "none",
     fontFamily:
-      "var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+      "var(--font-dm-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
   },
   'pre[class*="language-"]': {
     color: "#1f2937",
@@ -51,7 +51,7 @@ export const coldarkDarkLike: Record<string, CSSProperties> = {
     color: "#e3eaf2",
     background: "none",
     fontFamily:
-      "var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+      "var(--font-dm-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
   },
   'pre[class*="language-"]': {
     color: "#e3eaf2",

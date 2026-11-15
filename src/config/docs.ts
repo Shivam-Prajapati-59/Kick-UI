@@ -209,7 +209,7 @@ export default config;`,
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-mono: "Geist Mono", monospace;
+  --font-mono: "DM Mono", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 }`,

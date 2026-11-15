@@ -63,7 +63,7 @@ export default function ComponentsPage() {
               <h2 id={category.id} className="text-2xl font-semibold">
                 {category.label}
               </h2>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-muted-foreground text-[15px]">
                 {category.description}
               </p>
             </div>

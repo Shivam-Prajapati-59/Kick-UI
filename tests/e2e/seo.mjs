@@ -82,22 +82,19 @@ async function html(path) {
   assert(h.text.includes('"@type":"BreadcrumbList"'), "BreadcrumbList schema");
 
   console.log("\nOG image routes:");
-  // Component pages share the root OG image (no per-slug routes); the page
-  // metadata must point at it.
+  // Component pages use their own generated image (opengraph-image route).
   const pageOgImage =
     /<meta[^>]*property="og:image"[^>]*content="([^"]+)"/.exec(h.text)?.[1] ??
     "";
   let pageOgPathOk = false;
   try {
-    pageOgPathOk = new URL(pageOgImage, BASE).pathname === "/og-image.png";
+    pageOgPathOk = new URL(pageOgImage, BASE).pathname.startsWith(
+      "/components/timeframe-tabs/opengraph-image",
+    );
   } catch {
     pageOgPathOk = false;
   }
-  assert(
-    pageOgPathOk,
-    "component page falls back to root OG image",
-    pageOgImage,
-  );
+  assert(pageOgPathOk, "component page uses its own OG image", pageOgImage);
   let r = await fetch(`${BASE}/og-image.png`);
   assert(
     r.status === 200 &&

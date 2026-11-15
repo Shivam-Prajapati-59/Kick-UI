@@ -44,9 +44,6 @@
   --sidebar-accent-foreground: oklch(0.4357 0.1845 301.8473);
   --sidebar-border: oklch(0.917 0.011 308.3268);
   --sidebar-ring: oklch(0.44 0.19 301.6);
-  --font-sans: Inter, sans-serif;
-  --font-serif: Georgia, serif;
-  --font-mono: JetBrains Mono, monospace;
   --radius: 0.6rem;
   --shadow-x: 0px;
   --shadow-y: 4px;
@@ -115,9 +112,6 @@
   --sidebar-accent-foreground: oklch(0.9831 0.0029 308.4282);
   --sidebar-border: oklch(0.2466 0.0451 306.3545);
   --sidebar-ring: oklch(0.73 0.17 303.6);
-  --font-sans: Inter, sans-serif;
-  --font-serif: Georgia, serif;
-  --font-mono: JetBrains Mono, monospace;
   --radius: 0.6rem;
   --shadow-2xs: 0px 4px 10px 0px hsl(0 0% 0% / 0.35);
   --shadow-xs: 0px 4px 10px 0px hsl(0 0% 0% / 0.35);
@@ -174,9 +168,11 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
-  --font-serif: var(--font-serif);
+  /* Defined here, not in :root: a self-referencing var() would be empty. */
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    var(--font-dm-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-heading: var(--font-sora), var(--font-dm-sans), sans-serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -203,13 +199,24 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(
+        in oklab,
+        var(--muted-foreground) 40%,
+        transparent
+      )
+      transparent;
   }
   html {
     scrollbar-gutter: stable;
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
     letter-spacing: var(--tracking-normal);
+  }
+  :where(h1, h2, h3, h4, h5, h6):not(.component-preview *) {
+    font-family: var(--font-heading);
   }
 
   /* Number inputs: drop the spinner arrows.
@@ -227,6 +234,34 @@
   }
 }
 
+/* Chromium 121+ honours `scrollbar-color` and then ignores any
+   `::-webkit-scrollbar` rules, so the webkit fallback below must stay
+   inside this @supports-not block. */
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--muted-foreground) 40%, transparent);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover,
+  ::-webkit-scrollbar-thumb:active {
+    background: color-mix(in oklab, var(--primary) 70%, transparent);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
 /* Hide scrollbar but keep scroll functionality */
 .scrollbar-hide {
   -ms-overflow-style: none;
@@ -237,21 +272,11 @@
 }
 
 /* Slim visible scrollbar for nav scroll areas (sidebar, mobile sheet).
-   Prefer over scrollbar-hide wherever users must discover scrolling. */
+   Reuses the themed look; kept as an alias of the global default. */
 .scrollbar-slim {
   scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
-}
-.scrollbar-slim::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-.scrollbar-slim::-webkit-scrollbar-track {
-  background: transparent;
-}
-.scrollbar-slim::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 9999px;
+  scrollbar-color: color-mix(in oklab, var(--muted-foreground) 40%, transparent)
+    transparent;
 }
 
 /* Hide scrollbars inside code blocks */

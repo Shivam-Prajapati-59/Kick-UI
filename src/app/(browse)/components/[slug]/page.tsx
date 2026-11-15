@@ -1,8 +1,16 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { ComponentPreviewClient } from "@/components/docs/ComponentPreviewClient";
 import { CodeOptionsProvider } from "@/hooks/useCodeOptions";
 import { getAllComponentDocs, getComponentDoc } from "@/lib/component-docs";
+import {
+  getCategoryMetadata,
+  type ComponentCategory,
+} from "@/lib/component-categories";
+import { componentIndex } from "@/generated/component-index";
 import { SITE_CONFIG } from "@/lib/site-config";
+
+const MAX_RELATED_COMPONENTS = 4;
 
 export async function generateStaticParams() {
   return getAllComponentDocs().map((component) => ({ slug: component.slug }));
@@ -32,13 +40,11 @@ export async function generateMetadata({
       title: `${title} — ${SITE_CONFIG.name}`,
       description,
       siteName: SITE_CONFIG.name,
-      images: [`${SITE_CONFIG.url}/og-image.png`],
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} — ${SITE_CONFIG.name}`,
       description,
-      images: [`${SITE_CONFIG.url}/og-image.png`],
     },
   };
 }
@@ -105,6 +111,28 @@ function ComponentJsonLd({
   );
 }
 
+/**
+ * Up to four related components: same-category neighbours first, topped up
+ * with other categories in index order when the category is small.
+ */
+function getRelatedComponents(category: ComponentCategory, slug: string) {
+  const sameCategory = componentIndex.filter(
+    (item) => item.category === category && item.slug !== slug,
+  );
+  const related = sameCategory.slice(0, MAX_RELATED_COMPONENTS);
+  if (related.length >= 2) return related;
+
+  const others = componentIndex.filter(
+    (item) => item.category !== category && item.slug !== slug,
+  );
+  const picked = [...related];
+  for (const item of others) {
+    if (picked.length >= MAX_RELATED_COMPONENTS) break;
+    picked.push(item);
+  }
+  return picked;
+}
+
 export default async function ComponentDocPage({
   params,
 }: {
@@ -112,6 +140,12 @@ export default async function ComponentDocPage({
 }) {
   const component = getComponentDoc((await params).slug);
   if (!component) notFound();
+
+  const relatedComponents = getRelatedComponents(
+    component.category,
+    component.slug,
+  );
+  const categoryLabel = getCategoryMetadata(component.category).label;
 
   return (
     <article className="w-full space-y-6 py-4">
@@ -138,6 +172,28 @@ export default async function ComponentDocPage({
           propsData={component.props}
         />
       </CodeOptionsProvider>
+
+      {relatedComponents.length > 0 ? (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight">
+            More {categoryLabel}
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {relatedComponents.map((item) => (
+              <Link
+                key={item.slug}
+                href={`/components/${item.slug}`}
+                className="hover:border-foreground/60 rounded-xl border p-4 transition-colors"
+              >
+                <p className="font-medium">{item.title}</p>
+                <p className="text-muted-foreground line-clamp-1 text-sm">
+                  {item.description}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </article>
   );
 }

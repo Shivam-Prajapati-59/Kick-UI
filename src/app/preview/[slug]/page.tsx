@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { DemoRenderer } from "@/components/docs/DemoRenderer";
 import { PreviewThemeSync } from "@/components/docs/PreviewThemeSync";
 import { getAllComponentDocs, getComponentDoc } from "@/lib/component-docs";
-import { montserrat } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -27,8 +26,7 @@ export default async function ComponentPreviewPage({
   return (
     <div
       className={cn(
-        montserrat.variable,
-        "relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-background [font-family:var(--font-montserrat)]",
+        "bg-background component-preview relative flex min-h-screen w-full items-center justify-center overflow-hidden",
         component.fullPreview ? "p-0" : "p-6 sm:p-8",
       )}
     >

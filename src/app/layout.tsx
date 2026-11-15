@@ -1,19 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { DM_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
 import Provider from "@/providers/provider";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import { ViewTransitions } from "next-view-transitions";
 import { SITE_CONFIG } from "@/lib/site-config";
+import { sora } from "@/lib/fonts";
 import { getGithubStars } from "@/lib/github-stars";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dmMono = DM_Mono({
+  variable: "--font-dm-mono",
+  weight: ["400", "500"],
   subsets: ["latin"],
 });
 
@@ -123,10 +125,13 @@ export default async function RootLayout({
 
   return (
     <ViewTransitions>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+      {/* Font variables live on <html> so the :root font tokens can resolve them. */}
+      <html
+        lang="en"
+        suppressHydrationWarning
+        className={`${dmSans.variable} ${dmMono.variable} ${sora.variable}`}
+      >
+        <body className="antialiased">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
