@@ -1,0 +1,45 @@
+---
+title: Holder Testimonials
+seoTitle: Expanding Accordion Testimonial Tabs for Web3 Holders
+description: An expanding-accordion tablist of holder testimonials with horizontal and vertical responsive modes, hover growth, keyboard navigation and reduced-motion support.
+category: cards
+usage: |
+  import HolderTestimonials, {
+    type HolderTestimonial,
+  } from "@/components/ui/holder-testimonials";
+
+  const testimonials: HolderTestimonial[] = [
+    {
+      name: "mira.eth",
+      address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+      role: "DAO contributor",
+      quote: "Governance finally feels like a conversation instead of a shouting match.",
+      chain: "Ethereum",
+      holding: { amount: "12,400", symbol: "ARB" },
+      verified: true,
+      since: "2022",
+    },
+  ];
+
+  export function HolderTestimonialsDemo() {
+    return <HolderTestimonials testimonials={testimonials} />;
+  }
+props:
+  - name: testimonials
+    type: HolderTestimonial[]
+    description: Testimonials rendered as expanding tabs. Each item is `{ name, address, role?, quote, avatar?, chain?, holding?, verified?, since?, bg?, text? }`.
+  - name: label
+    type: string
+    description: Accessible label for the tablist. Defaults to "Holder testimonials".
+  - name: className
+    type: string
+    description: Additional classes for the tablist root.
+---
+
+The `HolderTestimonial` shape: `name` (ENS or display name), `address` (full wallet address, shown truncated and copied on click), `quote` (testimonial body), and the optional `role`, `avatar` (image URL; the holder's initials are used when missing or it fails to load), `chain` (network name), `holding` (`{ amount, symbol }` holder chip), `verified` (shows a verified badge), `since` (shown as "Since <value>"), and `bg` / `text` (hex overrides for the tab colours). By default the colours come from `chain`: a muted take on each network's brand hue (Ethereum, Base, Arc, Bitcoin, Solana; `eth`, `btc` and `sol` work as aliases) with text that keeps 7:1 contrast or better, and a neutral sand for unknown chains. The map is exported as `chainPalettes`.
+
+Accessibility: the component is a `tablist` with `tab` elements; arrow keys move between tabs (Up/Down in vertical mode), Enter/Space selects, and only the active tab is in the tab order. The address copy button is a real button with keyboard support and announces "Copied" through an aria-live region. The copy button stops propagation so it does not re-select its tab.
+
+Motion: hover grows collapsed tabs from 354px to 366px in horizontal mode. With reduced motion enabled all transitions become instant. The component switches between horizontal and vertical layouts below 560px automatically.
+
+Install note: the component is a single `holder-testimonials.tsx` file.

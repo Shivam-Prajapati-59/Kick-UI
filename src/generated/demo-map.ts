@@ -8,6 +8,7 @@ export const demos = {
   "deposit-modal": lazy(() => import("@/demos/deposit-modal")),
   "feature-showcase": lazy(() => import("@/demos/feature-showcase")),
   "glyph-card": lazy(() => import("@/demos/glyph-card")),
+  "holder-testimonials": lazy(() => import("@/demos/holder-testimonials")),
   "mag-dock": lazy(() => import("@/demos/mag-dock")),
   "perspective-grid": lazy(() => import("@/demos/perspective-grid")),
   "pill-button": lazy(() => import("@/demos/pill-button")),

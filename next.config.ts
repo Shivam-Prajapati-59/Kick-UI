@@ -2,8 +2,20 @@ import type { NextConfig } from "next";
 import { DEFAULT_GUIDE_SLUG, guideHref } from "./src/config/docs";
 import { SITE_CONFIG } from "./src/lib/site-config";
 
+const DOC_FILES = [
+  "content/components/**/*",
+  "registry.json",
+  "registry/new-york/**/*",
+];
+
 const nextConfig: NextConfig = {
   devIndicators: false,
+  // component-docs reads these at render time (including ISR revalidation);
+  // the dynamic fs access is excluded from tracing, so include them explicitly.
+  outputFileTracingIncludes: {
+    "/components/[slug]": DOC_FILES,
+    "/preview/[slug]": DOC_FILES,
+  },
   images: {
     remotePatterns: [
       {

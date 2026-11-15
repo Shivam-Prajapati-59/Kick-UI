@@ -426,6 +426,23 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "holder-testimonials",
+      "type": "registry:ui",
+      "title": "Holder Testimonials",
+      "description": "An expanding-accordion tablist of holder testimonials with horizontal and vertical responsive modes, hover growth, keyboard navigation and reduced-motion support.",
+      "category": "cards",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/holder-testimonials/holder-testimonials.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

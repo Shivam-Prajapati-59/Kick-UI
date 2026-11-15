@@ -63,7 +63,7 @@ export function ComponentCatalogCard({
             {title}
           </Link>
         </h3>
-        <p className="line-clamp-2 text-sm text-muted-foreground">
+        <p className="line-clamp-2 text-[15px] leading-[22px] text-muted-foreground">
           {description}
         </p>
       </div>

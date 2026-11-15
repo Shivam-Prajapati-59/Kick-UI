@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import VaultCarouselDemo from "@/demos/vault-carousel";
+import HolderTestimonialsDemo from "@/demos/holder-testimonials";
 
 export const metadata: Metadata = {
   title: "Playground",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function PlaygroundPage() {
   return (
     <div className="bg-background relative min-h-screen overflow-hidden">
-      <VaultCarouselDemo />
+      <HolderTestimonialsDemo />
     </div>
   );
 }

@@ -71,7 +71,7 @@ function NavItem({
         closeMobile();
       }}
       className={cn(
-        "group relative flex cursor-pointer items-center rounded-md px-3 py-1.5 text-sm transition-colors duration-150",
+        "group relative flex cursor-pointer items-center rounded-md px-3 py-1.5 text-[15px] transition-colors duration-150",
         isActive
           ? "text-primary bg-primary/6 font-medium"
           : "text-muted-foreground hover:text-foreground hover:bg-muted/40",
@@ -140,7 +140,7 @@ function CategorySection({
       {/* Section header — sits ABOVE the vertical line */}
       <div
         className={cn(
-          "mb-1.5 flex items-center gap-2 text-sm font-bold tracking-wider select-none",
+          "mb-2 flex items-center gap-2 text-[13px] font-semibold tracking-wider select-none",
           isCategoryActive ? "text-primary" : "text-muted-foreground",
         )}
       >
@@ -194,7 +194,7 @@ function StaticSection({
     <div>
       <div
         className={cn(
-          "mb-1.5 flex items-center gap-2 text-sm font-bold tracking-wider select-none",
+          "mb-2 flex items-center gap-2 text-[13px] font-semibold tracking-wider select-none",
           isSectionActive ? "text-primary" : "text-muted-foreground",
         )}
       >

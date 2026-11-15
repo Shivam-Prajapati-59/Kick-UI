@@ -302,6 +302,17 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "holder-testimonials",
+      "type": "registry:ui",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [
+        {
+          "path": "registry/new-york/components/holder-testimonials/holder-testimonials.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

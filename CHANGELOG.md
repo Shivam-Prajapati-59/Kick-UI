@@ -25,7 +25,9 @@ adheres to [Semantic Versioning](https://semver.org/).
 - `vault-carousel`: animated carousel of isometric security feature cards with
   filters, expandable detail panels, dark mode and reduced-motion support;
   installs as a set of `vault-*.tsx` files.
-- `feature-showcase` registered as a distributable registry component.
+- `holder-testimonials`: expanding-accordion testimonial tablist with horizontal
+  and vertical responsive modes, hover growth, keyboard navigation and
+  reduced-motion support.- `feature-showcase` registered as a distributable registry component.
 - Namespaced registry support: install via `npx shadcn add @kick-ui/<name>`
   after adding `"@kick-ui": "https://www.kickui.xyz/r/{name}.json"` to
   your `components.json`.
