@@ -18,6 +18,7 @@ const previewHeights: Record<
   "route-tracker": { desktop: 520, tablet: 520, mobile: 760 },
   "vault-carousel": { desktop: 880, tablet: 880, mobile: 1100 },
   "holder-testimonials": { desktop: 560, tablet: 560, mobile: 820 },
+  "wave-carousel": { desktop: 880, tablet: 880, mobile: 720 },
 };
 
 export function getPreviewHeight(

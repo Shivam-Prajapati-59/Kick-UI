@@ -313,6 +313,17 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "wave-carousel",
+      "type": "registry:ui",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/components/wave-carousel/wave-carousel.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

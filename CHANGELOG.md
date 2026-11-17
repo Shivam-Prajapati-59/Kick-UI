@@ -27,7 +27,10 @@ adheres to [Semantic Versioning](https://semver.org/).
   installs as a set of `vault-*.tsx` files.
 - `holder-testimonials`: expanding-accordion testimonial tablist with horizontal
   and vertical responsive modes, hover growth, keyboard navigation and
-  reduced-motion support.- `feature-showcase` registered as a distributable registry component.
+  reduced-motion support.
+- `wave-carousel`: wavy two-row image carousel hero section with travelling sine
+  wave, drag with inertia, hover/focus pills and reduced-motion support.
+- `feature-showcase` registered as a distributable registry component.
 - Namespaced registry support: install via `npx shadcn add @kick-ui/<name>`
   after adding `"@kick-ui": "https://www.kickui.xyz/r/{name}.json"` to
   your `components.json`.

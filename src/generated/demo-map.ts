@@ -25,6 +25,7 @@ export const demos = {
   "vault-carousel": lazy(() => import("@/demos/vault-carousel")),
   "venue-selector": lazy(() => import("@/demos/venue-selector")),
   "wallet-card": lazy(() => import("@/demos/wallet-card")),
+  "wave-carousel": lazy(() => import("@/demos/wave-carousel")),
 } as const;
 
 export type DemoName = keyof typeof demos;

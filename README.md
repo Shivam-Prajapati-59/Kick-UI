@@ -51,7 +51,7 @@ Dependencies (npm packages and shadcn primitives) are resolved and installed aut
 | **Cards**              | Card Stack, Pill Card, Stacked Carousel, Wallet Card, Glyph Card, Vault Carousel, Holder Testimonials               |
 | **Components**         | Animated List, Deposit Modal, MagDock, Perspective Grid, Pixel Image, Route Tracker, Timeframe Tabs, Venue Selector |
 | **Text Animations**    | Scramble Text, Text Focus                                                                                           |
-| **Layouts & Sections** | Feature Showcase, Scroll Card                                                                                       |
+| **Layouts & Sections** | Feature Showcase, Scroll Card, Wave Carousel                                                                        |
 | **Animations**         | Cursor Web Fluid                                                                                                    |
 | **Charts**             | Trading Chart                                                                                                       |
 

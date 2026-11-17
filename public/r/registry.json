@@ -443,6 +443,22 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "wave-carousel",
+      "type": "registry:ui",
+      "title": "Wave Carousel",
+      "description": "A hero section with two horizontal rows of square image tiles drifting in an endless loop, each tile's vertical offset following a travelling sine wave, plus a centred heading and description.",
+      "category": "layouts-sections",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/wave-carousel/wave-carousel.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

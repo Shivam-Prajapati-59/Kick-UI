@@ -136,6 +136,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "layouts-sections"
   },
   {
+    "slug": "wave-carousel",
+    "title": "Wave Carousel",
+    "description": "A hero section with two horizontal rows of square image tiles drifting in an endless loop, each tile's vertical offset following a travelling sine wave, plus a centred heading and description.",
+    "category": "layouts-sections"
+  },
+  {
     "slug": "scramble-text",
     "title": "Scramble Text",
     "description": "A React text animation that scrambles characters on hover, then reveals the original text with a decode sweep.",
