@@ -43,3 +43,8 @@ next-env.d.ts
 # agent instructions (local only)
 AGENTS.md
 PROJECT_OVERVIEW.md
+
+# agent skills (local only)
+.agents/skills/
+.claude/skills/
+skills-lock.json
