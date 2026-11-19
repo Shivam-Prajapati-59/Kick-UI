@@ -1,0 +1,59 @@
+---
+title: NFT Carousel
+seoTitle: Coverflow NFT Launch Carousel for React
+description: A coverflow carousel for NFT and meme-coin launches, with side cards, autoplay, drag and swipe, bonding-curve progress and keyboard navigation.
+category: cards
+usage: |
+  import NftCarousel, { type NftCarouselItem } from "@/components/ui/nft-carousel";
+
+  const items: NftCarouselItem[] = [
+    // Nouns artwork is CC0. Swap in your own images, or copy Kick UI's /assets/nfts SVGs into /public.
+    { image: "https://noun.pics/7.svg", name: "Pixel Pope", ticker: "$POPE", creator: "by 7xKX…aQ2", description: "The holiest frog on Solana.", stat: "+412% · 24h", marketCap: "$1.2M", progress: 72, background: "linear-gradient(160deg, #ffe9f3, #ffb3c7)", pixelated: true },
+    { image: "https://noun.pics/12.svg", name: "Glasses Guy", ticker: "$NOGG", description: "Deals alpha in complete silence.", stat: "+88% · 24h", marketCap: "$480K", progress: 38, background: "linear-gradient(160deg, #fff3d6, #ffd28a)", pixelated: true },
+  ];
+
+  export function NftCarouselDemo() {
+    return (
+      <div className="w-full">
+        <NftCarousel items={items} initialIndex={0} />
+      </div>
+    );
+  }
+props:
+  - name: items
+    type: NftCarouselItem[]
+    description: Cards in the carousel. Each item is `{ image, name, ticker?, creator?, description?, stat?, marketCap?, progress?, background?, href?, pixelated? }`.
+  - name: initialIndex
+    type: number
+    default: "0"
+    description: Card shown first.
+  - name: interval
+    type: number
+    default: "4000"
+    description: Milliseconds each slide stays active while autoplaying.
+  - name: autoplay
+    type: boolean
+    default: "true"
+    description: Advance on a timer. Pauses on hover, focus, drag, hidden tabs and reduced motion.
+  - name: cardWidth
+    type: number
+    default: "422"
+    description: Card width in pixels at full size (height follows at 1.351×).
+  - name: aria-label
+    type: string
+    default: "NFT drops"
+    description: Accessible name for the carousel region.
+  - name: className
+    type: string
+    description: Additional classes for the root element.
+---
+
+The `NftCarouselItem` shape: `image` (card artwork, cover-cropped), `name` (shown on the card and used in the dot labels), and the optional `ticker` (glass chip in the top-right, e.g. `$POPE`), `creator` (secondary line next to the name), `description` (body copy, clamped to three lines below a 640px root width and four lines at 640px and above), `stat` (top-left pill with an arrow badge that points down when the value starts with a minus, e.g. `+412% · 24h`), `marketCap` (right side of the name row, rendered as "MC …"), `progress` (0–100 bonding-curve bar, labelled "Graduated" at 100), `background` (CSS colour or gradient behind the image, defaults to the `muted` token), `href` (makes the active card a link) and `pixelated` (keeps pixel art crisp when the card scales).
+
+Motion: one continuous position value drives the stack, so each card's offset, scale, opacity and depth are interpolated from its distance to that value and springs, drags and interrupted animations all move the same cards along the same path. Choosing a slide directly from the dots or a card click takes the shortest way round the loop, while the arrow keys and autoplay step a fixed one card; every move settles on a critically damped spring (0.5s, no bounce), so mashing the arrows retargets the motion instead of restarting it. Dragging tracks the pointer 1:1 once it passes 6px, and on release the finger's velocity is projected forward with Apple's deceleration curve to choose a destination card, at most two cards away, which is reached by a spring that inherits that velocity and bounces slightly only after a real flick. The active card's gradient, chips and text enter staggered from about 120ms after the change, while outgoing content leaves faster and in reverse with no stagger, so the exit reads as quicker than the arrival. On first view the cards fan out from the centre in a single scale-and-fade entrance, autoplay becomes eligible once that entrance reaches 60% and pauses while the carousel is off-screen, and the root has no background of its own so it blends into the page. With `prefers-reduced-motion`, slides jump instead of translating, dragging still tracks the pointer but releases instantly, content cross-fades over 200ms and autoplay is off.
+
+Accessibility: the root is a labelled `region` with `aria-roledescription="carousel"` and takes focus, so ArrowLeft and ArrowRight move between slides; an arrow pressed while the active card's link has focus moves focus to the region first, so it never lands on a card that is about to be hidden. The dots are a `group` of native buttons labelled "Show {name}", marked with `aria-current` and padded to a 24px target, and the progress fill restarts with every slide. Autoplay pauses on hover, focus, drag, hidden tabs and reduced motion, and resumes when the pause clears. Inactive cards are `aria-hidden` and out of the pointer path once parked; a visually hidden live region announces "Slide 3 of 6: Peanut the Squirrel" whenever autoplay is paused. Drag captures the pointer only after 6px of movement so taps still click, clicks that follow a drag are suppressed, and only the initiating pointer drives a swipe.
+
+Install note: the component is a single `nft-carousel.tsx` file, but it needs `motion` (v12) for the springs and pointer tracking.
+
+Demo artwork: live pump.fun coin images hotlinked from the DexScreener CDN (not bundled), owned by their creators; market caps and 24h moves are a 2026-11-18 snapshot. The usage example above uses CC0 Nouns art, which is safe to ship.

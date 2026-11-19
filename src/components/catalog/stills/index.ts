@@ -5,6 +5,7 @@ import { CursorWebFluidStill } from "./CursorWebFluidStill";
 import { DepositModalStill } from "./DepositModalStill";
 import { GlyphCardStill } from "./GlyphCardStill";
 import { HolderTestimonialsStill } from "./HolderTestimonialsStill";
+import { NftCarouselStill } from "./NftCarouselStill";
 import { FeatureShowcaseStill } from "./FeatureShowcaseStill";
 import { PerspectiveGridStill } from "./PerspectiveGridStill";
 import { PillCardStill } from "./PillCardStill";
@@ -24,6 +25,7 @@ export const stillPreviewComponents: Record<string, ComponentType> = {
   "wallet-card": WalletCardStill,
   "glyph-card": GlyphCardStill,
   "holder-testimonials": HolderTestimonialsStill,
+  "nft-carousel": NftCarouselStill,
   "route-tracker": RouteTrackerStill,
   "animated-list": AnimatedListStill,
   "deposit-modal": DepositModalStill,

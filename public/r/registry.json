@@ -459,6 +459,22 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "nft-carousel",
+      "type": "registry:ui",
+      "title": "NFT Carousel",
+      "description": "A coverflow carousel for NFT and meme-coin launches, with side cards, autoplay, drag and swipe, bonding-curve progress and keyboard navigation.",
+      "category": "cards",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/nft-carousel/nft-carousel.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

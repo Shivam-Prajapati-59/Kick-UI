@@ -210,6 +210,10 @@
   html {
     scrollbar-gutter: stable;
   }
+  /* A reserved gutter would shrink the fullscreen element's width. */
+  html:has(:fullscreen) {
+    scrollbar-gutter: auto;
+  }
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);

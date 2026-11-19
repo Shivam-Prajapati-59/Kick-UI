@@ -46,6 +46,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "cards"
   },
   {
+    "slug": "nft-carousel",
+    "title": "NFT Carousel",
+    "description": "A coverflow carousel for NFT and meme-coin launches, with side cards, autoplay, drag and swipe, bonding-curve progress and keyboard navigation.",
+    "category": "cards"
+  },
+  {
     "slug": "pill-card",
     "title": "Pill Card",
     "description": "A React card with animated SVG paths and synchronized glow effects.",
