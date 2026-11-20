@@ -1,31 +1,39 @@
-import { ArrowUpRight, ShieldCheck, Wallet } from "lucide-react";
+import Image from "next/image";
 
 export function ScrollCardStill() {
   return (
     <div
-      className="flex size-full items-center justify-center p-4"
+      className="flex size-full items-center gap-3 px-3 py-2"
       aria-hidden="true"
     >
-      <div className="relative h-[156px] w-full max-w-[280px]">
-        <div className="border-border bg-muted absolute inset-x-4 top-6 h-[125px] rounded-xl border" />
-        <div className="border-border bg-secondary absolute inset-x-2 top-3 h-[125px] rounded-xl border" />
-        <div className="border-border bg-card absolute inset-x-0 top-0 flex h-[125px] flex-col justify-between rounded-xl border p-3 shadow-md">
-          <div className="bg-primary/10 text-primary flex size-8 items-center justify-center rounded-lg">
-            <Wallet className="size-4" />
-          </div>
-          <div className="flex items-end justify-between gap-2">
-            <div className="min-w-0">
-              <p className="text-foreground truncate text-xs font-semibold">
-                Secure Wallet Infrastructure
-              </p>
-              <p className="text-muted-foreground mt-0.5 text-[10px]">
-                Embedded wallets and recovery
-              </p>
-            </div>
-            <ShieldCheck className="text-primary size-4 shrink-0" />
-          </div>
+      <div className="border-border bg-card relative h-[130px] w-[130px] shrink-0 overflow-hidden rounded-xl border shadow-sm">
+        <Image
+          src="/assets/dummy/Card1.png"
+          alt=""
+          fill
+          unoptimized
+          className="object-cover"
+          sizes="130px"
+        />
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col justify-center gap-1.5">
+        <div>
+          <p className="text-foreground text-[11px] leading-tight font-semibold">
+            Secure Wallet Infrastructure
+          </p>
+          <p className="text-muted-foreground mt-0.5 line-clamp-2 text-[9px] leading-snug">
+            Embedded wallets with MPC-based key management and recovery.
+          </p>
         </div>
-        <ArrowUpRight className="text-muted-foreground absolute right-3 bottom-0 size-3.5" />
+        <p className="text-muted-foreground truncate text-[10px]">
+          Passwordless Authentication
+        </p>
+        <p className="text-muted-foreground truncate text-[10px]">
+          Developer-Friendly APIs
+        </p>
+        <p className="text-muted-foreground truncate text-[10px]">
+          Enterprise-Grade Security
+        </p>
       </div>
     </div>
   );

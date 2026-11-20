@@ -98,38 +98,31 @@ usage: |
           if (cancelled) return;
           unsubscribe = null;
           setLive(false);
-          const delay = Math.min(2000 * 2 ** attempt, 30000);
-          attempt += 1;
-          retryTimer = setTimeout(() => {
-            if (cancelled) return;
-            fetchHistory(timeframe, controller.signal)
-              .then((real) => {
-                if (cancelled) return;
-                setBase(real);
-                setRevision((r) => r + 1);
-                setTick(null);
-                tickRef.current = null;
-                connect();
-              })
-              .catch(() => {
-                if (!cancelled) setFailed(true);
-              });
-          }, delay);
+          scheduleRetry();
         },
       });
     };
-    fetchHistory(timeframe, controller.signal)
-      .then((real) => {
-        if (cancelled) return;
-        setBase(real);
-        setRevision((r) => r + 1);
-        setTick(null);
-        tickRef.current = null;
-        connect();
-      })
-      .catch(() => {
-        if (!cancelled) setFailed(true);
-      });
+    const load = (isRetry: boolean) =>
+      fetchHistory(timeframe, controller.signal)
+        .then((real) => {
+          if (cancelled) return;
+          setBase(real);
+          setRevision((r) => r + 1);
+          setTick(null);
+          tickRef.current = null;
+          connect();
+        })
+        .catch(() => {
+          if (cancelled) return;
+          if (isRetry) scheduleRetry();
+          else setFailed(true);
+        });
+    const scheduleRetry = () => {
+      const delay = Math.min(2000 * 2 ** attempt, 30000);
+      attempt += 1;
+      retryTimer = setTimeout(() => load(true), delay);
+    };
+    load(false);
     return () => {
       cancelled = true;
       controller.abort();

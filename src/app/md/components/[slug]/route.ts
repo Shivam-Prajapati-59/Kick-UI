@@ -3,9 +3,11 @@ import {
   getComponentDoc,
   type ComponentDoc,
 } from "@/lib/component-docs";
+import { generateInstallCommands } from "@/lib/cli-commands";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 export const dynamic = "force-static";
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return getAllComponentDocs().map((component) => ({ slug: component.slug }));
@@ -26,7 +28,13 @@ function buildComponentMarkdown(component: ComponentDoc) {
   lines.push("## Install");
   lines.push("");
   lines.push("```bash");
-  lines.push(`npx shadcn@latest add ${SITE_CONFIG.url}/r/${component.slug}.json`);
+  lines.push(
+    generateInstallCommands({
+      registryUrl:
+        component.registryUrl ?? `${SITE_CONFIG.url}/r/${component.slug}.json`,
+      dependencies: [],
+    }).shadcn.npm,
+  );
   lines.push("```");
   lines.push("");
 

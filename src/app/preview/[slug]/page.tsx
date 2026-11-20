@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   alternates: { canonical: null },
 };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return getAllComponentDocs().map(({ slug }) => ({ slug }));
 }

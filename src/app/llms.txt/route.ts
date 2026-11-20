@@ -11,7 +11,7 @@ export function GET() {
   lines.push("# Kick UI");
   lines.push("");
   lines.push(
-    "> Kick UI is a shadcn-compatible registry of animated React components for onchain products — wallets, trading interfaces, vaults and dapps — with source you own. Components use Tailwind CSS and Motion and can be installed as source code through the shadcn CLI.",
+    `> ${SITE_CONFIG.description} Components use Tailwind CSS and Motion and can be installed as source code through the shadcn CLI.`,
   );
   lines.push("");
   lines.push("## Start here");

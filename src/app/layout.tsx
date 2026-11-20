@@ -3,6 +3,7 @@ import { DM_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
 import Provider from "@/providers/provider";
 import { ThemeProvider } from "@/components/common/theme-provider";
+import { JsonLd } from "@/components/common/JsonLd";
 import { ViewTransitions } from "next-view-transitions";
 import { SITE_CONFIG } from "@/lib/site-config";
 import { sora } from "@/lib/fonts";
@@ -79,7 +80,7 @@ export const viewport: Viewport = {
 };
 
 /** Organization + WebSite structured data for rich Google results. */
-function JsonLd() {
+function SiteJsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -102,15 +103,7 @@ function JsonLd() {
       },
     ],
   };
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        // Escape `<` so a `</script>` sequence in content can never break out.
-        __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-      }}
-    />
-  );
+  return <JsonLd data={jsonLd} />;
 }
 
 export default async function RootLayout({
@@ -140,7 +133,7 @@ export default async function RootLayout({
           >
             <Provider starCount={starCount}>{children}</Provider>
           </ThemeProvider>
-          <JsonLd />
+          <SiteJsonLd />
         </body>
       </html>
     </ViewTransitions>

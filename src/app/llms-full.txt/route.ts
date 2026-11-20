@@ -2,7 +2,12 @@ import { componentCategories } from "@/lib/component-categories";
 import { guideHref, guideSections } from "@/config/docs";
 import { componentIndex } from "@/generated/component-index";
 import { getComponentDoc } from "@/lib/component-docs";
-import { generateInstallCommands } from "@/lib/cli-commands";
+import {
+  EXAMPLE_COMPONENT_NAME,
+  EXAMPLE_INSTALL_COMMAND,
+  generateInstallCommands,
+  REGISTRY_HOMEPAGE,
+} from "@/lib/cli-commands";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 export const dynamic = "force-static";
@@ -13,21 +18,19 @@ export function GET() {
   lines.push("# Kick UI");
   lines.push("");
   lines.push(
-    "> Kick UI is a shadcn-compatible registry of animated React components for onchain products — wallets, trading interfaces, vaults and dapps — with source you own. Components use Tailwind CSS and Motion and can be installed as source code through the shadcn CLI.",
+    `> ${SITE_CONFIG.description} Components use Tailwind CSS and Motion and can be installed as source code through the shadcn CLI.`,
   );
   lines.push("");
   lines.push("## How to install with the shadcn CLI / MCP");
   lines.push("");
   lines.push(`- Registry index: ${SITE_CONFIG.url}/r/registry.json`);
   lines.push("- MCP: `npx shadcn@latest mcp init`");
+  lines.push(`- Add a component: \`${EXAMPLE_INSTALL_COMMAND}\``);
   lines.push(
-    "- Add a component: `npx shadcn@latest add https://www.kickui.xyz/r/pill-button.json`",
+    `- components.json registry mapping: \`{ "registries": { "@kick-ui": "${REGISTRY_HOMEPAGE}/r/{name}.json" } }\``,
   );
   lines.push(
-    '- components.json registry mapping: `{ "registries": { "@kick-ui": "https://www.kickui.xyz/r/{name}.json" } }`',
-  );
-  lines.push(
-    "- Add a component by namespace: `npx shadcn@latest add @kick-ui/pill-button`",
+    `- Add a component by namespace: \`npx shadcn@latest add @kick-ui/${EXAMPLE_COMPONENT_NAME}\``,
   );
   lines.push("");
   lines.push("## Guides");
@@ -70,9 +73,7 @@ export function GET() {
         lines.push("- Usage:");
         lines.push("");
         lines.push("```tsx");
-        for (const usageLine of doc.usage.split("\n")) {
-          lines.push(usageLine);
-        }
+        lines.push(doc.usage.trim());
         lines.push("```");
         lines.push("");
       }
