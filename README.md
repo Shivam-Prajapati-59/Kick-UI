@@ -4,8 +4,8 @@
   <img src="./public/logo12.png" alt=KickUI" width="20%" height="20%" align="middle" />
 </h1>
 
-**Animated React UI Components for Web3.**
-Accessible · Customizable · Open Source — installed as source code you own.
+**Animated Web3 UI you can copy, own, and ship.**
+Kick UI is a shadcn-compatible registry of animated React components for onchain products — wallets, trading interfaces, vaults and dapps — with source you own.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-8b5cf6.svg)](./LICENSE)
 [![Built with shadcn CLI](https://img.shields.io/badge/install-shadcn%20CLI-0ea5e9.svg)](https://ui.shadcn.com/docs/cli)
@@ -45,15 +45,16 @@ Dependencies (npm packages and shadcn primitives) are resolved and installed aut
 
 ## Components
 
-| Category               | Components                                                                                                          |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| **Buttons**            | Pill Button, Slide Text Button                                                                                      |
-| **Cards**              | Card Stack, Pill Card, Stacked Carousel, Wallet Card, Glyph Card, Vault Carousel, Holder Testimonials               |
-| **Components**         | Animated List, Deposit Modal, MagDock, Perspective Grid, Pixel Image, Route Tracker, Timeframe Tabs, Venue Selector |
-| **Text Animations**    | Scramble Text, Text Focus                                                                                           |
-| **Layouts & Sections** | Feature Showcase, Scroll Card, Wave Carousel                                                                        |
-| **Animations**         | Cursor Web Fluid                                                                                                    |
-| **Charts**             | Trading Chart                                                                                                       |
+| Category                  | Components                                                                  |
+| ------------------------- | --------------------------------------------------------------------------- |
+| **Web3 Widgets**          | Deposit Modal, Route Tracker, Timeframe Tabs, Trading Chart, Venue Selector |
+| **Carousels**             | NFT Carousel, Stacked Carousel, Vault Carousel, Wave Carousel               |
+| **Cards**                 | Card Stack, Glyph Card, Holder Testimonials, Pill Card, Wallet Card         |
+| **Buttons**               | Pill Button, Slide Text Button                                              |
+| **Text Animations**       | Scramble Text, Text Focus                                                   |
+| **Backgrounds & Effects** | Cursor Web Fluid, Perspective Grid, Pixel Image                             |
+| **Navigation & Lists**    | Animated List, MagDock                                                      |
+| **Sections**              | Feature Showcase, Scroll Card                                               |
 
 Browse live previews and copy-paste install commands at
 [kickui.xyz/components](https://www.kickui.xyz/components).
@@ -61,7 +62,7 @@ Browse live previews and copy-paste install commands at
 ## AI-ready with shadcn MCP
 
 Kick UI is a shadcn-compatible registry, so it works with the official
-[shadcn MCP server](https://ui.shadcn.com/docs/registry/mcp). Add the
+[shadcn MCP server](https://ui.shadcn.com/docs/mcp). Add the
 `@kick-ui` registry to your project's `components.json` as shown above, then
 configure the shadcn MCP server for your coding agent.
 
@@ -75,6 +76,18 @@ args = ["shadcn@latest", "mcp"]
 
 Restart your MCP client and ask it to search or install Kick UI components,
 for example: _"Add @kick-ui/pill-button to my project."_
+
+## Use with AI agents
+
+Install the first-party skill so coding agents know how to find and install Kick UI:
+
+```bash
+npx skills add Shivam-Prajapati-59/Kick-UI
+```
+
+Agents can read `https://www.kickui.xyz/llms.txt` for the component index and
+`https://www.kickui.xyz/components/<slug>.md` for per-component install commands,
+dependencies, props and usage. The live registry is at `https://www.kickui.xyz/r/registry.json`.
 
 ## Built with
 

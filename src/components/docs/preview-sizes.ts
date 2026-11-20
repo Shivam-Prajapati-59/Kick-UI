@@ -19,6 +19,7 @@ const previewHeights: Record<
   "vault-carousel": { desktop: 880, tablet: 880, mobile: 1100 },
   "holder-testimonials": { desktop: 560, tablet: 560, mobile: 820 },
   "wave-carousel": { desktop: 880, tablet: 880, mobile: 720 },
+  "nft-carousel": { desktop: 760, tablet: 760, mobile: 640 },
 };
 
 export function getPreviewHeight(

@@ -8,9 +8,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // and fabricated `new Date()` values erode crawler trust in the signal.
   // `/playground` is deliberately excluded: it serves `noindex`, and a
   // sitemap must list only URLs intended for indexing.
-  const staticRoutes = ["", "/components"].map((route) => ({
-    url: `${SITE_CONFIG.url}${route}`,
-  }));
+  const staticRoutes = ["", "/components", "/llms.txt", "/llms-full.txt"].map(
+    (route) => ({
+      url: `${SITE_CONFIG.url}${route}`,
+    }),
+  );
 
   const componentRoutes = componentIndex.map((component) => ({
     url: `${SITE_CONFIG.url}/components/${component.slug}`,

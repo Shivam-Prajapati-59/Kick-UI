@@ -324,6 +324,17 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "nft-carousel",
+      "type": "registry:ui",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/components/nft-carousel/nft-carousel.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

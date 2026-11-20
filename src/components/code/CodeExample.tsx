@@ -93,7 +93,8 @@ export default function CodeExample({
   const hasSource = !!sourceCode;
 
   /* Derive filename from slug if not explicitly provided */
-  const filename = sourceFilename || (slug ? `components/ui/${slug}.tsx` : undefined);
+  const filename =
+    sourceFilename || (slug ? `components/ui/${slug}.tsx` : undefined);
 
   return (
     <div className={cn("space-y-6", className)}>
@@ -107,9 +108,7 @@ export default function CodeExample({
       {/* 2. Usage example */}
       {usage && (
         <div>
-          <h3 className="mb-3 text-base font-semibold tracking-tight">
-            Usage
-          </h3>
+          <h3 className="mb-3 text-base font-semibold tracking-tight">Usage</h3>
           <CodeHighlighter
             language="tsx"
             codeString={usage}

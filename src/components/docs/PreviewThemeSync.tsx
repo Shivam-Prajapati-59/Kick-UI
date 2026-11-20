@@ -18,7 +18,8 @@ export function PreviewThemeSync() {
       if (
         event.origin !== window.location.origin ||
         event.source !== window.parent
-      ) return;
+      )
+        return;
 
       if (event.data?.type === "kickui:request-preview-ready") {
         sendReady();

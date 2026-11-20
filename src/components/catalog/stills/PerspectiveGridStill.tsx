@@ -13,8 +13,13 @@ const chains = [
 
 export function PerspectiveGridStill() {
   return (
-    <div className="flex size-full flex-col items-center justify-center gap-2 overflow-hidden px-4" aria-hidden="true">
-      <p className="text-muted-foreground text-[11px] font-medium">Any chain. One interface.</p>
+    <div
+      className="flex size-full flex-col items-center justify-center gap-2 overflow-hidden px-4"
+      aria-hidden="true"
+    >
+      <p className="text-muted-foreground text-[11px] font-medium">
+        Any chain. One interface.
+      </p>
       <div
         className="grid grid-cols-4 gap-2"
         style={{ transform: "perspective(420px) rotateX(24deg)" }}
@@ -24,7 +29,13 @@ export function PerspectiveGridStill() {
             key={chain.name}
             className="border-border bg-secondary flex size-11 items-center justify-center rounded-lg border shadow-sm"
           >
-            <Image src={chain.image} alt="" width={24} height={24} className="size-6 object-contain" />
+            <Image
+              src={chain.image}
+              alt=""
+              width={24}
+              height={24}
+              className="size-6 object-contain"
+            />
           </div>
         ))}
       </div>

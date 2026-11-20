@@ -16,12 +16,12 @@ export const heroConfig = {
   badgeHref: "/components/trading-chart",
 
   title: {
-    line1: "Animated React UI for Web3",
-    line2: "Build dapps that stand out.",
+    line1: "Animated Web3 UI",
+    line2: "you can copy, own, and ship.",
   },
   description:
-    `${componentCount}+ open-source components for wallets, trading dashboards, and onchain apps. ` +
-    "Install editable React source with the shadcn CLI, then make it your own.",
+    `${componentCount}+ animated React components for wallets, trading interfaces, vaults and dapps. ` +
+    "shadcn-compatible — install the source with one command and make it yours.",
 
   cta: {
     primary: {

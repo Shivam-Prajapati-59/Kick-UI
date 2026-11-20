@@ -35,7 +35,7 @@ async function html(path) {
   assert(h.status === 200, "/ returns 200");
   assert(
     h.text.includes(
-      "<title>Kick UI — Animated React UI Components for Web3</title>",
+      "<title>Kick UI — Animated Web3 UI you can copy, own, and ship.</title>",
     ),
     "default title with tagline",
   );

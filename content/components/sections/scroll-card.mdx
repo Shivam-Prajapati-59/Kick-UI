@@ -1,0 +1,21 @@
+---
+title: Scroll Card
+seoTitle: Scroll-Animated Feature Cards for React
+description: A scroll-driven React feature section with sticky cards, synchronized image transitions, and text reveals.
+category: sections
+fullPreview: true
+usage: |
+  import { ScrollCard } from "@/components/ui/scroll-card";
+
+  export function ScrollCardDemo() {
+    return <ScrollCard />;
+  }
+props:
+  - name: features
+    type: ScrollCardFeature[]
+    description: Items displayed while scrolling.
+  - name: scrollHeight
+    type: string
+    default: '"500vh"'
+    description: Scroll distance used by the animation.
+---

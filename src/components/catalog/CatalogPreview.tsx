@@ -115,7 +115,10 @@ export function CatalogPreview({
         </button>
       ) : null}
       {!showDemo && (!needsActivation || !nearViewport) ? (
-        <span className="bg-muted/60 h-24 w-3/4 rounded-xl motion-safe:animate-pulse" aria-hidden="true" />
+        <span
+          className="bg-muted/60 h-24 w-3/4 rounded-xl motion-safe:animate-pulse"
+          aria-hidden="true"
+        />
       ) : null}
       {showDemo && Demo ? (
         stage ? (
@@ -127,7 +130,9 @@ export function CatalogPreview({
         )
       ) : null}
       {!Demo && nearViewport ? (
-        <span className="text-muted-foreground text-sm">{title} preview unavailable</span>
+        <span className="text-muted-foreground text-sm">
+          {title} preview unavailable
+        </span>
       ) : null}
     </div>
   );

@@ -41,7 +41,7 @@ function DepositButton({ onClick }: { onClick: () => void }) {
         "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
         "disabled:pointer-events-none disabled:opacity-50",
         "h-9 px-4 py-2 has-[>svg]:px-3",
-        "shrink-0 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 cursor-pointer",
+        "shrink-0 cursor-pointer [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
       )}
     >
       <WalletIcon className="size-4" />

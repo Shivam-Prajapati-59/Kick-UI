@@ -39,7 +39,7 @@ const LandingFooter = () => {
                 className="rounded-lg"
               />
 
-              <h2 className="text-2xl font-bold translate-y-2.5">ick-UI</h2>
+              <h2 className="translate-y-2.5 text-2xl font-bold">ick-UI</h2>
             </Link>
 
             <p className="text-muted-foreground mt-4 max-w-sm text-sm leading-6">
@@ -52,7 +52,7 @@ const LandingFooter = () => {
           <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-20">
             {footerLinks.map((section) => (
               <div key={section.title}>
-                <h3 className="text-foreground/80 mb-4 text-md font-bold tracking-[0.18em]">
+                <h3 className="text-foreground/80 text-md mb-4 font-bold tracking-[0.18em]">
                   {section.title}
                 </h3>
 
@@ -92,11 +92,13 @@ const LandingFooter = () => {
         </div>
       </div>
       {/* Giant wordmark — full viewport bleed, outside the container */}
-      <div aria-hidden="true" className="mt-8 overflow-hidden select-none lg:px-15">
+      <div
+        aria-hidden="true"
+        className="mt-8 overflow-hidden select-none lg:px-15"
+      >
         <FooterWordmark className="text-foreground h-auto w-full" />
       </div>
     </footer>
-
   );
 };
 

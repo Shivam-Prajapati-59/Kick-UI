@@ -11,7 +11,7 @@ export function GET() {
   lines.push("# Kick UI");
   lines.push("");
   lines.push(
-    "> Kick UI is an open-source collection of animated React and Web3 UI components. Components use Tailwind CSS and Motion and can be installed as source code through the shadcn CLI.",
+    "> Kick UI is a shadcn-compatible registry of animated React components for onchain products — wallets, trading interfaces, vaults and dapps — with source you own. Components use Tailwind CSS and Motion and can be installed as source code through the shadcn CLI.",
   );
   lines.push("");
   lines.push("## Start here");
@@ -50,6 +50,15 @@ export function GET() {
   );
   lines.push(
     `- [Registry index](${SITE_CONFIG.url}/r/registry.json): Available registry items.`,
+  );
+  lines.push(
+    `- [Full documentation](${SITE_CONFIG.url}/llms-full.txt): Every component with description, install command, dependencies and usage.`,
+  );
+  lines.push(
+    `- [shadcn CLI](${SITE_CONFIG.url}/docs/cli): Install components with the shadcn CLI or the shadcn MCP (\`npx shadcn@latest mcp init\`).`,
+  );
+  lines.push(
+    "- Markdown component pages: each component page has a markdown version at `/components/<slug>.md`.",
   );
 
   return new Response(lines.join("\n"), {

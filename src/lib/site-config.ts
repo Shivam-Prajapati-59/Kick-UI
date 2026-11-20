@@ -6,9 +6,9 @@
 export const SITE_CONFIG = {
   name: "Kick UI",
   url: "https://www.kickui.xyz",
-  tagline: "Animated React UI Components for Web3",
+  tagline: "Animated Web3 UI you can copy, own, and ship.",
   description:
-    "Animated React and Web3 UI components for wallets, trading dashboards, and dapps. Copy source, customize, and ship faster.",
+    "Kick UI is a shadcn-compatible registry of animated React components for onchain products — wallets, trading interfaces, vaults and dapps — with source you own.",
   github: "https://github.com/Shivam-Prajapati-59/Kick-UI",
   twitter: "https://x.com/Shivamp69_",
   twitterHandle: "@Shivamp69_",

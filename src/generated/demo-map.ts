@@ -10,6 +10,7 @@ export const demos = {
   "glyph-card": lazy(() => import("@/demos/glyph-card")),
   "holder-testimonials": lazy(() => import("@/demos/holder-testimonials")),
   "mag-dock": lazy(() => import("@/demos/mag-dock")),
+  "nft-carousel": lazy(() => import("@/demos/nft-carousel")),
   "perspective-grid": lazy(() => import("@/demos/perspective-grid")),
   "pill-button": lazy(() => import("@/demos/pill-button")),
   "pill-card": lazy(() => import("@/demos/pill-card")),

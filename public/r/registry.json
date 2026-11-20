@@ -59,7 +59,7 @@
       "type": "registry:ui",
       "title": "Route Tracker",
       "description": "A React card that tracks a multi-hop swap or bridge route live, with a snake-shaped token map, directional animated connectors and a step timeline.",
-      "category": "components",
+      "category": "web3-widgets",
       "dependencies": [
         "lucide-react",
         "motion"
@@ -76,7 +76,7 @@
       "type": "registry:ui",
       "title": "Cursor Web Fluid",
       "description": "A cursor-following fluid effect for React with adjustable color, trail fade, cursor force, and vorticity.",
-      "category": "animations",
+      "category": "backgrounds-effects",
       "dependencies": [
         "three"
       ],
@@ -159,7 +159,7 @@
       "type": "registry:ui",
       "title": "MagDock",
       "description": "A spring-animated React dock with icons, tooltips, and active states for app navigation.",
-      "category": "components",
+      "category": "navigation-lists",
       "dependencies": [
         "motion"
       ],
@@ -175,7 +175,7 @@
       "type": "registry:ui",
       "title": "Perspective Grid",
       "description": "A perspective-tilted React grid for displaying blockchain networks with animated chain cards and a customizable heading.",
-      "category": "components",
+      "category": "backgrounds-effects",
       "dependencies": [
         "motion"
       ],
@@ -191,7 +191,7 @@
       "type": "registry:ui",
       "title": "Pixel Image",
       "description": "A React image transition that reveals a second image through a pixelated hover dissolve.",
-      "category": "components",
+      "category": "backgrounds-effects",
       "dependencies": [
         "motion"
       ],
@@ -207,7 +207,7 @@
       "type": "registry:ui",
       "title": "Animated List",
       "description": "An animated React list with keyboard navigation, automatic scrolling, and a customizable item renderer.",
-      "category": "components",
+      "category": "navigation-lists",
       "dependencies": [
         "motion"
       ],
@@ -223,7 +223,7 @@
       "type": "registry:ui",
       "title": "Scroll Card",
       "description": "A scroll-driven React feature section with sticky cards, synchronized image transitions, and text reveals.",
-      "category": "layouts-sections",
+      "category": "sections",
       "dependencies": [
         "motion"
       ],
@@ -239,7 +239,7 @@
       "type": "registry:ui",
       "title": "Stacked Carousel",
       "description": "An automatically advancing React card carousel with fly-up transitions that pauses on hover or focus.",
-      "category": "cards",
+      "category": "carousels",
       "dependencies": [
         "motion"
       ],
@@ -255,7 +255,7 @@
       "type": "registry:ui",
       "title": "Timeframe Tabs",
       "description": "Scrollable React timeframe tabs for trading charts with an animated active state, controlled selection, and optional trailing actions.",
-      "category": "components",
+      "category": "web3-widgets",
       "dependencies": [
         "motion"
       ],
@@ -271,7 +271,7 @@
       "type": "registry:ui",
       "title": "Venue Selector",
       "description": "An animated React multi-select for trading venues with keyboard navigation, controlled selection, and clear selection feedback.",
-      "category": "components",
+      "category": "web3-widgets",
       "dependencies": [
         "lucide-react",
         "motion"
@@ -288,7 +288,7 @@
       "type": "registry:ui",
       "title": "Deposit Modal",
       "description": "An accessible React modal for crypto deposits with token and network details, a copyable address, minimum deposit guidance, and expiry handling.",
-      "category": "components",
+      "category": "web3-widgets",
       "dependencies": [
         "lucide-react",
         "motion"
@@ -305,7 +305,7 @@
       "type": "registry:ui",
       "title": "Feature Showcase",
       "description": "An animated React feature section with selectable content and synchronized visual states.",
-      "category": "layouts-sections",
+      "category": "sections",
       "dependencies": [
         "lucide-react",
         "motion"
@@ -322,7 +322,7 @@
       "type": "registry:ui",
       "title": "Trading Chart",
       "description": "A React candlestick chart for trading dashboards with live OHLCV data, volume, timeframe tabs, crosshair readouts, and drawing tools.",
-      "category": "charts",
+      "category": "web3-widgets",
       "dependencies": [
         "lightweight-charts",
         "lucide-react",
@@ -375,7 +375,7 @@
       "type": "registry:ui",
       "title": "Vault Carousel",
       "description": "An animated, draggable carousel of isometric illustrated feature cards with filter chips, expandable detail panels, light and dark themes and reduced-motion support.",
-      "category": "cards",
+      "category": "carousels",
       "dependencies": [
         "lucide-react",
         "motion"
@@ -449,13 +449,29 @@
       "type": "registry:ui",
       "title": "Wave Carousel",
       "description": "A hero section with two horizontal rows of square image tiles drifting in an endless loop, each tile's vertical offset following a travelling sine wave, plus a centred heading and description.",
-      "category": "layouts-sections",
+      "category": "carousels",
       "dependencies": [
         "motion"
       ],
       "files": [
         {
           "path": "registry/new-york/components/wave-carousel/wave-carousel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "nft-carousel",
+      "type": "registry:ui",
+      "title": "NFT Carousel",
+      "description": "A coverflow carousel for NFT and meme-coin launches, with side cards, autoplay, drag and swipe, bonding-curve progress and keyboard navigation.",
+      "category": "carousels",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/nft-carousel/nft-carousel.tsx",
           "type": "registry:ui"
         }
       ]
