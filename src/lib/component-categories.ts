@@ -1,40 +1,45 @@
 // Declared once by hand. The frontmatter schema and the sidebar derive from it.
 export const componentCategories = [
   {
-    "id": "buttons",
-    "label": "Buttons",
-    "description": "Interactive controls and calls to action."
+    id: "web3-widgets",
+    label: "Web3 Widgets",
+    description: "Wallet, trading and onchain flow components.",
   },
   {
-    "id": "cards",
-    "label": "Cards",
-    "description": "Content containers and card-based patterns."
+    id: "carousels",
+    label: "Carousels",
+    description: "Coverflow, stacked and drifting carousels.",
   },
   {
-    "id": "components",
-    "label": "Components",
-    "description": "Reusable interactive UI building blocks."
+    id: "cards",
+    label: "Cards",
+    description: "Content containers and card-based patterns.",
   },
   {
-    "id": "text-animations",
-    "label": "Text Animations",
-    "description": "Animated typography and text effects."
+    id: "buttons",
+    label: "Buttons",
+    description: "Interactive controls and calls to action.",
   },
   {
-    "id": "layouts-sections",
-    "label": "Layouts & Sections",
-    "description": "Complete page sections and layouts."
+    id: "text-animations",
+    label: "Text Animations",
+    description: "Animated typography and text effects.",
   },
   {
-    "id": "animations",
-    "label": "Animations",
-    "description": "Visual and cursor-driven animation effects."
+    id: "backgrounds-effects",
+    label: "Backgrounds & Effects",
+    description: "Backgrounds, cursor effects and visual treatments.",
   },
   {
-    "id": "charts",
-    "label": "Charts",
-    "description": "Live market charts and data visualization."
-  }
+    id: "navigation-lists",
+    label: "Navigation & Lists",
+    description: "Docks, menus and animated lists.",
+  },
+  {
+    id: "sections",
+    label: "Sections",
+    description: "Complete page sections and layouts.",
+  },
 ] as const;
 
 export type ComponentCategory = (typeof componentCategories)[number]["id"];

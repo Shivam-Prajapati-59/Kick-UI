@@ -101,7 +101,6 @@ const PillCard = () => {
           >
             <Icon cycle={CYCLE} arrive={ARRIVE} delay={i * STAGGER}>
               <icon.IconComponent className="h-1/2 w-1/2" strokeWidth={1.5} />
-
             </Icon>
           </div>
         ))}

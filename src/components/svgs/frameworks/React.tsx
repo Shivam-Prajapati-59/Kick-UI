@@ -5,7 +5,7 @@ export default function ReactIcon({ className }: { className?: string }) {
     <svg
       viewBox="0 0 24 24"
       fill="currentColor"
-      className={`w-6 h-6 ${className || ""}`}
+      className={`h-6 w-6 ${className || ""}`}
     >
       <image href="/assets/svgs/react.svg" width="24" height="24" />
     </svg>

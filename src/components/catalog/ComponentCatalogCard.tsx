@@ -48,7 +48,7 @@ export function ComponentCatalogCard({
   return (
     <article
       onClick={handleCardClick}
-      className="group flex h-full min-h-[300px] cursor-pointer flex-col overflow-hidden rounded-[28px] border border-border/60 bg-card transition-colors hover:border-foreground/60 focus-within:border-foreground/60 focus-within:ring-2 focus-within:ring-ring"
+      className="group border-border/60 bg-card hover:border-foreground/60 focus-within:border-foreground/60 focus-within:ring-ring flex h-full min-h-[300px] cursor-pointer flex-col overflow-hidden rounded-[28px] border transition-colors focus-within:ring-2"
     >
       <div className="relative flex h-[190px] w-full items-center justify-center overflow-hidden pt-4">
         {preview}
@@ -56,14 +56,11 @@ export function ComponentCatalogCard({
 
       <div className="mt-auto space-y-2 px-5 pb-6">
         <h3 className="text-base font-semibold">
-          <Link
-            href={href}
-            className="rounded-sm focus-visible:outline-none"
-          >
+          <Link href={href} className="rounded-sm focus-visible:outline-none">
             {title}
           </Link>
         </h3>
-        <p className="line-clamp-2 text-[15px] leading-[22px] text-muted-foreground">
+        <p className="text-muted-foreground line-clamp-2 text-[15px] leading-[22px]">
           {description}
         </p>
       </div>

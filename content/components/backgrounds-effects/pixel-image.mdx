@@ -1,0 +1,24 @@
+---
+title: Pixel Image
+seoTitle: Pixel Dissolve Image Effect for React
+description: A React image transition that reveals a second image through a pixelated hover dissolve.
+category: backgrounds-effects
+usage: |
+  import PixelImage from "@/components/ui/pixel-image";
+
+  export function PixelImageDemo() {
+    return (
+      <PixelImage
+        defaultImage="/assets/trafalgar.jpg"
+        hoverImage="/assets/trafalgar1.jpg"
+      />
+    );
+  }
+props:
+  - name: defaultImage
+    type: string
+    description: Image shown initially.
+  - name: hoverImage
+    type: string
+    description: Image revealed on hover.
+---

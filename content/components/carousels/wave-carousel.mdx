@@ -1,0 +1,61 @@
+---
+title: Wave Carousel
+seoTitle: Animated Wavy Image Carousel Hero Section for React
+description: A hero section with two horizontal rows of square image tiles drifting in an endless loop, each tile's vertical offset following a travelling sine wave, plus a centred heading and description.
+category: carousels
+usage: |
+  import WaveCarousel, { type WaveCarouselItem } from "@/components/ui/wave-carousel";
+
+  const items: WaveCarouselItem[] = [
+    // Nouns artwork is CC0. Swap in your own images, or copy Kick UI's /assets/nfts SVGs into /public.
+    { image: "https://noun.pics/7.svg", title: "Noun #7", fit: "cover", background: "#ffb3c7", href: "#", pixelated: true },
+    { image: "https://noun.pics/12.svg", title: "Noun #12", fit: "cover", background: "#ffd28a", href: "#", pixelated: true },
+  ];
+
+  export function WaveCarouselDemo() {
+    return (
+      <div className="h-[560px] w-full">
+        <WaveCarousel items={items} heading="Collect the next drop" description="Mint, trade and show off pixel art from creators onchain." />
+      </div>
+    );
+  }
+props:
+  - name: items
+    type: WaveCarouselItem[]
+    description: Tiles rendered across two wavy rows. Each item is `{ image, title, href?, fit?, background?, pixelated? }`.
+  - name: heading
+    type: string
+    description: Centred heading, split into words for a blur-in entrance.
+  - name: description
+    type: string
+    description: Supporting copy rendered under the heading.
+  - name: tileSize
+    type: number
+    default: "122"
+    description: Base tile size in pixels (scales down on small containers).
+  - name: gap
+    type: number
+    default: "12"
+    description: Gap between tiles in pixels.
+  - name: speed
+    type: number
+    default: "28"
+    description: Drift speed in pixels per second.
+  - name: amplitude
+    type: number
+    default: "28"
+    description: Vertical wave amplitude in pixels.
+  - name: className
+    type: string
+    description: Additional classes for the root element.
+---
+
+The `WaveCarouselItem` shape: `image` (tile image URL), `title` (the link's `aria-label`, or the image's alt text when there is no `href`), `href` (renders the tile as a link), `fit` (`"cover"` default or `"contain"` for logos at ~58% size), `background` (CSS colour behind the image, defaults to the `bg-card` token), and `pixelated` (keeps pixel art crisp when the tile scales).
+
+Motion: two rows drift in opposite directions in an endless loop, with a travelling sine wave modulating each tile's vertical offset. Each tile carries a blurred copy of its image, tinted by its `background`, behind the face as an ambient glow. Dragging scrubs both rows with decaying inertia. Hover or focus lifts and slightly enlarges the tile, scales the image, and brightens the glow. An entrance animation runs once on first view. All motion respects `prefers-reduced-motion`. The root has no background of its own, so the section blends into the page it sits on. It fills its container; give it around 800px of height on desktop (640px on phones) so the rippling rows clear the centred text.
+
+Accessibility: tiles are links when `href` is set, otherwise divs; duplicated loop copies are `aria-hidden` with `tabIndex={-1}` so each item is announced once. Plain images use lazy loading and async decoding. The heading's full text is exposed via `aria-label` while per-word spans are `aria-hidden`.
+
+Install note: the component is a single `wave-carousel.tsx` file.
+
+Demo artwork: Nouns, CC0.

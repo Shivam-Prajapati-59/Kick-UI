@@ -458,7 +458,7 @@ export default function NftCarousel({
       { duration: safeInterval, easing: "linear", fill: "forwards" },
     );
     return () => animation.cancel();
-  }, [current, paused, safeInterval]);
+  }, [current, paused, safeInterval, count]);
 
   useEffect(
     () => () => {

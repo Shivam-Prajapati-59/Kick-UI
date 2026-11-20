@@ -13,7 +13,19 @@ export const componentIndex: ComponentIndexItem[] = [
     "slug": "cursor-web-fluid",
     "title": "Cursor Web Fluid",
     "description": "A cursor-following fluid effect for React with adjustable color, trail fade, cursor force, and vorticity.",
-    "category": "animations"
+    "category": "backgrounds-effects"
+  },
+  {
+    "slug": "perspective-grid",
+    "title": "Perspective Grid",
+    "description": "A perspective-tilted React grid for displaying blockchain networks with animated chain cards and a customizable heading.",
+    "category": "backgrounds-effects"
+  },
+  {
+    "slug": "pixel-image",
+    "title": "Pixel Image",
+    "description": "A React image transition that reveals a second image through a pixelated hover dissolve.",
+    "category": "backgrounds-effects"
   },
   {
     "slug": "pill-button",
@@ -46,27 +58,9 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "cards"
   },
   {
-    "slug": "nft-carousel",
-    "title": "NFT Carousel",
-    "description": "A coverflow carousel for NFT and meme-coin launches, with side cards, autoplay, drag and swipe, bonding-curve progress and keyboard navigation.",
-    "category": "cards"
-  },
-  {
     "slug": "pill-card",
     "title": "Pill Card",
     "description": "A React card with animated SVG paths and synchronized glow effects.",
-    "category": "cards"
-  },
-  {
-    "slug": "stacked-carousel",
-    "title": "Stacked Carousel",
-    "description": "An automatically advancing React card carousel with fly-up transitions that pauses on hover or focus.",
-    "category": "cards"
-  },
-  {
-    "slug": "vault-carousel",
-    "title": "Vault Carousel",
-    "description": "An animated, draggable carousel of isometric illustrated feature cards with filter chips, expandable detail panels, light and dark themes and reduced-motion support.",
     "category": "cards"
   },
   {
@@ -76,76 +70,52 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "cards"
   },
   {
-    "slug": "trading-chart",
-    "title": "Trading Chart",
-    "description": "A React candlestick chart for trading dashboards with live OHLCV data, volume, timeframe tabs, crosshair readouts, and drawing tools.",
-    "category": "charts"
+    "slug": "nft-carousel",
+    "title": "NFT Carousel",
+    "description": "A coverflow carousel for NFT and meme-coin launches, with side cards, autoplay, drag and swipe, bonding-curve progress and keyboard navigation.",
+    "category": "carousels"
   },
   {
-    "slug": "animated-list",
-    "title": "Animated List",
-    "description": "An animated React list with keyboard navigation, automatic scrolling, and a customizable item renderer.",
-    "category": "components"
+    "slug": "stacked-carousel",
+    "title": "Stacked Carousel",
+    "description": "An automatically advancing React card carousel with fly-up transitions that pauses on hover or focus.",
+    "category": "carousels"
   },
   {
-    "slug": "deposit-modal",
-    "title": "Deposit Modal",
-    "description": "An accessible React modal for crypto deposits with token and network details, a copyable address, minimum deposit guidance, and expiry handling.",
-    "category": "components"
-  },
-  {
-    "slug": "mag-dock",
-    "title": "MagDock",
-    "description": "A spring-animated React dock with icons, tooltips, and active states for app navigation.",
-    "category": "components"
-  },
-  {
-    "slug": "perspective-grid",
-    "title": "Perspective Grid",
-    "description": "A perspective-tilted React grid for displaying blockchain networks with animated chain cards and a customizable heading.",
-    "category": "components"
-  },
-  {
-    "slug": "pixel-image",
-    "title": "Pixel Image",
-    "description": "A React image transition that reveals a second image through a pixelated hover dissolve.",
-    "category": "components"
-  },
-  {
-    "slug": "route-tracker",
-    "title": "Route Tracker",
-    "description": "A React card that tracks a multi-hop swap or bridge route live, with a snake-shaped token map, directional animated connectors and a step timeline.",
-    "category": "components"
-  },
-  {
-    "slug": "timeframe-tabs",
-    "title": "Timeframe Tabs",
-    "description": "Scrollable React timeframe tabs for trading charts with an animated active state, controlled selection, and optional trailing actions.",
-    "category": "components"
-  },
-  {
-    "slug": "venue-selector",
-    "title": "Venue Selector",
-    "description": "An animated React multi-select for trading venues with keyboard navigation, controlled selection, and clear selection feedback.",
-    "category": "components"
-  },
-  {
-    "slug": "feature-showcase",
-    "title": "Feature Showcase",
-    "description": "An animated React feature section with selectable content and synchronized visual states.",
-    "category": "layouts-sections"
-  },
-  {
-    "slug": "scroll-card",
-    "title": "Scroll Card",
-    "description": "A scroll-driven React feature section with sticky cards, synchronized image transitions, and text reveals.",
-    "category": "layouts-sections"
+    "slug": "vault-carousel",
+    "title": "Vault Carousel",
+    "description": "An animated, draggable carousel of isometric illustrated feature cards with filter chips, expandable detail panels, light and dark themes and reduced-motion support.",
+    "category": "carousels"
   },
   {
     "slug": "wave-carousel",
     "title": "Wave Carousel",
     "description": "A hero section with two horizontal rows of square image tiles drifting in an endless loop, each tile's vertical offset following a travelling sine wave, plus a centred heading and description.",
-    "category": "layouts-sections"
+    "category": "carousels"
+  },
+  {
+    "slug": "animated-list",
+    "title": "Animated List",
+    "description": "An animated React list with keyboard navigation, automatic scrolling, and a customizable item renderer.",
+    "category": "navigation-lists"
+  },
+  {
+    "slug": "mag-dock",
+    "title": "MagDock",
+    "description": "A spring-animated React dock with icons, tooltips, and active states for app navigation.",
+    "category": "navigation-lists"
+  },
+  {
+    "slug": "feature-showcase",
+    "title": "Feature Showcase",
+    "description": "An animated React feature section with selectable content and synchronized visual states.",
+    "category": "sections"
+  },
+  {
+    "slug": "scroll-card",
+    "title": "Scroll Card",
+    "description": "A scroll-driven React feature section with sticky cards, synchronized image transitions, and text reveals.",
+    "category": "sections"
   },
   {
     "slug": "scramble-text",
@@ -158,5 +128,35 @@ export const componentIndex: ComponentIndexItem[] = [
     "title": "Text Focus",
     "description": "A React text effect that brings the hovered word into focus while blurring surrounding words.",
     "category": "text-animations"
+  },
+  {
+    "slug": "deposit-modal",
+    "title": "Deposit Modal",
+    "description": "An accessible React modal for crypto deposits with token and network details, a copyable address, minimum deposit guidance, and expiry handling.",
+    "category": "web3-widgets"
+  },
+  {
+    "slug": "route-tracker",
+    "title": "Route Tracker",
+    "description": "A React card that tracks a multi-hop swap or bridge route live, with a snake-shaped token map, directional animated connectors and a step timeline.",
+    "category": "web3-widgets"
+  },
+  {
+    "slug": "timeframe-tabs",
+    "title": "Timeframe Tabs",
+    "description": "Scrollable React timeframe tabs for trading charts with an animated active state, controlled selection, and optional trailing actions.",
+    "category": "web3-widgets"
+  },
+  {
+    "slug": "trading-chart",
+    "title": "Trading Chart",
+    "description": "A React candlestick chart for trading dashboards with live OHLCV data, volume, timeframe tabs, crosshair readouts, and drawing tools.",
+    "category": "web3-widgets"
+  },
+  {
+    "slug": "venue-selector",
+    "title": "Venue Selector",
+    "description": "An animated React multi-select for trading venues with keyboard navigation, controlled selection, and clear selection feedback.",
+    "category": "web3-widgets"
   }
 ] as ComponentIndexItem[];

@@ -25,7 +25,7 @@ export default function CodeDependencies({
 
   return (
     <div className={cn("mt-8", className)}>
-      <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+      <h3 className="text-muted-foreground mb-3 text-sm font-semibold tracking-wider uppercase">
         Dependencies
       </h3>
       <div className="flex flex-wrap gap-2">
@@ -37,8 +37,8 @@ export default function CodeDependencies({
             rel="noreferrer"
             className={cn(
               "inline-flex items-center rounded-md px-2.5 py-1 text-xs font-medium",
-              "border border-border bg-muted/50 text-muted-foreground",
-              "transition-colors hover:bg-muted hover:text-foreground"
+              "border-border bg-muted/50 text-muted-foreground border",
+              "hover:bg-muted hover:text-foreground transition-colors",
             )}
           >
             {dep}

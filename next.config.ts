@@ -8,13 +8,17 @@ const DOC_FILES = [
   "registry/new-york/**/*",
 ];
 
+const OG_COMPONENT_IMAGES = ["./public/og/components/**/*"];
+
 const nextConfig: NextConfig = {
   devIndicators: false,
   // component-docs reads these at render time (including ISR revalidation);
   // the dynamic fs access is excluded from tracing, so include them explicitly.
   outputFileTracingIncludes: {
-    "/components/[slug]": DOC_FILES,
+    "/components/[slug]": [...DOC_FILES, ...OG_COMPONENT_IMAGES],
+    "/components/[slug]/opengraph-image": OG_COMPONENT_IMAGES,
     "/preview/[slug]": DOC_FILES,
+    "/md/components/[slug]": DOC_FILES,
   },
   images: {
     remotePatterns: [
@@ -27,6 +31,18 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/components/:slug\\.md",
+        destination: "/md/components/:slug",
+      },
+      {
+        source: "/docs/:slug\\.md",
+        destination: "/md/docs/:slug",
+      },
+    ];
   },
   async redirects() {
     const legacyHosts = ["kick-ui.vercel.app", "kickui.xyz"];

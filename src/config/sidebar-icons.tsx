@@ -1,12 +1,13 @@
 import {
-  Blocks,
-  ChartLine,
   Download,
+  GalleryHorizontal,
   Layers,
   LayoutTemplate,
+  ListTree,
   MousePointerClick,
   Sparkles,
   Type,
+  Wallet,
 } from "lucide-react";
 import XIcon from "@/components/svgs/brand/XIcon";
 import type { ComponentCategory } from "@/lib/component-categories";
@@ -42,13 +43,14 @@ type SidebarIcon = ComponentType<{ className?: string }>;
 
 /** Per-category icon. Total by design: every category must have one. */
 export const categoryIcons: Record<ComponentCategory, SidebarIcon> = {
-  buttons: MousePointerClick,
+  "web3-widgets": Wallet,
+  carousels: GalleryHorizontal,
   cards: Layers,
-  components: Blocks,
+  buttons: MousePointerClick,
   "text-animations": Type,
-  "layouts-sections": LayoutTemplate,
-  animations: Sparkles,
-  charts: ChartLine,
+  "backgrounds-effects": Sparkles,
+  "navigation-lists": ListTree,
+  sections: LayoutTemplate,
 };
 
 /**

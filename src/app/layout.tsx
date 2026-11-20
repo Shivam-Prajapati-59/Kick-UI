@@ -46,7 +46,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Kick UI logo with React UI Components for Web3 and an illustrated Web3 interface",
+        alt: "Kick UI logo with an illustrated Web3 interface",
       },
     ],
   },

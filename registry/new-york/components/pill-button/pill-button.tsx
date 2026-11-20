@@ -144,19 +144,16 @@ export function PillButton({
     setPressed(false);
   };
 
-  const currentShadow =
-    pressed ? PRESS_SHADOW : hovered ? HOVER_SHADOW : REST_SHADOW;
+  const currentShadow = pressed
+    ? PRESS_SHADOW
+    : hovered
+      ? HOVER_SHADOW
+      : REST_SHADOW;
   // Note: all shadow layers above are left/right-only (x-offset insets +
   // an offset-free ambient drop shadow) — no top/bottom shading.
 
   return (
-    <div
-      className="
-        pill-glass-scope relative z-0 inline-flex rounded-full
-        bg-[linear-gradient(90deg,rgba(var(--glass-edge),0.28),rgba(var(--glass-edge),0.05)_25%,rgba(var(--glass-edge),0.05)_75%,rgba(var(--glass-edge),0.28))]
-        p-px
-      "
-    >
+    <div className="pill-glass-scope relative z-0 inline-flex rounded-full bg-[linear-gradient(90deg,rgba(var(--glass-edge),0.28),rgba(var(--glass-edge),0.05)_25%,rgba(var(--glass-edge),0.05)_75%,rgba(var(--glass-edge),0.28))] p-px">
       <style dangerouslySetInnerHTML={{ __html: pillGlassCss }} />
       <motion.button
         type={type}
@@ -200,8 +197,8 @@ export function PillButton({
           "[@media(prefers-reduced-transparency:reduce)]:bg-background! [@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none",
           "contrast-more:bg-background! contrast-more:backdrop-blur-none",
           "px-5 py-2.5 pl-2.5",
-          "text-base font-normal leading-6 text-foreground",
-          "outline-none transition-colors",
+          "text-foreground text-base leading-6 font-normal",
+          "transition-colors outline-none",
           "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
           className,
         )}
@@ -223,11 +220,7 @@ export function PillButton({
                 onAnimationComplete={() => removeRipple(r.id)}
                 transition={{ duration: 0.65, ease: [0.19, 1, 0.22, 1] }}
                 style={{ left: r.x, top: r.y }}
-                className="
-                pointer-events-none absolute z-0 h-24 w-24 -translate-x-1/2 -translate-y-1/2
-                rounded-full
-                bg-[radial-gradient(circle,rgba(var(--glass-edge),0.35)_0%,rgba(var(--glass-edge),0.12)_35%,rgba(var(--glass-edge),0)_70%)]
-              "
+                className="pointer-events-none absolute z-0 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(var(--glass-edge),0.35)_0%,rgba(var(--glass-edge),0.12)_35%,rgba(var(--glass-edge),0)_70%)]"
               />
               <motion.span
                 aria-hidden
@@ -240,10 +233,7 @@ export function PillButton({
                   delay: 0.05,
                 }}
                 style={{ left: r.x, top: r.y }}
-                className="
-                pointer-events-none absolute z-0 h-16 w-16 -translate-x-1/2 -translate-y-1/2
-                rounded-full border border-[rgba(var(--glass-edge),0.4)]
-              "
+                className="pointer-events-none absolute z-0 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[rgba(var(--glass-edge),0.4)]"
               />
             </React.Fragment>
           ))}

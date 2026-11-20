@@ -10,11 +10,11 @@ export default function CursorWebFluidDemo() {
   return (
     <>
       {/* Instructional label */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 select-none">
-        <p className="text-4xl sm:text-5xl font-extrabold tracking-tight">
+      <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center select-none">
+        <p className="text-4xl font-extrabold tracking-tight sm:text-5xl">
           Move your cursor here
         </p>
-        <p className="mt-2 text-lg text-foreground">
+        <p className="text-foreground mt-2 text-lg">
           Experience the WebGL Fluid
         </p>
       </div>
@@ -33,8 +33,6 @@ export default function CursorWebFluidDemo() {
         // edgeSoftness={0.3}
         zIndex={20}
       />
-
     </>
-
   );
 }

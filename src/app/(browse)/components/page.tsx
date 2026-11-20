@@ -23,12 +23,14 @@ export const metadata: Metadata = {
     siteName: SITE_CONFIG.name,
     title: socialTitle,
     description,
-    images: [{
-      url: image,
-      width: 1200,
-      height: 630,
-      alt: "Kick UI logo and illustrated Web3 interface",
-    }],
+    images: [
+      {
+        url: image,
+        width: 1200,
+        height: 630,
+        alt: "Kick UI logo and illustrated Web3 interface",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -43,7 +45,9 @@ export default function ComponentsPage() {
   return (
     <div className="space-y-12 pb-4">
       <header className="max-w-3xl space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">Animated React & Web3 UI Components</h1>
+        <h1 className="text-4xl font-bold tracking-tight">
+          Animated React & Web3 UI Components
+        </h1>
         <p className="text-muted-foreground text-lg">
           Accessible, customizable React components you can preview, copy, and
           install.
