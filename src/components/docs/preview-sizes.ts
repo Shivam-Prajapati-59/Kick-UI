@@ -15,6 +15,7 @@ const previewHeights: Record<
   "trading-chart": { desktop: 600, tablet: 650, mobile: 720 },
   "wallet-card": { desktop: 520, tablet: 520, mobile: 520 },
   "glyph-card": { desktop: 420, tablet: 420, mobile: 420 },
+  "folder-card": { desktop: 520, tablet: 520, mobile: 1340 },
   "route-tracker": { desktop: 520, tablet: 520, mobile: 760 },
   "vault-carousel": { desktop: 880, tablet: 880, mobile: 1100 },
   "holder-testimonials": { desktop: 560, tablet: 560, mobile: 820 },

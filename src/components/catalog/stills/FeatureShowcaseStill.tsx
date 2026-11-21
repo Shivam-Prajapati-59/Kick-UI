@@ -1,4 +1,4 @@
-import { ShieldCheck, Wallet } from "lucide-react";
+import { Search, ShieldCheck, Wallet } from "lucide-react";
 
 export function FeatureShowcaseStill() {
   return (
@@ -23,19 +23,26 @@ export function FeatureShowcaseStill() {
       </div>
       <div className="border-foreground/70 bg-background relative h-[145px] w-[94px] shrink-0 rounded-[19px] border-[3px] p-2 shadow-md">
         <span className="bg-foreground/70 absolute top-1 left-1/2 h-1 w-7 -translate-x-1/2 rounded-full" />
-        <p className="text-foreground mt-4 text-[9px] font-semibold">
-          My Wallet
-        </p>
-        <p className="text-foreground mt-1 text-[15px] font-bold">$620.58</p>
-        <div className="mt-3 flex justify-between gap-1">
-          {["Send", "Buy", "Receive"].map((action) => (
-            <span
-              key={action}
-              className="bg-secondary border-border size-5 rounded-full border"
-            />
-          ))}
+        <div className="text-foreground/70 flex items-center justify-between text-[6px] leading-none">
+          <span>9:41</span>
+          <span>···</span>
         </div>
-        <div className="bg-muted/70 mt-4 h-7 rounded-lg" />
+        <div className="border-border bg-muted text-muted-foreground mt-1 flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[7px] leading-none">
+          <Search className="size-2 shrink-0" />
+          Search
+        </div>
+        <p className="text-foreground mt-1.5 text-[11px] leading-none font-semibold">
+          NFTs
+        </p>
+        <p className="text-muted-foreground mt-0.5 text-[8px] leading-none">
+          Crypto Punks
+        </p>
+        <div className="mx-auto mt-1 grid w-[54px] grid-cols-2 gap-1">
+          <span className="border-border bg-primary/30 aspect-square rounded-[5px] border" />
+          <span className="border-border bg-muted aspect-square rounded-[5px] border" />
+          <span className="border-border aspect-square rounded-[5px] border bg-linear-to-br from-violet-400/60 to-fuchsia-400/40" />
+          <span className="border-border aspect-square rounded-[5px] border bg-linear-to-br from-sky-400/50 to-cyan-400/40" />
+        </div>
       </div>
     </div>
   );

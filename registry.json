@@ -37,6 +37,17 @@
       ]
     },
     {
+      "name": "folder-card",
+      "type": "registry:ui",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [
+        {
+          "path": "registry/new-york/components/folder-card/folder-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "route-tracker",
       "type": "registry:ui",
       "dependencies": ["motion", "lucide-react"],

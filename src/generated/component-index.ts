@@ -46,6 +46,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "cards"
   },
   {
+    "slug": "folder-card",
+    "title": "Folder Card",
+    "description": "A React folder card where a 3D object rises out on hover, with noisy gradient backgrounds and spring motion.",
+    "category": "cards"
+  },
+  {
     "slug": "glyph-card",
     "title": "Glyph Card",
     "description": "A React wallet card with a drifting ASCII and pixel-block background, a token balance row, a copyable address and an add-funds button.",

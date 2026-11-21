@@ -3,8 +3,10 @@ import { AnimatedListStill } from "./AnimatedListStill";
 import { CardStackStill } from "./CardStackStill";
 import { CursorWebFluidStill } from "./CursorWebFluidStill";
 import { DepositModalStill } from "./DepositModalStill";
+import { FolderCardStill } from "./FolderCardStill";
 import { GlyphCardStill } from "./GlyphCardStill";
 import { HolderTestimonialsStill } from "./HolderTestimonialsStill";
+import { MagDockStill } from "./MagDockStill";
 import { NftCarouselStill } from "./NftCarouselStill";
 import { FeatureShowcaseStill } from "./FeatureShowcaseStill";
 import { PerspectiveGridStill } from "./PerspectiveGridStill";
@@ -23,8 +25,10 @@ export const stillPreviewComponents: Record<string, ComponentType> = {
   "card-stack": CardStackStill,
   "pill-card": PillCardStill,
   "wallet-card": WalletCardStill,
+  "folder-card": FolderCardStill,
   "glyph-card": GlyphCardStill,
   "holder-testimonials": HolderTestimonialsStill,
+  "mag-dock": MagDockStill,
   "nft-carousel": NftCarouselStill,
   "route-tracker": RouteTrackerStill,
   "animated-list": AnimatedListStill,

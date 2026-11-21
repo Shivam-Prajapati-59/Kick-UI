@@ -1,0 +1,68 @@
+---
+title: Folder Card
+seoTitle: Animated Web3 Folder Card for React
+description: A React folder card where a 3D object rises out on hover, with noisy gradient backgrounds and spring motion.
+category: cards
+usage: |
+  import FolderCard from "@/components/ui/folder-card";
+
+  export function FolderCardDemo() {
+    return (
+      <FolderCard
+        number="01"
+        title="Link every chain"
+        description="Hold Solana, EVM and more in a single wallet."
+        image={{ src: "/assets/folder-card/solana-wallet.webp", alt: "Solana wallet" }}
+        frameColor="#050826"
+        folderColor="#0b1042"
+        foreground="#ffffff"
+        background="radial-gradient(90% 70% at 15% 5%, #7b6bff 0%, transparent 60%), radial-gradient(80% 60% at 90% 30%, #22c1ff 0%, transparent 55%), linear-gradient(165deg, #3b2ce0 0%, #1b15b0 55%, #0b1042 100%)"
+      />
+    );
+  }
+props:
+  - name: number
+    type: string
+    description: Big number shown on the folder front.
+  - name: title
+    type: string
+    description: Title shown at the bottom of the card.
+  - name: description
+    type: string
+    description: Description shown under the title. Does not move on hover.
+  - name: image
+    type: "{ src: string; alt?: string }"
+    description: Image that rises out of the folder on hover. Rendered with a plain img element.
+  - name: href
+    type: string
+    description: When set, the card root renders as a link with a focus-visible ring.
+  - name: background
+    type: string
+    default: '"linear-gradient(160deg, var(--primary) 0%, var(--background) 100%)"'
+    description: CSS background value for the layer behind the folder.
+  - name: frameColor
+    type: string
+    default: '"var(--border)"'
+    description: Color of the card frame (border). Applied via the --fc-frame custom property.
+  - name: folderColor
+    type: string
+    default: '"var(--card)"'
+    description: Color of the folder front. Applied via the --fc-folder custom property.
+  - name: foreground
+    type: string
+    default: '"var(--card-foreground)"'
+    description: Foreground color for the number, arrow, title and description. Applied via the --fc-fg custom property.
+  - name: noise
+    type: boolean
+    default: "true"
+    description: Adds a grain overlay above the background.
+  - name: className
+    type: string
+    description: Additional classes for the card root, merged with cn.
+---
+
+On hover (or focus, for the link variant) the folder front slides down, the image rises up from behind it, and the arrow rotates 45 degrees. The title and description stay put.
+
+The background defaults to a primary-to-background gradient; pass any CSS background value (including multi-layer radial gradients) for a richer look. Frame, folder and foreground colors are applied through CSS custom properties, so they can be any CSS color and they inherit correctly inside the card.
+
+Reduced motion is honored through MotionConfig, which disables the transform animations without a hydration mismatch. Fonts are never set by the component; it inherits the host app's fonts.
