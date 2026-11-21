@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ComponentPreviewClient } from "@/components/docs/ComponentPreviewClient";
+import { JsonLd } from "@/components/common/JsonLd";
 import { CodeOptionsProvider } from "@/hooks/useCodeOptions";
 import { getAllComponentDocs, getComponentDoc } from "@/lib/component-docs";
 import {
@@ -11,6 +12,8 @@ import { componentIndex } from "@/generated/component-index";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 const MAX_RELATED_COMPONENTS = 4;
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return getAllComponentDocs().map((component) => ({ slug: component.slug }));
@@ -100,15 +103,7 @@ function ComponentJsonLd({
       },
     ],
   };
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        // Escape `<` so a `</script>` sequence in content can never break out.
-        __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-      }}
-    />
-  );
+  return <JsonLd data={jsonLd} />;
 }
 
 /**

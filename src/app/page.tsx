@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Container from "@/components/common/Container";
+import { JsonLd } from "@/components/common/JsonLd";
 import Hero from "@/components/landing/Hero";
 import LandingFooter from "@/components/landing/LandingFooter";
 import FeaturedComps from "@/components/landing/FeaturedComps";
@@ -36,15 +37,7 @@ function HomeJsonLd() {
       value: componentIndex.length,
     },
   };
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        // Escape `<` so a `</script>` sequence in content can never break out.
-        __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-      }}
-    />
-  );
+  return <JsonLd data={jsonLd} />;
 }
 
 export default function Home() {

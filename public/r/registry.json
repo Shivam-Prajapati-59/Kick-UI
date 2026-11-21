@@ -55,6 +55,23 @@
       ]
     },
     {
+      "name": "folder-card",
+      "type": "registry:ui",
+      "title": "Folder Card",
+      "description": "A React folder card where a 3D object rises out on hover, with noisy gradient backgrounds and spring motion.",
+      "category": "cards",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/folder-card/folder-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "route-tracker",
       "type": "registry:ui",
       "title": "Route Tracker",

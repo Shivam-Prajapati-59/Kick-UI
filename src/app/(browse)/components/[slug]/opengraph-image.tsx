@@ -12,6 +12,8 @@ export const size = {
 };
 export const contentType = "image/png";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return componentIndex.map((component) => ({ slug: component.slug }));
 }
@@ -32,56 +34,41 @@ function clampDescription(description: string) {
   return `${words.join(" ").replace(/[,;:\s]+$/, "")}…`;
 }
 
-// Load a non-woff2 Geist font from node_modules for real bold rendering.
-// Only Geist-Regular.ttf is available locally (single weight), so it is
-// registered for both 400 and 700. If the file is missing, skip font loading.
-let geistFontData: Buffer | null = null;
-try {
-  geistFontData = await readFile(
-    join(
-      process.cwd(),
-      "node_modules",
-      "next",
-      "dist",
-      "compiled",
-      "@vercel",
-      "og",
-      "Geist-Regular.ttf",
-    ),
-  );
-} catch {
-  geistFontData = null;
-}
-
-const imageFonts:
-  | Array<{
-      name: string;
-      data: Buffer;
-      weight: 400 | 700;
-      style: "normal";
-    }>
-  | undefined = geistFontData
-  ? [
-      {
-        name: "Geist",
-        data: geistFontData,
-        weight: 400,
-        style: "normal",
-      },
-      {
-        name: "Geist",
-        data: geistFontData,
-        weight: 700,
-        style: "normal",
-      },
-    ]
-  : undefined;
-
 export default async function Image({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  // Load a non-woff2 Geist font from node_modules for real bold rendering.
+  // Only Geist-Regular.ttf is available locally (single weight), so it is
+  // registered for both 400 and 700. If the file is missing, skip font loading.
+  let imageFonts:
+    | Array<{
+        name: string;
+        data: Buffer;
+        weight: 400 | 700;
+        style: "normal";
+      }>
+    | undefined;
+  try {
+    const data = await readFile(
+      join(
+        process.cwd(),
+        "node_modules",
+        "next",
+        "dist",
+        "compiled",
+        "@vercel",
+        "og",
+        "Geist-Regular.ttf",
+      ),
+    );
+    imageFonts = [
+      { name: "Geist", data, weight: 400, style: "normal" },
+      { name: "Geist", data, weight: 700, style: "normal" },
+    ];
+  } catch {}
+
   const { slug } = await params;
   const component = componentIndex.find((item) => item.slug === slug);
 
@@ -99,9 +86,7 @@ export default async function Image({
       "base64",
     );
     screenshotSrc = `data:image/jpeg;base64,${data}`;
-  } catch {
-    screenshotSrc = null;
-  }
+  } catch {}
 
   // Fallback: original text-only design when no screenshot exists.
   if (!screenshotSrc) {
@@ -202,7 +187,7 @@ export default async function Image({
           <div style={{ fontSize: 28, color: "#c4b5fd", fontWeight: 700 }}>
             Kick UI
           </div>
-          <div style={{ fontSize: 20, color: "#a1a1aa" }}>kickui.xyz</div>
+          <div style={{ fontSize: 20, color: "#a1a1aa" }}>{SITE_HOST}</div>
         </div>
       </div>
     </div>,

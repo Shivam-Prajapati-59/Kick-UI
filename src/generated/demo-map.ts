@@ -7,6 +7,7 @@ export const demos = {
   "cursor-web-fluid": lazy(() => import("@/demos/cursor-web-fluid")),
   "deposit-modal": lazy(() => import("@/demos/deposit-modal")),
   "feature-showcase": lazy(() => import("@/demos/feature-showcase")),
+  "folder-card": lazy(() => import("@/demos/folder-card")),
   "glyph-card": lazy(() => import("@/demos/glyph-card")),
   "holder-testimonials": lazy(() => import("@/demos/holder-testimonials")),
   "mag-dock": lazy(() => import("@/demos/mag-dock")),

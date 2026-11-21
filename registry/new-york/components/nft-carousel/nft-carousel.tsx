@@ -46,7 +46,7 @@ const SLOT_GAP = 0.962;
 const PARK = 2.4;
 // Slot geometry at |distance| 0, 1, 2 and parked, in card units.
 const SLOT_AT = [0, 1, 2, PARK];
-const SLOT_X = [0, 0.962, 1.793, 2.4];
+const SLOT_X = [0, SLOT_GAP, 1.793, PARK];
 const SLOT_SCALE = [1, 0.82, 0.738, 0.7];
 const SLOT_OPACITY = [1, 1, 0.62, 0];
 
@@ -648,9 +648,8 @@ export default function NftCarousel({
     enter: number,
     delay: number,
     exitY: number,
-    exit = 160,
   ) => {
-    const duration = reduced ? 200 : shown ? enter : exit;
+    const duration = reduced ? 200 : shown ? enter : 160;
     const wait = reduced || !shown ? 0 : delay;
     return {
       opacity: shown ? 1 : 0,
