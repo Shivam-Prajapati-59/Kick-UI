@@ -21,6 +21,7 @@ export const demos = {
   "scroll-card": lazy(() => import("@/demos/scroll-card")),
   "slide-text-button": lazy(() => import("@/demos/slide-text-button")),
   "stacked-carousel": lazy(() => import("@/demos/stacked-carousel")),
+  "swap-panel": lazy(() => import("@/demos/swap-panel")),
   "text-focus": lazy(() => import("@/demos/text-focus")),
   "timeframe-tabs": lazy(() => import("@/demos/timeframe-tabs")),
   "trading-chart": lazy(() => import("@/demos/trading-chart")),

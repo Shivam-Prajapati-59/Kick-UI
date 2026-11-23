@@ -214,6 +214,17 @@
       ]
     },
     {
+      "name": "swap-panel",
+      "type": "registry:ui",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [
+        {
+          "path": "registry/new-york/components/swap-panel/swap-panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "feature-showcase",
       "type": "registry:ui",
       "dependencies": ["motion", "lucide-react"],
