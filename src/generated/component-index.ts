@@ -148,6 +148,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "web3-widgets"
   },
   {
+    "slug": "swap-panel",
+    "title": "Swap Panel",
+    "description": "An accessible React token swap card with market and limit tabs, a token picker, live rate countdowns, slippage settings, and a soft gradient primary action.",
+    "category": "web3-widgets"
+  },
+  {
     "slug": "timeframe-tabs",
     "title": "Timeframe Tabs",
     "description": "Scrollable React timeframe tabs for trading charts with an animated active state, controlled selection, and optional trailing actions.",

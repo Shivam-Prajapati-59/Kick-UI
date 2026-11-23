@@ -1,0 +1,85 @@
+---
+title: Swap Panel
+seoTitle: Animated Token Swap Panel Component for React
+description: An accessible React token swap card with market and limit tabs, a token picker, live rate countdowns, slippage settings, and a soft gradient primary action.
+category: web3-widgets
+usage: |
+  "use client";
+
+  import SwapPanel, {
+    type SwapToken,
+  } from "@/components/ui/swap-panel";
+
+  const tokens: SwapToken[] = [
+    { symbol: "SOL", name: "Solana", logo: "/tokens/sol.png", price: 142.31, balance: 12.4, decimals: 4 },
+    { symbol: "USDC", name: "USD Coin", logo: "/tokens/usdc.png", price: 1, balance: 2480.5, decimals: 2 },
+    { symbol: "JUP", name: "Jupiter", price: 0.82, balance: 1640, decimals: 2 },
+  ];
+
+  export function SwapPanelDemo() {
+    return (
+      <SwapPanel
+        tokens={tokens}
+        defaultPay="SOL"
+        defaultReceive="USDC"
+        route={["Orca", "Meteora"]}
+        onSwap={async (quote) => {
+          await submitSwap(quote);
+        }}
+      />
+    );
+  }
+props:
+  - name: tokens
+    type: SwapToken[]
+    description: The tokens the picker offers, each `{ symbol, name, logo?, price, balance?, decimals? }`. `price` is USD per token and drives the conversion. A missing logo shows the symbol's first letter. The first entry is the default pay token unless `defaultPay` says otherwise.
+  - name: defaultPay
+    type: string
+    description: Symbol of the initial pay token.
+  - name: defaultReceive
+    type: string
+    description: Symbol of the initial receive token. Defaults to the second token.
+  - name: feeBps
+    type: number
+    default: "30"
+    description: Liquidity fee in basis points. It is taken from the output before the minimum received is calculated.
+  - name: depthUsd
+    type: number
+    default: "2_000_000"
+    description: USD pool depth used to estimate price impact as `usdIn / (usdIn + depthUsd) * 100`.
+  - name: networkFee
+    type: string
+    default: '"~$0.01"'
+    description: Network fee label shown in the details.
+  - name: route
+    type: string[]
+    default: '["Best route"]'
+    description: Venue names listed after "via" in the route row.
+  - name: refreshInterval
+    type: number
+    default: "15"
+    description: Seconds the quote countdown ring takes to loop. The ring pauses while the amount is empty.
+  - name: onRefreshQuote
+    type: () => void
+    description: Called each time the countdown ring completes, so you can fetch a fresh quote.
+  - name: onSwap
+    type: "(quote: SwapQuote) => Promise<void> | void"
+    description: Called when the primary action is pressed. While its promise is pending the button shows "Swapping…"; a rejection shows "Try again"; success shows "Swapped", then clears the amount after 1.6s. The quote is `{ mode, pay, receive, amountIn, amountOut, minReceived, slippage, limitPrice? }`.
+  - name: accent
+    type: string
+    default: "A primary-tinted gradient"
+    description: Any CSS background, used to fill the primary button. The default uses the theme primary with primary-foreground text; a custom accent should be light because its label is dark.
+  - name: className
+    type: string
+    description: Additional classes for the card.
+---
+
+The card reads `--card`, `--card-foreground`, `--muted`, `--muted-foreground`, `--border` and `--background`, so it follows your theme in light and dark mode. Panels sit on `bg-muted/50`; the only colour comes from the `accent` gradient, which defaults to a soft mix of `--primary`.
+
+Market mode converts with `pay.price / receive.price`. Limit mode replaces that rate with the editable target price, which starts at the market rate and can be reset with the "Market" chip. Output is `amountIn × rate × (1 − feeBps / 10_000)`, and minimum received applies the selected slippage tolerance on top.
+
+Tokens with a `balance` get Half and Max chips and block the action with "Insufficient {symbol} balance" when the amount exceeds it. Logos are plain `<img>` elements, so any host works without `images.remotePatterns`; a missing or broken logo falls back to the symbol's first letter.
+
+The receive value, rate and action status sit behind polite live regions. The tab row, picker, settings popover and details toggle expose their state through ARIA roles, the picker takes focus and traps Tab while open, Escape closes it and returns focus to the token button, and the amount fields are labelled decimal inputs. Toasts are not used.
+
+The whole panel is wrapped in `MotionConfig reducedMotion="user"`. With reduced motion enabled, the sliding pills, panel reordering, picker slide, limit row and details height changes all switch instantly, and the swap spinner stops.

@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import { AnimatedListStill } from "./AnimatedListStill";
+
 import { CardStackStill } from "./CardStackStill";
 import { CursorWebFluidStill } from "./CursorWebFluidStill";
 import { DepositModalStill } from "./DepositModalStill";
@@ -14,6 +15,7 @@ import { PillCardStill } from "./PillCardStill";
 import { PixelImageStill } from "./PixelImageStill";
 import { RouteTrackerStill } from "./RouteTrackerStill";
 import { ScrollCardStill } from "./ScrollCardStill";
+import { SwapPanelStill } from "./SwapPanelStill";
 import { TextFocusStill } from "./TextFocusStill";
 import { TradingChartStill } from "./TradingChartStill";
 import { VaultCarouselStill } from "./VaultCarouselStill";
@@ -41,6 +43,7 @@ export const stillPreviewComponents: Record<string, ComponentType> = {
   "vault-carousel": VaultCarouselStill,
   "wave-carousel": WaveCarouselStill,
   "venue-selector": VenueSelectorStill,
+  "swap-panel": SwapPanelStill,
   "cursor-web-fluid": CursorWebFluidStill,
   "text-focus": TextFocusStill,
 };
