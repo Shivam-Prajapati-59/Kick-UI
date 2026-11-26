@@ -30,7 +30,7 @@ export function AnimatedListStill() {
       className="flex size-full items-center justify-center px-4 py-3"
       aria-hidden="true"
     >
-      <div className="w-full max-w-[300px] space-y-2">
+      <div className="w-full max-w-[260px] space-y-2">
         {coins.map((coin, index) => (
           <div
             key={coin.symbol}

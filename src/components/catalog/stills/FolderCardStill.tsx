@@ -104,8 +104,8 @@ export function FolderCardStill() {
       className="flex size-full items-center justify-center gap-4 p-2"
       aria-hidden="true"
     >
-      <div className="relative h-[180px] w-[135px] shrink-0 overflow-hidden rounded-[14px]">
-        <div className="absolute top-1/2 left-1/2 h-[400px] w-[300px] origin-center -translate-x-1/2 -translate-y-1/2 scale-[0.45]">
+      <div className="relative h-[160px] w-[120px] shrink-0 overflow-hidden rounded-[14px]">
+        <div className="absolute top-1/2 left-1/2 h-[400px] w-[300px] origin-center -translate-x-1/2 -translate-y-1/2 scale-[0.4]">
           <MiniCard
             frameColor="#050826"
             folderColor="#0b1042"
@@ -118,8 +118,8 @@ export function FolderCardStill() {
           />
         </div>
       </div>
-      <div className="relative h-[180px] w-[135px] shrink-0 overflow-hidden rounded-[14px]">
-        <div className="absolute top-1/2 left-1/2 h-[400px] w-[300px] origin-center -translate-x-1/2 -translate-y-1/2 scale-[0.45]">
+      <div className="relative h-[160px] w-[120px] shrink-0 overflow-hidden rounded-[14px]">
+        <div className="absolute top-1/2 left-1/2 h-[400px] w-[300px] origin-center -translate-x-1/2 -translate-y-1/2 scale-[0.4]">
           <MiniCard
             frameColor="#020403"
             folderColor="#08140d"

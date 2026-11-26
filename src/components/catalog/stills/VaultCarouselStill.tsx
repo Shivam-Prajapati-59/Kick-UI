@@ -12,7 +12,7 @@ const CHIPS = ["All layers", "Custody", "Identity", "Keys"];
 
 export function VaultCarouselStill() {
   return (
-    <div className="flex size-full flex-col gap-2 px-3 py-2" aria-hidden="true">
+    <div className="flex size-full flex-col gap-2" aria-hidden="true">
       <div className="flex flex-col gap-1">
         <p className="text-muted-foreground flex items-center gap-1.5 text-[8px]">
           <span className="size-1.5 rounded-full bg-[#1490f7]" />
@@ -28,8 +28,8 @@ export function VaultCarouselStill() {
                 key={chip}
                 className={
                   i === 0
-                    ? "rounded-full border border-transparent bg-[#111111] px-1.5 py-0.5 text-[9px] font-medium text-[#f4f6f9] dark:bg-neutral-100 dark:text-neutral-950"
-                    : "text-muted-foreground rounded-full border border-[rgba(17,17,17,0.14)] px-1.5 py-0.5 text-[9px] font-medium dark:border-white/15"
+                    ? "rounded-full border border-transparent bg-[#111111] px-1.5 py-0.5 text-[9px] font-medium whitespace-nowrap text-[#f4f6f9] dark:bg-neutral-100 dark:text-neutral-950"
+                    : "text-muted-foreground rounded-full border border-[rgba(17,17,17,0.14)] px-1.5 py-0.5 text-[9px] font-medium whitespace-nowrap dark:border-white/15"
                 }
               >
                 {chip}
@@ -54,7 +54,7 @@ export function VaultCarouselStill() {
         {FEATURES.map((feature) => (
           <div
             key={feature.kind}
-            className="relative h-[100px] w-[90px] shrink-0 overflow-hidden rounded-2xl bg-[#f1efe9] dark:bg-[#262b37]"
+            className="relative h-[104px] w-[86px] shrink-0 overflow-hidden rounded-2xl bg-[#f1efe9] dark:bg-[#262b37]"
           >
             <div
               aria-hidden

@@ -4,34 +4,25 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { componentDocSchema } from "../src/lib/component-doc-schema.ts";
-import { getDemoNames } from "./lib/docs.mjs";
+import {
+  getDemoNames,
+  getDocFiles as getDocFilesLib,
+  readRegistry,
+  GENERATED_DIR,
+} from "./lib/docs.mjs";
 
-const root = path.resolve(import.meta.dirname, "..");
-const contentDir = path.join(root, "content", "components");
-const outputPath = path.join(root, "src", "generated", "component-index.ts");
-const demoMapPath = path.join(root, "src", "generated", "demo-map.ts");
-const registry = JSON.parse(
-  fs.readFileSync(path.join(root, "registry.json"), "utf8"),
-);
+const outputPath = path.join(GENERATED_DIR, "component-index.ts");
+const demoMapPath = path.join(GENERATED_DIR, "demo-map.ts");
+const registry = readRegistry();
 // Demo names come from the per-slug demo convention
 // (src/demos/<slug>.tsx) — no source parsing involved.
 const demoNames = getDemoNames();
 
-function getDocFiles(directory = contentDir) {
-  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
-    const entryPath = path.join(directory, entry.name);
-    if (entry.isDirectory()) return getDocFiles(entryPath);
-    return entry.name.endsWith(".mdx") ? [entryPath] : [];
-  });
-}
-
-const docs = getDocFiles()
-  .sort()
-  .map((filePath) => {
-    const slug = path.basename(filePath, ".mdx");
-    const { data } = matter(fs.readFileSync(filePath, "utf8"));
-    return { slug, ...componentDocSchema.parse(data) };
-  });
+const docs = getDocFilesLib().map((filePath) => {
+  const slug = path.basename(filePath, ".mdx");
+  const { data } = matter(fs.readFileSync(filePath, "utf8"));
+  return { slug, ...componentDocSchema.parse(data) };
+});
 
 for (const item of registry.items) {
   if (!docs.some((doc) => doc.slug === item.name)) {

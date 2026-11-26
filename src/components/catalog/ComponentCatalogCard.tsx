@@ -50,7 +50,7 @@ export function ComponentCatalogCard({
       onClick={handleCardClick}
       className="group border-border/60 bg-card hover:border-foreground/60 focus-within:border-foreground/60 focus-within:ring-ring flex h-full min-h-[300px] cursor-pointer flex-col overflow-hidden rounded-[28px] border transition-colors focus-within:ring-2"
     >
-      <div className="relative flex h-[190px] w-full items-center justify-center overflow-hidden pt-4">
+      <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden p-5">
         {preview}
       </div>
 

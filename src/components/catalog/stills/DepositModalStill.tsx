@@ -7,7 +7,7 @@ export function DepositModalStill() {
       className="flex size-full items-center justify-center p-3"
       aria-hidden="true"
     >
-      <div className="border-border bg-card w-full max-w-[290px] overflow-hidden rounded-xl border shadow-sm">
+      <div className="border-border bg-card w-full max-w-[260px] overflow-hidden rounded-xl border shadow-sm">
         <div className="border-border flex items-start justify-between border-b px-3 py-2">
           <div>
             <p className="text-foreground text-sm font-semibold">

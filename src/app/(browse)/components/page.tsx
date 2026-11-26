@@ -71,9 +71,12 @@ export default function ComponentsPage() {
                 {category.description}
               </p>
             </div>
-            <div className="grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid max-w-6xl gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {docs.map((doc) => {
-                const StillPreview = stillPreviewComponents[doc.slug];
+                const StillPreview =
+                  stillPreviewComponents[
+                    doc.slug as keyof typeof stillPreviewComponents
+                  ];
 
                 return (
                   <ComponentCatalogCard

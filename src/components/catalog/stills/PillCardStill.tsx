@@ -8,7 +8,7 @@ export function PillCardStill() {
       className="flex size-full items-center justify-center p-3"
       aria-hidden="true"
     >
-      <div className="border-border bg-card relative h-[165px] w-full max-w-[290px] overflow-hidden rounded-xl border">
+      <div className="border-border bg-card relative h-[165px] w-full max-w-[260px] overflow-hidden rounded-xl border">
         <div className="border-border bg-secondary text-foreground absolute top-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-lg border px-3 py-1.5 text-xs whitespace-nowrap">
           <Radio className="text-primary size-3.5" />
           rpc : mainnet-1

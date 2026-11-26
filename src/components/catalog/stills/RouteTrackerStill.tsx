@@ -74,7 +74,7 @@ export function RouteTrackerStill() {
       className="flex size-full flex-col items-center justify-center gap-1 p-3"
       aria-hidden="true"
     >
-      <div className="border-border bg-card w-full max-w-[340px] rounded-2xl border p-1.5 shadow-sm">
+      <div className="border-border bg-card w-full max-w-[260px] rounded-2xl border p-1.5 shadow-sm">
         <div className="flex items-center gap-1.5">
           <span className="grid size-5 shrink-0 place-items-center rounded-full bg-[#a6ec8f] text-neutral-950">
             <span className="grid size-3 place-items-center rounded border-[1.5px] border-current">

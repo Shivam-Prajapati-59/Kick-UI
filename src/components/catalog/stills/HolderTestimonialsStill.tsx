@@ -15,7 +15,7 @@ export function HolderTestimonialsStill() {
       aria-hidden="true"
     >
       <div
-        className="flex h-[132px] w-[184px] flex-col justify-between rounded-2xl p-3"
+        className="flex h-[120px] w-[164px] flex-col justify-between rounded-2xl p-3"
         style={{ background: "#c9d2f7", color: "#151a3d" }}
       >
         <div className="flex items-center gap-2">
@@ -46,7 +46,7 @@ export function HolderTestimonialsStill() {
       {STRIPS.map((strip) => (
         <div
           key={strip.logo}
-          className="flex h-[132px] w-[26px] items-end justify-center rounded-full pb-2"
+          className="flex h-[120px] w-[24px] items-end justify-center rounded-full pb-2"
           style={{ background: strip.bg }}
         >
           <Image

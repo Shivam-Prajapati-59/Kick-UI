@@ -225,6 +225,21 @@
       ]
     },
     {
+      "name": "snap-swap",
+      "type": "registry:ui",
+      "dependencies": ["motion", "lucide-react"],
+      "files": [
+        {
+          "path": "registry/new-york/components/snap-swap/snap-swap.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york/components/snap-swap/jupiter-feed.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "feature-showcase",
       "type": "registry:ui",
       "dependencies": ["motion", "lucide-react"],

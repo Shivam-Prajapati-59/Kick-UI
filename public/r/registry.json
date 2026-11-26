@@ -335,6 +335,27 @@
       ]
     },
     {
+      "name": "snap-swap",
+      "type": "registry:ui",
+      "title": "Snap Swap",
+      "description": "An interlocking puzzle-block token swap card for React with market and limit orders, slippage presets, a token picker, optional live quote routing and spring motion.",
+      "category": "web3-widgets",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/components/snap-swap/snap-swap.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york/components/snap-swap/jupiter-feed.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "feature-showcase",
       "type": "registry:ui",
       "title": "Feature Showcase",

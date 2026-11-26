@@ -1,5 +1,4 @@
 import PixelImageDemo from "@/demos/pixel-image";
-import Image from "next/image";
 
 export function PixelImageStill() {
   return (

@@ -148,6 +148,12 @@ export const componentIndex: ComponentIndexItem[] = [
     "category": "web3-widgets"
   },
   {
+    "slug": "snap-swap",
+    "title": "Snap Swap",
+    "description": "An interlocking puzzle-block token swap card for React with market and limit orders, slippage presets, a token picker, optional live quote routing and spring motion.",
+    "category": "web3-widgets"
+  },
+  {
     "slug": "swap-panel",
     "title": "Swap Panel",
     "description": "An accessible React token swap card with market and limit tabs, a token picker, live rate countdowns, slippage settings, and a soft gradient primary action.",

@@ -20,6 +20,7 @@ export const demos = {
   "scramble-text": lazy(() => import("@/demos/scramble-text")),
   "scroll-card": lazy(() => import("@/demos/scroll-card")),
   "slide-text-button": lazy(() => import("@/demos/slide-text-button")),
+  "snap-swap": lazy(() => import("@/demos/snap-swap")),
   "stacked-carousel": lazy(() => import("@/demos/stacked-carousel")),
   "swap-panel": lazy(() => import("@/demos/swap-panel")),
   "text-focus": lazy(() => import("@/demos/text-focus")),
