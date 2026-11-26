@@ -8,14 +8,6 @@ import {
   type PreviewStage,
 } from "./previews";
 
-type Stage = { width: number; height: number; maxScale: number };
-
-// These demos use their real components, scaled as a whole so their layouts
-// stay intact inside a catalog card. Controls remain interactive.
-const stages: Partial<Record<DemoName, Stage>> = {
-  "stacked-carousel": { width: 420, height: 230, maxScale: 0.72 },
-};
-
 function ScaledDemo({
   Demo,
   stage,
@@ -34,8 +26,8 @@ function ScaledDemo({
       setScale(
         Math.min(
           stage.maxScale,
-          (frame.clientWidth - 16) / stage.width,
-          (frame.clientHeight - 16) / stage.height,
+          frame.clientWidth / stage.width,
+          frame.clientHeight / stage.height,
         ),
       );
     };
@@ -124,7 +116,7 @@ export function CatalogPreview({
         stage ? (
           <ScaledDemo Demo={Demo} stage={stage} />
         ) : (
-          <div className="relative flex size-full items-center justify-center p-4">
+          <div className="relative flex size-full items-center justify-center">
             <Demo />
           </div>
         )

@@ -107,7 +107,7 @@ export function TradingChartStill() {
       className="flex size-full items-center justify-center p-3"
       aria-hidden="true"
     >
-      <div className="border-border bg-card w-full max-w-[330px] overflow-hidden rounded-xl border shadow-sm">
+      <div className="border-border bg-card w-full max-w-[260px] overflow-hidden rounded-xl border shadow-sm">
         <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 px-3 pt-1.5">
           <Image
             src="/assets/chains/bitcoin.png"

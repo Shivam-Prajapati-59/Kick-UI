@@ -20,6 +20,7 @@ import { fileURLToPath } from "url";
 import matter from "gray-matter";
 import { registryItemSchema, registrySchema } from "shadcn/schema";
 import { componentDocSchema } from "../src/lib/component-doc-schema.ts";
+import { findDocPath } from "./lib/docs.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -30,7 +31,6 @@ const registryConfig = JSON.parse(
 
 const OWN_ITEMS = new Set(registryConfig.items.map((item) => item.name));
 const OUT_DIR = path.join(root, "public", "r");
-const DOCS_DIR = path.join(root, "content", "components");
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 // Framework/builtin packages every React project already provides.
@@ -77,19 +77,6 @@ function extractRegistryDependencies(source) {
     names.add(match[1]);
   }
   return [...names];
-}
-
-function findDocPath(slug, directory = DOCS_DIR) {
-  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
-    const entryPath = path.join(directory, entry.name);
-    if (entry.isDirectory()) {
-      const match = findDocPath(slug, entryPath);
-      if (match) return match;
-    } else if (entry.name === `${slug}.mdx`) {
-      return entryPath;
-    }
-  }
-  return undefined;
 }
 
 const registryItems = [];

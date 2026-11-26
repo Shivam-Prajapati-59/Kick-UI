@@ -1,0 +1,73 @@
+---
+title: Snap Swap
+seoTitle: Animated Token Swap Card with Puzzle Blocks for React
+description: An interlocking puzzle-block token swap card for React with market and limit orders, slippage presets, a token picker, optional live quote routing and spring motion.
+category: web3-widgets
+usage: |
+  "use client";
+
+  import SnapSwap, {
+    type SnapSwapToken,
+  } from "@/components/ui/snap-swap";
+  import { fetchJupiterQuote } from "@/components/ui/jupiter-feed";
+
+  const tokens: SnapSwapToken[] = [
+    { symbol: "SOL", name: "Solana", logo: "/tokens/sol.png", price: 142.31, balance: 12.4, decimals: 4 },
+    { symbol: "USDC", name: "USD Coin", logo: "/tokens/usdc.png", price: 1, balance: 2480.5, decimals: 2 },
+    { symbol: "JUP", name: "Jupiter", price: 0.82, balance: 1640, decimals: 2 },
+  ];
+
+  export function SnapSwapDemo() {
+    return (
+      <SnapSwap
+        tokens={tokens}
+        defaultPay="SOL"
+        defaultReceive="USDC"
+        getQuote={fetchJupiterQuote}
+        quoteSource="Jupiter"
+      />
+    );
+  }
+props:
+  - name: tokens
+    type: SnapSwapToken[]
+    description: The tokens the picker offers, each `{ symbol, name, logo?, price, balance?, decimals? }`. `price` is USD per token and drives the local estimate. A missing logo shows the symbol's first letter. `decimals` is the display precision for amounts and the Half rounding step; it should not exceed the token's on-chain decimals, and adapters such as `fetchJupiterQuote` use their own on-chain table. A `defaultPay`/`defaultReceive` symbol missing from the list falls back to the first available token (receive always differs from pay). Selections survive `tokens` updates, and are re-resolved if a selected token disappears. The "Unknown token" placeholder, which keeps the action disabled, appears only when no token is available for a side.
+  - name: defaultPay
+    type: string
+    default: The first token's symbol
+    description: Symbol of the initial pay token.
+  - name: defaultReceive
+    type: string
+    default: The first token that differs from the pay token
+    description: Symbol of the initial receive token.
+  - name: colors
+    type: SnapSwapColors
+    description: Block colours (`order`, `slippage`, `pay`, `receive`, `details`, `action`), each any CSS colour. Defaults are the pastel palette shown in the preview.
+  - name: getQuote
+    type: "(req: SnapSwapQuoteRequest) => Promise<SnapSwapQuote>"
+    description: Live market-order quote source, called with `{ pay, receive, amount, amountText, slippage, signal }` (`amountText` is the amount exactly as typed, for exact base-unit maths). It is debounced 400ms, refreshed every 15s while the tab is visible without cancelling a request still in flight, and given a 10s deadline. Return `{ amountOut, minReceived, priceImpact, hops }`. Reject with an `Error` named `NoRouteError` or `PrecisionError` to show "No route found" or "Too many decimals"; any other rejection, or omitting it, falls back to the labelled local estimate. A failure only applies to the request it answered. While the first answer for a typed amount is pending, the action reads "Fetching quote…" and stays disabled, and a request past the 10s deadline is ignored and falls back to the estimate.
+  - name: quoteSource
+    type: string
+    description: Name shown in the live badge when the numbers on screen come from a live quote for the current pair, amount and slippage, e.g. "Jupiter". The badge reads "Live · {source}", or just "Live" when it is omitted. Otherwise the badge reads "Estimate" (or "Updating…" while a quote loads).
+  - name: intro
+    type: boolean
+    default: "true"
+    description: Snap the blocks into place one after another the first time the card scrolls into view (about half a second, no overshoot; a fade only with reduced motion). Set `false` to render it assembled.
+  - name: className
+    type: string
+    description: Additional classes for the card.
+---
+
+The card is a stack of six rounded blocks — order, slippage, pay, receive, details and action — separated by a 2px frame that reads `--background`, so drop it on your page background. Each block is filled with a pastel default from `colors`, and its tab or notch is drawn as an SVG so the blocks read as one interlocking puzzle. Copy is `neutral-950`; dark mode dims the blocks with a brightness filter rather than repainting them.
+
+Local market maths is `pay.price / receive.price` with a 0.3% fee, price impact estimated as `usdIn / (usdIn + 2_000_000) * 100`, and minimum received as the output less the selected slippage. A `getQuote` source replaces those numbers with its own `amountOut`, `minReceived`, `priceImpact` and `hops`; the static fallback route is deterministic per pair and routes through USDC when neither side is SOL or USDC. The card ships no sample data — `tokens`, prices, logos and balances all come from you.
+
+The route row shows the live route only alongside live numbers. While a `getQuote` source is answering for the current pair, the badge reads "Updating…" and the route is a plain line with no venue, so no made-up venue appears before the real one. While a request for a new amount is pending the route shows a plain line, and the live route returns when that quote lands. If the source fails, or there is none, the route falls back to the deterministic estimate. Routes whose legs run in parallel render as one row per branch and count as "Split", and a single pair split across venues also counts as "Split". Price impact, hops and minimum received appear once an amount is entered. With no wallet connected the action is simulated and says so ("Swap simulated").
+
+Limit mode swaps the rate for the editable "At price" field, which starts at the market rate and shows the signed distance from it, plus 1h / 1d / 7d expiry chips; the action then reads "Place limit order · {expiry}". Slippage starts on Auto (0.5%) with 0.5 and 1 presets and a custom field clamped to 0.01–50%. Custom slippage is rounded to whole basis points (0.01%).
+
+Tokens with a `balance` get Half and Max chips, and an amount above it blocks the action with "Insufficient {symbol}". Logos are plain `<img>` elements, so any host works without `images.remotePatterns`; a broken logo falls back to the symbol's first letter.
+
+Only the action status is announced, through a polite live region. The receive amount and route carry screen-reader text, and the rate is plain text, so they are read on navigation. The picker is a dialog that takes focus, traps Tab, closes on Escape and returns focus to its token button; the Market/Limit choice is a radio group with arrow-key movement, slippage and expiry chips are toggle buttons, and the picker results are plain buttons reached with Tab, and both amount fields are labelled decimal inputs.
+
+The whole card is wrapped in `MotionConfig reducedMotion="user"`, so with reduced motion enabled the pill slides, the limit row height change, the rolling digits, the flip rotation and the picker sheet all switch instantly, and the intro becomes a plain fade.

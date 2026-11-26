@@ -47,6 +47,12 @@ review exposes fuzziness.
   per-manager install commands derived from a single command module.
 - **Playground** — the `/playground` scratch route for manual experiments.
   Not part of distribution; nothing discovers it automatically.
+- **Catalog card** — one component's tile on `/components`: a preview area,
+  title and description, linking to its doc.
+- **Still** — a hand-made, scaled-down picture of a component shown in its
+  catalog card instead of the demo. It may react to hover, but never
+  fetches data, runs timers or takes the component's props. A component
+  with no still shows its live demo on purpose.
 
 ## Load-bearing conventions
 

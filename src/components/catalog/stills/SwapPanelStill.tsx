@@ -60,7 +60,7 @@ export function SwapPanelStill() {
       className="flex size-full items-center justify-center"
       aria-hidden="true"
     >
-      <div className="border-border/70 bg-card relative w-full max-w-[300px] rounded-[20px] border p-2 shadow-sm">
+      <div className="border-border/70 bg-card relative w-full max-w-[260px] rounded-[20px] border p-2 shadow-sm">
         <div className="flex items-center justify-between gap-1">
           <div className="bg-muted/60 flex items-center gap-0.5 rounded-full p-0.5">
             <span className="border-border/70 bg-card dark:bg-muted text-foreground rounded-full border px-2 py-0.5 text-[8px] font-medium">
